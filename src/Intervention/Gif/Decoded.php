@@ -4,8 +4,8 @@ namespace Intervention\Gif;
 
 use \RuntimeException;
 use Intervention\Image\Gd\Container;
-use Intervention\Gif\Helper;
-use Intervention\Gif\Driver;
+use Intervention\Image\Gd\Helper;
+use Intervention\Image\Gd\Driver;
 
 class Decoded
 {
