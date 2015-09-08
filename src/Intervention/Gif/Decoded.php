@@ -3,9 +3,6 @@
 namespace Intervention\Gif;
 
 use \RuntimeException;
-use Intervention\Image\Gd\Container;
-use Intervention\Image\Gd\Helper;
-use Intervention\Image\Gd\Driver;
 
 class Decoded
 {
@@ -445,54 +442,5 @@ class Decoded
     {
         $frame = new Frame;
         $this->frames[] = $frame->setProperty($property, $value);
-    }
-
-    /**
-     * Returns Container object from decoded data
-     *
-     * @return \Intervention\Image\Gd\Container
-     */
-    public function createContainer()
-    {
-        $container = new Container;
-        $container->setLoops($this->getLoops());
-
-        // create empty canvas
-        $driver = new Driver;
-        $canvas = $driver->newImage($this->getCanvasWidth(), $this->getCanvasHeight())->getCore();
-
-        foreach ($this->frames as $key => $frame) {
-
-            // create resource from frame
-            $encoder = new Encoder;
-            $encoder->setFromDecoded($this, $key);
-            $frame_resource = imagecreatefromstring($encoder->encode());
-
-            // insert frame image data into canvas
-            imagecopy(
-                $canvas,
-                $frame_resource,
-                $frame->getOffset()->left,
-                $frame->getOffset()->top,
-                0,
-                0,
-                $frame->getSize()->width,
-                $frame->getSize()->height
-            );
-
-            // destory frame resource
-            imagedestroy($frame_resource);
-
-            // add frame to container
-            $container->addFrame(new \Intervention\Image\Frame(
-                $canvas, 
-                $frame->getDelay()
-            ));
-
-            // prepare next canvas
-            $canvas = Helper::cloneResource($canvas);
-        }
-
-        return $container;
     }
 }
