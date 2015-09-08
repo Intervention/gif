@@ -3,7 +3,7 @@
 namespace Intervention\Gif;
 
 use \RuntimeException;
-use Intervention\Gif\Container;
+use Intervention\Image\Gd\Container;
 use Intervention\Gif\Helper;
 use Intervention\Gif\Driver;
 
