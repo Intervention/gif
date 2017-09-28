@@ -176,7 +176,7 @@ class Decoder
 
             case self::COMMENT_EXTENSION_MARKER:
                 $blocksize = $this->getNextBytes(1);
-                $blocksize = unpack('C', $blocksize);
+                $blocksize = unpack('C', $blocksize)[1];
                 $gif->setCommentExtension($this->getNextBytes($blocksize));
                 $this->getNextBytes(1); // null byte
                 break;
