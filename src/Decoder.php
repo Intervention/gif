@@ -86,10 +86,8 @@ class Decoder
         }
 
         // read body
-        while ( ! feof($this->handle)) {
-
+        while (! feof($this->handle)) {
             switch ($this->getNextBytes(1)) {
-
                 case self::EXTENSION_BLOCK_MARKER:
                     $this->decodeExtension($gif);
                     break;
@@ -123,7 +121,6 @@ class Decoder
     private function decodeExtension(Decoded $gif)
     {
         switch ($this->getNextBytes(1)) {
-
             case self::GRAPHICS_CONTROL_EXTENSION_MARKER:
                 $gif->addGraphicsControlExtension($this->getNextBytes(6));
                 break;
@@ -135,7 +132,6 @@ class Decoder
 
                 // only save netscape application extension
                 if ($application_block == self::NETSCAPE_EXTENSION_MARKER) {
-
                     $data_block_size = $this->getNextBytes(1);
                     $data_block_size = unpack('C', $data_block_size)[1];
                     $data_block = $this->getNextBytes($data_block_size);
@@ -146,20 +142,15 @@ class Decoder
                     $extension .= $data_block;
                     $extension .= "\x00";
                     $gif->setNetscapeExtension($extension);
-
                 } elseif ($application_block == self::XMP_EXTENSION_MARKER) {
-                        
                     do {
                         // skip xmp data for now
                         $byte = $this->getNextBytes(1);
                     } while ($byte != "\x00");
-
                 } else {
-                    
                     $data_block_size = $this->getNextBytes(1);
                     $data_block_size = unpack('C', $data_block_size)[1];
                     $data_block = $this->getNextBytes($data_block_size);
-
                 }
 
                 // subblock
@@ -209,7 +200,6 @@ class Decoder
             $size = 3 * pow(2, $size + 1);
             
             $gif->addLocalColorTable($this->getNextBytes($size));
-
         } else {
             $gif->addLocalColorTable(null);
         }
@@ -251,7 +241,6 @@ class Decoder
         $data .= $this->getNextBytes(1);
 
         do {
-
             $byte = $this->getNextBytes(1);
 
             if ($byte !== self::BLOCK_TERMINATOR) {
@@ -261,7 +250,6 @@ class Decoder
             } else {
                 $data .= self::BLOCK_TERMINATOR;
             }
-
         } while ($byte !== self::BLOCK_TERMINATOR);
 
         $gif->addImageData($data);

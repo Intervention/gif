@@ -313,7 +313,8 @@ class Decoded
     public function getCanvasWidth()
     {
         if ($this->logicalScreenDescriptor) {
-            return (int) unpack('v',
+            return (int) unpack(
+                'v',
                 substr($this->logicalScreenDescriptor, 0, 2)
             )[1];
         }
@@ -329,7 +330,8 @@ class Decoded
     public function getCanvasHeight()
     {
         if ($this->logicalScreenDescriptor) {
-            return (int) unpack('v', 
+            return (int) unpack(
+                'v',
                 substr($this->logicalScreenDescriptor, 2, 2)
             )[1];
         }
@@ -385,7 +387,7 @@ class Decoded
             $bit = $byte & bindec('00000111');
         }
         
-        // length of the global color table is 2^(N+1)        
+        // length of the global color table is 2^(N+1)
         return isset($bit) ? pow(2, $bit + 1) : 0;
     }
 
@@ -417,14 +419,14 @@ class Decoded
         $added = false;
 
         foreach ($this->frames as $key => $frame) {
-            if ( ! $frame->propertyIsSet($property)) {
+            if (! $frame->propertyIsSet($property)) {
                 $frame->setProperty($property, $value);
                 $added = true;
                 break;
             }
         }
 
-        if ( ! $added) {
+        if (! $added) {
             $this->newFrameWithProperty($property, $value);
         }
 

@@ -41,7 +41,7 @@ class Encoder
 
     /**
      * Image frames
-     * 
+     *
      * @var array
      */
     public $frames = array();
@@ -238,12 +238,10 @@ class Encoder
         $sortFlag = 0;
 
         if ($this->hasGlobalColorTable()) {
-
             $globalColorTableFlag = 1;
             $globalColorTableSize = log(strlen($this->getGlobalColorTable()) / 3, 2) - 1;
             $globalColorTableSize = decbin($globalColorTableSize);
             $globalColorTableSize = str_pad($globalColorTableSize, 3, 0, STR_PAD_LEFT);
-
         } else {
             $globalColorTableFlag = 0;
             $globalColorTableSize = 0;
@@ -352,14 +350,16 @@ class Encoder
         $descriptor = "\x2C";
 
         // image left/top
-        $descriptor .= pack('v*', 
-            $frame->offset->left, 
+        $descriptor .= pack(
+            'v*',
+            $frame->offset->left,
             $frame->offset->top
         );
 
         // image width/height
-        $descriptor .= pack('v*', 
-            $frame->size->width, 
+        $descriptor .= pack(
+            'v*',
+            $frame->size->width,
             $frame->size->height
         );
 

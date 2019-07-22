@@ -161,8 +161,8 @@ class Frame
      */
     public function getTransparentColorIndex()
     {
-        return $this->propertyIsSet('transparentColorIndex') 
-            ? $this->transparentColorIndex 
+        return $this->propertyIsSet('transparentColorIndex')
+            ? $this->transparentColorIndex
             : $this->decodeTransparentColorIndex();
     }
 
@@ -189,7 +189,7 @@ class Frame
             return substr($this->graphicsControlExtension, 4, 1);
         }
 
-        return false;        
+        return false;
     }
 
     /**
@@ -199,8 +199,8 @@ class Frame
      */
     public function getDisposalMethod()
     {
-        return $this->propertyIsSet('disposalMethod') 
-            ? $this->disposalMethod 
+        return $this->propertyIsSet('disposalMethod')
+            ? $this->disposalMethod
             : $this->decodeDisposalMethod();
     }
 
@@ -242,7 +242,8 @@ class Frame
     public function decodeWidth()
     {
         if ($this->imageDescriptor) {
-            return (int) unpack('v', 
+            return (int) unpack(
+                'v',
                 substr($this->imageDescriptor, 4, 2)
             )[1];
         }
@@ -258,7 +259,8 @@ class Frame
     public function decodeHeight()
     {
         if ($this->imageDescriptor) {
-            return (int) unpack('v', 
+            return (int) unpack(
+                'v',
                 substr($this->imageDescriptor, 6, 2)
             )[1];
         }
@@ -288,7 +290,8 @@ class Frame
     public function decodeOffsetLeft()
     {
         if ($this->imageDescriptor) {
-            return (int) unpack('v', 
+            return (int) unpack(
+                'v',
                 substr($this->imageDescriptor, 0, 2)
             )[1];
         }
@@ -304,7 +307,8 @@ class Frame
     public function decodeOffsetTop()
     {
         if ($this->imageDescriptor) {
-            return (int) unpack('v', 
+            return (int) unpack(
+                'v',
                 substr($this->imageDescriptor, 2, 2)
             )[1];
         }
