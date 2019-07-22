@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Intervention\\Gif\\": "src/Intervention/Gif"
+            "Intervention\\Gif\\": "src"
         }
     },
     "minimum-stability": "stable"
