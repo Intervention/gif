@@ -1,15 +1,19 @@
 <?php
 
-use Intervention\Gif\Decoded;
+namespace Intervention\Gif\Test;
 
-class DecodedTest extends PHPUnit_Framework_TestCase
+use Intervention\Gif\Decoded;
+use Intervention\Gif\Frame;
+use PHPUnit\Framework\TestCase;
+
+class DecodedTest extends TestCase
 {
     public function testSetGetHeader()
     {
         $decoded = new Decoded;
         $obj = $decoded->setHeader('foo');
         $this->assertEquals('foo', $decoded->getHeader());
-        $this->assertInstanceOf('Intervention\Gif\Decoded', $obj);
+        $this->assertInstanceOf(Decoded::class, $obj);
     }
 
     public function testSetGetLogicalScreenDescriptor()
@@ -17,7 +21,7 @@ class DecodedTest extends PHPUnit_Framework_TestCase
         $decoded = new Decoded;
         $obj = $decoded->setLogicalScreenDescriptor('foo');
         $this->assertEquals('foo', $decoded->getLogicalScreenDescriptor());
-        $this->assertInstanceOf('Intervention\Gif\Decoded', $obj);
+        $this->assertInstanceOf(Decoded::class, $obj);
     }
 
     public function testSetGetGlobalColorTable()
@@ -25,7 +29,7 @@ class DecodedTest extends PHPUnit_Framework_TestCase
         $decoded = new Decoded;
         $obj = $decoded->setGlobalColorTable('foo');
         $this->assertEquals('foo', $decoded->getGlobalColorTable());
-        $this->assertInstanceOf('Intervention\Gif\Decoded', $obj);
+        $this->assertInstanceOf(Decoded::class, $obj);
     }
 
     public function testSetGetNetscapeExtension()
@@ -33,7 +37,7 @@ class DecodedTest extends PHPUnit_Framework_TestCase
         $decoded = new Decoded;
         $obj = $decoded->setNetscapeExtension('foo');
         $this->assertEquals('foo', $decoded->getNetscapeExtension());
-        $this->assertInstanceOf('Intervention\Gif\Decoded', $obj);
+        $this->assertInstanceOf(Decoded::class, $obj);
     }
 
     public function testSetGetPlaintextExtension()
@@ -41,7 +45,7 @@ class DecodedTest extends PHPUnit_Framework_TestCase
         $decoded = new Decoded;
         $obj = $decoded->setPlaintextExtension('foo');
         $this->assertEquals('foo', $decoded->getPlaintextExtension());
-        $this->assertInstanceOf('Intervention\Gif\Decoded', $obj);
+        $this->assertInstanceOf(Decoded::class, $obj);
     }
 
     public function testSetGetCommentExtension()
@@ -49,7 +53,7 @@ class DecodedTest extends PHPUnit_Framework_TestCase
         $decoded = new Decoded;
         $obj = $decoded->setCommentExtension('foo');
         $this->assertEquals('foo', $decoded->getCommentExtension());
-        $this->assertInstanceOf('Intervention\Gif\Decoded', $obj);
+        $this->assertInstanceOf(Decoded::class, $obj);
     }
 
     public function testGetCanvasWidth()
@@ -126,10 +130,10 @@ class DecodedTest extends PHPUnit_Framework_TestCase
         $decoded->addImageData('foo');
         $decoded->addImageData('bar');
         $frame = $decoded->getFrame();
-        $this->assertInstanceOf('\Intervention\Gif\Frame', $frame);
+        $this->assertInstanceOf(Frame::class, $frame);
         $this->assertEquals('foo', $frame->imageData);
         $frame = $decoded->getFrame(1);
-        $this->assertInstanceOf('\Intervention\Gif\Frame', $frame);
+        $this->assertInstanceOf(Frame::class, $frame);
         $this->assertEquals('bar', $frame->imageData);
     }
 

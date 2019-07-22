@@ -1,8 +1,11 @@
 <?php
 
+namespace Intervention\Gif\Test;
+
+use PHPUnit\Framework\TestCase;
 use Intervention\Gif\Frame;
 
-class FrameTest extends PHPUnit_Framework_TestCase
+class FrameTest extends TestCase
 {
     public function testPropertyIsSet()
     {
@@ -25,7 +28,7 @@ class FrameTest extends PHPUnit_Framework_TestCase
         $test = $frame->setProperty('foo', 'bar');
         $this->assertEquals('bar', $frame->foo);
         $this->assertTrue($frame->propertyIsSet('foo'));
-        $this->assertInstanceOf('Intervention\Gif\Frame', $test);
+        $this->assertInstanceOf(Frame::class, $test);
     }
 
     public function testSetGetImageData()
@@ -34,7 +37,7 @@ class FrameTest extends PHPUnit_Framework_TestCase
         $this->assertNull($frame->getImageData());
         $result = $frame->setImageData('foo');
         $this->assertEquals('foo', $frame->getImageData());
-        $this->assertInstanceOf('Intervention\Gif\Frame', $result);
+        $this->assertInstanceOf(Frame::class, $result);
     }
 
     public function testSetGetDelay()
@@ -44,8 +47,8 @@ class FrameTest extends PHPUnit_Framework_TestCase
 
         $frame = new Frame;
         $result = $frame->setDelay(20);
-        $this->assertEquals(20, $frame->getDelay());   
-        $this->assertInstanceOf('Intervention\Gif\Frame', $result);
+        $this->assertEquals(20, $frame->getDelay());
+        $this->assertInstanceOf(Frame::class, $result);
     }
 
     public function testDecodeDelay()
@@ -72,8 +75,8 @@ class FrameTest extends PHPUnit_Framework_TestCase
 
         $frame = new Frame;
         $result = $frame->setTransparentColorIndex('foo');
-        $this->assertEquals('foo', $frame->getTransparentColorIndex());   
-        $this->assertInstanceOf('Intervention\Gif\Frame', $result);
+        $this->assertEquals('foo', $frame->getTransparentColorIndex());
+        $this->assertInstanceOf(Frame::class, $result);
     }
 
     public function testDecodeTransparentColorIndex()
@@ -93,8 +96,8 @@ class FrameTest extends PHPUnit_Framework_TestCase
 
         $frame = new Frame;
         $result = $frame->setDisposalMethod('foo');
-        $this->assertEquals('foo', $frame->getDisposalMethod());   
-        $this->assertInstanceOf('Intervention\Gif\Frame', $result);
+        $this->assertEquals('foo', $frame->getDisposalMethod());
+        $this->assertInstanceOf(Frame::class, $result);
     }
 
     public function testDecodeDisposalMethod()
@@ -176,6 +179,6 @@ class FrameTest extends PHPUnit_Framework_TestCase
         $frame = new Frame;
         $frame->setInterlaced(true);
         $this->assertTrue($frame->interlaced);
-        $this->assertInstanceOf('Intervention\Gif\Frame', $frame);
+        $this->assertInstanceOf(Frame::class, $frame);
     }
 }

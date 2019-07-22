@@ -22,5 +22,10 @@
             "Intervention\\Gif\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Intervention\\Gif\\Test\\": "tests"
+        }
+    },
     "minimum-stability": "stable"
 }

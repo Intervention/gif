@@ -1,8 +1,11 @@
 <?php
 
+namespace Intervention\Gif\Test;
+
+use PHPUnit\Framework\TestCase;
 use Intervention\Gif\Decoder as Decoder;
 
-class DecoderTest extends PHPUnit_Framework_TestCase
+class DecoderTest extends TestCase
 {
     public $decoder;
 
@@ -46,31 +49,31 @@ class DecoderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(32, $decoded->countGlobalColors());
         $this->assertEquals(2, $decoded->getLoops());
 
-        $offsets = array(
-            array('left' => 0, 'top' => 0),
-            array('left' => 5, 'top' => 2),
-            array('left' => 1, 'top' => 0),
-            array('left' => 0, 'top' => 0),
-            array('left' => 8, 'top' => 5),
-            array('left' => 5, 'top' => 2),
-            array('left' => 1, 'top' => 0),
-            array('left' => 0, 'top' => 0)
-        );
+        $offsets = [
+            ['left' => 0, 'top' => 0],
+            ['left' => 5, 'top' => 2],
+            ['left' => 1, 'top' => 0],
+            ['left' => 0, 'top' => 0],
+            ['left' => 8, 'top' => 5],
+            ['left' => 5, 'top' => 2],
+            ['left' => 1, 'top' => 0],
+            ['left' => 0, 'top' => 0]
+        ];
 
-        $sizes = array(
-            array('width' => 20, 'height' => 15),
-            array('width' => 10, 'height' => 10),
-            array('width' => 17, 'height' => 15),
-            array('width' => 20, 'height' => 15),
-            array('width' => 5, 'height' => 5),
-            array('width' => 10, 'height' => 10),
-            array('width' => 17, 'height' => 15),
-            array('width' => 20, 'height' => 15)
-        );
+        $sizes = [
+            ['width' => 20, 'height' => 15],
+            ['width' => 10, 'height' => 10],
+            ['width' => 17, 'height' => 15],
+            ['width' => 20, 'height' => 15],
+            ['width' => 5, 'height' => 5],
+            ['width' => 10, 'height' => 10],
+            ['width' => 17, 'height' => 15],
+            ['width' => 20, 'height' => 15]
+        ];
 
-        $delays = array(20, 20, 20, 20, 20, 20, 20, 20);
-        $interlaced = array(true, false, false, false, false, false, false, false);
-        $localColorTables = array(null, null, null, null, null, null, null, null);
+        $delays = [20, 20, 20, 20, 20, 20, 20, 20];
+        $interlaced = [true, false, false, false, false, false, false, false];
+        $localColorTables = [null, null, null, null, null, null, null, null];
 
         foreach ($decoded->getFrames() as $key => $frame) {
             $this->assertEquals($sizes[$key]['width'], $frame->size->width);

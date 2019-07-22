@@ -1,19 +1,19 @@
 <?php
 
+namespace Intervention\Gif\Test;
+
+use Intervention\Gif\Decoded;
 use Intervention\Gif\Encoder as Encoder;
+use Intervention\Gif\Frame;
+use PHPUnit\Framework\TestCase;
 
-class EncoderTest extends PHPUnit_Framework_TestCase
+class EncoderTest extends TestCase
 {
-    public function tearDown()
-    {
-        Mockery::close();
-    }
-
     public function testSetCanvas()
     {
         $encoder = new Encoder;
         $result = $encoder->setCanvas(300, 200);
-        $this->assertInstanceOf('Intervention\Gif\Encoder', $result);
+        $this->assertInstanceOf(Encoder::class, $result);
         $this->assertEquals(300, $encoder->canvasWidth);
         $this->assertEquals(200, $encoder->canvasHeight);
     }
@@ -22,7 +22,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     {
         $encoder = new Encoder;
         $result = $encoder->setLoops(6);
-        $this->assertInstanceOf('Intervention\Gif\Encoder', $result);
+        $this->assertInstanceOf(Encoder::class, $result);
         $this->assertEquals(6, $encoder->loops);
     }
 
@@ -30,14 +30,14 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     {
         $encoder = new Encoder;
         $result = $encoder->setGlobalColorTable('foo');
-        $this->assertInstanceOf('Intervention\Gif\Encoder', $result);
+        $this->assertInstanceOf(Encoder::class, $result);
         $this->assertEquals('foo', $encoder->globalColorTable);
     }
 
     public function testSetFrames()
     {
         $encoder = new Encoder;
-        $frames = array('foo', 'bar', 'baz');
+        $frames = ['foo', 'bar', 'baz'];
         $encoder->setFrames($frames);
         $this->assertEquals($frames, $encoder->frames);
     }
@@ -46,20 +46,20 @@ class EncoderTest extends PHPUnit_Framework_TestCase
     {
         $encoder = new Encoder;
         $result = $encoder->setBackgroundColorIndex('foo');
-        $this->assertInstanceOf('Intervention\Gif\Encoder', $result);
+        $this->assertInstanceOf(Encoder::class, $result);
         $this->assertEquals('foo', $encoder->backgroundColorIndex);
     }
 
     public function testSetFromDecoded()
     {
         $encoder = new Encoder;
-        $decoded = Mockery::mock('Intervention\Gif\Decoded');
-        $decoded->shouldReceive('getCanvasWidth')->andReturn(300);
-        $decoded->shouldReceive('getCanvasHeight')->andReturn(200);
-        $decoded->shouldReceive('getGlobalColorTable')->andReturn('global_color_table');
-        $decoded->shouldReceive('getBackgroundColorIndex')->andReturn('background_color_index');
-        $decoded->shouldReceive('getLoops')->andReturn(2);
-        $decoded->shouldReceive('getFrames')->andReturn(array('frame1', 'frame2', 'frame3'));
+        $decoded = $this->createMock(Decoded::class);
+        $decoded->method('getCanvasWidth')->willReturn(300);
+        $decoded->method('getCanvasHeight')->willReturn(200);
+        $decoded->method('getGlobalColorTable')->willReturn('global_color_table');
+        $decoded->method('getBackgroundColorIndex')->willReturn('background_color_index');
+        $decoded->method('getLoops')->willReturn(2);
+        $decoded->method('getFrames')->willReturn(['frame1', 'frame2', 'frame3']);
         $encoder->setFromDecoded($decoded);
         $this->assertEquals(300, $encoder->canvasWidth);
         $this->assertEquals(200, $encoder->canvasHeight);
@@ -72,9 +72,10 @@ class EncoderTest extends PHPUnit_Framework_TestCase
 
     public function testAddFrame()
     {
+        $frame = $this->createMock(Frame::class);
         $encoder = new Encoder;
-        $encoder->addFrame(Mockery::mock('Intervention\Gif\Frame'));
-        $encoder->addFrame(Mockery::mock('Intervention\Gif\Frame'));
+        $encoder->addFrame($frame);
+        $encoder->addFrame($frame);
         $this->assertEquals(2, count($encoder->frames));
     }
 
@@ -88,11 +89,12 @@ class EncoderTest extends PHPUnit_Framework_TestCase
 
     public function testIsAnimated()
     {
+        $frame = $this->createMock(Frame::class);
         $encoder = new Encoder;
         $this->assertFalse($encoder->isAnimated());
-        $encoder->addFrame(Mockery::mock('Intervention\Gif\Frame'));
+        $encoder->addFrame($frame);
         $this->assertFalse($encoder->isAnimated());
-        $encoder->addFrame(Mockery::mock('Intervention\Gif\Frame'));
+        $encoder->addFrame($frame);
         $this->assertTrue($encoder->isAnimated());
     }
 

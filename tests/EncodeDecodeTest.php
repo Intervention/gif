@@ -1,15 +1,13 @@
 <?php
 
+namespace Intervention\Gif\Test;
+
+use PHPUnit\Framework\TestCase;
 use Intervention\Gif\Encoder as Encoder;
 use Intervention\Gif\Decoder as Decoder;
 
-class EncodeDecodeTest extends PHPUnit_Framework_TestCase
+class EncodeDecodeTest extends TestCase
 {
-    public function tearDown()
-    {
-        Mockery::close();
-    }
-
     public function testEncodeDecoded()
     {
         // create decoded
@@ -28,7 +26,7 @@ class EncodeDecodeTest extends PHPUnit_Framework_TestCase
             $this->assertEquals(20, $frame->getDelay());
         }
     
-        // encode Decoded        
+        // encode Decoded
         $encoder = new Encoder;
         $encoder->setFromDecoded($decoded);
         $encoded = $encoder->encode();
