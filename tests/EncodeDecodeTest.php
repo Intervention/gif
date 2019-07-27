@@ -58,8 +58,8 @@ class EncodeDecodeTest extends TestCase
         $encoder = new Encoder;
         $encoder->setCanvas(20, 15);
         $encoder->setLoops(2);
-        $encoder->createFrameFromGdResource($res1, 100);
-        $encoder->createFrameFromGdResource($res2, 100);
+        $encoder->addFrameFromGdResource($res1, 100);
+        $encoder->addFrameFromGdResource($res2, 100);
         $encoded = $encoder->encode();
 
         // decode encoded

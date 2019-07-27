@@ -79,11 +79,11 @@ class EncoderTest extends TestCase
         $this->assertEquals(2, count($encoder->frames));
     }
 
-    public function testCreateFrameFromGdResource()
+    public function testAddFrameFromGdResource()
     {
         $encoder = new Encoder;
         $resource = imagecreate(10, 10);
-        $encoder->createFrameFromGdResource($resource, 10);
+        $encoder->addFrameFromGdResource($resource, 10);
         $this->assertEquals(1, count($encoder->frames));
     }
 

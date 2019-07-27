@@ -175,7 +175,7 @@ class Encoder
      * @param  integer  $delay
      * @return void
      */
-    public function createFrameFromGdResource($resource, $delay = null)
+    public function addFrameFromGdResource($resource, $delay = null)
     {
         // get imagedata from resource
         $gifdata = $this->encodeGdResource($resource);
@@ -183,6 +183,7 @@ class Encoder
         $gif = $decoder->initFromData($gifdata)->decode();
 
         $frame = $gif->getFrames()[0];
+
         $frame->setLocalColorTable($gif->getGlobalColorTable());
         $frame->setDelay($delay);
 
