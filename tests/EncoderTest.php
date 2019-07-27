@@ -3,7 +3,7 @@
 namespace Intervention\Gif\Test;
 
 use Intervention\Gif\Decoded;
-use Intervention\Gif\Encoder as Encoder;
+use Intervention\Gif\Encoder;
 use Intervention\Gif\Frame;
 use PHPUnit\Framework\TestCase;
 

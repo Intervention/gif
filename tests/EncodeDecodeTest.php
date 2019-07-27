@@ -3,8 +3,8 @@
 namespace Intervention\Gif\Test;
 
 use PHPUnit\Framework\TestCase;
-use Intervention\Gif\Encoder as Encoder;
-use Intervention\Gif\Decoder as Decoder;
+use Intervention\Gif\Encoder;
+use Intervention\Gif\Decoder;
 
 class EncodeDecodeTest extends TestCase
 {

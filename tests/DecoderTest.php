@@ -2,8 +2,9 @@
 
 namespace Intervention\Gif\Test;
 
+use Intervention\Gif\Decoded;
+use Intervention\Gif\Decoder;
 use PHPUnit\Framework\TestCase;
-use Intervention\Gif\Decoder as Decoder;
 
 class DecoderTest extends TestCase
 {
@@ -22,7 +23,7 @@ class DecoderTest extends TestCase
     public function testConstructorFromFile()
     {
         $decoder = new Decoder('tests/images/animation.gif');
-        $this->assertInstanceOf('Intervention\Gif\Decoder', $decoder);
+        $this->assertInstanceOf(Decoder::class, $decoder);
     }
 
     public function testInitFromData()
@@ -31,14 +32,14 @@ class DecoderTest extends TestCase
 
         $decoder = new Decoder;
         $decoder->initFromData($data);
-        $this->assertInstanceOf('Intervention\Gif\Decoder', $decoder);
+        $this->assertInstanceOf(Decoder::class, $decoder);
     }
 
     public function testDecode()
     {
         $decoded = $this->decoder->decode();
 
-        $this->assertInstanceOf('Intervention\Gif\Decoded', $decoded);
+        $this->assertInstanceOf(Decoded::class, $decoded);
         $this->assertEquals(8, $decoded->countFrames());
         $this->assertTrue($decoded->hasGlobalColorTable());
         $this->assertEquals(32, $decoded->countGlobalColors());
