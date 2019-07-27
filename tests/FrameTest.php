@@ -92,7 +92,7 @@ class FrameTest extends TestCase
     public function testSetGetDisposalMethod()
     {
         $frame = new Frame;
-        $this->assertEquals(0, $frame->getDisposalMethod());
+        $this->assertEquals(Frame::DISPOSAL_METHOD_BACKGROUND, $frame->getDisposalMethod());
 
         $frame = new Frame;
         $result = $frame->setDisposalMethod('foo');
@@ -103,7 +103,7 @@ class FrameTest extends TestCase
     public function testDecodeDisposalMethod()
     {
         $frame = new Frame;
-        $this->assertEquals(0, $frame->decodeDisposalMethod());
+        $this->assertEquals(Frame::DISPOSAL_METHOD_BACKGROUND, $frame->decodeDisposalMethod());
 
         $frame = new Frame;
         $frame->setProperty('graphicsControlExtension', "\x04\x05\x14\x00\xF1\x00");

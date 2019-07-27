@@ -169,13 +169,25 @@ class Encoder
     }
 
     /**
-     * Create and add new frame from GD resource
+     * Add new frame from GD resource
      *
      * @param  resource $resource
      * @param  integer  $delay
      * @return void
      */
     public function addFrameFromGdResource($resource, $delay = null)
+    {
+        $this->frames[] = $this->createFrameFromGdResource($resource, $delay);
+    }
+
+    /**
+     * Create and return new frame from GD resource
+     *
+     * @param  resource $resource
+     * @param  integer  $delay
+     * @return Frame
+     */
+    public function createFrameFromGdResource($resource, $delay = null)
     {
         // get imagedata from resource
         $gifdata = $this->encodeGdResource($resource);
@@ -187,7 +199,7 @@ class Encoder
         $frame->setLocalColorTable($gif->getGlobalColorTable());
         $frame->setDelay($delay);
 
-        $this->frames[] = $frame;
+        return $frame;
     }
 
     /**

@@ -2,9 +2,10 @@
 
 namespace Intervention\Gif\Test;
 
-use PHPUnit\Framework\TestCase;
-use Intervention\Gif\Encoder;
 use Intervention\Gif\Decoder;
+use Intervention\Gif\Encoder;
+use Intervention\Gif\Frame;
+use PHPUnit\Framework\TestCase;
 
 class EncodeDecodeTest extends TestCase
 {
@@ -58,8 +59,17 @@ class EncodeDecodeTest extends TestCase
         $encoder = new Encoder;
         $encoder->setCanvas(20, 15);
         $encoder->setLoops(2);
-        $encoder->addFrameFromGdResource($res1, 100);
-        $encoder->addFrameFromGdResource($res2, 100);
+        
+        // create frames
+        $frame1 = $encoder->createFrameFromGdResource($res1, 100);
+        $frame2 = $encoder->createFrameFromGdResource($res2, 100);
+        $frame1->setDisposalMethod(Frame::DISPOSAL_METHOD_BACKGROUND);
+        $frame2->setDisposalMethod(Frame::DISPOSAL_METHOD_BACKGROUND);
+
+        $encoder->addFrame($frame1);
+        $encoder->addFrame($frame2);
+
+        // encode
         $encoded = $encoder->encode();
 
         // decode encoded
@@ -77,6 +87,7 @@ class EncodeDecodeTest extends TestCase
 
         foreach ($decoded->getFrames() as $frame) {
             $this->assertEquals(100, $frame->getDelay());
+            $this->assertEquals(Frame::DISPOSAL_METHOD_BACKGROUND, $frame->getDisposalMethod());
         }
     }
 }

@@ -231,7 +231,7 @@ class Frame
             return $method;
         }
 
-        return 0;
+        return self::DISPOSAL_METHOD_BACKGROUND;
     }
 
     /**
