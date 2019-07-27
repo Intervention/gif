@@ -9,14 +9,9 @@ class DecoderTest extends TestCase
 {
     public $decoder;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->decoder = $this->getTestDecoder('tests/images/animation.gif');
-    }
-
-    public function tearDown()
-    {
-        # code...
     }
 
     private function getTestDecoder($file)

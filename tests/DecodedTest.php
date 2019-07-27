@@ -2,9 +2,10 @@
 
 namespace Intervention\Gif\Test;
 
+use PHPUnit\Framework\TestCase;
 use Intervention\Gif\Decoded;
 use Intervention\Gif\Frame;
-use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class DecodedTest extends TestCase
 {
@@ -137,11 +138,9 @@ class DecodedTest extends TestCase
         $this->assertEquals('bar', $frame->imageData);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testGetFrameNotExisting()
     {
+        $this->expectException(RuntimeException::class);
         $decoded = new Decoded;
         $frame = $decoded->getFrame();
     }
