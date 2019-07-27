@@ -70,18 +70,18 @@ class Decoder
      */
     public function decode()
     {
-        $gif = new Decoded;
+        $decoded = new Decoded;
 
         // read header
-        $gif->setHeader($this->getNextBytes(6));
+        $decoded->setHeader($this->getNextBytes(6));
 
         // read logocal screen descriptor
-        $gif->setlogicalScreenDescriptor($this->getNextBytes(7));
+        $decoded->setlogicalScreenDescriptor($this->getNextBytes(7));
 
         // read global color table
-        if ($gif->hasGlobalColorTable()) {
-            $gif->setGlobalColorTable($this->getNextBytes(
-                $gif->countGlobalColors() * 3
+        if ($decoded->hasGlobalColorTable()) {
+            $decoded->setGlobalColorTable($this->getNextBytes(
+                $decoded->countGlobalColors() * 3
             ));
         }
 
@@ -89,12 +89,12 @@ class Decoder
         while (! feof($this->handle)) {
             switch ($this->getNextBytes(1)) {
                 case self::EXTENSION_BLOCK_MARKER:
-                    $this->decodeExtension($gif);
+                    $this->decodeExtension($decoded);
                     break;
 
                 case self::IMAGE_SEPARATOR:
-                    $this->decodeImageDescriptor($gif);
-                    $this->decodeImageData($gif);
+                    $this->decodeImageDescriptor($decoded);
+                    $this->decodeImageData($decoded);
                     break;
 
                 case self::TRAILER_MARKER:
@@ -102,14 +102,13 @@ class Decoder
                     break 2;
                 
                 default:
-                    throw new \Intervention\Image\Exception\NotReadableException(
-                        "Unable to decode GIF image."
+                    throw new Exceptions\NotReadableException(
+                        'Unable to decode GIF image.'
                     );
-                    break;
             }
         }
 
-        return $gif;
+        return $decoded;
     }
 
     /**
@@ -227,7 +226,7 @@ class Decoder
         $gif->addImageDescriptors($descriptor);
     }
 
-        /**
+    /**
      * Decode Image data from image stream
      *
      * @param  Decoded $gif
