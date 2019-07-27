@@ -154,7 +154,6 @@ class Decoder
 
                 // subblock
                 $this->getNextBytes(1);
-
                 break;
 
             case self::PLAINTEXT_EXTENSION_MARKER:

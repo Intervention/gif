@@ -2,7 +2,8 @@
 
 namespace Intervention\Gif;
 
-use \RuntimeException;
+use RuntimeException;
+use StdClass;
 
 class Decoded
 {
@@ -53,7 +54,7 @@ class Decoded
      *
      * @var array
      */
-    protected $frames = array();
+    protected $frames = [];
 
     /**
      * Sets GIF header
@@ -263,7 +264,7 @@ class Decoded
      */
     public function addOffset($left, $top)
     {
-        $offset = new \StdClass;
+        $offset = new StdClass;
         $offset->left = $left;
         $offset->top = $top;
 
@@ -278,7 +279,7 @@ class Decoded
      */
     public function addSize($width, $height)
     {
-        $size = new \StdClass;
+        $size = new StdClass;
         $size->width = $width;
         $size->height = $height;
 

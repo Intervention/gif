@@ -2,6 +2,8 @@
 
 namespace Intervention\Gif;
 
+use StdClass;
+
 class Frame
 {
     const DISPOSAL_METHOD_LEAVE = 1;
@@ -104,9 +106,7 @@ class Frame
      */
     public function getDelay()
     {
-        return $this->propertyIsSet('delay')
-            ? $this->delay
-            : $this->decodeDelay();
+        return $this->propertyIsSet('delay') ? $this->delay : $this->decodeDelay();
     }
 
     /**
@@ -323,7 +323,7 @@ class Frame
      */
     public function getOffset()
     {
-        $offset = new \StdClass;
+        $offset = new StdClass;
         $offset->left = $this->decodeOffsetLeft();
         $offset->top = $this->decodeOffsetTop();
 
@@ -338,7 +338,7 @@ class Frame
      */
     public function setOffset($left, $top)
     {
-        $offset = new \StdClass;
+        $offset = new StdClass;
         $offset->left = $left;
         $offset->top = $top;
         $this->offset = $offset;
