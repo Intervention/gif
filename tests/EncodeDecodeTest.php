@@ -31,6 +31,9 @@ class EncodeDecodeTest extends TestCase
         $encoder = new Encoder;
         $encoder->setFromDecoded($decoded);
         $encoded = $encoder->encode();
+
+        // decode encoded
+        $decoder = new Decoder;
         $decoder->initFromData($encoded);
         $decoded = $decoder->decode();
 
