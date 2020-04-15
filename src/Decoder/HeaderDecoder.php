@@ -3,18 +3,18 @@
 namespace Intervention\Gif\Decoder;
 
 use Intervention\Gif\Exception\DecoderException;
-use Intervention\Gif\Header as HeaderObject;
+use Intervention\Gif\Header;
 
-class Header extends AbstractDecoder
+class HeaderDecoder extends AbstractDecoder
 {
     /**
      * Decode current sourc
      *
-     * @return HeaderObject
+     * @return Header
      */
-    public function decode(): HeaderObject
+    public function decode(): Header
     {
-        $header = new HeaderObject;
+        $header = new Header;
         $header->setVersion($this->decodeVersion());
 
         return $header;

@@ -7,22 +7,22 @@ use Intervention\Gif\ApplicationExtension;
 use Intervention\Gif\ColorTable;
 use Intervention\Gif\Contracts\DataBlock;
 use Intervention\Gif\Exception\DecoderException;
-use Intervention\Gif\GifDataStream as GifDataStreamObject;
+use Intervention\Gif\GifDataStream;
 use Intervention\Gif\Header;
 use Intervention\Gif\LogicalScreen;
 use Intervention\Gif\LogicalScreenDescriptor;
 use Intervention\Gif\Trailer;
 
-class GifDataStream extends AbstractDecoder
+class GifDataStreamDecoder extends AbstractDecoder
 {
     /**
      * Decode current source to GifDataStream
      *
-     * @return GifDataStreamObject
+     * @return GifDataStream
      */
-    public function decode(): GifDataStreamObject
+    public function decode(): GifDataStream
     {
-        $gif = new GifDataStreamObject;
+        $gif = new GifDataStream;
 
         $gif->setHeader(Header::decode($this->getNextBytes(6)));
         $gif->setLogicalScreen($this->decodeLogicalScreen());

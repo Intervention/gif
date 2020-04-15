@@ -2,19 +2,18 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\Exception\DecoderException;
-use Intervention\Gif\PlainTextExtension as PlainTextExtensionObject;
+use Intervention\Gif\PlainTextExtension;
 
-class PlainTextExtension extends AbstractDecoder
+class PlainTextExtensionDecoder extends AbstractDecoder
 {
     /**
      * Decode current source
      *
-     * @return PlainTextExtensionObject
+     * @return PlainTextExtension
      */
-    public function decode(): PlainTextExtensionObject
+    public function decode(): PlainTextExtension
     {
-        $extension = new PlainTextExtensionObject;
+        $extension = new PlainTextExtension;
         $extension->setData($this->decodeData());
 
         return $extension;

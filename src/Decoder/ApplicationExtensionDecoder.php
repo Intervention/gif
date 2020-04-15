@@ -3,18 +3,18 @@
 namespace Intervention\Gif\Decoder;
 
 use Intervention\Gif\Exception\DecoderException;
-use Intervention\Gif\ApplicationExtension as ApplicationExtensionObject;
+use Intervention\Gif\ApplicationExtension;
 
-class ApplicationExtension extends AbstractDecoder
+class ApplicationExtensionDecoder extends AbstractDecoder
 {
     /**
      * Decode current source
      *
-     * @return ApplicationExtensionObject
+     * @return ApplicationExtension
      */
-    public function decode(): ApplicationExtensionObject
+    public function decode(): ApplicationExtension
     {
-        $result = new ApplicationExtensionObject;
+        $result = new ApplicationExtension;
         $result->setLoops($this->decodeLoops());
 
         return $result;

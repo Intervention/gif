@@ -2,18 +2,18 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\LogicalScreenDescriptor as LogicalScreenDescriptorObject;
+use Intervention\Gif\LogicalScreenDescriptor;
 
-class LogicalScreenDescriptor extends PackedBitDecoder
+class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 {
     /**
      * Decode given string to current instance
      *
-     * @return self
+     * @return LogicalScreenDescriptor
      */
-    public function decode(): LogicalScreenDescriptorObject
+    public function decode(): LogicalScreenDescriptor
     {
-        $logicalScreenDescriptor = new LogicalScreenDescriptorObject;
+        $logicalScreenDescriptor = new LogicalScreenDescriptor;
 
         $logicalScreenDescriptor->setSize(
             $this->decodeWidth(),

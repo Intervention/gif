@@ -44,6 +44,6 @@ trait CanDecode
      */
     protected static function getDecoderClassname(): string
     {
-        return sprintf('Intervention\Gif\Decoder\%s', self::getShortClassname());
+        return sprintf('Intervention\Gif\Decoder\%sDecoder', self::getShortClassname());
     }
 }

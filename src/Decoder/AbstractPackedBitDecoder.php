@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
-abstract class PackedBitDecoder extends AbstractDecoder
+abstract class AbstractPackedBitDecoder extends AbstractDecoder
 {
     /**
      * Decode packed field

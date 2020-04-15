@@ -2,19 +2,18 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\Exception\DecoderException;
-use Intervention\Gif\CommentExtension as CommentExtensionObject;
+use Intervention\Gif\CommentExtension;
 
-class CommentExtension extends AbstractDecoder
+class CommentExtensionDecoder extends AbstractDecoder
 {
     /**
      * Decode current source
      *
-     * @return CommentExtensionObject
+     * @return CommentExtension
      */
-    public function decode(): CommentExtensionObject
+    public function decode(): CommentExtension
     {
-        $extension = new CommentExtensionObject;
+        $extension = new CommentExtension;
         foreach ($this->decodeComments() as $comment) {
             $extension->addComment($comment);
         }

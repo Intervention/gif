@@ -2,20 +2,19 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\Exception\DecoderException;
-use Intervention\Gif\ImageDescriptor as ImageDescriptorObject;
+use Intervention\Gif\ImageDescriptor;
 
-class ImageDescriptor extends PackedBitDecoder
+class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 {
     /**
      * Decode given string to current instance
      *
      * @param  string $source
-     * @return self
+     * @return ImageDescriptor
      */
-    public function decode(): ImageDescriptorObject
+    public function decode(): ImageDescriptor
     {
-        $descriptor = new ImageDescriptorObject;
+        $descriptor = new ImageDescriptor;
 
         $descriptor->setSize(
             $this->decodeWidth(),

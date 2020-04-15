@@ -2,20 +2,19 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\Exception\DecoderException;
-use Intervention\Gif\GraphicControlExtension as GraphicControlExtensionObject;
+use Intervention\Gif\GraphicControlExtension;
 
-class GraphicControlExtension extends PackedBitDecoder
+class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
 {
     /**
      * Decode given string to current instance
      *
      * @param  string $source
-     * @return GraphicControlExtensionObject
+     * @return GraphicControlExtension
      */
-    public function decode(): GraphicControlExtensionObject
+    public function decode(): GraphicControlExtension
     {
-        $result = new GraphicControlExtensionObject;
+        $result = new GraphicControlExtension;
 
         $result->setDelay($this->decodeDelay());
         $result->setDisposalMethod($this->decodeDisposalMethod());

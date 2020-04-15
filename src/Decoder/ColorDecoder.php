@@ -3,18 +3,18 @@
 namespace Intervention\Gif\Decoder;
 
 use Intervention\Gif\Exception\DecoderException;
-use Intervention\Gif\Color as ColorObject;
+use Intervention\Gif\Color;
 
-class Color extends AbstractDecoder
+class ColorDecoder extends AbstractDecoder
 {
     /**
      * Decode current source to Color
      *
-     * @return ColorObject
+     * @return Color
      */
-    public function decode(): ColorObject
+    public function decode(): Color
     {
-        $color = new ColorObject(0, 0, 0);
+        $color = new Color;
 
         $color->setRed($this->decodeRed());
         $color->setGreen($this->decodeGreen());
