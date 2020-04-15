@@ -2,12 +2,16 @@
 
 namespace Intervention\Gif\Decoder;
 
+use Intervention\Gif\AbstractExtension;
+use Intervention\Gif\ApplicationExtension;
 use Intervention\Gif\ColorTable;
+use Intervention\Gif\Contracts\DataBlock;
 use Intervention\Gif\Exception\DecoderException;
 use Intervention\Gif\GifDataStream as GifDataStreamObject;
 use Intervention\Gif\Header;
 use Intervention\Gif\LogicalScreen;
 use Intervention\Gif\LogicalScreenDescriptor;
+use Intervention\Gif\Trailer;
 
 class GifDataStream extends AbstractDecoder
 {
@@ -22,6 +26,9 @@ class GifDataStream extends AbstractDecoder
 
         $gif->setHeader(Header::decode($this->getNextBytes(6)));
         $gif->setLogicalScreen($this->decodeLogicalScreen());
+        while (! feof($this->handle)) {
+            $gif->addData($this->decodeNextDataBlock());
+        }
 
         return $gif;
     }
@@ -42,5 +49,17 @@ class GifDataStream extends AbstractDecoder
         }
 
         return $screen;
+    }
+
+    /**
+     * Decode data blocks from source into the given data stream object
+     *
+     * @return array
+     */
+    protected function decodeNextDataBlock(): DataBlock
+    {
+        $indicator = $this->getNextBytes(1);
+
+        return new ApplicationExtension;
     }
 }

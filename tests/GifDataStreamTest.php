@@ -60,7 +60,18 @@ class GifDataStreamTest extends TestCase
         $source = file_get_contents(__DIR__.'/images/animation.gif');
         $gif = GifDataStream::decode($source);
         $this->assertInstanceOf(GifDataStream::class, $gif);
+
+        // header
+        $this->assertEquals('89a', $gif->getHeader()->getVersion());
+        
+        // logical screen descriptor
         $this->assertEquals(20, $gif->getLogicalScreen()->getDescriptor()->getWidth());
         $this->assertEquals(15, $gif->getLogicalScreen()->getDescriptor()->getHeight());
+        $this->assertTrue($gif->getLogicalScreen()->getDescriptor()->hasGlobalColorTable());
+        $this->assertFalse($gif->getLogicalScreen()->getDescriptor()->getGlobalColorTableSorted());
+        $this->assertEquals(4, $gif->getLogicalScreen()->getDescriptor()->getGlobalColorTableSize());
+        $this->assertEquals(7, $gif->getLogicalScreen()->getDescriptor()->getBackgroundColorIndex());
+        $this->assertEquals(0, $gif->getLogicalScreen()->getDescriptor()->getPixelAspectRatio());
+        $this->assertEquals(8, $gif->getLogicalScreen()->getDescriptor()->getBitsPerPixel());
     }
 }

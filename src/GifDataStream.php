@@ -103,6 +103,18 @@ class GifDataStream extends AbstractEntity
     }
 
     /**
+     * Set the current data
+     *
+     * @param array $data
+     */
+    public function setData(array $data): self
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
      * Get trailer
      *
      * @return Trailer
