@@ -72,7 +72,7 @@ class GraphicControlExtensionTest extends TestCase
     public function testDecode()
     {
         $source = "\x21\xF9\x04\x0f\x96\x00\x90\x00";
-        $extension = (new GraphicControlExtension)->decode($source);
+        $extension = GraphicControlExtension::decode($source);
         $this->assertInstanceOf(GraphicControlExtension::class, $extension);
         $this->assertEquals(150, $extension->getDelay());
         $this->assertEquals(3, $extension->getDisposalMethod());

@@ -20,7 +20,7 @@ class GifDataStream extends AbstractDecoder
     {
         $gif = new GifDataStreamObject;
 
-        $gif->setHeader((new Header)->decode($this->getNextBytes(6)));
+        $gif->setHeader(Header::decode($this->getNextBytes(6)));
         $gif->setLogicalScreen($this->decodeLogicalScreen());
 
         return $gif;
@@ -34,11 +34,11 @@ class GifDataStream extends AbstractDecoder
     protected function decodeLogicalScreen(): LogicalScreen
     {
         $screen = new LogicalScreen;
-        $screen->setDescriptor((new LogicalScreenDescriptor)->decode($this->getNextBytes(7)));
+        $screen->setDescriptor(LogicalScreenDescriptor::decode($this->getNextBytes(7)));
 
         if ($screen->getDescriptor()->hasGlobalColorTable()) {
             $size = $screen->getDescriptor()->getGlobalColorTableByteSize();
-            $screen->setColorTable((new ColorTable)->decode($this->getNextBytes($size)));
+            $screen->setColorTable(ColorTable::decode($this->getNextBytes($size)));
         }
 
         return $screen;

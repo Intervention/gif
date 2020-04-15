@@ -28,7 +28,7 @@ class ImageDataTest extends TestCase
     public function testDecode()
     {
         $source = "foo";
-        $extension = (new ImageData)->decode($source);
+        $extension = ImageData::decode($source);
         $this->assertInstanceOf(ImageData::class, $extension);
         $this->assertEquals('foo', $extension->getData());
     }

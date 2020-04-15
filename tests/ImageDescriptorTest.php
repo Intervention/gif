@@ -123,7 +123,7 @@ class ImageDescriptorTest extends TestCase
         // localColorTableSorted: false
         // localColorTableSize: 4
         $source = "\x2C\x05\x00\x00\x00\x2c\x01\xc8\x00\xc4";
-        $descriptor = (new ImageDescriptor)->decode($source);
+        $descriptor = ImageDescriptor::decode($source);
         $this->assertInstanceOf(ImageDescriptor::class, $descriptor);
         $this->assertEquals(300, $descriptor->getWidth());
         $this->assertEquals(200, $descriptor->getHeight());

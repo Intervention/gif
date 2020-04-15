@@ -144,7 +144,7 @@ class LogicalScreenDescriptorTest extends TestCase
         // BackgroundColorIndex: 128
         // PixelAspectRatio: 0
         $source = "\x2c\x01\xc8\x00\xff\x80\x00";
-        $descriptor = (new LogicalScreenDescriptor)->decode($source);
+        $descriptor = LogicalScreenDescriptor::decode($source);
         $this->assertEquals(300, $descriptor->getWidth());
         $this->assertEquals(200, $descriptor->getHeight());
         $this->assertTrue($descriptor->getGlobalColorTableExistance());

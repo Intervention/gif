@@ -32,7 +32,7 @@ class PlainTextExtensionTest extends TestCase
     public function testDecode()
     {
         $source = "\x21\x01\x66\x6f\x6f\x00";
-        $extension = (new PlainTextExtension)->decode($source);
+        $extension = PlainTextExtension::decode($source);
         $this->assertInstanceOf(PlainTextExtension::class, $extension);
         $this->assertEquals('foo', $extension->getData());
     }

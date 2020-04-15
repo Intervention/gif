@@ -15,8 +15,8 @@ abstract class AbstractEntity
      *
      * @return string
      */
-    public function getShortClassname(): string
+    public static function getShortClassname(): string
     {
-        return (new ReflectionClass($this))->getShortName();
+        return (new ReflectionClass(get_called_class()))->getShortName();
     }
 }

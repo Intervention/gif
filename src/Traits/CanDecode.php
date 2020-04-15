@@ -3,29 +3,47 @@
 namespace Intervention\Gif\Traits;
 
 use Exception;
+use ReflectionClass;
 use Intervention\Gif\Decoder\AbstractDecoder;
 use Intervention\Gif\AbstractEntity;
 
 trait CanDecode
 {
-    public function decode(string $source): AbstractEntity
+    /**
+     * Decode current instance
+     *
+     * @param  string $source
+     * @return AbstractEntity
+     */
+    public static function decode(string $source): AbstractEntity
     {
-        return $this->getDecoder($source)->decode();
+        return self::getDecoder($source)->decode();
     }
 
-    protected function getDecoder(string $source): AbstractDecoder
+    /**
+     * Get decoder for current instance
+     *
+     * @param  string $source
+     * @return AbstractDecoder
+     */
+    protected static function getDecoder(string $source): AbstractDecoder
     {
-        $classname = $this->getDecoderClassname();
+        $classname = self::getDecoderClassname();
 
         if (!class_exists($classname)) {
-            throw new Exception("Decoder for '".get_class($this)."' not found.");
+            throw new Exception("Decoder for '".get_called_class()."' not found.");
         }
 
         return new $classname($source);
     }
 
-    protected function getDecoderClassname(): string
+    /**
+     * Get classname of decoder for current classname
+     *
+     * @return string
+     */
+    protected static function getDecoderClassname(): string
     {
-        return sprintf('Intervention\Gif\Decoder\%s', $this->getShortClassname());
+        return sprintf('Intervention\Gif\Decoder\%s', self::getShortClassname());
     }
 }

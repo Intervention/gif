@@ -27,7 +27,7 @@ class HeaderTest extends TestCase
 
     public function testDecode()
     {
-        $header = (new Header)->decode('GIF89a');
+        $header = Header::decode('GIF89a');
         $this->assertInstanceOf(Header::class, $header);
         $this->assertEquals('89a', $header->getVersion());
     }

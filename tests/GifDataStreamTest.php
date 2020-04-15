@@ -58,7 +58,7 @@ class GifDataStreamTest extends TestCase
     public function testDecode()
     {
         $source = file_get_contents(__DIR__.'/images/animation.gif');
-        $gif = (new GifDataStream)->decode($source);
+        $gif = GifDataStream::decode($source);
         $this->assertInstanceOf(GifDataStream::class, $gif);
         $this->assertEquals(20, $gif->getLogicalScreen()->getDescriptor()->getWidth());
         $this->assertEquals(15, $gif->getLogicalScreen()->getDescriptor()->getHeight());
