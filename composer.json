@@ -1,6 +1,6 @@
 {
     "name": "intervention/gif",
-    "description": "Native PHP GIF Encoder/Decoder for GD library",
+    "description": "Native PHP GIF Encoder/Decoder",
     "homepage": "https://github.com/intervention/gif",
     "keywords": ["image", "gd", "gif", "animation"],
     "license": "MIT",
@@ -8,7 +8,7 @@
         {
             "name": "Oliver Vogel",
             "email": "oliver@olivervogel.com",
-            "homepage": "https://olivervogel.com/"
+            "homepage": "https://intervention.io/"
         }
     ],
     "require": {
