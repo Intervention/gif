@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\Header as HeaderObject;
+use Intervention\Gif\Trailer as Trailer;
 
-class Header extends AbstractEncoder
+class TrailerEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param HeaderObject $source
+     * @param Trailer $source
      */
-    public function __construct(HeaderObject $source)
+    public function __construct(Trailer $source)
     {
         $this->source = $source;
     }
@@ -23,6 +23,6 @@ class Header extends AbstractEncoder
      */
     public function encode(): string
     {
-        return HeaderObject::SIGNATURE.$this->source->getVersion();
+        return Trailer::MARKER;
     }
 }

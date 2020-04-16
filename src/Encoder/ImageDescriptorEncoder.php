@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\ImageDescriptor as ImageDescriptorObject;
+use Intervention\Gif\ImageDescriptor;
 
-class ImageDescriptor extends AbstractEncoder
+class ImageDescriptorEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param ImageDescriptorObject $source
+     * @param ImageDescriptor $source
      */
-    public function __construct(ImageDescriptorObject $source)
+    public function __construct(ImageDescriptor $source)
     {
         $this->source = $source;
     }
@@ -24,7 +24,7 @@ class ImageDescriptor extends AbstractEncoder
     public function encode(): string
     {
         return implode('', [
-            ImageDescriptorObject::SEPARATOR,
+            ImageDescriptor::SEPARATOR,
             $this->encodeLeft(),
             $this->encodeTop(),
             $this->encodeWidth(),

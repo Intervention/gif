@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\GraphicBlock as GraphicBlockObject;
+use Intervention\Gif\GraphicBlock as GraphicBlock;
 
-class GraphicBlock extends AbstractEncoder
+class GraphicBlockEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param GraphicBlockObject $source
+     * @param GraphicBlock $source
      */
-    public function __construct(GraphicBlockObject $source)
+    public function __construct(GraphicBlock $source)
     {
         $this->source = $source;
     }

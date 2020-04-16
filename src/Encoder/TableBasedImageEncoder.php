@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\TableBasedImage as TableBasedImageObject;
+use Intervention\Gif\TableBasedImage as TableBasedImage;
 
-class TableBasedImage extends AbstractEncoder
+class TableBasedImageEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param TableBasedImageObject $source
+     * @param TableBasedImage $source
      */
-    public function __construct(TableBasedImageObject $source)
+    public function __construct(TableBasedImage $source)
     {
         $this->source = $source;
     }

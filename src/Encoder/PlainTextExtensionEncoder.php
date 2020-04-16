@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\PlainTextExtension as PlainTextExtensionObject;
+use Intervention\Gif\PlainTextExtension as PlainTextExtension;
 
-class PlainTextExtension extends AbstractEncoder
+class PlainTextExtensionEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param PlainTextExtensionObject $source
+     * @param PlainTextExtension $source
      */
-    public function __construct(PlainTextExtensionObject $source)
+    public function __construct(PlainTextExtension $source)
     {
         $this->source = $source;
     }
@@ -25,10 +25,10 @@ class PlainTextExtension extends AbstractEncoder
     {
         if ($data = $this->source->getData()) {
             return implode('', [
-                PlainTextExtensionObject::MARKER,
-                PlainTextExtensionObject::LABEL,
+                PlainTextExtension::MARKER,
+                PlainTextExtension::LABEL,
                 $data,
-                PlainTextExtensionObject::TERMINATOR,
+                PlainTextExtension::TERMINATOR,
             ]);
         }
         

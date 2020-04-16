@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\GifDataStream as GifDataStreamObject;
+use Intervention\Gif\GifDataStream;
 
-class GifDataStream extends AbstractEncoder
+class GifDataStreamEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param GifDataStreamObject $source
+     * @param GifDataStream $source
      */
-    public function __construct(GifDataStreamObject $source)
+    public function __construct(GifDataStream $source)
     {
         $this->source = $source;
     }

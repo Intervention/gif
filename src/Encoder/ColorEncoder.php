@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\Color as ColorObject;
+use Intervention\Gif\Color;
 
-class Color extends AbstractEncoder
+class ColorEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param ColorObject $source
+     * @param Color $source
      */
-    public function __construct(ColorObject $source)
+    public function __construct(Color $source)
     {
         $this->source = $source;
     }

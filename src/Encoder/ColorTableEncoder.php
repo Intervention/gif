@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\ColorTable as ColorTableObject;
+use Intervention\Gif\ColorTable;
 
-class ColorTable extends AbstractEncoder
+class ColorTableEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param ColorTableObject $source
+     * @param ColorTable $source
      */
-    public function __construct(ColorTableObject $source)
+    public function __construct(ColorTable $source)
     {
         $this->source = $source;
     }
@@ -19,7 +19,7 @@ class ColorTable extends AbstractEncoder
     /**
      * Encode current source
      *
-     * @param  ColorTableObject $table
+     * @param  ColorTable $table
      * @return string
      */
     public function encode(): string

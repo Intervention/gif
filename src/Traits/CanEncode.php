@@ -3,15 +3,26 @@
 namespace Intervention\Gif\Traits;
 
 use Exception;
+use Intervention\Gif\Encoder\AbstractEncoder;
 
 trait CanEncode
 {
+    /**
+     * Encode current entity
+     *
+     * @return string
+     */
     public function encode(): string
     {
         return $this->getEncoder()->encode();
     }
 
-    protected function getEncoder()
+    /**
+     * Get encoder object for current entity
+     *
+     * @return AbstractEncoder
+     */
+    protected function getEncoder(): AbstractEncoder
     {
         $classname = $this->getEncoderClassname();
 
@@ -22,8 +33,13 @@ trait CanEncode
         return new $classname($this);
     }
 
-    protected function getEncoderClassname()
+    /**
+     * Get encoder classname for current entity
+     *
+     * @return string
+     */
+    protected function getEncoderClassname(): string
     {
-        return sprintf('Intervention\Gif\Encoder\%s', $this->getShortClassname());
+        return sprintf('Intervention\Gif\Encoder\%sEncoder', $this->getShortClassname());
     }
 }

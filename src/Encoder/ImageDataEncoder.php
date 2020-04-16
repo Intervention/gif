@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\ImageData as ImageDataObject;
+use Intervention\Gif\ImageData;
 
-class ImageData extends AbstractEncoder
+class ImageDataEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param ImageDataObject $source
+     * @param ImageData $source
      */
-    public function __construct(ImageDataObject $source)
+    public function __construct(ImageData $source)
     {
         $this->source = $source;
     }

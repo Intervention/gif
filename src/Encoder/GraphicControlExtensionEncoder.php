@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\GraphicControlExtension as GraphicControlExtensionObject;
+use Intervention\Gif\GraphicControlExtension;
 
-class GraphicControlExtension extends AbstractEncoder
+class GraphicControlExtensionEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param GraphicControlExtensionObject $source
+     * @param GraphicControlExtension $source
      */
-    public function __construct(GraphicControlExtensionObject $source)
+    public function __construct(GraphicControlExtension $source)
     {
         $this->source = $source;
     }
@@ -24,13 +24,13 @@ class GraphicControlExtension extends AbstractEncoder
     public function encode(): string
     {
         return implode('', [
-            GraphicControlExtensionObject::MARKER,
-            GraphicControlExtensionObject::LABEL,
-            GraphicControlExtensionObject::BLOCKSIZE,
+            GraphicControlExtension::MARKER,
+            GraphicControlExtension::LABEL,
+            GraphicControlExtension::BLOCKSIZE,
             $this->encodePackedField(),
             $this->encodeDelay(),
             $this->encodeTransparentColorIndex(),
-            GraphicControlExtensionObject::TERMINATOR,
+            GraphicControlExtension::TERMINATOR,
         ]);
     }
 

@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\LogicalScreenDescriptor as LogicalScreenDescriptorObject;
+use Intervention\Gif\LogicalScreenDescriptor;
 
-class LogicalScreenDescriptor extends AbstractEncoder
+class LogicalScreenDescriptorEncoder extends AbstractEncoder
 {
     /**
      * Create new instance
      *
-     * @param LogicalScreenDescriptorObject $source
+     * @param LogicalScreenDescriptor $source
      */
-    public function __construct(LogicalScreenDescriptorObject $source)
+    public function __construct(LogicalScreenDescriptor $source)
     {
         $this->source = $source;
     }

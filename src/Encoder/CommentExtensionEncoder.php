@@ -2,16 +2,16 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\CommentExtension as CommentExtensionObject;
+use Intervention\Gif\CommentExtension;
 
-class CommentExtension extends AbstractEncoder
+class CommentExtensionEncoder extends AbstractEncoder
 {
     /**
      * Create new decoder instance
      *
-     * @param CommentExtensionObject $source
+     * @param CommentExtension $source
      */
-    public function __construct(CommentExtensionObject $source)
+    public function __construct(CommentExtension $source)
     {
         $this->source = $source;
     }
@@ -24,10 +24,10 @@ class CommentExtension extends AbstractEncoder
     public function encode(): string
     {
         return implode('', [
-            CommentExtensionObject::MARKER,
-            CommentExtensionObject::LABEL,
+            CommentExtension::MARKER,
+            CommentExtension::LABEL,
             $this->encodeComments(),
-            CommentExtensionObject::TERMINATOR,
+            CommentExtension::TERMINATOR,
         ]);
     }
 
