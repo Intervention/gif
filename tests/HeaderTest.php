@@ -6,9 +6,8 @@ use Intervention\Gif\Color;
 use Intervention\Gif\ColorTable;
 use Intervention\Gif\Exception\DecodingException;
 use Intervention\Gif\Header;
-use PHPUnit\Framework\TestCase;
 
-class HeaderTest extends TestCase
+class HeaderTest extends BaseTestCase
 {
     public function testSetGetVersion()
     {
@@ -27,7 +26,7 @@ class HeaderTest extends TestCase
 
     public function testDecode()
     {
-        $header = Header::decode('GIF89a');
+        $header = Header::decode($this->getTestHandle('GIF89a'));
         $this->assertInstanceOf(Header::class, $header);
         $this->assertEquals('89a', $header->getVersion());
     }

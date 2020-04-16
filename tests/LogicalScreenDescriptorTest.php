@@ -5,9 +5,8 @@ namespace Intervention\Gif\Test;
 use Intervention\Gif\Color;
 use Intervention\Gif\ColorTable;
 use Intervention\Gif\LogicalScreenDescriptor;
-use PHPUnit\Framework\TestCase;
 
-class LogicalScreenDescriptorTest extends TestCase
+class LogicalScreenDescriptorTest extends BaseTestCase
 {
     public function testSetGetSize()
     {
@@ -144,7 +143,7 @@ class LogicalScreenDescriptorTest extends TestCase
         // BackgroundColorIndex: 128
         // PixelAspectRatio: 0
         $source = "\x2c\x01\xc8\x00\xff\x80\x00";
-        $descriptor = LogicalScreenDescriptor::decode($source);
+        $descriptor = LogicalScreenDescriptor::decode($this->getTestHandle($source));
         $this->assertEquals(300, $descriptor->getWidth());
         $this->assertEquals(200, $descriptor->getHeight());
         $this->assertTrue($descriptor->getGlobalColorTableExistance());

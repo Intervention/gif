@@ -2,7 +2,12 @@
 
 namespace Intervention\Gif;
 
+use Intervention\Gif\ApplicationExtension;
 use Intervention\Gif\Contracts\DataBlock;
+use Intervention\Gif\Contracts\GraphicRenderingBlock;
+use Intervention\Gif\GraphicBlock;
+use Intervention\Gif\GraphicControlExtension;
+use Intervention\Gif\TableBasedImage;
 
 class GifDataStream extends AbstractEntity
 {
@@ -78,6 +83,62 @@ class GifDataStream extends AbstractEntity
         $this->logicalScreen = $screen;
 
         return $this;
+    }
+
+    /**
+     * Get main graphic control extension
+     *
+     * @return ApplicationExtension
+     */
+    public function getMainApplicationExtension(): ?ApplicationExtension
+    {
+        foreach ($this->getData() as $block) {
+            if (is_a($block, ApplicationExtension::class)) {
+                return $block;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get all graphic blocks
+     *
+     * @return array
+     */
+    public function getGraphicBlocks(): array
+    {
+        return array_values(array_filter($this->getData(), function ($block) {
+            return is_a($block, GraphicBlock::class);
+        }));
+    }
+
+    /**
+     * Get all table based images
+     *
+     * @return array
+     */
+    public function getTableBasedImages(): array
+    {
+        $blocks = array_filter($this->getGraphicBlocks(), function ($block) {
+            return is_a($block->getGraphicRenderingBlock(), TableBasedImage::class);
+        });
+
+        return array_values(array_map(function ($block) {
+            return $block->getGraphicRenderingBlock();
+        }, $blocks));
+    }
+
+    /**
+     * Get array of all image descriptors
+     *
+     * @return array
+     */
+    public function getImageDescriptors(): array
+    {
+        return array_values(array_map(function ($tbi) {
+            return $tbi->getDescriptor();
+        }, $this->getTableBasedImages()));
     }
 
     /**

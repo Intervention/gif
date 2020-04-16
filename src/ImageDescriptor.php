@@ -119,13 +119,13 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Set position of current instance
      *
-     * @param int $top
      * @param int $left
+     * @param int $top
      */
-    public function setPosition(int $top, int $left): self
+    public function setPosition(int $left, int $top): self
     {
-        $this->top = $top;
         $this->left = $left;
+        $this->top = $top;
         
         return $this;
     }
@@ -160,6 +160,16 @@ class ImageDescriptor extends AbstractEntity
     public function getLocalColorTableExistance(): bool
     {
         return $this->localColorTableExistance;
+    }
+
+    /**
+     * Alias for getLocalColorTableExistance
+     *
+     * @return boolean
+     */
+    public function hasLocalColorTable(): bool
+    {
+        return $this->getLocalColorTableExistance();
     }
 
     /**
@@ -206,6 +216,16 @@ class ImageDescriptor extends AbstractEntity
     public function getLocalColorTableSize(): int
     {
         return $this->localColorTableSize;
+    }
+
+    /**
+     * Get byte size of global color table
+     *
+     * @return int
+     */
+    public function getLocalColorTableByteSize(): int
+    {
+        return 3 * pow(2, $this->getLocalColorTableSize() + 1);
     }
 
     /**

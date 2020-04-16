@@ -16,33 +16,50 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
     {
         $result = new GraphicControlExtension;
 
-        $result->setDelay($this->decodeDelay());
-        $result->setDisposalMethod($this->decodeDisposalMethod());
-        $result->setTransparentColorExistance($this->decodeTransparentColorExistance());
-        $result->setTransparentColorIndex($this->decodeTransparentColorIndex());
-        $result->setUserInput($this->decodeUserInput());
+        // bytes 1-3
+        $this->getByteSize();
+
+        // byte #4
+        $packedField = $this->getNextByte();
+        $result->setDisposalMethod($this->decodeDisposalMethod($packedField));
+        $result->setUserInput($this->decodeUserInput($packedField));
+        $result->setTransparentColorExistance($this->decodeTransparentColorExistance($packedField));
+
+        // bytes 5-6
+        $result->setDelay($this->decodeDelay($this->getNextBytes(2)));
+        
+        // byte #7
+        $result->setTransparentColorIndex($this->decodeTransparentColorIndex(
+            $this->getNextByte()
+        ));
+
+        // byte #8 (terminator)
+        $this->getNextByte();
 
         return $result;
     }
 
     /**
-     * Decode packed field
+     * Get byte size
      *
      * @return int
      */
-    protected function decodePackedField(): int
+    protected function getByteSize(): int
     {
-        return unpack('C', substr($this->source, 3, 1))[1];
-    }
+        $byte = $this->getNextByte();
 
-    /**
-     * Decode delay value
-     *
-     * @return int
-     */
-    protected function decodeDelay(): int
-    {
-        return unpack('v*', substr($this->source, 4, 2))[1];
+        switch ($byte) {
+            case GraphicControlExtension::MARKER:
+                $this->getNextByte();
+                $byte = $this->getNextByte();
+                break;
+
+            case GraphicControlExtension::LABEL:
+                $byte = $this->getNextByte();
+                break;
+        }
+
+        return unpack('C', $byte)[1];
     }
 
     /**
@@ -50,29 +67,9 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
      *
      * @return int
      */
-    protected function decodeDisposalMethod(): int
+    protected function decodeDisposalMethod(string $byte): int
     {
-        return bindec($this->getPackedBits(3, 3));
-    }
-
-    /**
-     * Decode transparent color existance
-     *
-     * @return bool
-     */
-    protected function decodeTransparentColorExistance(): bool
-    {
-        return $this->hasPackedBit(7);
-    }
-
-    /**
-     * Decode transparent color index
-     *
-     * @return int
-     */
-    protected function decodeTransparentColorIndex(): int
-    {
-        return unpack('C', substr($this->source, 6, 1))[1];
+        return bindec($this->getPackedBits($byte, 3, 3));
     }
 
     /**
@@ -80,8 +77,38 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
      *
      * @return bool
      */
-    protected function decodeUserInput(): bool
+    protected function decodeUserInput(string $byte): bool
     {
-        return $this->hasPackedBit(6);
+        return $this->hasPackedBit($byte, 6);
+    }
+    
+    /**
+     * Decode transparent color existance
+     *
+     * @return bool
+     */
+    protected function decodeTransparentColorExistance(string $byte): bool
+    {
+        return $this->hasPackedBit($byte, 7);
+    }
+
+    /**
+     * Decode delay value
+     *
+     * @return int
+     */
+    protected function decodeDelay(string $bytes): int
+    {
+        return unpack('v*', $bytes)[1];
+    }
+
+    /**
+     * Decode transparent color index
+     *
+     * @return int
+     */
+    protected function decodeTransparentColorIndex(string $byte): int
+    {
+        return unpack('C', $byte)[1];
     }
 }

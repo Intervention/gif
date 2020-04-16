@@ -4,9 +4,8 @@ namespace Intervention\Gif\Test;
 
 use Intervention\Gif\Color;
 use Intervention\Gif\ColorTable;
-use PHPUnit\Framework\TestCase;
 
-class ColorTest extends TestCase
+class ColorTest extends BaseTestCase
 {
     public function testSetGetColorValues()
     {
@@ -47,25 +46,25 @@ class ColorTest extends TestCase
     public function testDecode()
     {
         $source = "\x00\x00\x00";
-        $color = Color::decode($source);
+        $color = Color::decode($this->getTestHandle($source));
         $this->assertEquals(0, $color->getRed());
         $this->assertEquals(0, $color->getGreen());
         $this->assertEquals(0, $color->getBlue());
 
         $source = "\xff\x00\xff";
-        $color = Color::decode($source);
+        $color = Color::decode($this->getTestHandle($source));
         $this->assertEquals(255, $color->getRed());
         $this->assertEquals(0, $color->getGreen());
         $this->assertEquals(255, $color->getBlue());
 
         $source = "\x7d\x7d\x7d";
-        $color = Color::decode($source);
+        $color = Color::decode($this->getTestHandle($source));
         $this->assertEquals(125, $color->getRed());
         $this->assertEquals(125, $color->getGreen());
         $this->assertEquals(125, $color->getBlue());
 
         $source = "\x0f\x2b\x79";
-        $color = Color::decode($source);
+        $color = Color::decode($this->getTestHandle($source));
         $this->assertEquals(15, $color->getRed());
         $this->assertEquals(43, $color->getGreen());
         $this->assertEquals(121, $color->getBlue());

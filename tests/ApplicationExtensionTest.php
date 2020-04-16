@@ -3,9 +3,8 @@
 namespace Intervention\Gif\Test;
 
 use Intervention\Gif\ApplicationExtension;
-use PHPUnit\Framework\TestCase;
 
-class ApplicationExtensionTest extends TestCase
+class ApplicationExtensionTest extends BaseTestCase
 {
     public function testSetGetLoops()
     {
@@ -32,16 +31,28 @@ class ApplicationExtensionTest extends TestCase
 
     public function testDecode()
     {
-        $source = "\x21\xff\x0b\x4e\x45\x54\x53\x43\x41\x50\x45\x32\x2e\x30\x03\x01\x01\x00\x00";
-        $extension = ApplicationExtension::decode($source);
-        $this->assertEquals(1, $extension->getLoops());
+        $sources = [
+            "\x21\xff\x0b\x4e\x45\x54\x53\x43\x41\x50\x45\x32\x2e\x30\x03\x01\x01\x00\x00",
+        ];
+        foreach ($sources as $source) {
+            $extension = ApplicationExtension::decode($this->getTestHandle($source));
+            $this->assertEquals(1, $extension->getLoops());
+        }
 
-        $source = "\x21\xff\x0b\x4e\x45\x54\x53\x43\x41\x50\x45\x32\x2e\x30\x03\x01\x0c\x00\x00";
-        $extension = ApplicationExtension::decode($source);
-        $this->assertEquals(12, $extension->getLoops());
+        $sources = [
+            "\x21\xff\x0b\x4e\x45\x54\x53\x43\x41\x50\x45\x32\x2e\x30\x03\x01\x0c\x00\x00",
+        ];
+        foreach ($sources as $source) {
+            $extension = ApplicationExtension::decode($this->getTestHandle($source));
+            $this->assertEquals(12, $extension->getLoops());
+        }
 
-        $source = "\x21\xff\x0b\x4e\x45\x54\x53\x43\x41\x50\x45\x32\x2e\x30\x03\x01\xff\xff\x00";
-        $extension = ApplicationExtension::decode($source);
-        $this->assertEquals(65535, $extension->getLoops());
+        $sources = [
+            "\x21\xff\x0b\x4e\x45\x54\x53\x43\x41\x50\x45\x32\x2e\x30\x03\x01\xff\xff\x00",
+        ];
+        foreach ($sources as $source) {
+            $extension = ApplicationExtension::decode($this->getTestHandle($source));
+            $this->assertEquals(65535, $extension->getLoops());
+        }
     }
 }

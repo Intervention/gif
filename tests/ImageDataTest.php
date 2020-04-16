@@ -3,33 +3,27 @@
 namespace Intervention\Gif\Test;
 
 use Intervention\Gif\ImageData;
-use PHPUnit\Framework\TestCase;
 
-class ImageDataTest extends TestCase
+class ImageDataTest extends BaseTestCase
 {
-    public function testSetGetData()
+    public function testSetGetBlocks()
     {
-        $extension = new ImageData;
-        $this->assertEquals('', $extension->getData());
+        $data = new ImageData;
+        $this->assertCount(0, $data->getBlocks());
 
-        $extension->setData('foo');
-        $this->assertEquals('foo', $extension->getData());
-    }
+        $data->addBlock('foo');
+        $data->addBlock('bar');
+        $this->assertCount(2, $data->getBlocks());
 
-    public function testEncode()
-    {
-        $extension = new ImageData;
-        $this->assertEquals('', $extension->encode());
-
-        $extension->setData('foo');
-        $this->assertEquals("foo", $extension->encode());
+        $data->setBlocks(['foo']);
+        $this->assertCount(1, $data->getBlocks());
     }
 
     public function testDecode()
     {
-        $source = "foo";
-        $extension = ImageData::decode($source);
-        $this->assertInstanceOf(ImageData::class, $extension);
-        $this->assertEquals('foo', $extension->getData());
+        $source = "\x02\x16\x8C\x2D\x99\x87\x2A\x1C\xDC\x33\xA0\x02\x75\xEC\x95\xFA\xA8\xDE\x60\x8C\x04\x91\x4C\x01\x03\x09\x03\x01\x00";
+        $data = ImageData::decode($this->getTestHandle($source));
+        $this->assertInstanceOf(ImageData::class, $data);
+        $this->assertCount(2, $data->getBlocks());
     }
 }

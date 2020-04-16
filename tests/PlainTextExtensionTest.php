@@ -7,33 +7,42 @@ use Intervention\Gif\ColorTable;
 use Intervention\Gif\Exception\DecodingException;
 use Intervention\Gif\Header;
 use Intervention\Gif\PlainTextExtension;
-use PHPUnit\Framework\TestCase;
 
-class PlainTextExtensionTest extends TestCase
+class PlainTextExtensionTest extends BaseTestCase
 {
-    public function testSetGetData()
+    public function testSetGetText()
     {
         $extension = new PlainTextExtension;
-        $this->assertEquals('', $extension->getData());
+        $this->assertCount(0, $extension->getText());
 
-        $extension->setData('foo');
-        $this->assertEquals('foo', $extension->getData());
+        $extension->addText('foo');
+        $extension->addText('bar');
+        $this->assertCount(2, $extension->getText());
+
+        $extension->setText(['foo']);
+        $this->assertCount(1, $extension->getText());
     }
 
+    /*
     public function testEncode()
     {
         $extension = new PlainTextExtension;
         $this->assertEquals('', $extension->encode());
 
-        $extension->setData('foo');
+        $extension->addText('foo');
         $this->assertEquals("\x21\x01\x66\x6f\x6f\x00", $extension->encode());
     }
+    */
 
     public function testDecode()
     {
-        $source = "\x21\x01\x66\x6f\x6f\x00";
-        $extension = PlainTextExtension::decode($source);
-        $this->assertInstanceOf(PlainTextExtension::class, $extension);
-        $this->assertEquals('foo', $extension->getData());
+        $sources = [
+            "\x21\x01\x0C\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x66\x6f\x6f\x03\x62\x61\x72\x00",
+        ];
+        foreach ($sources as $source) {
+            $extension = PlainTextExtension::decode($this->getTestHandle($source));
+            $this->assertInstanceOf(PlainTextExtension::class, $extension);
+            $this->assertEquals(['foo', 'bar'], $extension->getText());
+        }
     }
 }

@@ -17,8 +17,8 @@ class ColorTableDecoder extends AbstractDecoder
     public function decode(): ColorTable
     {
         $table = new ColorTable;
-        foreach (str_split($this->source, 3) as $colorvalue) {
-            $table->addColor(Color::decode($colorvalue));
+        for ($i=0; $i < ($this->getLength() / 3); $i++) {
+            $table->addColor(Color::decode($this->handle));
         }
 
         return $table;

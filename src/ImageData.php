@@ -5,43 +5,43 @@ namespace Intervention\Gif;
 class ImageData extends AbstractEntity
 {
     /**
-     * Data
+     * Data blocks
      *
-     * @var string|null
+     * @var array
      */
-    protected $data;
+    protected $blocks = [];
 
     /**
-     * Get current data
+     * Get current data blocks
      *
-     * @return string
+     * @return array
      */
-    public function getData(): string
+    public function getBlocks(): array
     {
-        return (string) $this->data;
+        return $this->blocks;
     }
 
     /**
-     * Set data of extension
+     * Set data blocks
      *
-     * @param string $data
+     * @param array $blocks
      */
-    public function setData(string $data): self
+    public function setBlocks(array $blocks): self
     {
-        $this->data = $data;
+        $this->blocks = $blocks;
 
         return $this;
     }
 
     /**
-     * Append to current data
+     * Add data block
      *
      * @param  string $data
      * @return self
      */
-    public function append(string $data): self
+    public function addBlock(string $block): self
     {
-        $this->data .= $data;
+        $this->blocks[] = $block;
 
         return $this;
     }

@@ -5,12 +5,19 @@ namespace Intervention\Gif\Decoder;
 use Intervention\Gif\AbstractExtension;
 use Intervention\Gif\ApplicationExtension;
 use Intervention\Gif\ColorTable;
+use Intervention\Gif\CommentExtension;
 use Intervention\Gif\Contracts\DataBlock;
+use Intervention\Gif\Contracts\GraphicRenderingBlock;
+use Intervention\Gif\Contracts\SpecialPurposeBlock;
 use Intervention\Gif\Exception\DecoderException;
 use Intervention\Gif\GifDataStream;
+use Intervention\Gif\GraphicBlock;
+use Intervention\Gif\GraphicControlExtension;
 use Intervention\Gif\Header;
+use Intervention\Gif\ImageDescriptor;
 use Intervention\Gif\LogicalScreen;
 use Intervention\Gif\LogicalScreenDescriptor;
+use Intervention\Gif\PlainTextExtension;
 use Intervention\Gif\Trailer;
 
 class GifDataStreamDecoder extends AbstractDecoder
@@ -24,42 +31,51 @@ class GifDataStreamDecoder extends AbstractDecoder
     {
         $gif = new GifDataStream;
 
-        $gif->setHeader(Header::decode($this->getNextBytes(6)));
-        $gif->setLogicalScreen($this->decodeLogicalScreen());
+        $gif->setHeader(Header::decode($this->handle));
+        $gif->setLogicalScreen(LogicalScreen::decode($this->handle));
         while (! feof($this->handle)) {
-            $gif->addData($this->decodeNextDataBlock());
+            if ($block = $this->decodeNextDataBlock()) {
+                $gif->addData($block);
+            }
         }
 
         return $gif;
     }
 
     /**
-     * Decode logical screen
-     *
-     * @return LogicalScreen
-     */
-    protected function decodeLogicalScreen(): LogicalScreen
-    {
-        $screen = new LogicalScreen;
-        $screen->setDescriptor(LogicalScreenDescriptor::decode($this->getNextBytes(7)));
-
-        if ($screen->getDescriptor()->hasGlobalColorTable()) {
-            $size = $screen->getDescriptor()->getGlobalColorTableByteSize();
-            $screen->setColorTable(ColorTable::decode($this->getNextBytes($size)));
-        }
-
-        return $screen;
-    }
-
-    /**
      * Decode data blocks from source into the given data stream object
      *
-     * @return array
+     * @return DataBlock
      */
-    protected function decodeNextDataBlock(): DataBlock
+    protected function decodeNextDataBlock(): ?DataBlock
     {
-        $indicator = $this->getNextBytes(1);
+        //graphicblock ([GraphicControlExtension] | ((ImageDescriptor [LocalColorTable] ImageData) |  PlainTextExtension))
+        //or special purpose block (ApplicationExtension | CommentExtension)
 
-        return new ApplicationExtension;
+        $marker = $this->getNextByte();
+        $label = $this->getNextByte();
+
+        if ($marker === AbstractExtension::MARKER) {
+            // extension
+            if ($label === ApplicationExtension::LABEL) {
+                // special purpose block
+                return ApplicationExtension::decode($this->handle, function ($decoder) {
+                    $decoder->movePointer(-2);
+                });
+            } elseif ($label === CommentExtension::LABEL) {
+                // special purpose block
+                return CommentExtension::decode($this->handle, function ($decoder) {
+                    $decoder->movePointer(-2);
+                });
+            }
+        }
+
+        if ($marker === Trailer::MARKER) {
+            return null;
+        }
+        
+        return GraphicBlock::decode($this->handle, function ($decoder) {
+            $decoder->movePointer(-2);
+        });
     }
 }

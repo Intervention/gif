@@ -2,23 +2,25 @@
 
 namespace Intervention\Gif\Decoder;
 
+use Closure;
 use Intervention\Gif\AbstractEntity;
+use Intervention\Gif\Exception\DecoderException;
 
 abstract class AbstractDecoder
 {
     /**
-     * Source to decode
-     *
-     * @var string
-     */
-    protected $source;
-
-    /**
-     * File handle to access source
+     * Source to decode from
      *
      * @var resource
      */
     protected $handle;
+
+    /**
+     * Global Number of bytes to decode maximal
+     *
+     * @var null|int
+     */
+    private $length;
 
     /**
      * Decode current source
@@ -30,38 +32,28 @@ abstract class AbstractDecoder
     /**
      * Create new instance
      *
-     * @param string $source
+     * @param resource $handle
+     * @param Closure  $callback
      */
-    public function __construct(string $source)
+    public function __construct($handle, ?Closure $callback = null)
     {
-        $this->source = $source;
-        $this->handle = $this->getSourceHandle();
+        $this->handle = $handle;
+        
+        if (is_callable($callback)) {
+            $callback($this);
+        }
     }
 
     /**
      * Set source to decode
      *
-     * @param string $source
+     * @param resource $handle
      */
-    public function setSource(string $source): self
+    public function setHandle($handle): self
     {
-        $this->source = $source;
+        $this->handle = $handle;
 
         return $this;
-    }
-
-    /**
-     * Get source file handle
-     *
-     * @return resource
-     */
-    protected function getSourceHandle()
-    {
-        $handle = fopen('php://memory', 'r+');
-        fwrite($handle, $this->source);
-        rewind($handle);
-
-        return $handle;
     }
 
     /**
@@ -76,27 +68,99 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Read bytes until given char is found
+     * Read all remaining bytes from file handler
      *
-     * @param  string $char
      * @return string
      */
-    protected function getNextBytesUntil($char): string
+    protected function getRemainingBytes(): string
     {
-        $bytes = '';
+        $all = '';
         do {
-            $byte = $this->getNextBytes(1);
-            $bytes .= $byte;
-        } while ($byte !== $char);
-
-        return $bytes;
+            $byte = fread($this->handle, 1);
+            $all .= $byte;
+        } while (! feof($this->handle));
+        
+        return $all;
     }
 
     /**
-     * Close down instance
+     * Get next byte in stream and move file pointer
+     *
+     * @return string
      */
-    public function __destruct()
+    protected function getNextByte(): string
     {
-        fclose($this->handle);
+        return $this->getNextBytes(1);
+    }
+
+    /**
+     * Get bytes fixed by length property
+     *
+     * @return string
+     */
+    protected function getFixedBytes(): string
+    {
+        if (empty($this->length)) {
+            throw new DecoderException(
+                "Length must be defined, in order to call getFixedBytes(). Call setLength() first.",
+            );
+        }
+
+        return $this->getNextBytes($this->getLength());
+    }
+
+    /**
+     * Move file pointer on handle by given offset
+     *
+     * @param  int    $offset
+     * @return self
+     */
+    protected function movePointer(int $offset): self
+    {
+        fseek($this->handle, $offset, SEEK_CUR);
+        
+        return $this;
+    }
+
+    /**
+     * Decode multi byte value
+     *
+     * @return int
+     */
+    protected function decodeMultiByte(string $bytes): int
+    {
+        return unpack('v*', $bytes)[1];
+    }
+
+    /**
+     * Set length
+     *
+     * @param int $length
+     */
+    public function setLength(int $length): self
+    {
+        $this->length = $length;
+
+        return $this;
+    }
+
+    /**
+     * Get length
+     *
+     * @return null|int
+     */
+    public function getLength(): ?int
+    {
+        return $this->length;
+    }
+
+    /**
+     * Abort decoding process with exception
+     *
+     * @param  string|null $message
+     */
+    protected function abort(string $message = null): void
+    {
+        throw new DecoderException($message);
     }
 }

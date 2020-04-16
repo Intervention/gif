@@ -14,18 +14,56 @@ class PlainTextExtensionDecoder extends AbstractDecoder
     public function decode(): PlainTextExtension
     {
         $extension = new PlainTextExtension;
-        $extension->setData($this->decodeData());
+
+        // skip info block
+        $this->getNextBytes($this->getInfoBlockSize());
+
+        // text blocks
+        $extension->setText($this->decodeTextBlocks());
 
         return $extension;
     }
 
     /**
-     * Decode data from source
+     * Get number of bytes in header block
      *
-     * @return string
+     * @return int
      */
-    protected function decodeData(): string
+    protected function getInfoBlockSize(): int
     {
-        return substr(substr($this->source, 2), 0, -1);
+        $byte = $this->getNextByte(); // size byte, marker or label
+
+        switch ($byte) {
+            case PlainTextExtension::MARKER:
+                $this->getNextByte(); // label
+                $byte = $this->getNextByte(); // size byte
+                break;
+
+            case PlainTextExtension::LABEL:
+                $byte = $this->getNextByte(); // size byte
+                break;
+        }
+
+        return unpack('C', $byte)[1];
+    }
+
+    /**
+     * Decode text sub blocks
+     *
+     * @return array
+     */
+    protected function decodeTextBlocks(): array
+    {
+        $blocks = [];
+
+        do {
+            $char = $this->getNextByte();
+            $size = (int) unpack('C', $char)[1];
+            if ($size > 0) {
+                $blocks[] = $this->getNextBytes($size);
+            }
+        } while ($char !== PlainTextExtension::TERMINATOR);
+
+        return $blocks;
     }
 }

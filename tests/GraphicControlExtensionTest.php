@@ -5,9 +5,8 @@ namespace Intervention\Gif\Test;
 use Intervention\Gif\ColorTable;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GraphicControlExtension;
-use PHPUnit\Framework\TestCase;
 
-class GraphicControlExtensionTest extends TestCase
+class GraphicControlExtensionTest extends BaseTestCase
 {
     public function testSetGetDelay()
     {
@@ -71,13 +70,18 @@ class GraphicControlExtensionTest extends TestCase
 
     public function testDecode()
     {
-        $source = "\x21\xF9\x04\x0f\x96\x00\x90\x00";
-        $extension = GraphicControlExtension::decode($source);
-        $this->assertInstanceOf(GraphicControlExtension::class, $extension);
-        $this->assertEquals(150, $extension->getDelay());
-        $this->assertEquals(3, $extension->getDisposalMethod());
-        $this->assertTrue($extension->getTransparentColorExistance());
-        $this->assertEquals(144, $extension->getTransparentColorIndex());
-        $this->assertTrue($extension->getUserInput());
+        $sources = [
+            "\x21\xF9\x04\x0f\x96\x00\x90\x00",
+        ];
+
+        foreach ($sources as $source) {
+            $extension = GraphicControlExtension::decode($this->getTestHandle($source));
+            $this->assertInstanceOf(GraphicControlExtension::class, $extension);
+            $this->assertEquals(150, $extension->getDelay());
+            $this->assertEquals(3, $extension->getDisposalMethod());
+            $this->assertTrue($extension->getTransparentColorExistance());
+            $this->assertEquals(144, $extension->getTransparentColorIndex());
+            $this->assertTrue($extension->getUserInput());
+        }
     }
 }

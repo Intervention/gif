@@ -5,9 +5,8 @@ namespace Intervention\Gif\Test;
 use Intervention\Gif\Color;
 use Intervention\Gif\ColorTable;
 use Intervention\Gif\Exception\EncodingException;
-use PHPUnit\Framework\TestCase;
 
-class ColorTableTest extends TestCase
+class ColorTableTest extends BaseTestCase
 {
     public function testConstructor()
     {
@@ -129,7 +128,10 @@ class ColorTableTest extends TestCase
     public function testDecode()
     {
         $source = "\x00\x00\x00\xff\x00\x00\xff\xff\x00\xff\xff\xff";
-        $table = ColorTable::decode($source);
+        $table = ColorTable::decode($this->getTestHandle($source), function ($decoder) {
+            $decoder->setLength(12);
+        });
+        
         $this->assertInstanceOf(ColorTable::class, $table);
         $this->assertEquals(4, $table->countColors());
     }

@@ -15,33 +15,39 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
     {
         $logicalScreenDescriptor = new LogicalScreenDescriptor;
 
+        // bytes 1-4
         $logicalScreenDescriptor->setSize(
-            $this->decodeWidth(),
-            $this->decodeHeight()
+            $this->decodeWidth($this->getNextBytes(2)),
+            $this->decodeHeight($this->getNextBytes(2))
         );
 
-        $logicalScreenDescriptor->setBackgroundColorIndex(
-            $this->decodeBackgroundColorIndex()
-        );
-
-        $logicalScreenDescriptor->setPixelAspectRatio(
-            $this->decodePixelAspectRatio()
-        );
+        // byte 5
+        $packedField = $this->getNextByte();
 
         $logicalScreenDescriptor->setGlobalColorTableExistance(
-            $this->decodeGlobalColorTableExistance()
-        );
-
-        $logicalScreenDescriptor->setGlobalColorTableSorted(
-            $this->decodeGlobalColorTableSorted()
+            $this->decodeGlobalColorTableExistance($packedField)
         );
 
         $logicalScreenDescriptor->setBitsPerPixel(
-            $this->decodeBitsPerPixel()
+            $this->decodeBitsPerPixel($packedField)
+        );
+
+        $logicalScreenDescriptor->setGlobalColorTableSorted(
+            $this->decodeGlobalColorTableSorted($packedField)
         );
 
         $logicalScreenDescriptor->setGlobalColorTableSize(
-            $this->decodeGlobalColorTableSize()
+            $this->decodeGlobalColorTableSize($packedField)
+        );
+
+        // byte 6
+        $logicalScreenDescriptor->setBackgroundColorIndex(
+            $this->decodeBackgroundColorIndex($this->getNextByte())
+        );
+
+        // byte 7
+        $logicalScreenDescriptor->setPixelAspectRatio(
+            $this->decodePixelAspectRatio($this->getNextByte())
         );
 
         return $logicalScreenDescriptor;
@@ -52,9 +58,9 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
      *
      * @return int
      */
-    protected function decodeWidth(): int
+    protected function decodeWidth(string $source): int
     {
-        return unpack('v*', substr($this->source, 0, 2))[1];
+        return unpack('v*', $source)[1];
     }
 
     /**
@@ -62,39 +68,9 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
      *
      * @return int
      */
-    protected function decodeHeight(): int
+    protected function decodeHeight(string $source): int
     {
-        return unpack('v*', substr($this->source, 2, 2))[1];
-    }
-
-    /**
-     * Decode packed field
-     *
-     * @return int
-     */
-    protected function decodePackedField(): int
-    {
-        return unpack('C', substr($this->source, 4, 1))[1];
-    }
-    
-    /**
-     * Decode background color index
-     *
-     * @return int
-     */
-    protected function decodeBackgroundColorIndex(): int
-    {
-        return unpack('C', substr($this->source, 5, 1))[1];
-    }
-
-    /**
-     * Decode pixel aspect ratio
-     *
-     * @return int
-     */
-    protected function decodePixelAspectRatio(): int
-    {
-        return unpack('C', substr($this->source, 6, 1))[1];
+        return unpack('v*', $source)[1];
     }
 
     /**
@@ -102,19 +78,9 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
      *
      * @return bool
      */
-    protected function decodeGlobalColorTableExistance(): bool
+    protected function decodeGlobalColorTableExistance(string $byte): bool
     {
-        return $this->hasPackedBit(0);
-    }
-
-    /**
-     * Decode global color table sorted status
-     *
-     * @return bool
-     */
-    protected function decodeGlobalColorTableSorted(): bool
-    {
-        return $this->hasPackedBit(4);
+        return $this->hasPackedBit($byte, 0);
     }
 
     /**
@@ -122,9 +88,19 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
      *
      * @return int
      */
-    protected function decodeBitsPerPixel(): int
+    protected function decodeBitsPerPixel(string $byte): int
     {
-        return bindec($this->getPackedBits(1, 3)) + 1;
+        return bindec($this->getPackedBits($byte, 1, 3)) + 1;
+    }
+
+    /**
+     * Decode global color table sorted status
+     *
+     * @return bool
+     */
+    protected function decodeGlobalColorTableSorted(string $byte): bool
+    {
+        return $this->hasPackedBit($byte, 4);
     }
 
     /**
@@ -132,8 +108,28 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
      *
      * @return int
      */
-    protected function decodeGlobalColorTableSize(): int
+    protected function decodeGlobalColorTableSize(string $byte): int
     {
-        return bindec($this->getPackedBits(5, 3));
+        return bindec($this->getPackedBits($byte, 5, 3));
+    }
+
+    /**
+     * Decode background color index
+     *
+     * @return int
+     */
+    protected function decodeBackgroundColorIndex(string $source): int
+    {
+        return unpack('C', $source)[1];
+    }
+
+    /**
+     * Decode pixel aspect ratio
+     *
+     * @return int
+     */
+    protected function decodePixelAspectRatio(string $source): int
+    {
+        return unpack('C', $source)[1];
     }
 }

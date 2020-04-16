@@ -16,9 +16,9 @@ class ColorDecoder extends AbstractDecoder
     {
         $color = new Color;
 
-        $color->setRed($this->decodeRed());
-        $color->setGreen($this->decodeGreen());
-        $color->setBlue($this->decodeBlue());
+        $color->setRed($this->decodeColorValue($this->getNextByte()));
+        $color->setGreen($this->decodeColorValue($this->getNextByte()));
+        $color->setBlue($this->decodeColorValue($this->getNextByte()));
 
         return $color;
     }
@@ -28,28 +28,8 @@ class ColorDecoder extends AbstractDecoder
      *
      * @return int
      */
-    protected function decodeRed(): int
+    protected function decodeColorValue(string $byte): int
     {
-        return unpack('C', substr($this->source, 0, 1))[1];
-    }
-
-    /**
-     * Decode red value from source
-     *
-     * @return int
-     */
-    protected function decodeGreen(): int
-    {
-        return unpack('C', substr($this->source, 1, 1))[1];
-    }
-
-    /**
-     * Decode red value from source
-     *
-     * @return int
-     */
-    protected function decodeBlue(): int
-    {
-        return unpack('C', substr($this->source, 2, 1))[1];
+        return unpack('C', $byte)[1];
     }
 }

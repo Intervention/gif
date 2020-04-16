@@ -9,30 +9,42 @@ class PlainTextExtension extends AbstractExtension implements GraphicRenderingBl
     const LABEL = "\x01";
 
     /**
-     * Data
+     * Array of text
      *
-     * @var string|null
+     * @var array
      */
-    protected $data;
+    protected $text = [];
 
     /**
-     * Get current data
+     * Get current text
      *
-     * @return string
+     * @return array
      */
-    public function getData(): string
+    public function getText(): array
     {
-        return (string) $this->data;
+        return $this->text;
+    }
+
+    /**
+     * Add text
+     *
+     * @param string $text
+     */
+    public function addText(string $text): self
+    {
+        $this->text[] = $text;
+        
+        return $this;
     }
 
     /**
      * Set data of extension
      *
-     * @param string $data
+     * @param array $data
      */
-    public function setData(string $data): self
+    public function setText(array $text): self
     {
-        $this->data = $data;
+        $this->text = $text;
 
         return $this;
     }

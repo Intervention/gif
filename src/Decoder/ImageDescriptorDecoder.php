@@ -2,6 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
+use Intervention\Gif\Exception\DecoderException;
 use Intervention\Gif\ImageDescriptor;
 
 class ImageDescriptorDecoder extends AbstractPackedBitDecoder
@@ -16,83 +17,50 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
     {
         $descriptor = new ImageDescriptor;
 
-        $descriptor->setSize(
-            $this->decodeWidth(),
-            $this->decodeHeight()
+        $descriptor->setPosition(
+            $this->decodeMultiByte($this->getFirstTwoBytes()),
+            $this->decodeMultiByte($this->getNextBytes(2))
         );
 
-        $descriptor->setPosition(
-            $this->decodeTop(),
-            $this->decodeLeft()
+        $descriptor->setSize(
+            $this->decodeMultiByte($this->getNextBytes(2)),
+            $this->decodeMultiByte($this->getNextBytes(2))
         );
+
+        $packedField = $this->getNextByte();
 
         $descriptor->setLocalColorTableExistance(
-            $this->decodeLocalColorTableExistance()
+            $this->decodeLocalColorTableExistance($packedField)
         );
 
         $descriptor->setLocalColorTableSorted(
-            $this->decodeLocalColorTableSorted()
+            $this->decodeLocalColorTableSorted($packedField)
         );
 
         $descriptor->setLocalColorTableSize(
-            $this->decodeLocalColorTableSize()
+            $this->decodeLocalColorTableSize($packedField)
         );
 
         $descriptor->setInterlaced(
-            $this->decodeInterlaced()
+            $this->decodeInterlaced($packedField)
         );
 
         return $descriptor;
     }
 
     /**
-     * Decode packed field
+     * Get first two bytes without image separator
      *
-     * @return int
+     * @return string
      */
-    protected function decodePackedField(): int
+    protected function getFirstTwoBytes(): string
     {
-        return unpack('C', substr($this->source, 9, 1))[1];
-    }
+        $byte = $this->getNextByte();
+        if ($byte === ImageDescriptor::SEPARATOR) {
+            return $this->getNextBytes(2);
+        }
 
-    /**
-     * Decode width
-     *
-     * @return int
-     */
-    protected function decodeWidth(): int
-    {
-        return unpack('v*', substr($this->source, 5, 2))[1];
-    }
-
-    /**
-     * Decode height
-     *
-     * @return int
-     */
-    protected function decodeHeight(): int
-    {
-        return unpack('v*', substr($this->source, 7, 2))[1];
-    }
-
-    /**
-     * Decode top position
-     *
-     * @return int
-     */
-    protected function decodeTop(): int
-    {
-        return unpack('v*', substr($this->source, 3, 2))[1];
-    }
-
-    /**
-     * Decode left position
-     *
-     * @return int
-     */
-    protected function decodeLeft(): int
-    {
-        return unpack('v*', substr($this->source, 1, 2))[1];
+        return $byte.$this->getNextByte();
     }
 
     /**
@@ -100,9 +68,9 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
      *
      * @return bool
      */
-    protected function decodeLocalColorTableExistance(): bool
+    protected function decodeLocalColorTableExistance(string $byte): bool
     {
-        return $this->hasPackedBit(0);
+        return $this->hasPackedBit($byte, 0);
     }
 
     /**
@@ -110,9 +78,9 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
      *
      * @return bool
      */
-    protected function decodeLocalColorTableSorted(): bool
+    protected function decodeLocalColorTableSorted(string $byte): bool
     {
-        return $this->hasPackedBit(2);
+        return $this->hasPackedBit($byte, 2);
     }
 
     /**
@@ -120,9 +88,9 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
      *
      * @return int
      */
-    protected function decodeLocalColorTableSize(): int
+    protected function decodeLocalColorTableSize(string $byte): int
     {
-        return bindec($this->getPackedBits(5, 3));
+        return bindec($this->getPackedBits($byte, 5, 3));
     }
 
     /**
@@ -130,8 +98,8 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
      *
      * @return bool
      */
-    protected function decodeInterlaced(): bool
+    protected function decodeInterlaced(string $byte): bool
     {
-        return $this->hasPackedBit(1);
+        return $this->hasPackedBit($byte, 1);
     }
 }

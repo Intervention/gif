@@ -13,9 +13,20 @@ class ImageDataDecoder extends AbstractDecoder
      */
     public function decode(): ImageData
     {
-        $extension = new ImageData;
-        $extension->setData($this->source);
+        $data = new ImageData;
 
-        return $extension;
+        // LZW min. code size
+        $this->getNextByte();
+
+        do {
+            // decode sub blocks
+            $char = $this->getNextByte();
+            $size = (int) unpack('C', $char)[1];
+            if ($size > 0) {
+                $data->addBlock($this->getNextBytes($size));
+            }
+        } while ($char !== "\x00");
+
+        return $data;
     }
 }

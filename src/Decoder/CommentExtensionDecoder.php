@@ -29,20 +29,37 @@ class CommentExtensionDecoder extends AbstractDecoder
     protected function decodeComments(): array
     {
         $comments = [];
-        $handle = fopen('php://memory', 'r+');
-        fwrite($handle, $this->source);
-        rewind($handle);
-        fread($handle, 2); // MARKER & LABEL
-
-        while (! feof($handle)) {
-            $blocksize = (int) @unpack('C', fread($handle, 1))[1];
-            if ($blocksize > 0) {
-                $comments[] = fread($handle, $blocksize);
-            }
-        }
         
-        fclose($handle);
+        do {
+            $byte = $this->getNextByte();
+            $size = $this->decodeBlocksize($byte);
+            if ($size > 0) {
+                $comments[] = $this->getNextBytes($size);
+            }
+        } while ($byte !== CommentExtension::TERMINATOR);
 
         return $comments;
+    }
+
+    /**
+     * Decode blocksize of following comment
+     *
+     * @param  string $byte
+     * @return int
+     */
+    protected function decodeBlocksize(string $byte): int
+    {
+        switch ($byte) {
+            case CommentExtension::MARKER:
+                $this->getNextByte();
+                $byte = $this->getNextByte();
+                break;
+
+            case CommentExtension::LABEL:
+                $byte = $this->getNextByte();
+                break;
+        }
+
+        return (int) @unpack('C', $byte)[1];
     }
 }

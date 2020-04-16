@@ -27,7 +27,7 @@ class HeaderDecoder extends AbstractDecoder
      */
     protected function decodeVersion(): string
     {
-        $parsed = (bool) preg_match("/^GIF(?P<version>[0-9]{2}[a-z])$/", $this->source, $matches);
+        $parsed = (bool) preg_match("/^GIF(?P<version>[0-9]{2}[a-z])$/", $this->getNextBytes(6), $matches);
 
         if ($parsed === false) {
             throw new DecoderException('Unable to parse file header.');
