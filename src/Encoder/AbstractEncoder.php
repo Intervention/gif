@@ -2,14 +2,14 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\GifDataStream;
+use Intervention\Gif\AbstractEntity;
 
 abstract class AbstractEncoder
 {
     /**
      * Source to encode
      *
-     * @var GifDataStream
+     * @var AbstractEntity
      */
     protected $source;
 
@@ -21,14 +21,12 @@ abstract class AbstractEncoder
     abstract public function encode(): string;
 
     /**
-     * Set source to encode
+     * Create new instance
      *
-     * @param GifDataStream $source
+     * @param AbstractEntity  $source
      */
-    public function setSource(GifDataStream $source): self
+    public function __construct(AbstractEntity $source)
     {
         $this->source = $source;
-
-        return $this;
     }
 }

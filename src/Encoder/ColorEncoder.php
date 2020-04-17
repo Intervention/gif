@@ -24,39 +24,19 @@ class ColorEncoder extends AbstractEncoder
     public function encode(): string
     {
         return implode('', [
-            $this->encodeRed(),
-            $this->encodeGreen(),
-            $this->encodeBlue(),
+            $this->encodeColorValue($this->source->getRed()),
+            $this->encodeColorValue($this->source->getGreen()),
+            $this->encodeColorValue($this->source->getBlue()),
         ]);
     }
 
     /**
-     * Encode red value
+     * Encode color value
      *
      * @return string
      */
-    protected function encodeRed(): string
+    protected function encodeColorValue(int $value): string
     {
-        return pack('C', $this->source->getRed());
-    }
-
-    /**
-     * Encode green value
-     *
-     * @return string
-     */
-    protected function encodeGreen(): string
-    {
-        return pack('C', $this->source->getGreen());
-    }
-
-    /**
-     * Encode blue value
-     *
-     * @return string
-     */
-    protected function encodeBlue(): string
-    {
-        return pack('C', $this->source->getBlue());
+        return pack('C', $value);
     }
 }
