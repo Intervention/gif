@@ -102,7 +102,7 @@ abstract class AbstractDecoder
     {
         if (empty($this->length)) {
             throw new DecoderException(
-                "Length must be defined, in order to call getFixedBytes(). Call setLength() first.",
+                "Length must be defined, in order to call getFixedBytes(). Call setLength() first."
             );
         }
 
