@@ -10,7 +10,6 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
     /**
      * Decode given string to current instance
      *
-     * @param  string $source
      * @return ImageDescriptor
      */
     public function decode(): ImageDescriptor

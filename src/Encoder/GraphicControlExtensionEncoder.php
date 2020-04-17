@@ -62,8 +62,8 @@ class GraphicControlExtensionEncoder extends AbstractEncoder
     protected function encodePackedField(): string
     {
         return pack('C', bindec(implode('', [
-            str_pad(0, 3, 0, STR_PAD_LEFT),
-            str_pad(decbin($this->source->getDisposalMethod()), 3, 0, STR_PAD_LEFT),
+            str_pad('0', 3, '0', STR_PAD_LEFT),
+            str_pad(decbin($this->source->getDisposalMethod()), 3, '0', STR_PAD_LEFT),
             (int) $this->source->getUserInput(),
             (int) $this->source->getTransparentColorExistance(),
         ])));

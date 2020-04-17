@@ -87,7 +87,7 @@ class TableBasedImage extends AbstractEntity implements GraphicRenderingBlock
      */
     public function hasColorTable()
     {
-        return ! is_null($this->colorTable);
+        return is_a($this->colorTable, ColorTable::class);
     }
 
     /**

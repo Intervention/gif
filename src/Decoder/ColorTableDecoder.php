@@ -11,7 +11,6 @@ class ColorTableDecoder extends AbstractDecoder
     /**
      * Decode given string to ColorTable
      *
-     * @param  string $source
      * @return ColorTable
      */
     public function decode(): ColorTable

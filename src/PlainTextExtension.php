@@ -38,9 +38,9 @@ class PlainTextExtension extends AbstractExtension implements GraphicRenderingBl
     }
 
     /**
-     * Set data of extension
+     * Set text array of extension
      *
-     * @param array $data
+     * @param array $text
      */
     public function setText(array $text): self
     {

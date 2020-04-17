@@ -19,7 +19,6 @@ class ColorTableEncoder extends AbstractEncoder
     /**
      * Encode current source
      *
-     * @param  ColorTable $table
      * @return string
      */
     public function encode(): string

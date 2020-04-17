@@ -80,7 +80,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeLocalColorTableSize(): string
     {
-        return str_pad(decbin($this->source->getLocalColorTableSize()), 3, 0, STR_PAD_LEFT);
+        return str_pad(decbin($this->source->getLocalColorTableSize()), 3, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -90,7 +90,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeReservedField(): string
     {
-        return str_pad(0, 2, 0, STR_PAD_LEFT);
+        return str_pad('0', 2, '0', STR_PAD_LEFT);
     }
 
     /**

@@ -21,14 +21,14 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Global color table flag
      *
-     * @var integer
+     * @var bool
      */
     protected $globalColorTableExistance = false;
 
     /**
      * Sort flag of global color table
      *
-     * @var integer
+     * @var bool
      */
     protected $globalColorTableSorted = false;
 

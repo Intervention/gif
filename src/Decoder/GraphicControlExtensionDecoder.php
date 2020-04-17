@@ -9,7 +9,6 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
     /**
      * Decode given string to current instance
      *
-     * @param  string $source
      * @return GraphicControlExtension
      */
     public function decode(): GraphicControlExtension
