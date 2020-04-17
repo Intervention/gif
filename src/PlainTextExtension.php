@@ -48,4 +48,14 @@ class PlainTextExtension extends AbstractExtension implements GraphicRenderingBl
 
         return $this;
     }
+
+    /**
+     * Determine if any text is present
+     *
+     * @return boolean
+     */
+    public function hasText(): bool
+    {
+        return count($this->text) > 0;
+    }
 }

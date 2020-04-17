@@ -78,7 +78,6 @@ class ImageDescriptorTest extends BaseTestCase
         $this->assertEquals(2, $descriptor->getLocalColorTableSize());
     }
 
-    /*
     public function testEncode()
     {
         // width: 10
@@ -96,22 +95,21 @@ class ImageDescriptorTest extends BaseTestCase
 
         // width: 300
         // height: 200
-        // top: 0
-        // left: 5
+        // left: 1
+        // top: 5
         // localColorTableExistance: true
         // Interlaced: true
         // localColorTableSorted: false
         // localColorTableSize: 4
         $descriptor = new ImageDescriptor;
         $descriptor->setSize(300, 200);
-        $descriptor->setPosition(0, 5);
+        $descriptor->setPosition(1, 5);
         $descriptor->setLocalColorTableExistance();
         $descriptor->setInterlaced();
         $descriptor->setLocalColorTableSorted(false);
         $descriptor->setLocalColorTableSize(4);
-        $this->assertEquals("\x2C\x05\x00\x00\x00\x2c\x01\xc8\x00\xc4", $descriptor->encode());
+        $this->assertEquals("\x2C\x01\x00\x05\x00\x2c\x01\xc8\x00\xc4", $descriptor->encode());
     }
-    */
 
     public function testDecode()
     {

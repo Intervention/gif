@@ -8,7 +8,8 @@ class ApplicationExtension extends AbstractExtension implements SpecialPurposeBl
 {
     const LABEL = "\xFF";
     const BLOCKSIZE = "\x0b";
-    const NETSCAPE = "NETSCAPE2.0";
+    const IDENT = "NETSCAPE";
+    const AUTH = "2.0";
     const SUB_BLOCKSIZE = "\x03";
     const BLOCK_INT = "\x01";
 

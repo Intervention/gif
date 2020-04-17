@@ -4,6 +4,8 @@ namespace Intervention\Gif;
 
 class ImageData extends AbstractEntity
 {
+    const LZWMIN = "\x02";
+    
     /**
      * Data blocks
      *
@@ -44,5 +46,15 @@ class ImageData extends AbstractEntity
         $this->blocks[] = $block;
 
         return $this;
+    }
+
+    /**
+     * Determine if any blocks are present
+     *
+     * @return boolean
+     */
+    public function hasBlocks(): bool
+    {
+        return count($this->getBlocks()) > 0;
     }
 }

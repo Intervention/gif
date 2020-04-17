@@ -2,6 +2,8 @@
 
 namespace Intervention\Gif\Encoder;
 
+use Intervention\Gif\AbstractEntity;
+use Intervention\Gif\Exception\EncoderException;
 use Intervention\Gif\ImageData;
 
 class ImageDataEncoder extends AbstractEncoder
@@ -23,6 +25,12 @@ class ImageDataEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        return $this->source->getData();
+        if (! $this->source->hasBlocks()) {
+            throw new EncoderException("No sub-blocks in ImageData.");
+        }
+
+        return ImageData::LZWMIN . implode('', array_map(function ($block) {
+            return pack('C', strlen($block)).$block;
+        }, $this->source->getBlocks())) . AbstractEntity::TERMINATOR;
     }
 }

@@ -10,6 +10,8 @@ abstract class AbstractEntity
 {
     use CanEncode, CanDecode;
 
+    const TERMINATOR = "\x00";
+
     /**
      * Get short classname of current instance
      *

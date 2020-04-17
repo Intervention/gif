@@ -23,15 +23,38 @@ class PlainTextExtensionEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        if ($data = $this->source->getData()) {
-            return implode('', [
-                PlainTextExtension::MARKER,
-                PlainTextExtension::LABEL,
-                $data,
-                PlainTextExtension::TERMINATOR,
-            ]);
+        if (! $this->source->hasText()) {
+            return '';
         }
-        
-        return '';
+
+        return implode('', [
+            PlainTextExtension::MARKER,
+            PlainTextExtension::LABEL,
+            $this->encodeHead(),
+            $this->encodeTexts(),
+            PlainTextExtension::TERMINATOR,
+        ]);
+    }
+
+    /**
+     * Encode head block
+     *
+     * @return string
+     */
+    protected function encodeHead(): string
+    {
+        return "\x0c\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+    }
+
+    /**
+     * Encode text chunks
+     *
+     * @return string
+     */
+    protected function encodeTexts(): string
+    {
+        return implode('', array_map(function ($text) {
+            return pack('C', strlen($text)) . $text;
+        }, $this->source->getText()));
     }
 }
