@@ -36,6 +36,7 @@ class ApplicationExtensionTest extends BaseTestCase
         ];
         foreach ($sources as $source) {
             $extension = ApplicationExtension::decode($this->getTestHandle($source));
+            $this->assertInstanceOf(ApplicationExtension::class, $extension);
             $this->assertEquals(1, $extension->getLoops());
         }
 
@@ -44,6 +45,7 @@ class ApplicationExtensionTest extends BaseTestCase
         ];
         foreach ($sources as $source) {
             $extension = ApplicationExtension::decode($this->getTestHandle($source));
+            $this->assertInstanceOf(ApplicationExtension::class, $extension);
             $this->assertEquals(12, $extension->getLoops());
         }
 
@@ -52,6 +54,7 @@ class ApplicationExtensionTest extends BaseTestCase
         ];
         foreach ($sources as $source) {
             $extension = ApplicationExtension::decode($this->getTestHandle($source));
+            $this->assertInstanceOf(ApplicationExtension::class, $extension);
             $this->assertEquals(65535, $extension->getLoops());
         }
     }

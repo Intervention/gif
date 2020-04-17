@@ -2,6 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
+use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\ColorTable;
 use Intervention\Gif\LogicalScreen;
 use Intervention\Gif\LogicalScreenDescriptor;
@@ -11,9 +12,9 @@ class LogicalScreenDecoder extends AbstractDecoder
     /**
      * Decode current source
      *
-     * @return LogicalScreen
+     * @return AbstractEntity
      */
-    public function decode(): LogicalScreen
+    public function decode(): AbstractEntity
     {
         $screen = new LogicalScreen;
         $screen->setDescriptor(LogicalScreenDescriptor::decode($this->handle));

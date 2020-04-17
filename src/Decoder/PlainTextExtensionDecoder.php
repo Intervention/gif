@@ -2,6 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
+use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\PlainTextExtension;
 
 class PlainTextExtensionDecoder extends AbstractDecoder
@@ -9,9 +10,9 @@ class PlainTextExtensionDecoder extends AbstractDecoder
     /**
      * Decode current source
      *
-     * @return PlainTextExtension
+     * @return AbstractEntity
      */
-    public function decode(): PlainTextExtension
+    public function decode(): AbstractEntity
     {
         $extension = new PlainTextExtension;
 

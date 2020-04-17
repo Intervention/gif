@@ -2,6 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
+use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\GraphicControlExtension;
 
 class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
@@ -9,9 +10,9 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
     /**
      * Decode given string to current instance
      *
-     * @return GraphicControlExtension
+     * @return AbstractEntity
      */
-    public function decode(): GraphicControlExtension
+    public function decode(): AbstractEntity
     {
         $result = new GraphicControlExtension;
 
