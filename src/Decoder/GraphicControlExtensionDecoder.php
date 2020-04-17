@@ -17,7 +17,7 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
         $result = new GraphicControlExtension;
 
         // bytes 1-3
-        $this->getByteSize();
+        $this->getNextBytes(3); // skip marker, label & bytesize
 
         // byte #4
         $packedField = $this->getNextByte();
@@ -37,29 +37,6 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
         $this->getNextByte();
 
         return $result;
-    }
-
-    /**
-     * Get byte size
-     *
-     * @return int
-     */
-    protected function getByteSize(): int
-    {
-        $byte = $this->getNextByte();
-
-        switch ($byte) {
-            case GraphicControlExtension::MARKER:
-                $this->getNextByte();
-                $byte = $this->getNextByte();
-                break;
-
-            case GraphicControlExtension::LABEL:
-                $byte = $this->getNextByte();
-                break;
-        }
-
-        return unpack('C', $byte)[1];
     }
 
     /**

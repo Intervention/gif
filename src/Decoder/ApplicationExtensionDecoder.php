@@ -21,7 +21,7 @@ class ApplicationExtensionDecoder extends AbstractDecoder
             $this->getLoopBytes()
         ));
 
-        // discard block terminator
+        // skip block terminator
         $this->getNextByte();
 
         return $result;
@@ -44,21 +44,7 @@ class ApplicationExtensionDecoder extends AbstractDecoder
      */
     private function getLoopBytes(): string
     {
-        $byte = $this->getNextByte();
-
-        switch ($byte) {
-            case ApplicationExtension::MARKER:
-                $this->getNextBytes(15);
-                break;
-            
-            case ApplicationExtension::LABEL:
-                $this->getNextBytes(14);
-                break;
-
-            default:
-                $this->getNextBytes(13);
-                break;
-        }
+        $this->getNextBytes(16); // skip 16 bytes
         
         return $this->getNextBytes(2);
     }

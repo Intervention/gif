@@ -17,8 +17,10 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
     {
         $descriptor = new ImageDescriptor;
 
+        $this->getNextByte(); // skip separator
+
         $descriptor->setPosition(
-            $this->decodeMultiByte($this->getFirstTwoBytes()),
+            $this->decodeMultiByte($this->getNextBytes(2)),
             $this->decodeMultiByte($this->getNextBytes(2))
         );
 
@@ -46,21 +48,6 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
         );
 
         return $descriptor;
-    }
-
-    /**
-     * Get first two bytes without image separator
-     *
-     * @return string
-     */
-    protected function getFirstTwoBytes(): string
-    {
-        $byte = $this->getNextByte();
-        if ($byte === ImageDescriptor::SEPARATOR) {
-            return $this->getNextBytes(2);
-        }
-
-        return $byte.$this->getNextByte();
     }
 
     /**

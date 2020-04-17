@@ -13,6 +13,8 @@ class CommentExtensionDecoder extends AbstractDecoder
      */
     public function decode(): CommentExtension
     {
+        $this->getNextBytes(2); // skip marker & label
+
         $extension = new CommentExtension;
         foreach ($this->decodeComments() as $comment) {
             $extension->addComment($comment);
@@ -49,17 +51,6 @@ class CommentExtensionDecoder extends AbstractDecoder
      */
     protected function decodeBlocksize(string $byte): int
     {
-        switch ($byte) {
-            case CommentExtension::MARKER:
-                $this->getNextByte();
-                $byte = $this->getNextByte();
-                break;
-
-            case CommentExtension::LABEL:
-                $byte = $this->getNextByte();
-                break;
-        }
-
         return (int) @unpack('C', $byte)[1];
     }
 }

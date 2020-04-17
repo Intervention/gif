@@ -15,6 +15,9 @@ class PlainTextExtensionDecoder extends AbstractDecoder
     {
         $extension = new PlainTextExtension;
 
+        // skip marker & label
+        $this->getNextBytes(2);
+
         // skip info block
         $this->getNextBytes($this->getInfoBlockSize());
 
@@ -31,20 +34,7 @@ class PlainTextExtensionDecoder extends AbstractDecoder
      */
     protected function getInfoBlockSize(): int
     {
-        $byte = $this->getNextByte(); // size byte, marker or label
-
-        switch ($byte) {
-            case PlainTextExtension::MARKER:
-                $this->getNextByte(); // label
-                $byte = $this->getNextByte(); // size byte
-                break;
-
-            case PlainTextExtension::LABEL:
-                $byte = $this->getNextByte(); // size byte
-                break;
-        }
-
-        return unpack('C', $byte)[1];
+        return unpack('C', $this->getNextByte())[1];
     }
 
     /**
