@@ -4,6 +4,7 @@ namespace Intervention\Gif\Traits;
 
 use Exception;
 use Intervention\Gif\Encoder\AbstractEncoder;
+use Intervention\Gif\Exception\EncoderException;
 
 trait CanEncode
 {
@@ -27,7 +28,7 @@ trait CanEncode
         $classname = $this->getEncoderClassname();
 
         if (!class_exists($classname)) {
-            throw new Exception("Encoder for '".get_class($this)."' not found.");
+            throw new EncoderException("Encoder for '".get_class($this)."' not found.");
         }
 
         return new $classname($this);

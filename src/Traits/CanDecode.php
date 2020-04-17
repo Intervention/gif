@@ -2,11 +2,12 @@
 
 namespace Intervention\Gif\Traits;
 
-use Exception;
 use Closure;
-use ReflectionClass;
-use Intervention\Gif\Decoder\AbstractDecoder;
+use Exception;
 use Intervention\Gif\AbstractEntity;
+use Intervention\Gif\Decoder\AbstractDecoder;
+use Intervention\Gif\Exception\DecoderException;
+use ReflectionClass;
 
 trait CanDecode
 {
@@ -34,7 +35,7 @@ trait CanDecode
         $classname = self::getDecoderClassname();
 
         if (!class_exists($classname)) {
-            throw new Exception("Decoder for '".get_called_class()."' not found.");
+            throw new DecoderException("Decoder for '".get_called_class()."' not found.");
         }
 
         return new $classname($source, $callback);
