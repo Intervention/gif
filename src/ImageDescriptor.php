@@ -44,14 +44,14 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Local color table flag
      *
-     * @var integer
+     * @var bool
      */
     protected $localColorTableExistance = false;
 
     /**
      * Sort flag of local color table
      *
-     * @var integer
+     * @var bool
      */
     protected $localColorTableSorted = false;
 

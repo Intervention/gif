@@ -79,7 +79,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeColorResolution(): string
     {
-        return str_pad(decbin($this->source->getBitsPerPixel() - 1), 3, 0, STR_PAD_LEFT);
+        return str_pad(decbin($this->source->getBitsPerPixel() - 1), 3, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -89,7 +89,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeGlobalColorTableSize(): string
     {
-        return str_pad(decbin($this->source->getGlobalColorTableSize()), 3, 0, STR_PAD_LEFT);
+        return str_pad(decbin($this->source->getGlobalColorTableSize()), 3, '0', STR_PAD_LEFT);
     }
 
     /**

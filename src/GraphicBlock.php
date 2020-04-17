@@ -58,7 +58,7 @@ class GraphicBlock extends AbstractEntity implements DataBlock
      */
     public function hasGraphicControlExtension()
     {
-        return ! is_null($this->graphicControlExtension);
+        return is_a($this->graphicControlExtension, GraphicControlExtension::class);
     }
 
     /**

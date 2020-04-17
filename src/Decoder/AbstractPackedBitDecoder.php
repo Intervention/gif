@@ -34,7 +34,7 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
      */
     protected function getPackedBits(string $byte, int $start = 0, int $length = 8): string
     {
-        $bits = str_pad(decbin($this->decodePackedByte($byte)), 8, 0, STR_PAD_LEFT);
+        $bits = str_pad(decbin($this->decodePackedByte($byte)), 8, '0', STR_PAD_LEFT);
 
         return substr($bits, $start, $length);
     }

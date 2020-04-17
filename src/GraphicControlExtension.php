@@ -45,9 +45,9 @@ class GraphicControlExtension extends AbstractExtension
     /**
      * Set delay time (1/100 second)
      *
-     * @param self $value
+     * @param int $value
      */
-    public function setDelay($value): self
+    public function setDelay(int $value): self
     {
         $this->delay = $value;
 
@@ -100,9 +100,9 @@ class GraphicControlExtension extends AbstractExtension
     /**
      * Set transparent color index
      *
-     * @param self $index
+     * @param int $index
      */
-    public function setTransparentColorIndex($index): self
+    public function setTransparentColorIndex(int $index): self
     {
         $this->transparentColorIndex = $index;
 

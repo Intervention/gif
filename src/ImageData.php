@@ -38,7 +38,7 @@ class ImageData extends AbstractEntity
     /**
      * Add data block
      *
-     * @param  string $data
+     * @param  string $block
      * @return self
      */
     public function addBlock(string $block): self

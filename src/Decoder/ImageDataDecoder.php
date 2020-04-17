@@ -2,6 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
+use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\ImageData;
 
 class ImageDataDecoder extends AbstractDecoder
@@ -9,9 +10,9 @@ class ImageDataDecoder extends AbstractDecoder
     /**
      * Decode current source
      *
-     * @return ImageData
+     * @return AbstractEntity
      */
-    public function decode(): ImageData
+    public function decode(): AbstractEntity
     {
         $data = new ImageData;
 

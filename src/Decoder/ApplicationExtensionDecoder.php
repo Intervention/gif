@@ -2,17 +2,18 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\Exception\DecoderException;
+use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\ApplicationExtension;
+use Intervention\Gif\Exception\DecoderException;
 
 class ApplicationExtensionDecoder extends AbstractDecoder
 {
     /**
      * Decode current source
      *
-     * @return ApplicationExtension
+     * @return AbstractEntity
      */
-    public function decode(): ApplicationExtension
+    public function decode(): AbstractEntity
     {
         $result = new ApplicationExtension;
 

@@ -2,6 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
+use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\ColorTable;
 use Intervention\Gif\Exception\DecoderException;
 use Intervention\Gif\ImageData;
@@ -13,9 +14,9 @@ class TableBasedImageDecoder extends AbstractDecoder
     /**
      * Decode current source
      *
-     * @return TableBasedImage
+     * @return AbstractEntity
      */
-    public function decode(): TableBasedImage
+    public function decode(): AbstractEntity
     {
         $image = new TableBasedImage;
 

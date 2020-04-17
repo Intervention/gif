@@ -11,17 +11,17 @@ class CommentExtension extends AbstractExtension implements SpecialPurposeBlock
     /**
      * Comment blocks
      *
-     * @var string
+     * @var array
      */
     protected $comments = [];
 
     /**
      * Get all or one comment
      *
-     * @param  int number of comment block
+     * @param  null|int $num
      * @return mixed
      */
-    public function getComments($num = null)
+    public function getComments(?int $num = null)
     {
         if (is_null($num)) {
             return $this->comments;
