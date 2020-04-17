@@ -1,14 +1,19 @@
 language: php
 
-php: 
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-  - 7.3
+dist: 'trusty'
 
-before_script:
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev
+php:
+  - '7.2'
+  - '7.3'
+  - '7.4'
 
-script: phpunit
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+install:
+  - composer install
+
+script: 
+  - vendor/bin/phpunit
+  - vendor/bin/phpstan analyze --no-progress --level=5 src/
