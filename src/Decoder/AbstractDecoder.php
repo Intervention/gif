@@ -3,7 +3,7 @@
 namespace Intervention\Gif\Decoder;
 
 use Closure;
-use Intervention\Gif\Contracts\Entity;
+use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\Exception\DecoderException;
 
 abstract class AbstractDecoder
@@ -25,9 +25,9 @@ abstract class AbstractDecoder
     /**
      * Decode current source
      *
-     * @return Entity
+     * @return AbstractEntity
      */
-    abstract public function decode(): Entity;
+    abstract public function decode(): AbstractEntity;
 
     /**
      * Create new instance

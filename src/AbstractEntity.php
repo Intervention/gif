@@ -2,12 +2,11 @@
 
 namespace Intervention\Gif;
 
-use Intervention\Gif\Contracts\Entity;
 use Intervention\Gif\Traits\CanDecode;
 use Intervention\Gif\Traits\CanEncode;
 use ReflectionClass;
 
-abstract class AbstractEntity implements Entity
+abstract class AbstractEntity
 {
     use CanEncode, CanDecode;
 
