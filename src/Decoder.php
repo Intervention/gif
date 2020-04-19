@@ -2,8 +2,12 @@
 
 namespace Intervention\Gif;
 
+use Intervention\Gif\Traits\CanHandleFiles;
+
 class Decoder
 {
+    use CanHandleFiles;
+
     /**
      * Decode given input
      *
@@ -23,29 +27,5 @@ class Decoder
         }
 
         return GifDataStream::decode($handle);
-    }
-
-    private static function getHandleFromData($data)
-    {
-        $handle = fopen('php://memory', 'r+');
-        fwrite($handle, $data);
-        rewind($handle);
-
-        return $handle;
-    }
-
-    private static function getHandleFromFilePath($path)
-    {
-        return fopen($path, 'rb');
-    }
-
-    /**
-     * Determines if input is file path
-     *
-     * @return boolean
-     */
-    private static function isFilePath($input): bool
-    {
-        return is_string($input) && @is_file($input);
     }
 }

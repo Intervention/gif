@@ -2,40 +2,89 @@
 
 namespace Intervention\Gif;
 
+use Intervention\Gif\Traits\CanHandleFiles;
+
 class Builder
 {
+    use CanHandleFiles;
+
+    /**
+     * Gif object to build
+     *
+     * @var GifDataStream
+     */
     protected $gif;
 
-    public static function canvas($width, $height, $loops = 0): self
+    /**
+     * Get GifDataStream object we're currently building
+     *
+     * @return GifDataStream
+     */
+    public function getGifDataStream(): GifDataStream
+    {
+        return $this->gif;
+    }
+
+    /**
+     * Create new canvas
+     *
+     * @param  int         $width
+     * @param  int         $height
+     * @param  int         $loops
+     * @return self
+     */
+    public static function canvas(int $width, int $height, int $loops = 0): self
     {
         $builder = new self;
         $gif = new GifDataStream;
-        $gif->addData(new ApplicationExtension);
         $gif->getLogicalScreen()->getDescriptor()->setSize($width, $height);
-        $gif->getMainApplicationExtension()->setLoops($loops);
+        
+        if ($loops >= 0 && $loops !== 1) {
+            $gif->addData(new ApplicationExtension);
+            $gif->getMainApplicationExtension()->setLoops($loops);
+        }
 
         $builder->gif = $gif;
         
         return $builder;
     }
 
-    public function addFrame($resource, $delay = 0, $left = 0, $top = 0): self
+    /**
+     * Create new animation frame from given source
+     * which can be path to a file or GIF image data
+     *
+     * @param string  $source
+     * @param integer $delay   time delay in seconds
+     * @param integer $left    position offset in pixels from left
+     * @param integer $top     position offset in pixels from top
+     */
+    public function addFrame(string $source, float $delay = 0, int $left = 0, int $top = 0): self
     {
         $data = new GraphicBlock;
-        $data->setGraphicControlExtension($this->buildGraphicControlExtension($delay * 100));
-        $data->setGraphicRenderingBlock($this->buildTableBasedImage($resource, $left, $top));
 
+        // store delay
+        $data->setGraphicControlExtension(
+            $this->buildGraphicControlExtension(intval($delay * 100))
+        );
+        
+        // store image
+        $data->setGraphicRenderingBlock(
+            $this->buildTableBasedImage($source, $left, $top)
+        );
+
+        // add frame
         $this->gif->addData($data);
 
         return $this;
     }
 
-    public function encode(): string
-    {
-        return $this->gif->encode();
-    }
-
-    protected function buildGraphicControlExtension($delay): GraphicControlExtension
+    /**
+     * Build new graphic control extension object with given delay
+     *
+     * @param  float $delay
+     * @return GraphicControlExtension
+     */
+    protected function buildGraphicControlExtension(int $delay): GraphicControlExtension
     {
         $extension = new GraphicControlExtension;
         $extension->setDelay($delay);
@@ -43,46 +92,54 @@ class Builder
         return $extension;
     }
 
-    protected function buildTableBasedImage($resource, $left, $top): TableBasedImage
+    /**
+     * Build table based image object from given source
+     *
+     * @param  string $source
+     * @param  int    $left
+     * @param  int    $top
+     * @return TableBasedImage
+     */
+    protected function buildTableBasedImage(string $source, int $left, int $top): TableBasedImage
     {
         $block = new TableBasedImage;
-        $resource = $this->decodeResource($resource);
 
-        // add global color table from resource as local color table
+        $source = Decoder::decode($source);
+
+        // add global color table from source as local color table
         $block->getDescriptor()->setLocalColorTableExistance();
         $block->setColorTable(
-            $resource->getLogicalScreen()->getColorTable()
+            $source->getLogicalScreen()->getColorTable()
         );
         $block->getDescriptor()->setLocalColorTableSorted(
-            $resource->getLogicalScreen()->getDescriptor()->getGlobalColorTableSorted()
+            $source->getLogicalScreen()->getDescriptor()->getGlobalColorTableSorted()
         );
         $block->getDescriptor()->setLocalColorTableSize(
-            $resource->getLogicalScreen()->getDescriptor()->getGlobalColorTableSize()
+            $source->getLogicalScreen()->getDescriptor()->getGlobalColorTableSize()
         );
         $block->getDescriptor()->setSize(
-            $resource->getLogicalScreen()->getDescriptor()->getWidth(),
-            $resource->getLogicalScreen()->getDescriptor()->getHeight()
+            $source->getLogicalScreen()->getDescriptor()->getWidth(),
+            $source->getLogicalScreen()->getDescriptor()->getHeight()
         );
 
+        // set position
         $block->getDescriptor()->setPosition($left, $top);
 
-        // add image data from resource
-        $block->setData($resource->getData()[0]->getGraphicRenderingBlock()->getData());
+        // add image data from source
+        $block->setData(
+            $source->getData()[0]->getGraphicRenderingBlock()->getData()
+        );
 
         return $block;
     }
 
-    protected function decodeResource($resource): GifDataStream
+    /**
+     * Encode the current build
+     *
+     * @return string
+     */
+    public function encode(): string
     {
-        ob_start();
-        imagegif($resource);
-        $buffer = ob_get_contents();
-        ob_end_clean();
-
-        $handle = fopen('php://memory', 'r+');
-        fwrite($handle, $buffer);
-        rewind($handle);
-
-        return GifDataStream::decode($handle);
+        return $this->gif->encode();
     }
 }
