@@ -11,7 +11,7 @@ abstract class AbstractEntity
     use CanEncode;
     use CanDecode;
 
-    protected const TERMINATOR = "\x00";
+    public const TERMINATOR = "\x00";
 
     /**
      * Get short classname of current instance

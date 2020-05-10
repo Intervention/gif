@@ -6,7 +6,7 @@ use Intervention\Gif\Contracts\SpecialPurposeBlock;
 
 class CommentExtension extends AbstractExtension implements SpecialPurposeBlock
 {
-    protected const LABEL = "\xFE";
+    public const LABEL = "\xFE";
 
     /**
      * Comment blocks

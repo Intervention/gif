@@ -6,7 +6,7 @@ use Intervention\Gif\Contracts\GraphicRenderingBlock;
 
 class PlainTextExtension extends AbstractExtension implements GraphicRenderingBlock
 {
-    protected const LABEL = "\x01";
+    public const LABEL = "\x01";
 
     /**
      * Array of text

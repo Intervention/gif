@@ -4,5 +4,5 @@ namespace Intervention\Gif;
 
 abstract class AbstractExtension extends AbstractEntity
 {
-    protected const MARKER = "\x21";
+    public const MARKER = "\x21";
 }
