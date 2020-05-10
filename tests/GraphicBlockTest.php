@@ -12,26 +12,26 @@ class GraphicBlockTest extends BaseTestCase
 {
     public function testSetGetGraphicControlExtension()
     {
-        $block = new GraphicBlock;
+        $block = new GraphicBlock();
         $this->assertNull($block->getGraphicControlExtension());
 
-        $block->setGraphicControlExtension(new GraphicControlExtension);
+        $block->setGraphicControlExtension(new GraphicControlExtension());
         $this->assertInstanceOf(GraphicControlExtension::class, $block->getGraphicControlExtension());
     }
 
     public function testSetGetGraphicRenderingBlock()
     {
-        $block = new GraphicBlock;
+        $block = new GraphicBlock();
         $this->assertInstanceOf(GraphicRenderingBlock::class, $block->getGraphicRenderingBlock());
-        $block->setGraphicRenderingBlock(new TableBasedImage);
+        $block->setGraphicRenderingBlock(new TableBasedImage());
         $this->assertInstanceOf(TableBasedImage::class, $block->getGraphicRenderingBlock());
-        $block->setGraphicRenderingBlock(new PlainTextExtension);
+        $block->setGraphicRenderingBlock(new PlainTextExtension());
         $this->assertInstanceOf(PlainTextExtension::class, $block->getGraphicRenderingBlock());
     }
 
     public function testEncode()
     {
-        $block = new GraphicBlock;
+        $block = new GraphicBlock();
         $block->setGraphicControlExtension($this->getTestGraphicControlExtension());
         $block->setGraphicRenderingBlock($this->getTestTableBasedImage());
         $this->assertEquals(self::GRAPHIC_CONTROL_EXTENSION_SAMPLE.self::TABLE_BASED_IMAGE_SAMPLE, $block->encode());

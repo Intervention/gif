@@ -15,7 +15,7 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
      */
     public function decode(): AbstractEntity
     {
-        $descriptor = new ImageDescriptor;
+        $descriptor = new ImageDescriptor();
 
         $this->getNextByte(); // skip separator
 

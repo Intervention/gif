@@ -8,7 +8,7 @@ class CommentExtensionTest extends BaseTestCase
 {
     public function testSetGetComment()
     {
-        $extension = new CommentExtension;
+        $extension = new CommentExtension();
         $extension->addComment('foo');
         $extension->addComment('bar');
         $extension->addComment('baz');
@@ -21,12 +21,12 @@ class CommentExtensionTest extends BaseTestCase
 
     public function testEncode()
     {
-        $extension = new CommentExtension;
+        $extension = new CommentExtension();
         $extension->addComment('blueberry');
         $result = "\x21\xFE\x09\x62\x6C\x75\x65\x62\x65\x72\x72\x79\x00";
         $this->assertEquals($result, $extension->encode());
 
-        $extension = new CommentExtension;
+        $extension = new CommentExtension();
         $extension->addComment('foo');
         $extension->addComment('bar');
         $extension->addComment('baz');

@@ -14,7 +14,7 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
      */
     public function decode(): AbstractEntity
     {
-        $logicalScreenDescriptor = new LogicalScreenDescriptor;
+        $logicalScreenDescriptor = new LogicalScreenDescriptor();
 
         // bytes 1-4
         $logicalScreenDescriptor->setSize(

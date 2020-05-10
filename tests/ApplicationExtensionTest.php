@@ -8,7 +8,7 @@ class ApplicationExtensionTest extends BaseTestCase
 {
     public function testSetGetLoops()
     {
-        $ext = new ApplicationExtension;
+        $ext = new ApplicationExtension();
         $this->assertEquals(0, $ext->getLoops());
         
         $ext->setLoops(12);
@@ -17,7 +17,7 @@ class ApplicationExtensionTest extends BaseTestCase
 
     public function testEncode()
     {
-        $extension = new ApplicationExtension;
+        $extension = new ApplicationExtension();
         
         $result = $extension->setLoops(1)->encode();
         $this->assertEquals("\x21\xff\x0b\x4e\x45\x54\x53\x43\x41\x50\x45\x32\x2e\x30\x03\x01\x01\x00\x00", $result);

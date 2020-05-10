@@ -14,7 +14,7 @@ class ImageDataDecoder extends AbstractDecoder
      */
     public function decode(): AbstractEntity
     {
-        $data = new ImageData;
+        $data = new ImageData();
 
         // LZW min. code size
         $this->getNextByte();

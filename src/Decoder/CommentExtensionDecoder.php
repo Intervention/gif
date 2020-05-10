@@ -16,7 +16,7 @@ class CommentExtensionDecoder extends AbstractDecoder
     {
         $this->getNextBytes(2); // skip marker & label
 
-        $extension = new CommentExtension;
+        $extension = new CommentExtension();
         foreach ($this->decodeComments() as $comment) {
             $extension->addComment($comment);
         }

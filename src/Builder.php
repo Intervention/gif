@@ -35,12 +35,12 @@ class Builder
      */
     public static function canvas(int $width, int $height, int $loops = 0): self
     {
-        $builder = new self;
-        $gif = new GifDataStream;
+        $builder = new self();
+        $gif = new GifDataStream();
         $gif->getLogicalScreen()->getDescriptor()->setSize($width, $height);
         
         if ($loops >= 0 && $loops !== 1) {
-            $gif->addData(new ApplicationExtension);
+            $gif->addData(new ApplicationExtension());
             $gif->getMainApplicationExtension()->setLoops($loops);
         }
 
@@ -60,7 +60,7 @@ class Builder
      */
     public function addFrame(string $source, float $delay = 0, int $left = 0, int $top = 0): self
     {
-        $data = new GraphicBlock;
+        $data = new GraphicBlock();
 
         // store delay
         $data->setGraphicControlExtension(
@@ -86,7 +86,7 @@ class Builder
      */
     protected function buildGraphicControlExtension(int $delay): GraphicControlExtension
     {
-        $extension = new GraphicControlExtension;
+        $extension = new GraphicControlExtension();
         $extension->setDelay($delay);
 
         return $extension;
@@ -102,7 +102,7 @@ class Builder
      */
     protected function buildTableBasedImage(string $source, int $left, int $top): TableBasedImage
     {
-        $block = new TableBasedImage;
+        $block = new TableBasedImage();
 
         $source = Decoder::decode($source);
 

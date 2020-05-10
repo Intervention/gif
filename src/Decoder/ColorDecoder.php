@@ -15,7 +15,7 @@ class ColorDecoder extends AbstractDecoder
      */
     public function decode(): AbstractEntity
     {
-        $color = new Color;
+        $color = new Color();
 
         $color->setRed($this->decodeColorValue($this->getNextByte()));
         $color->setGreen($this->decodeColorValue($this->getNextByte()));

@@ -22,7 +22,7 @@ class ColorTableTest extends BaseTestCase
 
     public function testGetColors()
     {
-        $table = new ColorTable;
+        $table = new ColorTable();
         $table->addRgb(0, 0, 0);
         $table->addRgb(0, 255, 0);
 
@@ -36,7 +36,7 @@ class ColorTableTest extends BaseTestCase
 
     public function testSetColors()
     {
-        $table = new ColorTable;
+        $table = new ColorTable();
         $this->assertEquals(0, $table->countColors());
         $table->setColors([
             new Color(0, 0, 0),
@@ -49,14 +49,14 @@ class ColorTableTest extends BaseTestCase
 
     public function testAddRgb()
     {
-        $table = new ColorTable;
+        $table = new ColorTable();
         $result = $table->addRgb(255, 255, 255);
         $this->assertInstanceOf(ColorTable::class, $result);
     }
 
     public function testDoubleColorsAddedOnlyOnce()
     {
-        $table = new ColorTable;
+        $table = new ColorTable();
         $table->addRgb(255, 255, 255);
         $table->addRgb(255, 255, 255);
         $this->assertEquals(1, $table->countColors());
@@ -64,7 +64,7 @@ class ColorTableTest extends BaseTestCase
 
     public function testCountColors()
     {
-        $table = new ColorTable;
+        $table = new ColorTable();
         $table->addRgb(0, 255, 255);
         $table->addRgb(255, 0, 255);
         $table->addRgb(255, 255, 0);
@@ -73,7 +73,7 @@ class ColorTableTest extends BaseTestCase
 
     public function testHasColors()
     {
-        $table = new ColorTable;
+        $table = new ColorTable();
         $this->assertFalse($table->hasColors());
         $table->addRgb(0, 0, 0);
         $this->assertTrue($table->hasColors());
@@ -81,7 +81,7 @@ class ColorTableTest extends BaseTestCase
 
     public function testEmpty()
     {
-        $table = new ColorTable;
+        $table = new ColorTable();
         $table->addRgb(0, 0, 0);
         $this->assertTrue($table->hasColors());
         $table->empty();
@@ -90,7 +90,7 @@ class ColorTableTest extends BaseTestCase
 
     public function testGetLogicalSize()
     {
-        $table = new ColorTable;
+        $table = new ColorTable();
         $this->assertEquals(0, $table->getLogicalSize());
         $table->addRgb(0, 0, 0);
         $table->addRgb(255, 0, 0);
@@ -101,7 +101,7 @@ class ColorTableTest extends BaseTestCase
 
     public function testGetByteSize()
     {
-        $table = new ColorTable;
+        $table = new ColorTable();
         $this->assertEquals(0, $table->getByteSize());
 
         $table->addRgb(0, 0, 0);

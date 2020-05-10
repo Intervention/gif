@@ -14,7 +14,7 @@ class PlainTextExtensionDecoder extends AbstractDecoder
      */
     public function decode(): AbstractEntity
     {
-        $extension = new PlainTextExtension;
+        $extension = new PlainTextExtension();
 
         // skip marker & label
         $this->getNextBytes(2);

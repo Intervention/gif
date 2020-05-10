@@ -30,7 +30,7 @@ class GifDataStreamDecoder extends AbstractDecoder
      */
     public function decode(): AbstractEntity
     {
-        $gif = new GifDataStream;
+        $gif = new GifDataStream();
 
         $gif->setHeader(Header::decode($this->handle));
         $gif->setLogicalScreen(LogicalScreen::decode($this->handle));

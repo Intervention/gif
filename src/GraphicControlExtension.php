@@ -4,8 +4,8 @@ namespace Intervention\Gif;
 
 class GraphicControlExtension extends AbstractExtension
 {
-    const LABEL = "\xF9";
-    const BLOCKSIZE = "\x04";
+    protected const LABEL = "\xF9";
+    protected const BLOCKSIZE = "\x04";
 
     /**
      * Delay time of instance

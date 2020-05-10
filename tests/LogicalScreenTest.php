@@ -10,21 +10,21 @@ class LogicalScreenTest extends BaseTestCase
 {
     public function testSetGetDescriptor()
     {
-        $screen = new LogicalScreen;
-        $screen->setDescriptor(new LogicalScreenDescriptor);
+        $screen = new LogicalScreen();
+        $screen->setDescriptor(new LogicalScreenDescriptor());
         $this->assertInstanceOf(LogicalScreenDescriptor::class, $screen->getDescriptor());
     }
 
     public function testSetGetColortable()
     {
-        $screen = new LogicalScreen;
-        $screen->setColorTable(new ColorTable);
+        $screen = new LogicalScreen();
+        $screen->setColorTable(new ColorTable());
         $this->assertInstanceOf(ColorTable::class, $screen->getColorTable());
     }
 
     public function testEncode()
     {
-        $screen = new LogicalScreen;
+        $screen = new LogicalScreen();
         $screen->setDescriptor($this->getTestLogicalScreenDescriptor());
         $screen->setColorTable($this->getTestColorTable());
         $result = "\x51\x00\x16\x00\xf1\x00\x00\x00\x00\x00\xff\x00\x00\x00\xff\x00\x00\x00\xff";

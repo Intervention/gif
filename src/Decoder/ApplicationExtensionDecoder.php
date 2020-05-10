@@ -15,7 +15,7 @@ class ApplicationExtensionDecoder extends AbstractDecoder
      */
     public function decode(): AbstractEntity
     {
-        $result = new ApplicationExtension;
+        $result = new ApplicationExtension();
 
         // parse loop count
         $result->setLoops($this->decodeLoops(

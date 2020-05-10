@@ -112,6 +112,6 @@ class Color extends AbstractEntity
      */
     public function getHash(): string
     {
-        return md5($this->r.$this->g.$this->b);
+        return md5($this->r . $this->g . $this->b);
     }
 }

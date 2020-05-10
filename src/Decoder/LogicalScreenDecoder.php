@@ -16,7 +16,7 @@ class LogicalScreenDecoder extends AbstractDecoder
      */
     public function decode(): AbstractEntity
     {
-        $screen = new LogicalScreen;
+        $screen = new LogicalScreen();
         $screen->setDescriptor(LogicalScreenDescriptor::decode($this->handle));
         if ($screen->getDescriptor()->hasGlobalColorTable()) {
             $screen->setColorTable(ColorTable::decode($this->handle, function ($decoder) use ($screen) {

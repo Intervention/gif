@@ -30,7 +30,7 @@ class ImageDataEncoder extends AbstractEncoder
         }
 
         return ImageData::LZWMIN . implode('', array_map(function ($block) {
-            return pack('C', strlen($block)).$block;
+            return pack('C', strlen($block)) . $block;
         }, $this->source->getBlocks())) . AbstractEntity::TERMINATOR;
     }
 }

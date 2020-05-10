@@ -10,7 +10,7 @@ class GraphicControlExtensionTest extends BaseTestCase
 {
     public function testSetGetDelay()
     {
-        $ext = new GraphicControlExtension;
+        $ext = new GraphicControlExtension();
         $this->assertEquals(0, $ext->getDelay());
         $ext->setDelay(100);
         $this->assertEquals(100, $ext->getDelay());
@@ -18,7 +18,7 @@ class GraphicControlExtensionTest extends BaseTestCase
 
     public function testSetGetDisposalMethod()
     {
-        $ext = new GraphicControlExtension;
+        $ext = new GraphicControlExtension();
         $this->assertEquals(DisposalMethod::NONE, $ext->getDisposalMethod());
         $ext->setDisposalMethod(DisposalMethod::BACKGROUND);
         $this->assertEquals(DisposalMethod::BACKGROUND, $ext->getDisposalMethod());
@@ -26,7 +26,7 @@ class GraphicControlExtensionTest extends BaseTestCase
 
     public function testSetGetTransparentColorIndex()
     {
-        $ext = new GraphicControlExtension;
+        $ext = new GraphicControlExtension();
         $this->assertEquals(0, $ext->getTransparentColorIndex());
         $ext->setTransparentColorIndex(100);
         $this->assertEquals(100, $ext->getTransparentColorIndex());
@@ -34,7 +34,7 @@ class GraphicControlExtensionTest extends BaseTestCase
 
     public function testSetGetTransparentColorExistance()
     {
-        $ext = new GraphicControlExtension;
+        $ext = new GraphicControlExtension();
         $this->assertFalse($ext->getTransparentColorExistance());
         
         $ext->setTransparentColorExistance();
@@ -46,7 +46,7 @@ class GraphicControlExtensionTest extends BaseTestCase
 
     public function testSetGetUserInput()
     {
-        $ext = new GraphicControlExtension;
+        $ext = new GraphicControlExtension();
         $this->assertFalse($ext->getUserInput());
         
         $ext->setUserInput();
@@ -58,7 +58,7 @@ class GraphicControlExtensionTest extends BaseTestCase
 
     public function testEncode()
     {
-        $extension = new GraphicControlExtension;
+        $extension = new GraphicControlExtension();
         $extension->setDelay(150);
         $extension->setDisposalMethod(3);
         $extension->setTransparentColorExistance();

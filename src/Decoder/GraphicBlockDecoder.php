@@ -19,7 +19,7 @@ class GraphicBlockDecoder extends AbstractDecoder
      */
     public function decode(): AbstractEntity
     {
-        $block = new GraphicBlock;
+        $block = new GraphicBlock();
 
         $marker = $this->getNextByte();
         $label = $this->getNextByte();

@@ -8,9 +8,10 @@ use ReflectionClass;
 
 abstract class AbstractEntity
 {
-    use CanEncode, CanDecode;
+    use CanEncode;
+    use CanDecode;
 
-    const TERMINATOR = "\x00";
+    protected const TERMINATOR = "\x00";
 
     /**
      * Get short classname of current instance

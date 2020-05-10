@@ -28,7 +28,7 @@ trait CanEncode
         $classname = $this->getEncoderClassname();
 
         if (!class_exists($classname)) {
-            throw new EncoderException("Encoder for '".get_class($this)."' not found.");
+            throw new EncoderException("Encoder for '" . get_class($this) . "' not found.");
         }
 
         return new $classname($this);

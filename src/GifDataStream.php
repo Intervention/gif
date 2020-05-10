@@ -37,8 +37,8 @@ class GifDataStream extends AbstractEntity
      */
     public function __construct()
     {
-        $this->header = new Header;
-        $this->logicalScreen = new LogicalScreen;
+        $this->header = new Header();
+        $this->logicalScreen = new LogicalScreen();
     }
 
     /**
@@ -182,6 +182,6 @@ class GifDataStream extends AbstractEntity
      */
     public function getTrailer(): Trailer
     {
-        return new Trailer;
+        return new Trailer();
     }
 }

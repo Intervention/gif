@@ -11,7 +11,7 @@ class TableBasedImageTest extends BaseTestCase
 {
     public function testConstrutor()
     {
-        $tbi = new TableBasedImage;
+        $tbi = new TableBasedImage();
         $this->assertNotNull($tbi->getDescriptor());
         $this->assertNotNull($tbi->getData());
         $this->assertNull($tbi->getColorTable());
@@ -20,30 +20,30 @@ class TableBasedImageTest extends BaseTestCase
 
     public function testDescriptor()
     {
-        $tbi = new TableBasedImage;
-        $tbi->setDescriptor(new ImageDescriptor);
+        $tbi = new TableBasedImage();
+        $tbi->setDescriptor(new ImageDescriptor());
         $this->assertInstanceOf(ImageDescriptor::class, $tbi->getDescriptor());
     }
 
     public function testData()
     {
-        $tbi = new TableBasedImage;
-        $tbi->setData(new ImageData);
+        $tbi = new TableBasedImage();
+        $tbi->setData(new ImageData());
         $this->assertInstanceOf(ImageData::class, $tbi->getData());
     }
 
     public function testColorTable()
     {
-        $tbi = new TableBasedImage;
+        $tbi = new TableBasedImage();
         $this->assertFalse($tbi->hasColorTable());
-        $tbi->setColortable(new ColorTable);
+        $tbi->setColortable(new ColorTable());
         $this->assertInstanceOf(ColorTable::class, $tbi->getColorTable());
         $this->assertTrue($tbi->hasColorTable());
     }
 
     public function testEncoder()
     {
-        $tbi = new TableBasedImage;
+        $tbi = new TableBasedImage();
         $tbi->setDescriptor($this->getTestDescriptor());
         $tbi->setColortable($this->getTestColorTable());
         $tbi->setData($this->getTestImageData());
@@ -63,7 +63,7 @@ class TableBasedImageTest extends BaseTestCase
 
     private function getTestDescriptor()
     {
-        $descriptor = new ImageDescriptor;
+        $descriptor = new ImageDescriptor();
         $descriptor->setSize(300, 200);
         $descriptor->setPosition(1, 5);
         $descriptor->setLocalColorTableExistance();

@@ -7,7 +7,7 @@ class Header extends AbstractEntity
     /**
      * Header signature
      */
-    const SIGNATURE = 'GIF';
+    protected const SIGNATURE = 'GIF';
 
     /**
      * Current GIF version

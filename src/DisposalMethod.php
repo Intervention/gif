@@ -4,8 +4,8 @@ namespace Intervention\Gif;
 
 class DisposalMethod
 {
-    const NONE = 0;
-    const LEAVE = 1;
-    const BACKGROUND = 2;
-    const PREVIOUS = 3;
+    protected const NONE = 0;
+    protected const LEAVE = 1;
+    protected const BACKGROUND = 2;
+    protected const PREVIOUS = 3;
 }

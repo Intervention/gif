@@ -18,41 +18,41 @@ class GifDataStreamTest extends BaseTestCase
 {
     public function testSetGetHeader()
     {
-        $gif = new GifDataStream;
-        $gif->setHeader(new Header);
+        $gif = new GifDataStream();
+        $gif->setHeader(new Header());
         $this->assertInstanceOf(Header::class, $gif->getHeader());
     }
 
     public function testSetGetLogicalScreen()
     {
-        $gif = new GifDataStream;
-        $gif->setLogicalScreen(new LogicalScreen);
+        $gif = new GifDataStream();
+        $gif->setLogicalScreen(new LogicalScreen());
         $this->assertInstanceOf(LogicalScreen::class, $gif->getLogicalScreen());
     }
 
     public function testSetGetData()
     {
-        $gif = new GifDataStream;
+        $gif = new GifDataStream();
         $this->assertIsArray($gif->getData());
         $this->assertCount(0, $gif->getData());
-        $gif->addData(new GraphicBlock);
-        $gif->addData(new GraphicBlock);
+        $gif->addData(new GraphicBlock());
+        $gif->addData(new GraphicBlock());
         $this->assertCount(2, $gif->getData());
     }
 
     public function testGetMainApplicationExtension()
     {
-        $gif = new GifDataStream;
-        $extension = new ApplicationExtension;
-        $gif->addData(new GraphicBlock);
+        $gif = new GifDataStream();
+        $extension = new ApplicationExtension();
+        $gif->addData(new GraphicBlock());
         $gif->addData($extension);
-        $gif->addData(new GraphicBlock);
+        $gif->addData(new GraphicBlock());
         $this->assertEquals($extension, $gif->getMainApplicationExtension());
     }
 
     public function testEncode()
     {
-        $gif = new GifDataStream;
+        $gif = new GifDataStream();
         $gif->setLogicalScreen($this->getTestLogicalScreen());
         $gif->addData($this->getTestApplicationExtension());
         $gif->addData($this->getTestGraphicBlock());

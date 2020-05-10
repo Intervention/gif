@@ -10,7 +10,7 @@ class LogicalScreenDescriptorTest extends BaseTestCase
 {
     public function testSetGetSize()
     {
-        $descriptor = new LogicalScreenDescriptor;
+        $descriptor = new LogicalScreenDescriptor();
         $result = $descriptor->setSize(300, 200);
         $this->assertEquals(300, $descriptor->getWidth());
         $this->assertEquals(200, $descriptor->getHeight());
@@ -19,7 +19,7 @@ class LogicalScreenDescriptorTest extends BaseTestCase
 
     public function testGlobalColorTableExistanceFlag()
     {
-        $descriptor = new LogicalScreenDescriptor;
+        $descriptor = new LogicalScreenDescriptor();
         $this->assertFalse($descriptor->getGlobalColorTableExistance());
 
         $descriptor->setGlobalColorTableExistance();
@@ -31,7 +31,7 @@ class LogicalScreenDescriptorTest extends BaseTestCase
 
     public function testGlobalColorTableSortFlag()
     {
-        $descriptor = new LogicalScreenDescriptor;
+        $descriptor = new LogicalScreenDescriptor();
         $this->assertFalse($descriptor->getGlobalColorTableSorted());
 
         $descriptor->setGlobalColorTableSorted();
@@ -43,7 +43,7 @@ class LogicalScreenDescriptorTest extends BaseTestCase
 
     public function testGlobalColorTableSize()
     {
-        $descriptor = new LogicalScreenDescriptor;
+        $descriptor = new LogicalScreenDescriptor();
         $this->assertEquals(0, $descriptor->getGlobalColorTableSize());
 
         $descriptor->setGlobalColorTableSize(7);
@@ -55,7 +55,7 @@ class LogicalScreenDescriptorTest extends BaseTestCase
 
     public function testGlobalColorTableByteSize()
     {
-        $descriptor = new LogicalScreenDescriptor; // default: 0
+        $descriptor = new LogicalScreenDescriptor(); // default: 0
         $this->assertEquals(6, $descriptor->getGlobalColorTableByteSize());
 
         $descriptor->setGlobalColorTableSize(7);
@@ -67,7 +67,7 @@ class LogicalScreenDescriptorTest extends BaseTestCase
 
     public function testBackgroundColorIndex()
     {
-        $descriptor = new LogicalScreenDescriptor;
+        $descriptor = new LogicalScreenDescriptor();
         $this->assertEquals(0, $descriptor->getBackgroundColorIndex());
 
         $descriptor->setBackgroundColorIndex(10);
@@ -79,7 +79,7 @@ class LogicalScreenDescriptorTest extends BaseTestCase
 
     public function testPixelAspectRatio()
     {
-        $descriptor = new LogicalScreenDescriptor;
+        $descriptor = new LogicalScreenDescriptor();
         $this->assertEquals(0, $descriptor->getPixelAspectRatio());
 
         $descriptor->setPixelAspectRatio(10);
@@ -91,7 +91,7 @@ class LogicalScreenDescriptorTest extends BaseTestCase
 
     public function testBitsPerPixel()
     {
-        $descriptor = new LogicalScreenDescriptor;
+        $descriptor = new LogicalScreenDescriptor();
         $this->assertEquals(8, $descriptor->getBitsPerPixel());
 
         $descriptor->setBitsPerPixel(1);
@@ -111,7 +111,7 @@ class LogicalScreenDescriptorTest extends BaseTestCase
         // globalColorTableSize: 0
         // BackgroundColorIndex: 0
         // PixelAspectRatio: 0
-        $descriptor = new LogicalScreenDescriptor;
+        $descriptor = new LogicalScreenDescriptor();
         $descriptor->setSize(10, 10);
         $this->assertEquals("\x0A\x00\x0A\x00\x70\x00\x00", $descriptor->encode());
 
@@ -123,7 +123,7 @@ class LogicalScreenDescriptorTest extends BaseTestCase
         // globalColorTableSize: 7
         // BackgroundColorIndex: 128
         // PixelAspectRatio: 0
-        $descriptor = new LogicalScreenDescriptor;
+        $descriptor = new LogicalScreenDescriptor();
         $descriptor->setSize(300, 200);
         $descriptor->setGlobalColorTableExistance(true);
         $descriptor->setGlobalColorTableSorted(true);

@@ -18,7 +18,7 @@ class TableBasedImageDecoder extends AbstractDecoder
      */
     public function decode(): AbstractEntity
     {
-        $image = new TableBasedImage;
+        $image = new TableBasedImage();
 
         // descriptor
         $image->setDescriptor(ImageDescriptor::decode($this->handle));

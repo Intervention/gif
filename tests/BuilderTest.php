@@ -46,7 +46,7 @@ class BuilderTest extends BaseTestCase
     public function testAddFrame()
     {
         $builder = Builder::canvas(320, 240);
-        $result = $builder->addFrame(__DIR__.'/images/red.gif', 0.25, 1, 2);
+        $result = $builder->addFrame(__DIR__ . '/images/red.gif', 0.25, 1, 2);
         $this->assertInstanceOf(Builder::class, $result);
         $blocks = $result->getGifDataStream()->getGraphicBlocks();
         $this->assertEquals(25, $blocks[0]->getGraphicControlExtension()->getDelay());

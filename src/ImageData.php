@@ -4,7 +4,7 @@ namespace Intervention\Gif;
 
 class ImageData extends AbstractEntity
 {
-    const LZWMIN = "\x02";
+    protected const LZWMIN = "\x02";
     
     /**
      * Data blocks

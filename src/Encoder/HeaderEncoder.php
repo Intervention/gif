@@ -23,6 +23,6 @@ class HeaderEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        return Header::SIGNATURE.$this->source->getVersion();
+        return Header::SIGNATURE . $this->source->getVersion();
     }
 }

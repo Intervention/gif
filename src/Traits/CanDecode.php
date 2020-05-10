@@ -35,7 +35,7 @@ trait CanDecode
         $classname = self::getDecoderClassname();
 
         if (!class_exists($classname)) {
-            throw new DecoderException("Decoder for '".get_called_class()."' not found.");
+            throw new DecoderException("Decoder for '" . get_called_class() . "' not found.");
         }
 
         return new $classname($source, $callback);

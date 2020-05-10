@@ -30,7 +30,7 @@ class ColorTest extends BaseTestCase
 
     public function testEncode()
     {
-        $result = (new Color)->encode();
+        $result = (new Color())->encode();
         $this->assertEquals("\x00\x00\x00", $result);
 
         $result = (new Color(255, 0, 255))->encode();

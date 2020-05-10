@@ -4,7 +4,7 @@ namespace Intervention\Gif;
 
 class ImageDescriptor extends AbstractEntity
 {
-    const SEPARATOR = "\x2C";
+    protected const SEPARATOR = "\x2C";
 
     /**
      * Width of frame

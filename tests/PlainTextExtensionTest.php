@@ -12,7 +12,7 @@ class PlainTextExtensionTest extends BaseTestCase
 {
     public function testSetGetText()
     {
-        $extension = new PlainTextExtension;
+        $extension = new PlainTextExtension();
         $this->assertCount(0, $extension->getText());
 
         $extension->addText('foo');
@@ -25,7 +25,7 @@ class PlainTextExtensionTest extends BaseTestCase
 
     public function testEncode()
     {
-        $extension = new PlainTextExtension;
+        $extension = new PlainTextExtension();
         $this->assertEquals('', $extension->encode());
         $extension->addText('foo');
         $extension->addText('bar');

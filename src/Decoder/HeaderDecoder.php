@@ -15,7 +15,7 @@ class HeaderDecoder extends AbstractDecoder
      */
     public function decode(): AbstractEntity
     {
-        $header = new Header;
+        $header = new Header();
         $header->setVersion($this->decodeVersion());
 
         return $header;

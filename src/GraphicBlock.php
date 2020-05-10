@@ -26,7 +26,7 @@ class GraphicBlock extends AbstractEntity implements DataBlock
      */
     public function __construct()
     {
-        $this->graphicRenderingBlock = new TableBasedImage;
+        $this->graphicRenderingBlock = new TableBasedImage();
     }
 
     /**

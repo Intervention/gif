@@ -6,12 +6,12 @@ use Intervention\Gif\Contracts\SpecialPurposeBlock;
 
 class ApplicationExtension extends AbstractExtension implements SpecialPurposeBlock
 {
-    const LABEL = "\xFF";
-    const BLOCKSIZE = "\x0b";
-    const IDENT = "NETSCAPE";
-    const AUTH = "2.0";
-    const SUB_BLOCKSIZE = "\x03";
-    const BLOCK_INT = "\x01";
+    protected const LABEL = "\xFF";
+    protected const BLOCKSIZE = "\x0b";
+    protected const IDENT = "NETSCAPE";
+    protected const AUTH = "2.0";
+    protected const SUB_BLOCKSIZE = "\x03";
+    protected const BLOCK_INT = "\x01";
 
     /**
      * Currenty number of loops

@@ -23,7 +23,7 @@ class LogicalScreen extends AbstractEntity
      */
     public function __construct()
     {
-        $this->descriptor = new LogicalScreenDescriptor;
+        $this->descriptor = new LogicalScreenDescriptor();
     }
 
     /**

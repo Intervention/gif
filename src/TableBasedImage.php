@@ -32,8 +32,8 @@ class TableBasedImage extends AbstractEntity implements GraphicRenderingBlock
      */
     public function __construct()
     {
-        $this->descriptor = new ImageDescriptor;
-        $this->data = new ImageData;
+        $this->descriptor = new ImageDescriptor();
+        $this->data = new ImageData();
     }
 
     /**

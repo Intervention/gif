@@ -14,7 +14,7 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
      */
     public function decode(): AbstractEntity
     {
-        $result = new GraphicControlExtension;
+        $result = new GraphicControlExtension();
 
         // bytes 1-3
         $this->getNextBytes(3); // skip marker, label & bytesize
