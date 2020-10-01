@@ -14,7 +14,7 @@ Just require the package with the following command:
 
     $ composer require intervention/gif
 
-## Usage
+
 
 ### Decoding
 
