@@ -16,7 +16,7 @@ class BuilderTest extends BaseTestCase
     public function testEncode()
     {
         $builder = Builder::canvas(320, 240);
-        $this->assertRegExp('/^\x47\x49\x46\x38(\x37|\x39)\x61/', $builder->encode());
+        $this->assertMatchesRegularExpression('/^\x47\x49\x46\x38(\x37|\x39)\x61/', $builder->encode());
     }
 
     public function testCanvasDefaultLoops()
