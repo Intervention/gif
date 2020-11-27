@@ -13,7 +13,18 @@ trait CanHandleFiles
      */
     private static function isFilePath($input): bool
     {
-        return is_string($input) && @is_file($input);
+        return is_string($input) && !$this->hasNullBytes($input) && @is_file($input);
+    }
+
+    /**
+     * Determine if given string contains null bytes
+     *
+     * @param  string  $string
+     * @return boolean
+     */
+    private function hasNullBytes($string): bool
+    {
+        return strpos($string, chr(0)) !== false;
     }
 
     /**
