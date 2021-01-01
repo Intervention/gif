@@ -12,7 +12,7 @@ class Header extends AbstractEntity
     /**
      * Current GIF version
      */
-    protected $version = '87a';
+    protected $version = '89a';
 
     /**
      * Set GIF version
