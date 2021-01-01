@@ -13,7 +13,7 @@ class GraphicBlock extends AbstractEntity implements DataBlock
      * @var GraphicControlExtension
      */
     protected $graphicControlExtension;
-        
+
     /**
      * Graphic rendering block
      *

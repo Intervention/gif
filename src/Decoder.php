@@ -20,7 +20,7 @@ class Decoder
             case self::isFilePath($input):
                 $handle = self::getHandleFromFilePath($input);
                 break;
-            
+
             default:
                 $handle = self::getHandleFromData($input);
                 break;

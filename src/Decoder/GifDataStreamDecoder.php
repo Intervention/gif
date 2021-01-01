@@ -74,7 +74,7 @@ class GifDataStreamDecoder extends AbstractDecoder
         if ($marker === Trailer::MARKER) {
             return null;
         }
-        
+
         return GraphicBlock::decode($this->handle, function ($decoder) {
             $decoder->movePointer(-2);
         });

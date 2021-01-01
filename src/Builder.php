@@ -38,14 +38,14 @@ class Builder
         $builder = new self();
         $gif = new GifDataStream();
         $gif->getLogicalScreen()->getDescriptor()->setSize($width, $height);
-        
+
         if ($loops >= 0 && $loops !== 1) {
             $gif->addData(new ApplicationExtension());
             $gif->getMainApplicationExtension()->setLoops($loops);
         }
 
         $builder->gif = $gif;
-        
+
         return $builder;
     }
 
@@ -66,7 +66,7 @@ class Builder
         $data->setGraphicControlExtension(
             $this->buildGraphicControlExtension(intval($delay * 100))
         );
-        
+
         // store image
         $data->setGraphicRenderingBlock(
             $this->buildTableBasedImage($source, $left, $top)

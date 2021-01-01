@@ -38,7 +38,7 @@ abstract class AbstractDecoder
     public function __construct($handle, ?Closure $callback = null)
     {
         $this->handle = $handle;
-        
+
         if (is_callable($callback)) {
             $callback($this);
         }
@@ -79,7 +79,7 @@ abstract class AbstractDecoder
             $byte = fread($this->handle, 1);
             $all .= $byte;
         } while (! feof($this->handle));
-        
+
         return $all;
     }
 
@@ -118,7 +118,7 @@ abstract class AbstractDecoder
     protected function movePointer(int $offset): self
     {
         fseek($this->handle, $offset, SEEK_CUR);
-        
+
         return $this;
     }
 

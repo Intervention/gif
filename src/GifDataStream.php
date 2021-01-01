@@ -17,14 +17,14 @@ class GifDataStream extends AbstractEntity
      * @var Header
      */
     protected $header;
-    
+
     /**
      * Logical Screen
      *
      * @var LogicalScreen
      */
     protected $logicalScreen;
-    
+
     /**
      * Array of data blocks
      *
@@ -159,7 +159,7 @@ class GifDataStream extends AbstractEntity
     public function addData(DataBlock $block): self
     {
         $this->data[] = $block;
-        
+
         return $this;
     }
 
