@@ -17,16 +17,19 @@ class ImageDataDecoder extends AbstractDecoder
         $data = new ImageData();
 
         // LZW min. code size
-        $this->getNextByte();
+        $char = $this->getNextByte();
+        $size = (int) unpack('C', $char)[1];
+        $data->setLzwMinCodeSize($size);
 
-        do {
-            // decode sub blocks
-            $char = $this->getNextByte();
-            $size = (int) unpack('C', $char)[1];
-            if ($size > 0) {
-                $data->addBlock($this->getNextBytes($size));
-            }
-        } while ($char !== "\x00");
+        // block size
+        $char = $this->getNextByte();
+        $size = (int) unpack('C', $char)[1];
+
+        // decode data block
+        $data->setData($this->getNextBytes($size));
+
+        // terminator
+        $this->getNextByte();
 
         return $data;
     }

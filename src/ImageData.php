@@ -4,57 +4,71 @@ namespace Intervention\Gif;
 
 class ImageData extends AbstractEntity
 {
-    public const LZWMIN = "\x02";
-    
     /**
-     * Data blocks
+     * LZW min. code size
      *
-     * @var array
+     * @var int
      */
-    protected $blocks = [];
+    protected $lzw_min_code_size;
+
+    /**
+     * Data block
+     *
+     * @var string
+     */
+    protected $data;
+
+    /**
+     * Get LZW min. code size
+     *
+     * @return array
+     */
+    public function getLzwMinCodeSize(): int
+    {
+        return $this->lzw_min_code_size;
+    }
+
+    /**
+     * Set lzw min. code size
+     *
+     * @param array $blocks
+     */
+    public function setLzwMinCodeSize(int $size): self
+    {
+        $this->lzw_min_code_size = $size;
+
+        return $this;
+    }
 
     /**
      * Get current data blocks
      *
-     * @return array
+     * @return string
      */
-    public function getBlocks(): array
+    public function getData(): string
     {
-        return $this->blocks;
+        return $this->data;
     }
 
     /**
-     * Set data blocks
+     * Set data block
      *
-     * @param array $blocks
+     * @param string $data
      */
-    public function setBlocks(array $blocks): self
+    public function setData(string $data): self
     {
-        $this->blocks = $blocks;
+        $this->data = $data;
 
         return $this;
     }
 
     /**
-     * Add data block
-     *
-     * @param  string $block
-     * @return self
-     */
-    public function addBlock(string $block): self
-    {
-        $this->blocks[] = $block;
-
-        return $this;
-    }
-
-    /**
-     * Determine if any blocks are present
+     * Determine if data block is present
      *
      * @return boolean
      */
-    public function hasBlocks(): bool
+    public function hasData(): bool
     {
-        return count($this->getBlocks()) > 0;
+        return false === empty($this->getData());
     }
 }
