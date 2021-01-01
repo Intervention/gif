@@ -12,7 +12,7 @@ class HeaderTest extends BaseTestCase
     public function testSetGetVersion()
     {
         $header = new Header();
-        $this->assertEquals('87a', $header->getVersion());
+        $this->assertEquals('89a', $header->getVersion());
 
         $header->setVersion('foo');
         $this->assertEquals('foo', $header->getVersion());
@@ -21,13 +21,13 @@ class HeaderTest extends BaseTestCase
     public function testEncode()
     {
         $header = new Header();
-        $this->assertEquals('GIF87a', $header->encode());
+        $this->assertEquals('GIF89a', $header->encode());
     }
 
     public function testDecode()
     {
-        $header = Header::decode($this->getTestHandle('GIF89a'));
+        $header = Header::decode($this->getTestHandle('GIF87a'));
         $this->assertInstanceOf(Header::class, $header);
-        $this->assertEquals('89a', $header->getVersion());
+        $this->assertEquals('87a', $header->getVersion());
     }
 }
