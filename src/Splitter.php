@@ -54,51 +54,42 @@ class Splitter
         $gifs = [];
 
         foreach ($this->stream->getGraphicBlocks() as $k => $block) {
-            echo "<pre>";
-            var_dump($block);
-            echo "</pre>";
-            exit;
             // create separate stream for each frame
-            $stream = Builder::canvas(
+            $build = Builder::canvas(
                 $this->stream->getLogicalScreen()->getDescriptor()->getWidth(),
                 $this->stream->getLogicalScreen()->getDescriptor()->getHeight()
             )->getGifDataStream();
 
             // check if working stream has global color table
             if ($this->stream->getLogicalScreen()->getDescriptor()->hasGlobalColorTable()) {
-                $stream->getLogicalScreen()->setColorTable(
+                $build->getLogicalScreen()->setColorTable(
                     $this->stream->getLogicalScreen()->getColorTable()
                 );
 
-                $stream->getLogicalScreen()->getDescriptor()->setGlobalColorTableExistance(
+                $build->getLogicalScreen()->getDescriptor()->setGlobalColorTableExistance(
                     true
                 );
-                $stream->getLogicalScreen()->getDescriptor()->setGlobalColorTableSorted(
+                $build->getLogicalScreen()->getDescriptor()->setGlobalColorTableSorted(
                     $this->stream->getLogicalScreen()->getDescriptor()->getGlobalColorTableSorted()
                 );
-                $stream->getLogicalScreen()->getDescriptor()->setGlobalColorTableSize(
+                $build->getLogicalScreen()->getDescriptor()->setGlobalColorTableSize(
                     $this->stream->getLogicalScreen()->getDescriptor()->getGlobalColorTableSize()
                 );
-                $stream->getLogicalScreen()->getDescriptor()->setBackgroundColorIndex(
+                $build->getLogicalScreen()->getDescriptor()->setBackgroundColorIndex(
                     $this->stream->getLogicalScreen()->getDescriptor()->getBackgroundColorIndex()
                 );
-                $stream->getLogicalScreen()->getDescriptor()->setPixelAspectRatio(
+                $build->getLogicalScreen()->getDescriptor()->setPixelAspectRatio(
                     $this->stream->getLogicalScreen()->getDescriptor()->getPixelAspectRatio()
                 );
-                $stream->getLogicalScreen()->getDescriptor()->setBitsPerPixel(
+                $build->getLogicalScreen()->getDescriptor()->setBitsPerPixel(
                     $this->stream->getLogicalScreen()->getDescriptor()->getBitsPerPixel()
                 );
             }
 
-            // $block->getLogicalScreen()->getDescriptor()->setInterlaced(false);
+            // copy original block
+            $build->addData($block);
 
-            $block->getGraphicRenderingBlock()->getDescriptor()->setInterlaced(false);
-
-            $stream->addData($block);
-
-            file_put_contents(__DIR__ . '/tmp_frame_' . $k . '.gif', $stream->encode());
-
-            $gifs[] = $stream;
+            $gifs[] = $build;
         }
 
         return $gifs;

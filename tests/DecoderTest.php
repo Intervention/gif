@@ -9,7 +9,7 @@ class DecoderTest extends BaseTestCase
 {
     public function testDecodeFromPath()
     {
-        $decoded = Decoder::decode(__DIR__ . '/images/animation.gif');
+        $decoded = Decoder::decode(__DIR__ . '/images/php.gif');
         $this->assertInstanceOf(GifDataStream::class, $decoded);
     }
 

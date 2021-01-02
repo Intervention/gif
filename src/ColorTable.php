@@ -52,7 +52,7 @@ class ColorTable extends AbstractEntity
      */
     public function addColor(Color $color): self
     {
-        $this->colors[$color->getHash()] = $color;
+        $this->colors[] = $color;
 
         return $this;
     }
