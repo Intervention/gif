@@ -13,11 +13,11 @@ class ColorTableTest extends BaseTestCase
         $table = new ColorTable([
             new Color(0, 0, 0),
             new Color(255, 255, 255),
-            new Color(255, 255, 255), // double colors will be ignored
+            new Color(255, 255, 255),
         ]);
 
         $this->assertInstanceOf(ColorTable::class, $table);
-        $this->assertEquals(2, $table->countColors());
+        $this->assertEquals(3, $table->countColors());
     }
 
     public function testGetColors()
@@ -41,10 +41,10 @@ class ColorTableTest extends BaseTestCase
         $table->setColors([
             new Color(0, 0, 0),
             new Color(255, 255, 255),
-            new Color(255, 255, 255), // double colors will be ignored
+            new Color(255, 255, 255),
         ]);
 
-        $this->assertEquals(2, $table->countColors());
+        $this->assertEquals(3, $table->countColors());
     }
 
     public function testAddRgb()
@@ -52,14 +52,6 @@ class ColorTableTest extends BaseTestCase
         $table = new ColorTable();
         $result = $table->addRgb(255, 255, 255);
         $this->assertInstanceOf(ColorTable::class, $result);
-    }
-
-    public function testDoubleColorsAddedOnlyOnce()
-    {
-        $table = new ColorTable();
-        $table->addRgb(255, 255, 255);
-        $table->addRgb(255, 255, 255);
-        $this->assertEquals(1, $table->countColors());
     }
 
     public function testCountColors()
