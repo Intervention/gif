@@ -12,11 +12,11 @@ class ImageData extends AbstractEntity
     protected $lzw_min_code_size;
 
     /**
-     * Data block
+     * Sub blocks
      *
-     * @var string
+     * @var array
      */
-    protected $data;
+    protected $blocks = [];
 
     /**
      * Get LZW min. code size
@@ -41,34 +41,34 @@ class ImageData extends AbstractEntity
     }
 
     /**
-     * Get current data blocks
+     * Get current data sub blocks
      *
-     * @return string
+     * @return array
      */
-    public function getData(): string
+    public function getBlocks(): array
     {
-        return $this->data;
+        return $this->blocks;
     }
 
     /**
-     * Set data block
+     * Addd sub block
      *
      * @param string $data
      */
-    public function setData(string $data): self
+    public function addBlock(string $block): self
     {
-        $this->data = $data;
+        $this->blocks[] = $block;
 
         return $this;
     }
 
     /**
-     * Determine if data block is present
+     * Determine if data sub blocks are present
      *
      * @return boolean
      */
-    public function hasData(): bool
+    public function hasBlocks(): bool
     {
-        return false === empty($this->getData());
+        return count($this->blocks) >= 1;
     }
 }

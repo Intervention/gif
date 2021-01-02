@@ -25,14 +25,12 @@ class ImageDataEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        if (! $this->source->hasData()) {
-            throw new EncoderException("No data block in ImageData.");
+        if (! $this->source->hasBlocks()) {
+            throw new EncoderException("No data blocks in ImageData.");
         }
 
-        return implode('', [
-            pack('C', $this->source->getLzwMinCodeSize()),
-            pack('C', strlen($this->source->getData())) . $this->source->getData(),
-            AbstractEntity::TERMINATOR,
-        ]);
+        return pack('C', $this->source->getLzwMinCodeSize()) . implode('', array_map(function ($block) {
+            return pack('C', strlen($block)) . $block;
+        }, $this->source->getBlocks())) . AbstractEntity::TERMINATOR;
     }
 }
