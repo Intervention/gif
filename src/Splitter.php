@@ -2,7 +2,10 @@
 
 namespace Intervention\Gif;
 
-class Splitter
+use IteratorAggregate;
+use Countable;
+
+class Splitter implements IteratorAggregate
 {
     /**
      * Stream to split
@@ -12,6 +15,13 @@ class Splitter
     protected $stream;
 
     /**
+     * Single frames
+     *
+     * @var array
+     */
+    protected $frames = [];
+
+    /**
      * Create new instance
      *
      * @param GifDataStream $stream
@@ -19,6 +29,16 @@ class Splitter
     public function __construct(GifDataStream $stream)
     {
         $this->stream = $stream;
+    }
+
+    /**
+     * Iterator
+     *
+     * @return array
+     */
+    public function getIterator(): array
+    {
+        return $this->frames;
     }
 
     /**
@@ -49,49 +69,114 @@ class Splitter
      *
      * @return array
      */
-    public function split(): array
+    public function split(): self
     {
-        $gifs = [];
+        $this->frames = [];
 
         foreach ($this->stream->getGraphicBlocks() as $k => $block) {
             // create separate stream for each frame
-            $build = Builder::canvas(
+            $frame = Builder::canvas(
                 $this->stream->getLogicalScreen()->getDescriptor()->getWidth(),
                 $this->stream->getLogicalScreen()->getDescriptor()->getHeight()
             )->getGifDataStream();
 
             // check if working stream has global color table
             if ($this->stream->getLogicalScreen()->getDescriptor()->hasGlobalColorTable()) {
-                $build->getLogicalScreen()->setColorTable(
+                $frame->getLogicalScreen()->setColorTable(
                     $this->stream->getLogicalScreen()->getColorTable()
                 );
 
-                $build->getLogicalScreen()->getDescriptor()->setGlobalColorTableExistance(
+                $frame->getLogicalScreen()->getDescriptor()->setGlobalColorTableExistance(
                     true
                 );
-                $build->getLogicalScreen()->getDescriptor()->setGlobalColorTableSorted(
+                $frame->getLogicalScreen()->getDescriptor()->setGlobalColorTableSorted(
                     $this->stream->getLogicalScreen()->getDescriptor()->getGlobalColorTableSorted()
                 );
-                $build->getLogicalScreen()->getDescriptor()->setGlobalColorTableSize(
+                $frame->getLogicalScreen()->getDescriptor()->setGlobalColorTableSize(
                     $this->stream->getLogicalScreen()->getDescriptor()->getGlobalColorTableSize()
                 );
-                $build->getLogicalScreen()->getDescriptor()->setBackgroundColorIndex(
+                $frame->getLogicalScreen()->getDescriptor()->setBackgroundColorIndex(
                     $this->stream->getLogicalScreen()->getDescriptor()->getBackgroundColorIndex()
                 );
-                $build->getLogicalScreen()->getDescriptor()->setPixelAspectRatio(
+                $frame->getLogicalScreen()->getDescriptor()->setPixelAspectRatio(
                     $this->stream->getLogicalScreen()->getDescriptor()->getPixelAspectRatio()
                 );
-                $build->getLogicalScreen()->getDescriptor()->setBitsPerPixel(
+                $frame->getLogicalScreen()->getDescriptor()->setBitsPerPixel(
                     $this->stream->getLogicalScreen()->getDescriptor()->getBitsPerPixel()
                 );
             }
 
             // copy original block
-            $build->addData($block);
+            $frame->addData($block);
 
-            $gifs[] = $build;
+            $this->frames[] = $frame;
         }
 
-        return $gifs;
+        return $this;
+    }
+
+    /**
+     * Return splitted frames as an array
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return $this->frames;
+    }
+
+    /**
+     * Return array of GD library resources for each frame
+     *
+     * @return array
+     */
+    public function toResources(): array
+    {
+        $resources = [];
+
+        foreach ($this->frames as $frame) {
+            if (is_a($frame, GifDataStream::class)) {
+                $resources[] = imagecreatefromstring($frame->encode());
+            }
+        }
+
+        return $resources;
+    }
+
+    /**
+     * Return array of coalesced GD library resources for each frame
+     *
+     * @return array
+     */
+    public function coalesceToResources(): array
+    {
+        $resources = $this->toResources();
+        $base = $resources[0];
+        foreach ($resources as $key => $resource) {
+            if ($key >= 1) {
+                $insert = $resources[$key];
+
+                $descriptor = $this->frames[$key]->getTableBasedImages()[0]->getDescriptor();
+                $offset_x = $descriptor->getLeft();
+                $offset_y = $descriptor->getTop();
+
+                // insert image at position
+                imagealphablending($resource, true);
+                imagecopy(
+                    $base,
+                    $resource,
+                    $offset_x,
+                    $offset_y,
+                    0,
+                    0,
+                    imagesx($resource),
+                    imagesy($resource)
+                );
+
+                $resources[$key] = $resource;
+            }
+        }
+
+        return $resources;
     }
 }
