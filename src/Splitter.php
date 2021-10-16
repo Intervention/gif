@@ -152,6 +152,8 @@ class Splitter implements IteratorAggregate
     {
         $resources = $this->toResources();
         $base = $resources[0];
+        $width = imagesx($base);
+        $height = imagesy($base);
         foreach ($resources as $key => $resource) {
             if ($key >= 1) {
                 $insert = $resources[$key];
@@ -159,21 +161,39 @@ class Splitter implements IteratorAggregate
                 $descriptor = $this->frames[$key]->getTableBasedImages()[0]->getDescriptor();
                 $offset_x = $descriptor->getLeft();
                 $offset_y = $descriptor->getTop();
+                $w = $descriptor->getWidth();
+                $h = $descriptor->getHeight();
 
-                // insert image at position
-                imagealphablending($resource, true);
+                // create new
+                $new = imagecreatetruecolor($width, $height);
+                imagealphablending($new, true);
+
+                // insert last as base
                 imagecopy(
-                    $base,
+                    $new,
+                    $resources[$key - 1],
+                    0,
+                    0,
+                    0,
+                    0,
+                    $width,
+                    $height
+                );
+
+                // copy over current
+                imagecopy(
+                    $new,
                     $resource,
                     $offset_x,
                     $offset_y,
                     0,
                     0,
-                    imagesx($resource),
-                    imagesy($resource)
+                    $w,
+                    $h
                 );
 
-                $resources[$key] = $resource;
+
+                $resources[$key] = $new;
             }
         }
 

@@ -79,7 +79,7 @@ class GifDataStreamTest extends BaseTestCase
 
         // HEADER
         $this->assertEquals('89a', $gif->getHeader()->getVersion());
-        
+
         // LOGICAL SCREEN DESCRIPTOR
         $this->assertEquals(20, $gif->getLogicalScreen()->getDescriptor()->getWidth());
         $this->assertEquals(15, $gif->getLogicalScreen()->getDescriptor()->getHeight());
@@ -97,7 +97,7 @@ class GifDataStreamTest extends BaseTestCase
         // APPLICATION EXTENSION
         $this->assertInstanceOf(ApplicationExtension::class, $gif->getMainApplicationExtension());
         $this->assertEquals(2, $gif->getMainApplicationExtension()->getLoops());
-        
+
         // TABLE BASED IMAGES
         $this->assertCount(8, $gif->getGraphicBlocks());
 
