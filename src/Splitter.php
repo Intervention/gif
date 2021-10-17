@@ -22,6 +22,13 @@ class Splitter implements IteratorAggregate
     protected $frames = [];
 
     /**
+     * Delays of each frame
+     *
+     * @var array
+     */
+    protected $delays = [];
+
+    /**
      * Create new instance
      *
      * @param GifDataStream $stream
@@ -39,6 +46,16 @@ class Splitter implements IteratorAggregate
     public function getIterator(): array
     {
         return $this->frames;
+    }
+
+    public function getFrames(): array
+    {
+        return $this->frames;
+    }
+
+    public function getDelays(): array
+    {
+        return $this->delays;
     }
 
     /**
@@ -110,19 +127,10 @@ class Splitter implements IteratorAggregate
             $frame->addData($block);
 
             $this->frames[] = $frame;
+            $this->delays[] = $block->getGraphicControlExtension()->getDelay();
         }
 
         return $this;
-    }
-
-    /**
-     * Return splitted frames as an array
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return $this->frames;
     }
 
     /**
