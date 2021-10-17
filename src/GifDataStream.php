@@ -184,4 +184,14 @@ class GifDataStream extends AbstractEntity
     {
         return new Trailer();
     }
+
+    /**
+     * Determine if gif is animated
+     *
+     * @return boolean
+     */
+    public function isAnimated(): bool
+    {
+        return count($this->getGraphicBlocks()) > 1;
+    }
 }
