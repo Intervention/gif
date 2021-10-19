@@ -58,34 +58,4 @@ class BuilderTest extends BaseTestCase
         $this->assertEquals(1, $blocks[0]->getGraphicRenderingBlock()->getDescriptor()->getLeft());
         $this->assertEquals(2, $blocks[0]->getGraphicRenderingBlock()->getDescriptor()->getTop());
     }
-
-    public function testBuilder(): void
-    {
-        $gd1 = imagecreatetruecolor(30, 20);
-        imagefill($gd1, 0, 0, imagecolorallocate($gd1, 255, 0, 0));
-        $gd2 = imagecreatetruecolor(30, 20);
-        imagefill($gd2, 0, 0, imagecolorallocate($gd2, 0, 255, 0));
-        $gd3 = imagecreatetruecolor(30, 20);
-        imagefill($gd3, 0, 0, imagecolorallocate($gd3, 0, 0, 255));
-
-        $builder = Builder::canvas(30, 20);
-        $builder->addFrame($this->gdEncodeGif($gd1));
-        $builder->addFrame($this->gdEncodeGif($gd2));
-        $builder->addFrame($this->gdEncodeGif($gd3));
-
-        $result = $builder->encode();
-        // file_put_contents(__DIR__ . '/testxxx.gif', $result);
-
-        $this->assertEquals(182, strlen($result));
-    }
-
-    protected function gdEncodeGif($gd): string
-    {
-        ob_start();
-        imagegif($gd);
-        $buffer = ob_get_contents();
-        ob_end_clean();
-
-        return $buffer;
-    }
 }

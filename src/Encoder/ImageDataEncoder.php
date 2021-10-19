@@ -31,6 +31,6 @@ class ImageDataEncoder extends AbstractEncoder
 
         return pack('C', $this->source->getLzwMinCodeSize()) . implode('', array_map(function ($block) {
             return pack('C', strlen($block)) . $block;
-        }, $this->source->getBlocks()));
+        }, $this->source->getBlocks())) . AbstractEntity::TERMINATOR;
     }
 }
