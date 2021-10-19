@@ -2,6 +2,8 @@
 
 namespace Intervention\Gif;
 
+use GdImage;
+use Intervention\Gif\ColorTable;
 use Intervention\Gif\Traits\CanHandleFiles;
 
 class Builder
@@ -37,9 +39,12 @@ class Builder
     {
         $builder = new self();
         $gif = new GifDataStream();
+
+        // set width +height
         $gif->getLogicalScreen()->getDescriptor()->setSize($width, $height);
 
         if ($loops >= 0 && $loops !== 1) {
+            // set loop count
             $gif->addData(new ApplicationExtension());
             $gif->getMainApplicationExtension()->setLoops($loops);
         }
@@ -106,6 +111,9 @@ class Builder
 
         $source = Decoder::decode($source);
 
+        // $name = '__' . rand(1, 1000);
+        // file_put_contents(__DIR__ . '/../tests/' . $name . '.gif', $source->encode());
+
         // add global color table from source as local color table
         $block->getDescriptor()->setLocalColorTableExistance();
         $block->setColorTable(
@@ -131,6 +139,13 @@ class Builder
         );
 
         return $block;
+    }
+
+    public function modifyGif(callable $callback): self
+    {
+        $callback($this->gif);
+
+        return $this;
     }
 
     /**

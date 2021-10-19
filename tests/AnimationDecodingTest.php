@@ -12,7 +12,7 @@ class AnimationDecodingTest extends BaseTestCase
 {
     public function testDecodeAnimation()
     {
-        $gif = Decoder::decode(__DIR__ . '/images/rectangle_animation.gif');
+        $gif = Decoder::decode(__DIR__ . '/images/animation2.gif');
         $this->assertInstanceOf(GifDataStream::class, $gif);
 
         // HEADER

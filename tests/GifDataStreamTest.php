@@ -73,7 +73,7 @@ class GifDataStreamTest extends BaseTestCase
 
     public function testDecode()
     {
-        $source = file_get_contents(__DIR__ . '/images/animation.gif');
+        $source = file_get_contents(__DIR__ . '/images/animation1.gif');
         $gif = GifDataStream::decode($this->getTestHandle($source));
         $this->assertInstanceOf(GifDataStream::class, $gif);
 

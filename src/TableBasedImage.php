@@ -12,14 +12,14 @@ class TableBasedImage extends AbstractEntity implements GraphicRenderingBlock
      * @var ImageDescriptor
      */
     protected $descriptor;
-    
+
     /**
      * Local color table
      *
      * @var ColorTable
      */
     protected $colorTable;
-    
+
     /**
      * Image data
      *
