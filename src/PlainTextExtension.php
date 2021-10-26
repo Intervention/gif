@@ -33,7 +33,7 @@ class PlainTextExtension extends AbstractExtension implements GraphicRenderingBl
     public function addText(string $text): self
     {
         $this->text[] = $text;
-        
+
         return $this;
     }
 

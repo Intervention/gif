@@ -5,6 +5,7 @@ namespace Intervention\Gif\Test;
 use Intervention\Gif\ApplicationExtension;
 use Intervention\Gif\ColorTable;
 use Intervention\Gif\CommentExtension;
+use Intervention\Gif\DataSubBlock;
 use Intervention\Gif\GraphicBlock;
 use Intervention\Gif\GraphicControlExtension;
 use Intervention\Gif\ImageData;
@@ -47,7 +48,9 @@ abstract class BaseTestCase extends TestCase
     {
         $data = new ImageData();
         $data->setLzwMinCodeSize(2);
-        $data->addBlock("\x8C\x2D\x99\x87\x2A\x1C\xDC\x33\xA0\x02\x75\xEC\x95\xFA\xA8\xDE\x60\x8C\x04\x91\x4C\x01");
+        $data->addBlock(
+            new DataSubBlock("\x8C\x2D\x99\x87\x2A\x1C\xDC\x33\xA0\x02\x75\xEC\x95\xFA\xA8\xDE\x60\x8C\x04\x91\x4C\x01")
+        );
 
         return $data;
     }

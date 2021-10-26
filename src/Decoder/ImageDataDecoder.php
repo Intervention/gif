@@ -3,6 +3,7 @@
 namespace Intervention\Gif\Decoder;
 
 use Intervention\Gif\AbstractEntity;
+use Intervention\Gif\DataSubBlock;
 use Intervention\Gif\ImageData;
 
 class ImageDataDecoder extends AbstractDecoder
@@ -26,7 +27,7 @@ class ImageDataDecoder extends AbstractDecoder
             $char = $this->getNextByte();
             $size = (int) unpack('C', $char)[1];
             if ($size > 0) {
-                $data->addBlock($this->getNextBytes($size));
+                $data->addBlock(new DataSubBlock($this->getNextBytes($size)));
             }
         } while ($char !== AbstractEntity::TERMINATOR);
 

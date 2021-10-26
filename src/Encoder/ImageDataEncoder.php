@@ -29,8 +29,12 @@ class ImageDataEncoder extends AbstractEncoder
             throw new EncoderException("No data blocks in ImageData.");
         }
 
-        return pack('C', $this->source->getLzwMinCodeSize()) . implode('', array_map(function ($block) {
-            return pack('C', strlen($block)) . $block;
-        }, $this->source->getBlocks())) . AbstractEntity::TERMINATOR;
+        return implode('', [
+            pack('C', $this->source->getLzwMinCodeSize()),
+            implode('', array_map(function ($block) {
+                return $block->encode();
+            }, $this->source->getBlocks())),
+            AbstractEntity::TERMINATOR,
+        ]);
     }
 }

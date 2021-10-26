@@ -2,6 +2,8 @@
 
 namespace Intervention\Gif;
 
+use Intervention\Gif\DataSubBlock;
+
 class ImageData extends AbstractEntity
 {
     /**
@@ -53,9 +55,9 @@ class ImageData extends AbstractEntity
     /**
      * Addd sub block
      *
-     * @param string $data
+     * @param DataSubBlock $data
      */
-    public function addBlock(string $block): self
+    public function addBlock(DataSubBlock $block): self
     {
         $this->blocks[] = $block;
 
