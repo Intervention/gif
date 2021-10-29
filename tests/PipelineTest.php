@@ -37,8 +37,6 @@ class PipelineTest extends BaseTestCase
         // reread
         $resource = $builder->encode();
 
-        file_put_contents(__DIR__ . '/images/re_animation2.gif', $resource);
-
         $regif = Decoder::decode($source);
         $this->validateGif($regif);
     }

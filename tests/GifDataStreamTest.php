@@ -54,7 +54,7 @@ class GifDataStreamTest extends BaseTestCase
     {
         $gif = new GifDataStream();
         $gif->setLogicalScreen($this->getTestLogicalScreen());
-        $gif->addData($this->getTestApplicationExtension());
+        $gif->addData($this->getTestNetscapeApplicationExtension());
         $gif->addData($this->getTestGraphicBlock());
         $gif->addData($this->getTestCommentExtension());
 

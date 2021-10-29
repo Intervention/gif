@@ -45,8 +45,9 @@ class Builder
 
         if ($loops >= 0 && $loops !== 1) {
             // set loop count
-            $gif->addData(new ApplicationExtension());
-            $gif->getMainApplicationExtension()->setLoops($loops);
+            $gif->addData(
+                (new NetscapeApplicationExtension())->setLoops($loops)
+            );
         }
 
         $builder->gif = $gif;

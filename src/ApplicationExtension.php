@@ -3,42 +3,59 @@
 namespace Intervention\Gif;
 
 use Intervention\Gif\Contracts\SpecialPurposeBlock;
+use Intervention\Gif\DataSubBlock;
 
 class ApplicationExtension extends AbstractExtension implements SpecialPurposeBlock
 {
     public const LABEL = "\xFF";
-    public const BLOCKSIZE = "\x0b";
-    public const IDENT = "NETSCAPE";
-    public const AUTH = "2.0";
-    public const SUB_BLOCKSIZE = "\x03";
-    public const BLOCK_INT = "\x01";
 
     /**
-     * Currenty number of loops
+     * Application Identifier & Auth Code
      *
-     * @var integer
+     * @var string
      */
-    protected $loops = 0;
+    protected $application = '';
 
     /**
-     * Get number of loops
+     * Data Sub Blocks
      *
-     * @return int
+     * @var array
      */
-    public function getLoops(): int
+    protected $blocks = [];
+
+    public function getBlockSize(): int
     {
-        return $this->loops;
+        return strlen($this->application);
     }
 
-    /**
-     * Set number of loops
-     *
-     * @param int $count
-     */
-    public function setLoops(int $count): self
+    public function setApplication(string $value): self
     {
-        $this->loops = $count;
+        $this->application = $value;
 
         return $this;
+    }
+
+    public function getApplication(): string
+    {
+        return $this->application;
+    }
+
+    public function addBlock(DataSubBlock $block): self
+    {
+        $this->blocks[] = $block;
+
+        return $this;
+    }
+
+    public function setBlocks(array $blocks): self
+    {
+        $this->blocks = $blocks;
+
+        return $this;
+    }
+
+    public function getBlocks(): array
+    {
+        return $this->blocks;
     }
 }

@@ -12,6 +12,7 @@ use Intervention\Gif\ImageData;
 use Intervention\Gif\ImageDescriptor;
 use Intervention\Gif\LogicalScreen;
 use Intervention\Gif\LogicalScreenDescriptor;
+use Intervention\Gif\NetscapeApplicationExtension;
 use Intervention\Gif\TableBasedImage;
 use PHPUnit\Framework\TestCase;
 
@@ -94,9 +95,9 @@ abstract class BaseTestCase extends TestCase
         return $block;
     }
 
-    protected function getTestApplicationExtension(): ApplicationExtension
+    protected function getTestNetscapeApplicationExtension(): NetscapeApplicationExtension
     {
-        $extension = new ApplicationExtension();
+        $extension = new NetscapeApplicationExtension();
         $extension->setLoops(12);
 
         return $extension;

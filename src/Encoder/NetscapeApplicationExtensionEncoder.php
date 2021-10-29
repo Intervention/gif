@@ -3,15 +3,16 @@
 namespace Intervention\Gif\Encoder;
 
 use Intervention\Gif\ApplicationExtension;
+use Intervention\Gif\NetscapeApplicationExtension;
 
-class ApplicationExtensionEncoder extends AbstractEncoder
+class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
 {
     /**
      * Create new decoder instance
      *
      * @param ApplicationExtension $source
      */
-    public function __construct(ApplicationExtension $source)
+    public function __construct(NetscapeApplicationExtension $source)
     {
         $this->source = $source;
     }

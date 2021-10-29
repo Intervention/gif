@@ -4,7 +4,9 @@ namespace Intervention\Gif\Decoder;
 
 use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\ApplicationExtension;
+use Intervention\Gif\DataSubBlock;
 use Intervention\Gif\Exception\DecoderException;
+use Intervention\Gif\NetscapeApplicationExtension;
 
 class ApplicationExtensionDecoder extends AbstractDecoder
 {
@@ -17,36 +19,39 @@ class ApplicationExtensionDecoder extends AbstractDecoder
     {
         $result = new ApplicationExtension();
 
-        // parse loop count
-        $result->setLoops($this->decodeLoops(
-            $this->getLoopBytes()
-        ));
+        $marker = $this->getNextByte();
+        $label = $this->getNextByte();
+        $blocksize = $this->decodeBlockSize($this->getNextByte());
+        $application = $this->getNextBytes($blocksize);
 
-        // skip block terminator
-        $this->getNextByte();
+        if ($application === NetscapeApplicationExtension::IDENTIFIER . NetscapeApplicationExtension::AUTH_CODE) {
+            $result = new NetscapeApplicationExtension();
+
+            // skip length
+            $this->getNextByte();
+
+            $result->setBlocks([new DataSubBlock($this->getNextBytes(3))]);
+
+            // skip terminator
+            $this->getNextByte();
+
+            return $result;
+        }
+
+        $result->setApplication($application);
+
+        // decode data sub blocks
+        $blocksize = $this->decodeBlockSize($this->getNextByte());
+        while ($blocksize > 0) {
+            $result->addBlock(new DataSubBlock($this->getNextBytes($blocksize)));
+            $blocksize = $this->decodeBlockSize($this->getNextByte());
+        }
 
         return $result;
     }
 
-    /**
-     * Decode delay value
-     *
-     * @return int
-     */
-    protected function decodeLoops(string $bytes): int
+    protected function decodeBlockSize(string $byte): int
     {
-        return unpack('v*', $bytes)[1];
-    }
-
-    /**
-     * Get loop bytes
-     *
-     * @return string
-     */
-    private function getLoopBytes(): string
-    {
-        $this->getNextBytes(16); // skip 16 bytes
-        
-        return $this->getNextBytes(2);
+        return (int) @unpack('C', $byte)[1];
     }
 }
