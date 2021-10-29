@@ -7,6 +7,7 @@ use Intervention\Gif\Contracts\DataBlock;
 use Intervention\Gif\Contracts\GraphicRenderingBlock;
 use Intervention\Gif\GraphicBlock;
 use Intervention\Gif\GraphicControlExtension;
+use Intervention\Gif\NetscapeApplicationExtension;
 use Intervention\Gif\TableBasedImage;
 
 class GifDataStream extends AbstractEntity
@@ -88,12 +89,12 @@ class GifDataStream extends AbstractEntity
     /**
      * Get main graphic control extension
      *
-     * @return ApplicationExtension
+     * @return NetscapeApplicationExtension
      */
-    public function getMainApplicationExtension(): ?ApplicationExtension
+    public function getMainApplicationExtension(): ?NetscapeApplicationExtension
     {
         foreach ($this->getData() as $block) {
-            if (is_a($block, ApplicationExtension::class)) {
+            if (is_a($block, NetscapeApplicationExtension::class)) {
                 return $block;
             }
         }

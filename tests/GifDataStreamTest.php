@@ -3,6 +3,7 @@
 namespace Intervention\Gif\Test;
 
 use Intervention\Gif\ApplicationExtension;
+use Intervention\Gif\NetscapeApplicationExtension;
 use Intervention\Gif\ColorTable;
 use Intervention\Gif\CommentExtension;
 use Intervention\Gif\DisposalMethod;
@@ -43,11 +44,13 @@ class GifDataStreamTest extends BaseTestCase
     public function testGetMainApplicationExtension()
     {
         $gif = new GifDataStream();
-        $extension = new ApplicationExtension();
+        $extension1 = new ApplicationExtension();
+        $extension2 = new NetscapeApplicationExtension();
         $gif->addData(new GraphicBlock());
-        $gif->addData($extension);
+        $gif->addData($extension1);
+        $gif->addData($extension2);
         $gif->addData(new GraphicBlock());
-        $this->assertEquals($extension, $gif->getMainApplicationExtension());
+        $this->assertEquals($extension2, $gif->getMainApplicationExtension());
     }
 
     public function testEncode()
