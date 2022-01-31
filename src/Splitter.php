@@ -41,11 +41,11 @@ class Splitter implements IteratorAggregate
     /**
      * Iterator
      *
-     * @return array
+     * @return \Traversable
      */
-    public function getIterator(): array
+    public function getIterator(): \Traversable
     {
-        return $this->frames;
+        return new \ArrayIterator($this->frames);
     }
 
     public function getFrames(): array
