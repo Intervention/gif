@@ -2,11 +2,8 @@
 
 namespace Intervention\Gif;
 
-use Intervention\Gif\ApplicationExtension;
 use Intervention\Gif\Contracts\DataBlock;
-use Intervention\Gif\Contracts\GraphicRenderingBlock;
 use Intervention\Gif\GraphicBlock;
-use Intervention\Gif\GraphicControlExtension;
 use Intervention\Gif\NetscapeApplicationExtension;
 use Intervention\Gif\TableBasedImage;
 

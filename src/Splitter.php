@@ -2,8 +2,9 @@
 
 namespace Intervention\Gif;
 
+use ArrayIterator;
 use IteratorAggregate;
-use Countable;
+use Traversable;
 
 class Splitter implements IteratorAggregate
 {
@@ -41,11 +42,11 @@ class Splitter implements IteratorAggregate
     /**
      * Iterator
      *
-     * @return \Traversable
+     * @return Traversable
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
-        return new \ArrayIterator($this->frames);
+        return new ArrayIterator($this->frames);
     }
 
     public function getFrames(): array
