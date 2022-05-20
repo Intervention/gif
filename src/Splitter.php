@@ -90,7 +90,7 @@ class Splitter implements IteratorAggregate
     {
         $this->frames = [];
 
-        foreach ($this->stream->getGraphicBlocks() as $k => $block) {
+        foreach ($this->stream->getGraphicBlocks() as $block) {
             // create separate stream for each frame
             $frame = Builder::canvas(
                 $this->stream->getLogicalScreen()->getDescriptor()->getWidth(),
@@ -164,8 +164,6 @@ class Splitter implements IteratorAggregate
         $height = imagesy($base);
         foreach ($resources as $key => $resource) {
             if ($key >= 1) {
-                $insert = $resources[$key];
-
                 $descriptor = $this->frames[$key]->getTableBasedImages()[0]->getDescriptor();
                 $offset_x = $descriptor->getLeft();
                 $offset_y = $descriptor->getTop();

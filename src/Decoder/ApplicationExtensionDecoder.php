@@ -5,7 +5,6 @@ namespace Intervention\Gif\Decoder;
 use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\ApplicationExtension;
 use Intervention\Gif\DataSubBlock;
-use Intervention\Gif\Exception\DecoderException;
 use Intervention\Gif\NetscapeApplicationExtension;
 
 class ApplicationExtensionDecoder extends AbstractDecoder

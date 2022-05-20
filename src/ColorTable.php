@@ -132,7 +132,7 @@ class ColorTable extends AbstractEntity
 
             case 256:
                 return 7;
-            
+
             default:
                 return 0;
         }

@@ -2,8 +2,6 @@
 
 namespace Intervention\Gif;
 
-use GdImage;
-use Intervention\Gif\ColorTable;
 use Intervention\Gif\Traits\CanHandleFiles;
 
 class Builder
