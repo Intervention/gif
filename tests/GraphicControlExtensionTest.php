@@ -19,7 +19,7 @@ class GraphicControlExtensionTest extends BaseTestCase
     public function testSetGetDisposalMethod()
     {
         $ext = new GraphicControlExtension();
-        $this->assertEquals(DisposalMethod::NONE, $ext->getDisposalMethod());
+        $this->assertEquals(DisposalMethod::UNDEFINED, $ext->getDisposalMethod());
         $ext->setDisposalMethod(DisposalMethod::BACKGROUND);
         $this->assertEquals(DisposalMethod::BACKGROUND, $ext->getDisposalMethod());
     }

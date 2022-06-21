@@ -58,7 +58,7 @@ class AnimationDecodingTest extends BaseTestCase
         $disposals = array_values(array_map(function ($block) {
             return $block->getGraphicControlExtension()->getDisposalMethod();
         }, $gif->getGraphicBlocks()));
-        $this->assertEquals(array_fill(0, 6, DisposalMethod::LEAVE), $disposals);
+        $this->assertEquals(array_fill(0, 6, DisposalMethod::NONE), $disposals);
 
         $indexes = array_values(array_map(function ($block) {
             return $block->getGraphicControlExtension()->getTransparentColorIndex();
