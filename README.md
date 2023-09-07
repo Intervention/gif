@@ -61,6 +61,11 @@ $gif->addFrame('/images/frame04.gif');
 // encode
 $data = $gif->encode();
 ```
+## Development & Testing
+
+With this package comes a Docker image to build a test suite container. To build this container you have to have Docker installed on your system. You can run all tests with this command.
+
+    $ docker-compose run --rm --build tests
 
 ## License
 
