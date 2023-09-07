@@ -32,7 +32,7 @@ class CommentExtensionDecoder extends AbstractDecoder
     protected function decodeComments(): array
     {
         $comments = [];
-        
+
         do {
             $byte = $this->getNextByte();
             $size = $this->decodeBlocksize($byte);

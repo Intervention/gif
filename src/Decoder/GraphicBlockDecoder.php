@@ -3,8 +3,6 @@
 namespace Intervention\Gif\Decoder;
 
 use Intervention\Gif\AbstractEntity;
-use Intervention\Gif\AbstractExtension;
-use Intervention\Gif\Exception\DecoderException;
 use Intervention\Gif\GraphicBlock;
 use Intervention\Gif\GraphicControlExtension;
 use Intervention\Gif\PlainTextExtension;
@@ -21,8 +19,8 @@ class GraphicBlockDecoder extends AbstractDecoder
     {
         $block = new GraphicBlock();
 
-        $marker = $this->getNextByte();
-        $label = $this->getNextByte();
+        $this->getNextByte();
+        $label = $this->getNextByte(); // label
         $back = -2;
 
         // plain text extension

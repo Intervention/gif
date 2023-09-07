@@ -4,7 +4,6 @@ namespace Intervention\Gif\Decoder;
 
 use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\Color;
-use Intervention\Gif\Exception\DecoderException;
 
 class ColorDecoder extends AbstractDecoder
 {

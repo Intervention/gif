@@ -5,20 +5,12 @@ namespace Intervention\Gif\Decoder;
 use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\AbstractExtension;
 use Intervention\Gif\ApplicationExtension;
-use Intervention\Gif\ColorTable;
 use Intervention\Gif\CommentExtension;
 use Intervention\Gif\Contracts\DataBlock;
-use Intervention\Gif\Contracts\GraphicRenderingBlock;
-use Intervention\Gif\Contracts\SpecialPurposeBlock;
-use Intervention\Gif\Exception\DecoderException;
 use Intervention\Gif\GifDataStream;
 use Intervention\Gif\GraphicBlock;
-use Intervention\Gif\GraphicControlExtension;
 use Intervention\Gif\Header;
-use Intervention\Gif\ImageDescriptor;
 use Intervention\Gif\LogicalScreen;
-use Intervention\Gif\LogicalScreenDescriptor;
-use Intervention\Gif\PlainTextExtension;
 use Intervention\Gif\Trailer;
 
 class GifDataStreamDecoder extends AbstractDecoder
@@ -50,7 +42,7 @@ class GifDataStreamDecoder extends AbstractDecoder
      */
     protected function decodeNextDataBlock(): ?DataBlock
     {
-        //graphicblock ([GraphicControlExtension] | ((ImageDescriptor [LocalColorTable] ImageData) |  PlainTextExtension))
+        //graphicblock ([GraphicControlExtension] | ((ImageDescriptor [LocalColorTable]ImageData) | PlainTextExtension))
         //or special purpose block (ApplicationExtension | CommentExtension)
 
         $marker = $this->getNextByte();

@@ -4,7 +4,6 @@ namespace Intervention\Gif\Decoder;
 
 use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\ColorTable;
-use Intervention\Gif\Exception\DecoderException;
 use Intervention\Gif\ImageData;
 use Intervention\Gif\ImageDescriptor;
 use Intervention\Gif\TableBasedImage;

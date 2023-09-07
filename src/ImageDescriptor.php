@@ -126,7 +126,7 @@ class ImageDescriptor extends AbstractEntity
     {
         $this->left = $left;
         $this->top = $top;
-        
+
         return $this;
     }
 

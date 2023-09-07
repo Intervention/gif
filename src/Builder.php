@@ -110,9 +110,6 @@ class Builder
 
         $source = Decoder::decode($source);
 
-        // $name = '__' . rand(1, 1000);
-        // file_put_contents(__DIR__ . '/../tests/' . $name . '.gif', $source->encode());
-
         // add global color table from source as local color table
         $block->getDescriptor()->setLocalColorTableExistance();
         $block->setColorTable(

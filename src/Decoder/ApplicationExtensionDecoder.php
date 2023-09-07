@@ -18,8 +18,8 @@ class ApplicationExtensionDecoder extends AbstractDecoder
     {
         $result = new ApplicationExtension();
 
-        $marker = $this->getNextByte();
-        $label = $this->getNextByte();
+        $this->getNextByte(); // marker
+        $this->getNextByte(); // label
         $blocksize = $this->decodeBlockSize($this->getNextByte());
         $application = $this->getNextBytes($blocksize);
 
