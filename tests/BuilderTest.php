@@ -3,12 +3,7 @@
 namespace Intervention\Gif\Test;
 
 use Intervention\Gif\Builder;
-use Intervention\Gif\ColorTable;
 use Intervention\Gif\GifDataStream;
-use Intervention\Gif\GraphicBlock;
-use Intervention\Gif\GraphicControlExtension;
-use Intervention\Gif\ImageDescriptor;
-use Intervention\Gif\TableBasedImage;
 
 class BuilderTest extends BaseTestCase
 {
