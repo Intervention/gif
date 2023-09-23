@@ -4,7 +4,6 @@ namespace Intervention\Gif\Test;
 
 use Intervention\Gif\Color;
 use Intervention\Gif\ColorTable;
-use Intervention\Gif\Exception\EncodingException;
 
 class ColorTableTest extends BaseTestCase
 {
@@ -100,7 +99,7 @@ class ColorTableTest extends BaseTestCase
         $table->addRgb(255, 0, 0);
         $table->addRgb(255, 255, 0);
         $table->addRgb(255, 255, 255);
-        
+
         $this->assertEquals(12, $table->getByteSize());
     }
 
@@ -123,7 +122,7 @@ class ColorTableTest extends BaseTestCase
         $table = ColorTable::decode($this->getTestHandle($source), function ($decoder) {
             $decoder->setLength(12);
         });
-        
+
         $this->assertInstanceOf(ColorTable::class, $table);
         $this->assertEquals(4, $table->countColors());
     }

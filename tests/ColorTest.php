@@ -3,7 +3,6 @@
 namespace Intervention\Gif\Test;
 
 use Intervention\Gif\Color;
-use Intervention\Gif\ColorTable;
 
 class ColorTest extends BaseTestCase
 {

@@ -2,8 +2,6 @@
 
 namespace Intervention\Gif\Traits;
 
-use Exception;
-
 trait CanHandleFiles
 {
      /**

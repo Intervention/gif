@@ -3,11 +3,9 @@
 namespace Intervention\Gif\Traits;
 
 use Closure;
-use Exception;
 use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\Decoder\AbstractDecoder;
 use Intervention\Gif\Exception\DecoderException;
-use ReflectionClass;
 
 trait CanDecode
 {

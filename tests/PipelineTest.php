@@ -3,7 +3,6 @@
 namespace Intervention\Gif\Test;
 
 use Intervention\Gif\Builder;
-use Intervention\Gif\ColorTable;
 use Intervention\Gif\Decoder;
 use Intervention\Gif\GifDataStream;
 use Intervention\Gif\Splitter;
@@ -35,7 +34,7 @@ class PipelineTest extends BaseTestCase
         }
 
         // reread
-        $resource = $builder->encode();
+        $builder->encode();
 
         $regif = Decoder::decode($source);
         $this->validateGif($regif);

@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Traits;
 
-use Exception;
 use Intervention\Gif\Encoder\AbstractEncoder;
 use Intervention\Gif\Exception\EncoderException;
 

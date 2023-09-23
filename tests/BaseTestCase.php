@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\ApplicationExtension;
 use Intervention\Gif\ColorTable;
 use Intervention\Gif\CommentExtension;
 use Intervention\Gif\DataSubBlock;

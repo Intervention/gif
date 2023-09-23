@@ -47,11 +47,5 @@ class ApplicationExtensionTest extends BaseTestCase
         $this->assertInstanceOf(ApplicationExtension::class, $extension);
         $this->assertCount(1, $extension->getBlocks());
         $this->assertEquals('foobar', $extension->getApplication());
-
-        // $source = "\x21\xff\x0b\x4e\x45\x54\x53\x43\x41\x50\x45\x32\x2e\x30\x03\x01\x0c\x00\x00";
-        // $extension = ApplicationExtension::decode($this->getTestHandle($source));
-        // $this->assertInstanceOf(ApplicationExtension::class, $extension);
-        // $this->assertCount(1, $extension->getBlocks());
-        // $this->assertEquals('NETSCAPE2.0', $extension->getApplication());
     }
 }
