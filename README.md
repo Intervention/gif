@@ -12,7 +12,9 @@ You can install this package easily with [Composer](https://getcomposer.org/).
 
 Just require the package with the following command:
 
-    $ composer require intervention/gif
+```bash
+composer require intervention/gif
+```
 
 ## Usage
 
@@ -61,14 +63,24 @@ $gif->addFrame('/images/frame04.gif');
 // encode
 $data = $gif->encode();
 ```
+
 ## Development & Testing
 
-With this package comes a Docker image to build a test suite container. To build this container you have to have Docker installed on your system. You can run all tests with this command.
+With this package comes a Docker image to build a test suite and analysis
+container. To build this container you have to have Docker installed on your
+system. You can run all tests with this command.
 
-    $ docker-compose run --rm --build tests
+```bash
+docker-compose run --rm --build tests
+```
 
+Run the static analyzer on the code base.
+
+```bash
+docker-compose run --rm --build analysis
+```
 ## License
 
 Intervention Gif is licensed under the [MIT License](http://opensource.org/licenses/MIT).
 
-Copyright 2020 [Oliver Vogel](http://olivervogel.com/)
+Copyright 2020 [Oliver Vogel](http://intervention.io/)
