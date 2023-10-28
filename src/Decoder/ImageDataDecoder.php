@@ -11,9 +11,9 @@ class ImageDataDecoder extends AbstractDecoder
     /**
      * Decode current source
      *
-     * @return AbstractEntity
+     * @return ImageData
      */
-    public function decode(): AbstractEntity
+    public function decode(): ImageData
     {
         $data = new ImageData();
 

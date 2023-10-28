@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\GraphicBlock;
 use Intervention\Gif\GraphicControlExtension;
 use Intervention\Gif\PlainTextExtension;
@@ -13,9 +12,9 @@ class GraphicBlockDecoder extends AbstractDecoder
     /**
      * Decode current sourc
      *
-     * @return AbstractEntity
+     * @return GraphicBlock
      */
-    public function decode(): AbstractEntity
+    public function decode(): GraphicBlock
     {
         $block = new GraphicBlock();
 

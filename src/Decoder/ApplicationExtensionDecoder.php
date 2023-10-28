@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\ApplicationExtension;
 use Intervention\Gif\DataSubBlock;
 use Intervention\Gif\NetscapeApplicationExtension;
@@ -12,9 +11,9 @@ class ApplicationExtensionDecoder extends AbstractDecoder
     /**
      * Decode current source
      *
-     * @return AbstractEntity
+     * @return ApplicationExtension
      */
-    public function decode(): AbstractEntity
+    public function decode(): ApplicationExtension
     {
         $result = new ApplicationExtension();
 

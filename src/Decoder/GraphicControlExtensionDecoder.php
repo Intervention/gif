@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\GraphicControlExtension;
 
 class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
@@ -10,9 +9,9 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
     /**
      * Decode given string to current instance
      *
-     * @return AbstractEntity
+     * @return GraphicControlExtension
      */
-    public function decode(): AbstractEntity
+    public function decode(): GraphicControlExtension
     {
         $result = new GraphicControlExtension();
 
@@ -27,7 +26,7 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
 
         // bytes 5-6
         $result->setDelay($this->decodeDelay($this->getNextBytes(2)));
-        
+
         // byte #7
         $result->setTransparentColorIndex($this->decodeTransparentColorIndex(
             $this->getNextByte()
@@ -58,7 +57,7 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
     {
         return $this->hasPackedBit($byte, 6);
     }
-    
+
     /**
      * Decode transparent color existance
      *

@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\AbstractExtension;
 use Intervention\Gif\ApplicationExtension;
 use Intervention\Gif\CommentExtension;
@@ -18,9 +17,9 @@ class GifDataStreamDecoder extends AbstractDecoder
     /**
      * Decode current source to GifDataStream
      *
-     * @return AbstractEntity
+     * @return GifDataStream
      */
-    public function decode(): AbstractEntity
+    public function decode(): GifDataStream
     {
         $gif = new GifDataStream();
 

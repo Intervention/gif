@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\Color;
 
 class ColorDecoder extends AbstractDecoder
@@ -10,9 +9,9 @@ class ColorDecoder extends AbstractDecoder
     /**
      * Decode current source to Color
      *
-     * @return AbstractEntity
+     * @return Color
      */
-    public function decode(): AbstractEntity
+    public function decode(): Color
     {
         $color = new Color();
 

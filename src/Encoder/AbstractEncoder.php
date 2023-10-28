@@ -2,14 +2,12 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\AbstractEntity;
-
 abstract class AbstractEncoder
 {
     /**
      * Source to encode
      *
-     * @var AbstractEntity
+     * @var mixed
      */
     protected $source;
 
@@ -23,9 +21,9 @@ abstract class AbstractEncoder
     /**
      * Create new instance
      *
-     * @param AbstractEntity  $source
+     * @param mixed  $source
      */
-    public function __construct(AbstractEntity $source)
+    public function __construct($source)
     {
         $this->source = $source;
     }

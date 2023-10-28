@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\DataSubBlock;
 
 class DataSubBlockDecoder extends AbstractDecoder
@@ -10,9 +9,9 @@ class DataSubBlockDecoder extends AbstractDecoder
     /**
      * Decode current sourc
      *
-     * @return AbstractEntity
+     * @return DataSubBlock
      */
-    public function decode(): AbstractEntity
+    public function decode(): DataSubBlock
     {
         $char = $this->getNextByte();
         $size = (int) unpack('C', $char)[1];

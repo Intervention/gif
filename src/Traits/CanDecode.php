@@ -3,7 +3,6 @@
 namespace Intervention\Gif\Traits;
 
 use Closure;
-use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\Decoder\AbstractDecoder;
 use Intervention\Gif\Exception\DecoderException;
 
@@ -14,9 +13,9 @@ trait CanDecode
      *
      * @param  resource     $source
      * @param  null|Closure $callback
-     * @return AbstractEntity
+     * @return mixed
      */
-    public static function decode($source, ?Closure $callback = null): AbstractEntity
+    public static function decode($source, ?Closure $callback = null)
     {
         return self::getDecoder($source, $callback)->decode();
     }

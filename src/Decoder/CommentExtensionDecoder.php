@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\CommentExtension;
 
 class CommentExtensionDecoder extends AbstractDecoder
@@ -10,9 +9,9 @@ class CommentExtensionDecoder extends AbstractDecoder
     /**
      * Decode current source
      *
-     * @return AbstractEntity
+     * @return CommentExtension
      */
-    public function decode(): AbstractEntity
+    public function decode(): CommentExtension
     {
         $this->getNextBytes(2); // skip marker & label
 

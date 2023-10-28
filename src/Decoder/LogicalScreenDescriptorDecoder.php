@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\LogicalScreenDescriptor;
 
 class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
@@ -10,9 +9,9 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
     /**
      * Decode given string to current instance
      *
-     * @return AbstractEntity
+     * @return LogicalScreenDescriptor
      */
-    public function decode(): AbstractEntity
+    public function decode(): LogicalScreenDescriptor
     {
         $logicalScreenDescriptor = new LogicalScreenDescriptor();
 

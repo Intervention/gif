@@ -2,7 +2,6 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\ImageDescriptor;
 
 class ImageDescriptorDecoder extends AbstractPackedBitDecoder
@@ -10,9 +9,9 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
     /**
      * Decode given string to current instance
      *
-     * @return AbstractEntity
+     * @return ImageDescriptor
      */
-    public function decode(): AbstractEntity
+    public function decode(): ImageDescriptor
     {
         $descriptor = new ImageDescriptor();
 
