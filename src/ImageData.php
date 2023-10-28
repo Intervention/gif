@@ -23,7 +23,7 @@ class ImageData extends AbstractEntity
     /**
      * Get LZW min. code size
      *
-     * @return array
+     * @return int
      */
     public function getLzwMinCodeSize(): int
     {
@@ -33,7 +33,8 @@ class ImageData extends AbstractEntity
     /**
      * Set lzw min. code size
      *
-     * @param array $blocks
+     * @param int $size
+     * @return ImageData
      */
     public function setLzwMinCodeSize(int $size): self
     {
@@ -55,7 +56,8 @@ class ImageData extends AbstractEntity
     /**
      * Addd sub block
      *
-     * @param DataSubBlock $data
+     * @param DataSubBlock $block
+     * @return ImageData
      */
     public function addBlock(DataSubBlock $block): self
     {

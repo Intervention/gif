@@ -10,7 +10,7 @@ class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
     /**
      * Create new decoder instance
      *
-     * @param ApplicationExtension $source
+     * @param NetscapeApplicationExtension $source
      */
     public function __construct(NetscapeApplicationExtension $source)
     {

@@ -58,9 +58,10 @@ class Builder
      * which can be path to a file or GIF image data
      *
      * @param string  $source
-     * @param integer $delay   time delay in seconds
-     * @param integer $left    position offset in pixels from left
-     * @param integer $top     position offset in pixels from top
+     * @param float $delay   time delay in seconds
+     * @param int $left    position offset in pixels from left
+     * @param int $top     position offset in pixels from top
+     * @return Builder
      */
     public function addFrame(string $source, float $delay = 0, int $left = 0, int $top = 0): self
     {
@@ -85,7 +86,7 @@ class Builder
     /**
      * Build new graphic control extension object with given delay
      *
-     * @param  float $delay
+     * @param  int $delay
      * @return GraphicControlExtension
      */
     protected function buildGraphicControlExtension(int $delay): GraphicControlExtension

@@ -85,7 +85,7 @@ class Splitter implements IteratorAggregate
     /**
      * Split current stream into array of seperate streams for each frame
      *
-     * @return array
+     * @return Splitter
      */
     public function split(): self
     {
