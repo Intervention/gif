@@ -3,7 +3,7 @@
 Native PHP GIF Encoder/Decoder.
 
 [![Latest Version](https://img.shields.io/packagist/v/intervention/gif.svg)](https://packagist.org/packages/intervention/gif)
-![build](https://github.com/Intervention/gif/workflows/build/badge.svg)
+![build](https://github.com/Intervention/gif/actions/workflows/build.yml/badge.svg)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/intervention/gif.svg)](https://packagist.org/packages/intervention/gif/stats)
 
 ## Installation
