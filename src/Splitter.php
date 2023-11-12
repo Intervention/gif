@@ -85,7 +85,7 @@ class Splitter implements IteratorAggregate
     /**
      * Split current stream into array of seperate streams for each frame
      *
-     * @return Splitter
+     * @return array
      */
     public function split(): self
     {
@@ -145,7 +145,10 @@ class Splitter implements IteratorAggregate
 
         foreach ($this->frames as $frame) {
             if (is_a($frame, GifDataStream::class)) {
-                $resources[] = imagecreatefromstring($frame->encode());
+                $resource = imagecreatefromstring($frame->encode());
+                imagepalettetotruecolor($resource);
+                imagesavealpha($resource, true);
+                $resources[] = $resource;
             }
         }
 
@@ -160,36 +163,80 @@ class Splitter implements IteratorAggregate
     public function coalesceToResources(): array
     {
         $resources = $this->toResources();
-        $base = $resources[0];
-        $width = imagesx($base);
-        $height = imagesy($base);
+        $width = imagesx($resources[0]);
+        $height = imagesy($resources[0]);
+        $transparent = imagecolortransparent($resources[0]);
+
         foreach ($resources as $key => $resource) {
-            if ($key >= 1) {
-                $descriptor = $this->frames[$key]->getTableBasedImages()[0]->getDescriptor();
-                $offset_x = $descriptor->getLeft();
-                $offset_y = $descriptor->getTop();
-                $w = $descriptor->getWidth();
-                $h = $descriptor->getHeight();
+            // get meta data
+            $gif = $this->frames[$key];
+            $descriptor = $gif->getTableBasedImages()[0]->getDescriptor();
 
-                // create new
-                $new = imagecreatetruecolor($width, $height);
-                imagealphablending($new, true);
+            // $bg = $this->getBackgroundColor($gif);
 
-                // insert last as base
+            $offset_x = $descriptor->getLeft();
+            $offset_y = $descriptor->getTop();
+            $w = $descriptor->getWidth();
+            $h = $descriptor->getHeight();
+
+            if (in_array($this->getDisposalMethod($gif), [DisposalMethod::NONE, DisposalMethod::PREVIOUS])) {
+                if ($key >= 1) {
+                    // create normalized gd image
+                    $canvas = imagecreatetruecolor($width, $height);
+                    if (imagecolortransparent($resource) != -1) {
+                        $transparent = imagecolortransparent($resource);
+                    } else {
+                        $transparent = imagecolorallocatealpha($resource, 255, 0, 255, 127);
+                    }
+
+                    // fill with transparent
+                    imagefill($canvas, 0, 0, $transparent);
+                    imagecolortransparent($canvas, $transparent);
+                    imagealphablending($canvas, true);
+
+                    // insert last as base
+                    imagecopy(
+                        $canvas,
+                        $resources[$key - 1],
+                        0,
+                        0,
+                        0,
+                        0,
+                        $width,
+                        $height
+                    );
+
+                    // insert resource
+                    imagecopy(
+                        $canvas,
+                        $resource,
+                        $offset_x,
+                        $offset_y,
+                        0,
+                        0,
+                        $w,
+                        $h
+                    );
+                } else {
+                    $canvas = $resource;
+                }
+            } else {
+                // create normalized gd image
+                $canvas = imagecreatetruecolor($width, $height);
+                if (imagecolortransparent($resource) != -1) {
+                    $transparent = imagecolortransparent($resource);
+                } else {
+                    $transparent = imagecolorallocatealpha($resource, 255, 0, 255, 127);
+                }
+
+                // fill with transparent
+                imagefill($canvas, 0, 0, $transparent);
+                imagecolortransparent($canvas, $transparent);
+                imagealphablending($canvas, true);
+
+                // insert frame resource
                 imagecopy(
-                    $new,
-                    $resources[$key - 1],
-                    0,
-                    0,
-                    0,
-                    0,
-                    $width,
-                    $height
-                );
-
-                // copy over current
-                imagecopy(
-                    $new,
+                    $canvas,
                     $resource,
                     $offset_x,
                     $offset_y,
@@ -198,12 +245,16 @@ class Splitter implements IteratorAggregate
                     $w,
                     $h
                 );
-
-
-                $resources[$key] = $new;
             }
+
+            $resources[$key] = $canvas;
         }
 
         return $resources;
+    }
+
+    private function getDisposalMethod(GifDataStream $gif): int
+    {
+        return $gif->getGraphicBlocks()[0]->getGraphicControlExtension()->getDisposalMethod();
     }
 }
