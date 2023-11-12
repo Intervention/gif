@@ -68,7 +68,6 @@ class Builder
         $data = new GraphicBlock();
         $source = Decoder::decode($source);
 
-
         // store delay
         $data->setGraphicControlExtension(
             $this->buildGraphicControlExtension(
@@ -94,12 +93,18 @@ class Builder
      * @param  int $delay
      * @return GraphicControlExtension
      */
-    protected function buildGraphicControlExtension(GifDataStream $source, int $delay): GraphicControlExtension
-    {
+    protected function buildGraphicControlExtension(
+        GifDataStream $source,
+        int $delay,
+        int $disposal_method = DisposalMethod::BACKGROUND
+    ): GraphicControlExtension {
         $extension = new GraphicControlExtension();
 
         // set delay
         $extension->setDelay($delay);
+
+        // set DisposalMethod
+        $extension->setDisposalMethod($disposal_method);
 
         // set transparency index
         $control = $source->getGraphicBlocks()[0]->getGraphicControlExtension();
