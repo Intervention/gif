@@ -66,10 +66,15 @@ class Builder
     public function addFrame(string $source, float $delay = 0, int $left = 0, int $top = 0): self
     {
         $data = new GraphicBlock();
+        $source = Decoder::decode($source);
+
 
         // store delay
         $data->setGraphicControlExtension(
-            $this->buildGraphicControlExtension(intval($delay * 100))
+            $this->buildGraphicControlExtension(
+                $source,
+                intval($delay * 100)
+            )
         );
 
         // store image
@@ -89,10 +94,21 @@ class Builder
      * @param  int $delay
      * @return GraphicControlExtension
      */
-    protected function buildGraphicControlExtension(int $delay): GraphicControlExtension
+    protected function buildGraphicControlExtension(GifDataStream $source, int $delay): GraphicControlExtension
     {
         $extension = new GraphicControlExtension();
+
+        // set delay
         $extension->setDelay($delay);
+
+        // set transparency index
+        $control = $source->getGraphicBlocks()[0]->getGraphicControlExtension();
+        if ($control && $control->getTransparentColorExistance()) {
+            $extension->setTransparentColorExistance();
+            $extension->setTransparentColorIndex(
+                $control->getTransparentColorIndex()
+            );
+        }
 
         return $extension;
     }
@@ -100,16 +116,14 @@ class Builder
     /**
      * Build table based image object from given source
      *
-     * @param  string $source
+     * @param  GifDataStream $source
      * @param  int    $left
      * @param  int    $top
      * @return TableBasedImage
      */
-    protected function buildTableBasedImage(string $source, int $left, int $top): TableBasedImage
+    protected function buildTableBasedImage(GifDataStream $source, int $left, int $top): TableBasedImage
     {
         $block = new TableBasedImage();
-
-        $source = Decoder::decode($source);
 
         // add global color table from source as local color table
         $block->getDescriptor()->setLocalColorTableExistance();
