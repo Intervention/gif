@@ -218,6 +218,7 @@ class Splitter implements IteratorAggregate
                         $h
                     );
                 } else {
+                    imagealphablending($resource, true);
                     $canvas = $resource;
                 }
             } else {
