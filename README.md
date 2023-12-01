@@ -1,6 +1,5 @@
-# Intervention Gif
-
-Native PHP GIF Encoder/Decoder.
+# Intervention GIF
+## Native PHP GIF Encoder/Decoder
 
 [![Latest Version](https://img.shields.io/packagist/v/intervention/gif.svg)](https://packagist.org/packages/intervention/gif)
 ![build](https://github.com/Intervention/gif/actions/workflows/build.yml/badge.svg)
@@ -8,15 +7,13 @@ Native PHP GIF Encoder/Decoder.
 
 ## Installation
 
-You can install this package easily with [Composer](https://getcomposer.org/).
-
-Just require the package with the following command:
+You can install this package easily with [Composer](https://getcomposer.org/). Just require the package with the following command:
 
 ```bash
 composer require intervention/gif
 ```
 
-## Usage
+## Code Examples
 
 ### Decoding
 
@@ -64,6 +61,11 @@ $gif->addFrame('/images/frame04.gif');
 $data = $gif->encode();
 ```
 
+
+## Requirements
+
+- PHP >= 8.0
+
 ## Development & Testing
 
 With this package comes a Docker image to build a test suite and analysis
@@ -79,8 +81,9 @@ Run the static analyzer on the code base.
 ```bash
 docker-compose run --rm --build analysis
 ```
+
 ## License
 
-Intervention Gif is licensed under the [MIT License](http://opensource.org/licenses/MIT).
+Intervention GIF is licensed under the [MIT License](http://opensource.org/licenses/MIT).
 
 Copyright 2020 [Oliver Vogel](http://intervention.io/)
