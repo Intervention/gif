@@ -1,6 +1,8 @@
 <?php
 
-namespace Intervention\Gif;
+namespace Intervention\Gif\Blocks;
+
+use Intervention\Gif\AbstractEntity;
 
 class ImageDescriptor extends AbstractEntity
 {

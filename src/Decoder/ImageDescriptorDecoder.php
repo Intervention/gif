@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\ImageDescriptor;
+use Intervention\Gif\Blocks\ImageDescriptor;
 
 class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 {

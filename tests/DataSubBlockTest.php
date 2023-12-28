@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\DataSubBlock;
+use Intervention\Gif\Blocks\DataSubBlock;
 
 class DataSubBlockTest extends BaseTestCase
 {

@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\PlainTextExtension;
+use Intervention\Gif\Blocks\PlainTextExtension;
 
 class PlainTextExtensionDecoder extends AbstractDecoder
 {

@@ -2,28 +2,21 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\ColorTable;
-use Intervention\Gif\CommentExtension;
-use Intervention\Gif\DataSubBlock;
-use Intervention\Gif\GraphicBlock;
-use Intervention\Gif\GraphicControlExtension;
-use Intervention\Gif\ImageData;
-use Intervention\Gif\ImageDescriptor;
-use Intervention\Gif\LogicalScreen;
-use Intervention\Gif\LogicalScreenDescriptor;
-use Intervention\Gif\NetscapeApplicationExtension;
-use Intervention\Gif\TableBasedImage;
+use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Blocks\CommentExtension;
+use Intervention\Gif\Blocks\DataSubBlock;
+use Intervention\Gif\Blocks\FrameBlock;
+use Intervention\Gif\Blocks\GraphicControlExtension;
+use Intervention\Gif\Blocks\Header;
+use Intervention\Gif\Blocks\ImageData;
+use Intervention\Gif\Blocks\ImageDescriptor;
+use Intervention\Gif\Blocks\LogicalScreenDescriptor;
+use Intervention\Gif\Blocks\NetscapeApplicationExtension;
+use Intervention\Gif\DisposalMethod;
 use PHPUnit\Framework\TestCase;
 
 abstract class BaseTestCase extends TestCase
 {
-    public const HEADER_SAMPLE = "GIF89a";
-    public const LOGICAL_SCREEN_DESCRIPTOR_SAMPLE = "\x51\x00\x16\x00\xf1\x00\x00\x00\x00\x00\xff\x00\x00\x00\xff\x00\x00\x00\xff";
-    public const GRAPHIC_CONTROL_EXTENSION_SAMPLE = "\x21\xF9\x04\x0f\x96\x00\x01\x00";
-    public const TABLE_BASED_IMAGE_SAMPLE = "\x2c\x0a\x00\x0a\x00\x0a\x00\x0a\x00\x00\x02\x16\x8c\x2d\x99\x87\x2a\x1c\xdc\x33\xa0\x02\x75\xec\x95\xfa\xa8\xde\x60\x8c\x04\x91\x4c\x01\x00";
-    public const COMMENT_EXTENSION_SAMPLE = "\x21\xFE\x03\x66\x6F\x6F\x03\x62\x61\x72\x03\x62\x61\x7a\x00";
-    public const APPLICATION_EXTENSION_SAMPLE = "\x21\xff\x0b\x4e\x45\x54\x53\x43\x41\x50\x45\x32\x2e\x30\x03\x01\x0c\x00\x00";
-
     public function getTestHandle($data)
     {
         $handle = fopen('php://memory', 'r+');
@@ -31,6 +24,11 @@ abstract class BaseTestCase extends TestCase
         rewind($handle);
 
         return $handle;
+    }
+
+    protected function getTestHeader(): Header
+    {
+        return new Header();
     }
 
     protected function getTestColorTable(): ColorTable
@@ -47,37 +45,34 @@ abstract class BaseTestCase extends TestCase
     protected function getTestImageData(): ImageData
     {
         $data = new ImageData();
-        $data->setLzwMinCodeSize(2);
-        $data->addBlock(
-            new DataSubBlock("\x8C\x2D\x99\x87\x2A\x1C\xDC\x33\xA0\x02\x75\xEC\x95\xFA\xA8\xDE\x60\x8C\x04\x91\x4C\x01")
-        );
+        $data->setLzwMinCodeSize(5);
+        $data->addBlock(new DataSubBlock("\x20\x20\x8E\x64\x69\x9E\x51\xA0\x46\x67\xEB\xBE\x70\x2C\x97\xE9\x3A\xDF\x78\xAE\xDF\x4F\xD4\x40\x8F\x9B\x43\x15\x70\xF0\x7C\xC0\x9D\xB2\x15\x02"));
+        $data->addBlock(new DataSubBlock("\x01\x01\x01\x01"));
+        $data->addBlock(new DataSubBlock("\x01\x01\x01"));
 
         return $data;
     }
 
-    protected function getTestImageDescriptor(): ImageDescriptor
-    {
+    protected function getTestImageDescriptor(
+        int $size_x = 10,
+        int $size_y = 10,
+        int $pos_x = 0,
+        int $pos_y = 0
+    ): ImageDescriptor {
         $descriptor = new ImageDescriptor();
-        $descriptor->setSize(10, 10);
-        $descriptor->setPosition(10, 10);
+        $descriptor->setSize($size_x, $size_y);
+        $descriptor->setPosition($pos_x, $pos_y);
 
         return $descriptor;
     }
 
-    protected function getTestTableBasedImage(): TableBasedImage
-    {
-        $tbi = new TableBasedImage();
-        $tbi->setDescriptor($this->getTestImageDescriptor());
-        $tbi->setData($this->getTestImageData());
-
-        return $tbi;
-    }
-
-    protected function getTestGraphicControlExtension(): GraphicControlExtension
-    {
+    protected function getTestGraphicControlExtension(
+        int $delay = 120,
+        DisposalMethod $disposalMethod = DisposalMethod::PREVIOUS
+    ): GraphicControlExtension {
         $extension = new GraphicControlExtension();
-        $extension->setDelay(150);
-        $extension->setDisposalMethod(3);
+        $extension->setDelay($delay);
+        $extension->setDisposalMethod($disposalMethod);
         $extension->setTransparentColorExistance();
         $extension->setTransparentColorIndex(1);
         $extension->setUserInput();
@@ -85,19 +80,10 @@ abstract class BaseTestCase extends TestCase
         return $extension;
     }
 
-    protected function getTestGraphicBlock(): GraphicBlock
-    {
-        $block = new GraphicBlock();
-        $block->setGraphicControlExtension($this->getTestGraphicControlExtension());
-        $block->setGraphicRenderingBlock($this->getTestTableBasedImage());
-
-        return $block;
-    }
-
-    protected function getTestNetscapeApplicationExtension(): NetscapeApplicationExtension
+    protected function getTestNetscapeApplicationExtension(int $loops = 12): NetscapeApplicationExtension
     {
         $extension = new NetscapeApplicationExtension();
-        $extension->setLoops(12);
+        $extension->setLoops($loops);
 
         return $extension;
     }
@@ -112,24 +98,25 @@ abstract class BaseTestCase extends TestCase
         return $extension;
     }
 
-    protected function getTestLogicalScreen()
-    {
-        $screen = new LogicalScreen();
-        $screen->setDescriptor($this->getTestLogicalScreenDescriptor());
-        $screen->setColorTable($this->getTestColorTable());
-
-        return $screen;
-    }
-
-    protected function getTestLogicalScreenDescriptor()
-    {
+    protected function getTestLogicalScreenDescriptor(
+        int $width = 100,
+        int $height = 20
+    ): LogicalScreenDescriptor {
         $descriptor = new LogicalScreenDescriptor();
-        $descriptor->setSize(81, 22);
-        $descriptor->setGlobalColorTableExistance(true);
-        $descriptor->setGlobalColorTableSorted(false);
-        $descriptor->setGlobalColorTableSize(1);
-        $descriptor->setBackgroundColorIndex(0);
+        $descriptor->setSize($width, $height);
 
         return $descriptor;
+    }
+
+    protected function getTestFrame(): FrameBlock
+    {
+        $block = new FrameBlock();
+        $block->setGraphicControlExtension($this->getTestGraphicControlExtension());
+        $block->setImageDescriptor($this->getTestImageDescriptor());
+        $block->setImageData($this->getTestImageData());
+        $block->addApplicationExtension($this->getTestNetscapeApplicationExtension());
+        $block->addCommentExtension($this->getTestCommentExtension());
+
+        return $block;
     }
 }

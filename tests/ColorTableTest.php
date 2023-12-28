@@ -2,8 +2,8 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\Color;
-use Intervention\Gif\ColorTable;
+use Intervention\Gif\Blocks\Color;
+use Intervention\Gif\Blocks\ColorTable;
 
 class ColorTableTest extends BaseTestCase
 {
@@ -28,7 +28,7 @@ class ColorTableTest extends BaseTestCase
         $this->assertIsArray($table->getColors());
         $this->assertCount(2, $table->getColors());
 
-        foreach ($table->getColors() as $key => $value) {
+        foreach (array_keys($table->getColors()) as $key) {
             $this->assertIsNumeric($key);
         }
     }

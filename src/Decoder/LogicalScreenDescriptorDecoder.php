@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\LogicalScreenDescriptor;
+use Intervention\Gif\Blocks\LogicalScreenDescriptor;
 
 class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 {

@@ -25,10 +25,20 @@ class GifDataStreamEncoder extends AbstractEncoder
     {
         return implode('', [
             $this->source->getHeader()->encode(),
-            $this->source->getLogicalScreen()->encode(),
-            $this->encodeData(),
+            $this->source->getLogicalScreenDescriptor()->encode(),
+            $this->maybeEncodeGlobalColorTable(),
+            $this->encodeFrames(),
             $this->source->getTrailer()->encode(),
         ]);
+    }
+
+    protected function maybeEncodeGlobalColorTable(): string
+    {
+        if (!$this->source->hasGlobalColorTable()) {
+            return '';
+        }
+
+        return $this->source->getGlobalColorTable()->encode();
     }
 
     /**
@@ -36,10 +46,10 @@ class GifDataStreamEncoder extends AbstractEncoder
      *
      * @return string
      */
-    protected function encodeData(): string
+    protected function encodeFrames(): string
     {
-        return implode('', array_map(function ($block) {
-            return $block->encode();
-        }, $this->source->getData()));
+        return implode('', array_map(function ($frame) {
+            return $frame->encode();
+        }, $this->source->getFrames()));
     }
 }

@@ -1,11 +1,8 @@
 <?php
 
-namespace Intervention\Gif;
+namespace Intervention\Gif\Blocks;
 
-use Intervention\Gif\Contracts\SpecialPurposeBlock;
-use Intervention\Gif\DataSubBlock;
-
-class NetscapeApplicationExtension extends ApplicationExtension implements SpecialPurposeBlock
+class NetscapeApplicationExtension extends ApplicationExtension
 {
     public const IDENTIFIER = "NETSCAPE";
     public const AUTH_CODE = "2.0";

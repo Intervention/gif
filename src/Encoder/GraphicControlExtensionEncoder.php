@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\GraphicControlExtension;
+use Intervention\Gif\Blocks\GraphicControlExtension;
 
 class GraphicControlExtensionEncoder extends AbstractEncoder
 {
@@ -63,7 +63,7 @@ class GraphicControlExtensionEncoder extends AbstractEncoder
     {
         return pack('C', bindec(implode('', [
             str_pad('0', 3, '0', STR_PAD_LEFT),
-            str_pad(decbin($this->source->getDisposalMethod()), 3, '0', STR_PAD_LEFT),
+            str_pad(decbin($this->source->getDisposalMethod()->value), 3, '0', STR_PAD_LEFT),
             (int) $this->source->getUserInput(),
             (int) $this->source->getTransparentColorExistance(),
         ])));

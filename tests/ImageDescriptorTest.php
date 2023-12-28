@@ -2,9 +2,7 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\Color;
-use Intervention\Gif\ColorTable;
-use Intervention\Gif\ImageDescriptor;
+use Intervention\Gif\Blocks\ImageDescriptor;
 
 class ImageDescriptorTest extends BaseTestCase
 {
@@ -37,7 +35,7 @@ class ImageDescriptorTest extends BaseTestCase
 
         $desc->setInterlaced();
         $this->assertTrue($desc->isInterlaced());
-        
+
         $desc->setInterlaced(false);
         $this->assertFalse($desc->isInterlaced());
     }

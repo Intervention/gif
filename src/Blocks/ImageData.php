@@ -1,8 +1,8 @@
 <?php
 
-namespace Intervention\Gif;
+namespace Intervention\Gif\Blocks;
 
-use Intervention\Gif\DataSubBlock;
+use Intervention\Gif\AbstractEntity;
 
 class ImageData extends AbstractEntity
 {

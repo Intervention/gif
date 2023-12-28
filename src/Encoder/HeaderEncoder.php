@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\Header as Header;
+use Intervention\Gif\Blocks\Header;
 
 class HeaderEncoder extends AbstractEncoder
 {

@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\PlainTextExtension as PlainTextExtension;
+use Intervention\Gif\Blocks\PlainTextExtension;
 
 class PlainTextExtensionEncoder extends AbstractEncoder
 {

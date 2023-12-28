@@ -83,7 +83,6 @@ abstract class AbstractDecoder
     /**
      * Read next byte and move pointer back to previous position
      *
-     * @param  int $length
      * @return string
      */
     public function viewNextByte(): string
@@ -176,6 +175,11 @@ abstract class AbstractDecoder
     public function getLength(): ?int
     {
         return $this->length;
+    }
+
+    public function getPosition(): int
+    {
+        return ftell($this->handle);
     }
 
     /**

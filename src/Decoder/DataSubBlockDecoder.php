@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\DataSubBlock;
+use Intervention\Gif\Blocks\DataSubBlock;
 
 class DataSubBlockDecoder extends AbstractDecoder
 {

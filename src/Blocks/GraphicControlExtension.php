@@ -1,6 +1,9 @@
 <?php
 
-namespace Intervention\Gif;
+namespace Intervention\Gif\Blocks;
+
+use Intervention\Gif\AbstractExtension;
+use Intervention\Gif\DisposalMethod;
 
 class GraphicControlExtension extends AbstractExtension
 {
@@ -17,9 +20,9 @@ class GraphicControlExtension extends AbstractExtension
     /**
      * Disposal method of instance
      *
-     * @var int
+     * @var DisposalMethod
      */
-    protected $disposalMethod = 0;
+    protected DisposalMethod $disposalMethod = DisposalMethod::UNDEFINED;
 
     /**
      * Existance flag of transparent color
@@ -67,10 +70,10 @@ class GraphicControlExtension extends AbstractExtension
     /**
      * Set disposal method
      *
-     * @param int $method
+     * @param DisposalMethod $method
      * @return self
      */
-    public function setDisposalMethod(int $method): self
+    public function setDisposalMethod(DisposalMethod $method): self
     {
         $this->disposalMethod = $method;
 
@@ -80,9 +83,9 @@ class GraphicControlExtension extends AbstractExtension
     /**
      * Get disposal method
      *
-     * @return int
+     * @return DisposalMethod
      */
-    public function getDisposalMethod(): int
+    public function getDisposalMethod(): DisposalMethod
     {
         return $this->disposalMethod;
     }

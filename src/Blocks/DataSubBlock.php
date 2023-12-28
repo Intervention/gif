@@ -1,7 +1,8 @@
 <?php
 
-namespace Intervention\Gif;
+namespace Intervention\Gif\Blocks;
 
+use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\Exception\FormatException;
 
 class DataSubBlock extends AbstractEntity

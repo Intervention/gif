@@ -2,6 +2,12 @@
 
 namespace Intervention\Gif;
 
+use Exception;
+use Intervention\Gif\Blocks\FrameBlock;
+use Intervention\Gif\Blocks\GraphicControlExtension;
+use Intervention\Gif\Blocks\ImageDescriptor;
+use Intervention\Gif\Blocks\NetscapeApplicationExtension;
+use Intervention\Gif\Blocks\TableBasedImage;
 use Intervention\Gif\Traits\CanHandleFiles;
 
 class Builder
@@ -13,7 +19,7 @@ class Builder
      *
      * @var GifDataStream
      */
-    protected $gif;
+    protected GifDataStream $gif;
 
     /**
      * Get GifDataStream object we're currently building
@@ -30,23 +36,15 @@ class Builder
      *
      * @param  int         $width
      * @param  int         $height
-     * @param  int         $loops
      * @return self
      */
-    public static function canvas(int $width, int $height, int $loops = 0): self
+    public static function canvas(int $width, int $height): self
     {
         $builder = new self();
         $gif = new GifDataStream();
 
         // set width +height
-        $gif->getLogicalScreen()->getDescriptor()->setSize($width, $height);
-
-        if ($loops >= 0 && $loops !== 1) {
-            // set loop count
-            $gif->addData(
-                (new NetscapeApplicationExtension())->setLoops($loops)
-            );
-        }
+        $gif->getLogicalScreenDescriptor()->setSize($width, $height);
 
         $builder->gif = $gif;
 
@@ -54,22 +52,48 @@ class Builder
     }
 
     /**
+     * Set loop count
+     *
+     * @param int $loops
+     * @return Builder
+     * @throws Exception
+     */
+    public function setLoops(int $loops): self
+    {
+        if (count($this->gif->getFrames()) === 0) {
+            throw new Exception('Add at least one frame before setting the loop count');
+        }
+
+        if ($loops >= 0 && $loops !== 1) {
+            // add frame count to existing or new netscape extension on first frame
+            if (!$this->gif->getFirstFrame()->getNetscapeExtension()) {
+                $this->gif->getFirstFrame()->addApplicationExtension(
+                    new NetscapeApplicationExtension()
+                );
+            }
+            $this->gif->getFirstFrame()->getNetscapeExtension()->setLoops($loops);
+        }
+
+        return $this;
+    }
+
+    /**
      * Create new animation frame from given source
      * which can be path to a file or GIF image data
      *
-     * @param string  $source
-     * @param float $delay   time delay in seconds
-     * @param int $left    position offset in pixels from left
-     * @param int $top     position offset in pixels from top
+     * @param string $source
+     * @param float $delay time delay in seconds
+     * @param int $left position offset in pixels from left
+     * @param int $top position offset in pixels from top
      * @return Builder
      */
     public function addFrame(string $source, float $delay = 0, int $left = 0, int $top = 0): self
     {
-        $data = new GraphicBlock();
+        $frame = new FrameBlock();
         $source = Decoder::decode($source);
 
         // store delay
-        $data->setGraphicControlExtension(
+        $frame->setGraphicControlExtension(
             $this->buildGraphicControlExtension(
                 $source,
                 intval($delay * 100)
@@ -77,26 +101,28 @@ class Builder
         );
 
         // store image
-        $data->setGraphicRenderingBlock(
+        $frame->setTableBasedImage(
             $this->buildTableBasedImage($source, $left, $top)
         );
 
         // add frame
-        $this->gif->addData($data);
+        $this->gif->addFrame($frame);
 
         return $this;
     }
 
     /**
-     * Build new graphic control extension object with given delay
+     * Build new graphic control extension with given delay & disposal method
      *
-     * @param  int $delay
+     * @param GifDataStream $source
+     * @param int $delay
+     * @param int $disposal_method
      * @return GraphicControlExtension
      */
     protected function buildGraphicControlExtension(
         GifDataStream $source,
         int $delay,
-        int $disposal_method = DisposalMethod::BACKGROUND
+        DisposalMethod $disposal_method = DisposalMethod::BACKGROUND
     ): GraphicControlExtension {
         $extension = new GraphicControlExtension();
 
@@ -107,7 +133,7 @@ class Builder
         $extension->setDisposalMethod($disposal_method);
 
         // set transparency index
-        $control = $source->getGraphicBlocks()[0]->getGraphicControlExtension();
+        $control = $source->getFirstFrame()->getGraphicControlExtension();
         if ($control && $control->getTransparentColorExistance()) {
             $extension->setTransparentColorExistance();
             $extension->setTransparentColorIndex(
@@ -129,30 +155,30 @@ class Builder
     protected function buildTableBasedImage(GifDataStream $source, int $left, int $top): TableBasedImage
     {
         $block = new TableBasedImage();
+        $block->setImageDescriptor(new ImageDescriptor());
 
-        // add global color table from source as local color table
-        $block->getDescriptor()->setLocalColorTableExistance();
-        $block->setColorTable(
-            $source->getLogicalScreen()->getColorTable()
+        // set global color table from source as local color table
+        $block->getImageDescriptor()->setLocalColorTableExistance();
+        $block->setColorTable($source->getGlobalColorTable());
+
+        $block->getImageDescriptor()->setLocalColorTableSorted(
+            $source->getLogicalScreenDescriptor()->getGlobalColorTableSorted()
         );
-        $block->getDescriptor()->setLocalColorTableSorted(
-            $source->getLogicalScreen()->getDescriptor()->getGlobalColorTableSorted()
+
+        $block->getImageDescriptor()->setLocalColorTableSize(
+            $source->getLogicalScreenDescriptor()->getGlobalColorTableSize()
         );
-        $block->getDescriptor()->setLocalColorTableSize(
-            $source->getLogicalScreen()->getDescriptor()->getGlobalColorTableSize()
-        );
-        $block->getDescriptor()->setSize(
-            $source->getLogicalScreen()->getDescriptor()->getWidth(),
-            $source->getLogicalScreen()->getDescriptor()->getHeight()
+
+        $block->getImageDescriptor()->setSize(
+            $source->getLogicalScreenDescriptor()->getWidth(),
+            $source->getLogicalScreenDescriptor()->getHeight()
         );
 
         // set position
-        $block->getDescriptor()->setPosition($left, $top);
+        $block->getImageDescriptor()->setPosition($left, $top);
 
         // add image data from source
-        $block->setData(
-            $source->getData()[0]->getGraphicRenderingBlock()->getData()
-        );
+        $block->setImageData($source->getFirstFrame()->getImageData());
 
         return $block;
     }

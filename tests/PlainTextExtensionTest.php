@@ -2,11 +2,7 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\Color;
-use Intervention\Gif\ColorTable;
-use Intervention\Gif\Exception\DecodingException;
-use Intervention\Gif\Header;
-use Intervention\Gif\PlainTextExtension;
+use Intervention\Gif\Blocks\PlainTextExtension;
 
 class PlainTextExtensionTest extends BaseTestCase
 {

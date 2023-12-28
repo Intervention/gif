@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\CommentExtension;
+use Intervention\Gif\Blocks\CommentExtension;
 
 class CommentExtensionDecoder extends AbstractDecoder
 {

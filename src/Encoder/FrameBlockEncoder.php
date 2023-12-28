@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\FrameBlock;
+use Intervention\Gif\Blocks\FrameBlock;
 
 class FrameBlockEncoder extends AbstractEncoder
 {
@@ -29,11 +29,11 @@ class FrameBlockEncoder extends AbstractEncoder
             implode('', array_map(function ($extension) {
                 return $extension->encode();
             }, $this->source->getCommentExtensions())),
+            $plainTextExtension ? $plainTextExtension->encode() : '',
             $graphicControlExtension ? $graphicControlExtension->encode() : '',
             $this->source->getImageDescriptor()->encode(),
             $colorTable ? $colorTable->encode() : '',
             $this->source->getImageData()->encode(),
-            $plainTextExtension ? $plainTextExtension->encode() : '',
         ]);
     }
 }

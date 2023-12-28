@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\DataSubBlock;
+use Intervention\Gif\Blocks\DataSubBlock;
 
 class DataSubBlockEncoder extends AbstractEncoder
 {

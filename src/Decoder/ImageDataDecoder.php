@@ -3,8 +3,8 @@
 namespace Intervention\Gif\Decoder;
 
 use Intervention\Gif\AbstractEntity;
-use Intervention\Gif\DataSubBlock;
-use Intervention\Gif\ImageData;
+use Intervention\Gif\Blocks\DataSubBlock;
+use Intervention\Gif\Blocks\ImageData;
 
 class ImageDataDecoder extends AbstractDecoder
 {

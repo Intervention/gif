@@ -1,10 +1,10 @@
 <?php
 
-namespace Intervention\Gif;
+namespace Intervention\Gif\Blocks;
 
-use Intervention\Gif\Contracts\SpecialPurposeBlock;
+use Intervention\Gif\AbstractExtension;
 
-class CommentExtension extends AbstractExtension implements SpecialPurposeBlock
+class CommentExtension extends AbstractExtension
 {
     public const LABEL = "\xFE";
 

@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\Trailer as Trailer;
+use Intervention\Gif\Blocks\Trailer;
 
 class TrailerEncoder extends AbstractEncoder
 {

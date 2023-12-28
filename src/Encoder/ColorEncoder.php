@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\Color;
+use Intervention\Gif\Blocks\Color;
 
 class ColorEncoder extends AbstractEncoder
 {

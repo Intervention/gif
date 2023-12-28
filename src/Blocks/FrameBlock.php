@@ -1,6 +1,8 @@
 <?php
 
-namespace Intervention\Gif;
+namespace Intervention\Gif\Blocks;
+
+use Intervention\Gif\AbstractEntity;
 
 class FrameBlock extends AbstractEntity
 {
@@ -16,6 +18,49 @@ class FrameBlock extends AbstractEntity
     {
         $this->imageDescriptor = new ImageDescriptor();
         $this->imageData = new ImageData();
+    }
+
+    public function addEntity(AbstractEntity $entity): self
+    {
+        switch (true) {
+            case $entity instanceof TableBasedImage:
+                $this->setTableBasedImage($entity);
+                break;
+
+            case $entity instanceof GraphicControlExtension:
+                $this->setGraphicControlExtension($entity);
+                break;
+
+            case $entity instanceof ImageDescriptor:
+                $this->setImageDescriptor($entity);
+                break;
+
+            case $entity instanceof ColorTable:
+                $this->setColorTable($entity);
+                break;
+
+            case $entity instanceof ImageData:
+                $this->setImageData($entity);
+                break;
+
+            case $entity instanceof PlainTextExtension:
+                $this->setPlainTextExtension($entity);
+                break;
+
+            case $entity instanceof NetscapeApplicationExtension:
+                $this->addApplicationExtension($entity);
+                break;
+
+            case $entity instanceof ApplicationExtension:
+                $this->addApplicationExtension($entity);
+                break;
+
+            case $entity instanceof CommentExtension:
+                $this->addCommentExtension($entity);
+                break;
+        }
+
+        return $this;
     }
 
     public function getApplicationExtensions(): array
@@ -63,6 +108,11 @@ class FrameBlock extends AbstractEntity
         return $this->colorTable;
     }
 
+    public function hasColorTable(): bool
+    {
+        return !is_null($this->colorTable);
+    }
+
     public function setImageData(ImageData $data): self
     {
         $this->imageData = $data;
@@ -108,5 +158,18 @@ class FrameBlock extends AbstractEntity
         });
 
         return count($extensions) ? reset($extensions) : null;
+    }
+
+    public function setTableBasedImage(TableBasedImage $tableBasedImage): self
+    {
+        $this->setImageDescriptor($tableBasedImage->getImageDescriptor());
+
+        if ($colorTable = $tableBasedImage->getColorTable()) {
+            $this->setColorTable($colorTable);
+        }
+
+        $this->setImageData($tableBasedImage->getImageData());
+
+        return $this;
     }
 }

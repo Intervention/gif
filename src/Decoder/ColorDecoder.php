@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\Color;
+use Intervention\Gif\Blocks\Color;
 
 class ColorDecoder extends AbstractDecoder
 {

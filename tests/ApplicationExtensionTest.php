@@ -2,8 +2,8 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\ApplicationExtension;
-use Intervention\Gif\DataSubBlock;
+use Intervention\Gif\Blocks\ApplicationExtension;
+use Intervention\Gif\Blocks\DataSubBlock;
 
 class ApplicationExtensionTest extends BaseTestCase
 {

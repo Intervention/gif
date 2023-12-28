@@ -2,35 +2,29 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\ColorTable;
-use Intervention\Gif\ImageData;
-use Intervention\Gif\ImageDescriptor;
-use Intervention\Gif\TableBasedImage;
+use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Blocks\ImageData;
+use Intervention\Gif\Blocks\ImageDescriptor;
+use Intervention\Gif\Blocks\TableBasedImage;
 
 class TableBasedImageDecoder extends AbstractDecoder
 {
-    /**
-     * Decode current source
-     *
-     * @return TableBasedImage
-     */
     public function decode(): TableBasedImage
     {
-        $image = new TableBasedImage();
+        $block = new TableBasedImage();
 
-        // descriptor
-        $image->setDescriptor(ImageDescriptor::decode($this->handle));
+        $block->setImageDescriptor(ImageDescriptor::decode($this->handle));
 
-        // local color table
-        if ($image->getDescriptor()->hasLocalColorTable()) {
-            $image->setColortable(ColorTable::decode($this->handle, function ($decoder) use ($image) {
-                $decoder->setLength($image->getDescriptor()->getLocalColorTableByteSize());
-            }));
+        if ($block->getImageDescriptor()->hasLocalColorTable()) {
+            $block->setColorTable(
+                ColorTable::decode($this->handle)
+            );
         }
 
-        // image data
-        $image->setData(ImageData::decode($this->handle));
+        $block->setImageData(
+            ImageData::decode($this->handle)
+        );
 
-        return $image;
+        return $block;
     }
 }

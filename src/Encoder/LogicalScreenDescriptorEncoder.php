@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\LogicalScreenDescriptor;
+use Intervention\Gif\Blocks\LogicalScreenDescriptor;
 
 class LogicalScreenDescriptorEncoder extends AbstractEncoder
 {

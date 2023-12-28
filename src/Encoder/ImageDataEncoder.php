@@ -4,7 +4,7 @@ namespace Intervention\Gif\Encoder;
 
 use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\Exception\EncoderException;
-use Intervention\Gif\ImageData;
+use Intervention\Gif\Blocks\ImageData;
 
 class ImageDataEncoder extends AbstractEncoder
 {
@@ -25,7 +25,7 @@ class ImageDataEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        if (! $this->source->hasBlocks()) {
+        if (!$this->source->hasBlocks()) {
             throw new EncoderException("No data blocks in ImageData.");
         }
 

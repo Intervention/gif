@@ -2,8 +2,8 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\ApplicationExtension;
-use Intervention\Gif\NetscapeApplicationExtension;
+use Intervention\Gif\Blocks\ApplicationExtension;
+use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 
 class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
 {

@@ -1,30 +1,11 @@
 <?php
 
-namespace Intervention\Gif;
+namespace Intervention\Gif\Blocks;
+
+use Intervention\Gif\AbstractEntity;
 
 class Color extends AbstractEntity
 {
-    /**
-     * Red value
-     *
-     * @var int
-     */
-    protected $r;
-
-    /**
-     * Green value
-     *
-     * @var int
-     */
-    protected $g;
-
-    /**
-     * Blue value
-     *
-     * @var int
-     */
-    protected $b;
-
     /**
      * Create new instance
      *
@@ -32,11 +13,11 @@ class Color extends AbstractEntity
      * @param int $g
      * @param int $b
      */
-    public function __construct(int $r = 0, int $g = 0, int $b = 0)
-    {
-        $this->r = $r;
-        $this->g = $g;
-        $this->b = $b;
+    public function __construct(
+        protected int $r = 0,
+        protected int $g = 0,
+        protected int $b = 0
+    ) {
     }
 
     /**

@@ -1,10 +1,10 @@
 <?php
 
-namespace Intervention\Gif;
+namespace Intervention\Gif\Blocks;
 
-use Intervention\Gif\Contracts\GraphicRenderingBlock;
+use Intervention\Gif\AbstractExtension;
 
-class PlainTextExtension extends AbstractExtension implements GraphicRenderingBlock
+class PlainTextExtension extends AbstractExtension
 {
     public const LABEL = "\x01";
 

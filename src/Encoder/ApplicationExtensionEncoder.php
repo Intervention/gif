@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\ApplicationExtension;
+use Intervention\Gif\Blocks\ApplicationExtension;
 
 class ApplicationExtensionEncoder extends AbstractEncoder
 {

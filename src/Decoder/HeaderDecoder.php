@@ -3,7 +3,7 @@
 namespace Intervention\Gif\Decoder;
 
 use Intervention\Gif\Exception\DecoderException;
-use Intervention\Gif\Header;
+use Intervention\Gif\Blocks\Header;
 
 class HeaderDecoder extends AbstractDecoder
 {

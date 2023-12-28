@@ -2,15 +2,12 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\AbstractExtension;
-use Intervention\Gif\ApplicationExtension;
-use Intervention\Gif\CommentExtension;
-use Intervention\Gif\Contracts\DataBlock;
+use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Blocks\FrameBlock;
+use Intervention\Gif\Blocks\Header;
+use Intervention\Gif\Blocks\LogicalScreenDescriptor;
+use Intervention\Gif\Blocks\Trailer;
 use Intervention\Gif\GifDataStream;
-use Intervention\Gif\GraphicBlock;
-use Intervention\Gif\Header;
-use Intervention\Gif\LogicalScreen;
-use Intervention\Gif\Trailer;
 
 class GifDataStreamDecoder extends AbstractDecoder
 {
@@ -23,51 +20,41 @@ class GifDataStreamDecoder extends AbstractDecoder
     {
         $gif = new GifDataStream();
 
-        $gif->setHeader(Header::decode($this->handle));
-        $gif->setLogicalScreen(LogicalScreen::decode($this->handle));
-        while (! feof($this->handle)) {
-            if ($block = $this->decodeNextDataBlock()) {
-                $gif->addData($block);
-            }
+        $gif->setHeader(
+            Header::decode($this->handle),
+        );
+
+        $gif->setLogicalScreenDescriptor(
+            LogicalScreenDescriptor::decode($this->handle),
+        );
+
+        if ($gif->getLogicalScreenDescriptor()->hasGlobalColorTable()) {
+            $length = $gif->getLogicalScreenDescriptor()->getGlobalColorTableByteSize();
+            $gif->setGlobalColorTable(
+                ColorTable::decode($this->handle, function ($decoder) use ($length) {
+                    $decoder->setLength($length);
+                })
+            );
+        }
+
+        // echo "<pre>";
+        // var_dump(get_class($this->decodeNextFrame()));
+        // var_dump(get_class($this->decodeNextFrame()));
+        // var_dump(get_class($this->decodeNextFrame()));
+        // var_dump(get_class($this->decodeNextFrame()));
+        // var_dump(get_class($this->decodeNextFrame()));
+        // var_dump(get_class($this->decodeNextFrame()));
+        // var_dump(get_class($this->decodeNextFrame()));
+        // var_dump(get_class($this->decodeNextFrame()));
+        // var_dump($this->getPosition());
+        // var_dump($this->viewNextByte());
+        // echo "</pre>";
+        // exit;
+
+        while ($this->viewNextByte() != Trailer::MARKER) {
+            $gif->addFrame(FrameBlock::decode($this->handle));
         }
 
         return $gif;
-    }
-
-    /**
-     * Decode data blocks from source into the given data stream object
-     *
-     * @return DataBlock
-     */
-    protected function decodeNextDataBlock(): ?DataBlock
-    {
-        //graphicblock ([GraphicControlExtension] | ((ImageDescriptor [LocalColorTable]ImageData) | PlainTextExtension))
-        //or special purpose block (ApplicationExtension | CommentExtension)
-
-        $marker = $this->getNextByte();
-        $label = $this->getNextByte();
-
-        if ($marker === AbstractExtension::MARKER) {
-            // extension
-            if ($label === ApplicationExtension::LABEL) {
-                // special purpose block
-                return ApplicationExtension::decode($this->handle, function ($decoder) {
-                    $decoder->movePointer(-2);
-                });
-            } elseif ($label === CommentExtension::LABEL) {
-                // special purpose block
-                return CommentExtension::decode($this->handle, function ($decoder) {
-                    $decoder->movePointer(-2);
-                });
-            }
-        }
-
-        if ($marker === Trailer::MARKER) {
-            return null;
-        }
-
-        return GraphicBlock::decode($this->handle, function ($decoder) {
-            $decoder->movePointer(-2);
-        });
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\CommentExtension;
+use Intervention\Gif\Blocks\CommentExtension;
 
 class CommentExtensionTest extends BaseTestCase
 {

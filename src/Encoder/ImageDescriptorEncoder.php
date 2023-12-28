@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\ImageDescriptor;
+use Intervention\Gif\Blocks\ImageDescriptor;
 
 class ImageDescriptorEncoder extends AbstractEncoder
 {

@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Encoder;
 
-use Intervention\Gif\ColorTable;
+use Intervention\Gif\Blocks\ColorTable;
 
 class ColorTableEncoder extends AbstractEncoder
 {

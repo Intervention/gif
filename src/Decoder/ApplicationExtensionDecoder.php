@@ -2,9 +2,9 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\ApplicationExtension;
-use Intervention\Gif\DataSubBlock;
-use Intervention\Gif\NetscapeApplicationExtension;
+use Intervention\Gif\Blocks\ApplicationExtension;
+use Intervention\Gif\Blocks\DataSubBlock;
+use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 
 class ApplicationExtensionDecoder extends AbstractDecoder
 {
@@ -28,7 +28,11 @@ class ApplicationExtensionDecoder extends AbstractDecoder
             // skip length
             $this->getNextByte();
 
-            $result->setBlocks([new DataSubBlock($this->getNextBytes(3))]);
+            $result->setBlocks([
+                new DataSubBlock(
+                    $this->getNextBytes(3)
+                )
+            ]);
 
             // skip terminator
             $this->getNextByte();
@@ -48,6 +52,12 @@ class ApplicationExtensionDecoder extends AbstractDecoder
         return $result;
     }
 
+    /**
+     * Decode block size of ApplicationExtension from given byte
+     *
+     * @param string $byte
+     * @return int
+     */
     protected function decodeBlockSize(string $byte): int
     {
         return (int) @unpack('C', $byte)[1];

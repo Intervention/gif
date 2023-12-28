@@ -2,41 +2,24 @@
 
 namespace Intervention\Gif;
 
-use Intervention\Gif\Contracts\DataBlock;
-use Intervention\Gif\GraphicBlock;
-use Intervention\Gif\NetscapeApplicationExtension;
-use Intervention\Gif\TableBasedImage;
+use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Blocks\FrameBlock;
+use Intervention\Gif\Blocks\Header;
+use Intervention\Gif\Blocks\LogicalScreenDescriptor;
+use Intervention\Gif\Blocks\NetscapeApplicationExtension;
+use Intervention\Gif\Blocks\Trailer;
 
 class GifDataStream extends AbstractEntity
 {
     /**
-     * File header
-     *
-     * @var Header
-     */
-    protected $header;
-
-    /**
-     * Logical Screen
-     *
-     * @var LogicalScreen
-     */
-    protected $logicalScreen;
-
-    /**
-     * Array of data blocks
-     *
-     * @var array
-     */
-    protected $data = [];
-
-    /**
      * Create new instance
      */
-    public function __construct()
-    {
-        $this->header = new Header();
-        $this->logicalScreen = new LogicalScreen();
+    public function __construct(
+        protected Header $header = new Header(),
+        protected LogicalScreenDescriptor $logicalScreenDescriptor = new LogicalScreenDescriptor(),
+        protected ?ColorTable $globalColorTable = null,
+        protected array $frames = []
+    ) {
     }
 
     /**
@@ -62,23 +45,51 @@ class GifDataStream extends AbstractEntity
     }
 
     /**
-     * Get logical screen
+     * Get logical screen descriptor
      *
-     * @return LogicalScreen
+     * @return LogicalScreenDescriptor
      */
-    public function getLogicalScreen(): LogicalScreen
+    public function getLogicalScreenDescriptor(): LogicalScreenDescriptor
     {
-        return $this->logicalScreen;
+        return $this->logicalScreenDescriptor;
     }
 
     /**
-     * Set logical screen
+     * Set logical screen descriptor
      *
-     * @param LogicalScreen $screen
+     * @param LogicalScreenDescriptor $descriptor
+     * @return GifDataStream
      */
-    public function setLogicalScreen(LogicalScreen $screen): self
+    public function setLogicalScreenDescriptor(LogicalScreenDescriptor $descriptor): self
     {
-        $this->logicalScreen = $screen;
+        $this->logicalScreenDescriptor = $descriptor;
+
+        return $this;
+    }
+
+    /**
+     * Return global color table if available else null
+     *
+     * @return null|ColorTable
+     */
+    public function getGlobalColorTable(): ?ColorTable
+    {
+        return $this->globalColorTable;
+    }
+
+    /**
+     * Set global color table
+     *
+     * @param ColorTable $table
+     * @return GifDataStream
+     */
+    public function setGlobalColorTable(ColorTable $table): self
+    {
+        $this->globalColorTable = $table;
+        $this->logicalScreenDescriptor->setGlobalColorTableExistance(true);
+        $this->logicalScreenDescriptor->setGlobalColorTableSize(
+            $table->getLogicalSize()
+        );
 
         return $this;
     }
@@ -90,9 +101,9 @@ class GifDataStream extends AbstractEntity
      */
     public function getMainApplicationExtension(): ?NetscapeApplicationExtension
     {
-        foreach ($this->getData() as $block) {
-            if (is_a($block, NetscapeApplicationExtension::class)) {
-                return $block;
+        foreach ($this->frames as $frame) {
+            if ($extension = $frame->getNetscapeExtension()) {
+                return $extension;
             }
         }
 
@@ -100,63 +111,38 @@ class GifDataStream extends AbstractEntity
     }
 
     /**
-     * Get all graphic blocks
+     * Get array of frames
      *
      * @return array
      */
-    public function getGraphicBlocks(): array
+    public function getFrames(): array
     {
-        return array_values(array_filter($this->getData(), function ($block) {
-            return is_a($block, GraphicBlock::class);
-        }));
+        return $this->frames;
     }
 
     /**
-     * Get all table based images
+     * Return first frame
      *
-     * @return array
+     * @return null|FrameBlock
      */
-    public function getTableBasedImages(): array
+    public function getFirstFrame(): ?FrameBlock
     {
-        $blocks = array_filter($this->getGraphicBlocks(), function ($block) {
-            return is_a($block->getGraphicRenderingBlock(), TableBasedImage::class);
-        });
+        if (!array_key_exists(0, $this->frames)) {
+            return null;
+        }
 
-        return array_values(array_map(function ($block) {
-            return $block->getGraphicRenderingBlock();
-        }, $blocks));
+        return $this->frames[0];
     }
 
     /**
-     * Get array of all image descriptors
+     * Add frame
      *
-     * @return array
+     * @param FrameBlock $frame
+     * @return GifDataStream
      */
-    public function getImageDescriptors(): array
+    public function addFrame(FrameBlock $frame): self
     {
-        return array_values(array_map(function ($tbi) {
-            return $tbi->getDescriptor();
-        }, $this->getTableBasedImages()));
-    }
-
-    /**
-     * Get array of data blocks
-     *
-     * @return array
-     */
-    public function getData(): array
-    {
-        return $this->data;
-    }
-
-    /**
-     * Add to data
-     *
-     * @param DataBlock $block
-     */
-    public function addData(DataBlock $block): self
-    {
-        $this->data[] = $block;
+        $this->frames[] = $frame;
 
         return $this;
     }
@@ -164,11 +150,11 @@ class GifDataStream extends AbstractEntity
     /**
      * Set the current data
      *
-     * @param array $data
+     * @param array $frames
      */
-    public function setData(array $data): self
+    public function setFrames(array $frames): self
     {
-        $this->data = $data;
+        $this->frames = $frames;
 
         return $this;
     }
@@ -186,10 +172,20 @@ class GifDataStream extends AbstractEntity
     /**
      * Determine if gif is animated
      *
-     * @return boolean
+     * @return bool
      */
     public function isAnimated(): bool
     {
-        return count($this->getGraphicBlocks()) > 1;
+        return count($this->getFrames()) > 1;
+    }
+
+    /**
+     * Determine if global color table is set
+     *
+     * @return bool
+     */
+    public function hasGlobalColorTable(): bool
+    {
+        return !is_null($this->globalColorTable);
     }
 }

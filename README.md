@@ -35,17 +35,13 @@ Use the Builder class to create a new GIF image.
 use Intervention\Gif\Builder;
 
 // create an empty canvas
-// 
 $width = 32;
 $height = 32;
-$loops = 0; // 0 for unlimited repetitions
 
-// create new gif with width/height and optional
-// number of repetitions of animation
-$gif = Builder::canvas($width, $height, $loops);
+// create new gif with width/height
+$gif = Builder::canvas($width, $height);
 
 // add animation frames to canvas
-// 
 $delay = .25; // delay in seconds after next frame is displayed
 $left = 0; // position offset (left)
 $top = 0; // position offset (top)
@@ -57,6 +53,9 @@ $gif->addFrame('/images/frame02.gif', $delay, $left);
 $gif->addFrame('/images/frame03.gif', $delay);
 $gif->addFrame('/images/frame04.gif');
 
+// set loop count; 0 for infinite looping
+$gif->setLoops(12);
+
 // encode
 $data = $gif->encode();
 ```
@@ -64,7 +63,7 @@ $data = $gif->encode();
 
 ## Requirements
 
-- PHP >= 8.0
+- PHP >= 8.1
 
 ## Development & Testing
 
@@ -86,4 +85,4 @@ docker-compose run --rm --build analysis
 
 Intervention GIF is licensed under the [MIT License](http://opensource.org/licenses/MIT).
 
-Copyright 2020 [Oliver Vogel](http://intervention.io/)
+Copyright 2024 [Oliver Vogel](http://intervention.io/)

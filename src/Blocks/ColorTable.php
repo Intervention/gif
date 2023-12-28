@@ -1,24 +1,19 @@
 <?php
 
-namespace Intervention\Gif;
+namespace Intervention\Gif\Blocks;
+
+use Intervention\Gif\AbstractEntity;
 
 class ColorTable extends AbstractEntity
 {
     /**
-     * Array of colors in table
-     *
-     * @var array
-     */
-    protected $colors = [];
-
-    /**
      * Create new instance
      *
      * @param array $colors
+     * @return void
      */
-    public function __construct(array $colors = [])
+    public function __construct(protected array $colors = [])
     {
-        $this->setColors($colors);
     }
 
     /**
@@ -85,9 +80,9 @@ class ColorTable extends AbstractEntity
     /**
      * Determine if any colors are present on the current table
      *
-     * @return boolean
+     * @return bool
      */
-    public function hasColors()
+    public function hasColors(): bool
     {
         return $this->countColors() >= 1;
     }

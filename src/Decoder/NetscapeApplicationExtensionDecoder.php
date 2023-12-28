@@ -6,5 +6,4 @@ use Intervention\Gif\Decoder\ApplicationExtensionDecoder;
 
 class NetscapeApplicationExtensionDecoder extends ApplicationExtensionDecoder
 {
-    //
 }

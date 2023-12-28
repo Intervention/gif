@@ -2,7 +2,8 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Intervention\Gif\GraphicControlExtension;
+use Intervention\Gif\Blocks\GraphicControlExtension;
+use Intervention\Gif\DisposalMethod;
 
 class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
 {
@@ -41,11 +42,13 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
     /**
      * Decode disposal method
      *
-     * @return int
+     * @return DisposalMethod
      */
-    protected function decodeDisposalMethod(string $byte): int
+    protected function decodeDisposalMethod(string $byte): DisposalMethod
     {
-        return bindec($this->getPackedBits($byte, 3, 3));
+        return DisposalMethod::from(
+            bindec($this->getPackedBits($byte, 3, 3))
+        );
     }
 
     /**
