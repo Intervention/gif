@@ -18,6 +18,16 @@ class FrameBlock extends AbstractEntity
         $this->imageData = new ImageData();
     }
 
+    public function getApplicationExtensions(): array
+    {
+        return $this->applicationExtensions;
+    }
+
+    public function getCommentExtensions(): array
+    {
+        return $this->commentExtensions;
+    }
+
     public function setGraphicControlExtension(GraphicControlExtension $extension): self
     {
         $this->graphicControlExtension = $extension;
