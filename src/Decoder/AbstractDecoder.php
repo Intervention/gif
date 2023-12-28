@@ -67,6 +67,31 @@ abstract class AbstractDecoder
     }
 
     /**
+     * Read given number of bytes and move pointer back to previous position
+     *
+     * @param  int $length
+     * @return string
+     */
+    protected function viewNextBytes(int $length): string
+    {
+        $bytes = $this->getNextBytes($length);
+        $this->movePointer($length * -1);
+
+        return $bytes;
+    }
+
+    /**
+     * Read next byte and move pointer back to previous position
+     *
+     * @param  int $length
+     * @return string
+     */
+    public function viewNextByte(): string
+    {
+        return $this->viewNextBytes(1);
+    }
+
+    /**
      * Read all remaining bytes from file handler
      *
      * @return string
