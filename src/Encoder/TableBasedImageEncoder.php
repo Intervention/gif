@@ -11,7 +11,7 @@ class TableBasedImageEncoder extends AbstractEncoder
      *
      * @param TableBasedImage $source
      */
-    public function __construct(TableBasedImage $source)
+    public function __construct(protected TableBasedImage $source)
     {
         $this->source = $source;
     }

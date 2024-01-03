@@ -11,7 +11,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      *
      * @param LogicalScreenDescriptor $source
      */
-    public function __construct(LogicalScreenDescriptor $source)
+    public function __construct(protected LogicalScreenDescriptor $source)
     {
         $this->source = $source;
     }

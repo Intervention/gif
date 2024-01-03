@@ -11,7 +11,7 @@ class HeaderEncoder extends AbstractEncoder
      *
      * @param Header $source
      */
-    public function __construct(Header $source)
+    public function __construct(protected Header $source)
     {
         $this->source = $source;
     }

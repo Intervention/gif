@@ -11,7 +11,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      *
      * @param ImageDescriptor $source
      */
-    public function __construct(ImageDescriptor $source)
+    public function __construct(protected ImageDescriptor $source)
     {
         $this->source = $source;
     }

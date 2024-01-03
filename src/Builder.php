@@ -183,13 +183,6 @@ class Builder
         return $block;
     }
 
-    public function modifyGif(callable $callback): self
-    {
-        $callback($this->gif);
-
-        return $this;
-    }
-
     /**
      * Encode the current build
      *

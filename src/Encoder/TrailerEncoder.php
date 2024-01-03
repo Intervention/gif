@@ -11,7 +11,7 @@ class TrailerEncoder extends AbstractEncoder
      *
      * @param Trailer $source
      */
-    public function __construct(Trailer $source)
+    public function __construct(protected Trailer $source)
     {
         $this->source = $source;
     }

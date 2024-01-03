@@ -11,7 +11,7 @@ class GraphicControlExtensionEncoder extends AbstractEncoder
      *
      * @param GraphicControlExtension $source
      */
-    public function __construct(GraphicControlExtension $source)
+    public function __construct(protected GraphicControlExtension $source)
     {
         $this->source = $source;
     }

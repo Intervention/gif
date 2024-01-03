@@ -15,7 +15,7 @@ trait CanDecode
      * @param  null|Closure $callback
      * @return mixed
      */
-    public static function decode($source, ?Closure $callback = null)
+    public static function decode($source, ?Closure $callback = null): mixed
     {
         return self::getDecoder($source, $callback)->decode();
     }

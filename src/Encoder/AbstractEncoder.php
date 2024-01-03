@@ -5,11 +5,14 @@ namespace Intervention\Gif\Encoder;
 abstract class AbstractEncoder
 {
     /**
-     * Source to encode
+     * Create new instance
      *
-     * @var mixed
+     * @param mixed $source
      */
-    protected $source;
+    public function __construct(protected mixed $source)
+    {
+        $this->source = $source;
+    }
 
     /**
      * Encode current source
@@ -17,14 +20,4 @@ abstract class AbstractEncoder
      * @return string
      */
     abstract public function encode(): string;
-
-    /**
-     * Create new instance
-     *
-     * @param mixed  $source
-     */
-    public function __construct($source)
-    {
-        $this->source = $source;
-    }
 }
