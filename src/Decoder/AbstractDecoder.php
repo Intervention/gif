@@ -3,7 +3,6 @@
 namespace Intervention\Gif\Decoder;
 
 use Closure;
-use Intervention\Gif\Exception\DecoderException;
 
 abstract class AbstractDecoder
 {
@@ -169,15 +168,5 @@ abstract class AbstractDecoder
     public function getPosition(): int
     {
         return ftell($this->handle);
-    }
-
-    /**
-     * Abort decoding process with exception
-     *
-     * @param  string|null $message
-     */
-    protected function abort(string $message = null): void
-    {
-        throw new DecoderException($message);
     }
 }
