@@ -117,22 +117,6 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Get bytes fixed by length property
-     *
-     * @return string
-     */
-    protected function getFixedBytes(): string
-    {
-        if (empty($this->length)) {
-            throw new DecoderException(
-                "Length must be defined, in order to call getFixedBytes(). Call setLength() first."
-            );
-        }
-
-        return $this->getNextBytes($this->getLength());
-    }
-
-    /**
      * Move file pointer on handle by given offset
      *
      * @param  int    $offset
