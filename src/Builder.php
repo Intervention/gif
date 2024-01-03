@@ -116,7 +116,7 @@ class Builder
      *
      * @param GifDataStream $source
      * @param int $delay
-     * @param int $disposal_method
+     * @param DisposalMethod $disposal_method
      * @return GraphicControlExtension
      */
     protected function buildGraphicControlExtension(
