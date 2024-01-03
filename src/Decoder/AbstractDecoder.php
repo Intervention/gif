@@ -161,6 +161,11 @@ abstract class AbstractDecoder
         return $this->length;
     }
 
+    /**
+     * Get current handle position
+     *
+     * @return int
+     */
     public function getPosition(): int
     {
         return ftell($this->handle);
