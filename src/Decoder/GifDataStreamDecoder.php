@@ -37,20 +37,6 @@ class GifDataStreamDecoder extends AbstractDecoder
             );
         }
 
-        // echo "<pre>";
-        // var_dump(get_class($this->decodeNextFrame()));
-        // var_dump(get_class($this->decodeNextFrame()));
-        // var_dump(get_class($this->decodeNextFrame()));
-        // var_dump(get_class($this->decodeNextFrame()));
-        // var_dump(get_class($this->decodeNextFrame()));
-        // var_dump(get_class($this->decodeNextFrame()));
-        // var_dump(get_class($this->decodeNextFrame()));
-        // var_dump(get_class($this->decodeNextFrame()));
-        // var_dump($this->getPosition());
-        // var_dump($this->viewNextByte());
-        // echo "</pre>";
-        // exit;
-
         while ($this->viewNextByte() != Trailer::MARKER) {
             $gif->addFrame(FrameBlock::decode($this->handle));
         }
