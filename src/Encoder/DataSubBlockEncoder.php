@@ -11,7 +11,7 @@ class DataSubBlockEncoder extends AbstractEncoder
      *
      * @param DataSubBlock $source
      */
-    public function __construct(protected DataSubBlock $source)
+    public function __construct(DataSubBlock $source)
     {
         $this->source = $source;
     }

@@ -12,7 +12,7 @@ class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
      *
      * @param NetscapeApplicationExtension $source
      */
-    public function __construct(protected NetscapeApplicationExtension $source)
+    public function __construct(NetscapeApplicationExtension $source)
     {
         $this->source = $source;
     }

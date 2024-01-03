@@ -11,7 +11,7 @@ class FrameBlockEncoder extends AbstractEncoder
      *
      * @param FrameBlock $source
      */
-    public function __construct(protected FrameBlock $source)
+    public function __construct(FrameBlock $source)
     {
         $this->source = $source;
     }

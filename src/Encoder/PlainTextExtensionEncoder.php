@@ -11,7 +11,7 @@ class PlainTextExtensionEncoder extends AbstractEncoder
      *
      * @param PlainTextExtension $source
      */
-    public function __construct(protected PlainTextExtension $source)
+    public function __construct(PlainTextExtension $source)
     {
         $this->source = $source;
     }

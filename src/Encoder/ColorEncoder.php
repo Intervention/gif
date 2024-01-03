@@ -11,7 +11,7 @@ class ColorEncoder extends AbstractEncoder
      *
      * @param Color $source
      */
-    public function __construct(protected Color $source)
+    public function __construct(Color $source)
     {
         $this->source = $source;
     }

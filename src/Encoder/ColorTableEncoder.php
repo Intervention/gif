@@ -11,7 +11,7 @@ class ColorTableEncoder extends AbstractEncoder
      *
      * @param ColorTable $source
      */
-    public function __construct(protected ColorTable $source)
+    public function __construct(ColorTable $source)
     {
         $this->source = $source;
     }

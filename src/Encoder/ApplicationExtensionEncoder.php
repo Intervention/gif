@@ -11,7 +11,7 @@ class ApplicationExtensionEncoder extends AbstractEncoder
      *
      * @param ApplicationExtension $source
      */
-    public function __construct(protected ApplicationExtension $source)
+    public function __construct(ApplicationExtension $source)
     {
         $this->source = $source;
     }

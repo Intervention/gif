@@ -11,7 +11,7 @@ class GifDataStreamEncoder extends AbstractEncoder
      *
      * @param GifDataStream $source
      */
-    public function __construct(protected GifDataStream $source)
+    public function __construct(GifDataStream $source)
     {
         $this->source = $source;
     }

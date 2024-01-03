@@ -11,7 +11,7 @@ class CommentExtensionEncoder extends AbstractEncoder
      *
      * @param CommentExtension $source
      */
-    public function __construct(protected CommentExtension $source)
+    public function __construct(CommentExtension $source)
     {
         $this->source = $source;
     }

@@ -13,7 +13,7 @@ class ImageDataEncoder extends AbstractEncoder
      *
      * @param ImageData $source
      */
-    public function __construct(protected ImageData $source)
+    public function __construct(ImageData $source)
     {
         $this->source = $source;
     }

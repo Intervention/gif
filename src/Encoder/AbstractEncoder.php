@@ -11,7 +11,6 @@ abstract class AbstractEncoder
      */
     public function __construct(protected mixed $source)
     {
-        $this->source = $source;
     }
 
     /**
