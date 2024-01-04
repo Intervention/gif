@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\Decoder\AbstractDecoder;
+use Intervention\Gif\Decoders\AbstractDecoder;
 
 class AbstractDecoderTest extends BaseTestCase
 {

@@ -2,8 +2,8 @@
 
 namespace Intervention\Gif\Traits;
 
-use Intervention\Gif\Decoder\AbstractDecoder;
-use Intervention\Gif\Exception\DecoderException;
+use Intervention\Gif\Decoders\AbstractDecoder;
+use Intervention\Gif\Exceptions\DecoderException;
 
 trait CanDecode
 {
@@ -44,6 +44,6 @@ trait CanDecode
      */
     protected static function getDecoderClassname(): string
     {
-        return sprintf('Intervention\Gif\Decoder\%sDecoder', self::getShortClassname());
+        return sprintf('Intervention\Gif\Decoders\%sDecoder', self::getShortClassname());
     }
 }

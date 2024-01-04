@@ -3,7 +3,7 @@
 namespace Intervention\Gif\Blocks;
 
 use Intervention\Gif\AbstractEntity;
-use Intervention\Gif\Exception\FormatException;
+use Intervention\Gif\Exceptions\FormatException;
 
 class DataSubBlock extends AbstractEntity
 {

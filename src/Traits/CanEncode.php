@@ -2,8 +2,8 @@
 
 namespace Intervention\Gif\Traits;
 
-use Intervention\Gif\Encoder\AbstractEncoder;
-use Intervention\Gif\Exception\EncoderException;
+use Intervention\Gif\Encoders\AbstractEncoder;
+use Intervention\Gif\Exceptions\EncoderException;
 
 trait CanEncode
 {
@@ -40,6 +40,6 @@ trait CanEncode
      */
     protected function getEncoderClassname(): string
     {
-        return sprintf('Intervention\Gif\Encoder\%sEncoder', $this->getShortClassname());
+        return sprintf('Intervention\Gif\Encoders\%sEncoder', $this->getShortClassname());
     }
 }

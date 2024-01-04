@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif;
 
-use Intervention\Gif\Exception\DecoderException;
+use Intervention\Gif\Exceptions\DecoderException;
 use Intervention\Gif\Traits\CanHandleFiles;
 
 class Decoder
