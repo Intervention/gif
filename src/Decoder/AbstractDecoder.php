@@ -9,7 +9,7 @@ abstract class AbstractDecoder
      *
      * @return mixed
      */
-    abstract public function decode();
+    abstract public function decode(): mixed;
 
     /**
      * Create new instance
@@ -63,7 +63,7 @@ abstract class AbstractDecoder
      *
      * @return string
      */
-    public function viewNextByte(): string
+    protected function viewNextByte(): string
     {
         return $this->viewNextBytes(1);
     }
