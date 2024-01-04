@@ -35,6 +35,20 @@ class Builder
     }
 
     /**
+     * Set canvas size of gif
+     *
+     * @param int $width
+     * @param int $height
+     * @return Builder
+     */
+    public function setSize(int $width, int $height): self
+    {
+        $this->gif->getLogicalScreenDescriptor()->setSize($width, $height);
+
+        return $this;
+    }
+
+    /**
      * Create new canvas
      *
      * @param  int         $width
@@ -43,11 +57,7 @@ class Builder
      */
     public static function canvas(int $width, int $height): self
     {
-        $gif = new GifDataStream();
-        $gif->getLogicalScreenDescriptor()
-            ->setSize($width, $height);
-
-        return new self($gif);
+        return (new self())->setSize($width, $height);
     }
 
     /**
