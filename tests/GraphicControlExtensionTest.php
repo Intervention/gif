@@ -7,6 +7,13 @@ use Intervention\Gif\Blocks\GraphicControlExtension;
 
 class GraphicControlExtensionTest extends BaseTestCase
 {
+    public function testConstructor(): void
+    {
+        $ext = new GraphicControlExtension(12, DisposalMethod::BACKGROUND);
+        $this->assertEquals(12, $ext->getDelay());
+        $this->assertEquals(DisposalMethod::BACKGROUND, $ext->getDisposalMethod());
+    }
+
     public function testSetGetDelay()
     {
         $ext = new GraphicControlExtension();

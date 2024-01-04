@@ -119,9 +119,7 @@ class ColorTableTest extends BaseTestCase
     public function testDecode()
     {
         $source = "\x00\x00\x00\xff\x00\x00\xff\xff\x00\xff\xff\xff";
-        $table = ColorTable::decode($this->getTestHandle($source), function ($decoder) {
-            $decoder->setLength(12);
-        });
+        $table = ColorTable::decode($this->getTestHandle($source), 12);
 
         $this->assertInstanceOf(ColorTable::class, $table);
         $this->assertEquals(4, $table->countColors());

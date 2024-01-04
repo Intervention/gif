@@ -28,15 +28,6 @@ class BuilderTest extends BaseTestCase
         $this->assertEquals(240, $gif->getLogicalScreenDescriptor()->getHeight());
     }
 
-    public function testCanvasOneLoops()
-    {
-        $builder = Builder::canvas(320, 240);
-        $builder->addFrame(__DIR__ . '/images/red.gif', 0.25, 1, 2);
-        $builder->setLoops(1);
-        $gif = $builder->getGifDataStream();
-        $this->assertNull($gif->getMainApplicationExtension());
-    }
-
     public function testCanvasMultipleLoops()
     {
         $builder = Builder::canvas(320, 240);

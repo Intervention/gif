@@ -15,11 +15,14 @@ class Builder
     use CanHandleFiles;
 
     /**
-     * Gif object to build
+     * Create new instance
      *
-     * @var GifDataStream
+     * @param GifDataStream $gif
+     * @return void
      */
-    protected GifDataStream $gif;
+    public function __construct(protected GifDataStream $gif = new GifDataStream())
+    {
+    }
 
     /**
      * Get GifDataStream object we're currently building
@@ -40,15 +43,11 @@ class Builder
      */
     public static function canvas(int $width, int $height): self
     {
-        $builder = new self();
         $gif = new GifDataStream();
+        $gif->getLogicalScreenDescriptor()
+            ->setSize($width, $height);
 
-        // set width +height
-        $gif->getLogicalScreenDescriptor()->setSize($width, $height);
-
-        $builder->gif = $gif;
-
-        return $builder;
+        return new self($gif);
     }
 
     /**
@@ -64,7 +63,7 @@ class Builder
             throw new Exception('Add at least one frame before setting the loop count');
         }
 
-        if ($loops >= 0 && $loops !== 1) {
+        if ($loops >= 0) {
             // add frame count to existing or new netscape extension on first frame
             if (!$this->gif->getFirstFrame()->getNetscapeExtension()) {
                 $this->gif->getFirstFrame()->addApplicationExtension(
@@ -116,21 +115,16 @@ class Builder
      *
      * @param GifDataStream $source
      * @param int $delay
-     * @param DisposalMethod $disposal_method
+     * @param DisposalMethod $disposalMethod
      * @return GraphicControlExtension
      */
     protected function buildGraphicControlExtension(
         GifDataStream $source,
         int $delay,
-        DisposalMethod $disposal_method = DisposalMethod::BACKGROUND
+        DisposalMethod $disposalMethod = DisposalMethod::BACKGROUND
     ): GraphicControlExtension {
-        $extension = new GraphicControlExtension();
-
-        // set delay
-        $extension->setDelay($delay);
-
-        // set DisposalMethod
-        $extension->setDisposalMethod($disposal_method);
+        // create extension
+        $extension = new GraphicControlExtension($delay, $disposalMethod);
 
         // set transparency index
         $control = $source->getFirstFrame()->getGraphicControlExtension();

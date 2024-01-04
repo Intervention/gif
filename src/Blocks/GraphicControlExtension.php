@@ -11,32 +11,18 @@ class GraphicControlExtension extends AbstractExtension
     public const BLOCKSIZE = "\x04";
 
     /**
-     * Delay time of instance
-     *
-     * @var integer
-     */
-    protected $delay = 0;
-
-    /**
-     * Disposal method of instance
-     *
-     * @var DisposalMethod
-     */
-    protected DisposalMethod $disposalMethod = DisposalMethod::UNDEFINED;
-
-    /**
      * Existance flag of transparent color
      *
      * @var boolean
      */
-    protected $transparentColorExistance = false;
+    protected bool $transparentColorExistance = false;
 
     /**
      * Transparent color index
      *
      * @var integer
      */
-    protected $transparentColorIndex = 0;
+    protected int $transparentColorIndex = 0;
 
     /**
      * User input flag
@@ -44,6 +30,19 @@ class GraphicControlExtension extends AbstractExtension
      * @var boolean
      */
     protected $userInput = false;
+
+    /**
+     * Create new instance
+     *
+     * @param int $delay
+     * @param DisposalMethod $disposalMethod
+     * @return void
+     */
+    public function __construct(
+        protected int $delay = 0,
+        protected DisposalMethod $disposalMethod = DisposalMethod::UNDEFINED,
+    ) {
+    }
 
     /**
      * Set delay time (1/100 second)

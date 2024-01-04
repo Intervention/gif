@@ -2,24 +2,8 @@
 
 namespace Intervention\Gif\Decoder;
 
-use Closure;
-
 abstract class AbstractDecoder
 {
-    /**
-     * Source to decode from
-     *
-     * @var resource
-     */
-    protected $handle;
-
-    /**
-     * Global Number of bytes to decode maximal
-     *
-     * @var null|int
-     */
-    private $length;
-
     /**
      * Decode current source
      *
@@ -31,15 +15,10 @@ abstract class AbstractDecoder
      * Create new instance
      *
      * @param resource $handle
-     * @param Closure  $callback
+     * @param null|int $length
      */
-    public function __construct($handle, ?Closure $callback = null)
+    public function __construct(protected $handle, protected ?int $length = null)
     {
-        $this->handle = $handle;
-
-        if (is_callable($callback)) {
-            $callback($this);
-        }
     }
 
     /**
