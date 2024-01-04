@@ -12,6 +12,10 @@ Only the special `Splitter::class` class divides the data stream of an animated
 GIF into individual `GDImage` objects for each frame and is therefore dependent
 on the GD library.
 
+The library is the main component of [Intervention
+Image](https://github.com/Intervention/image) for processing animated GIF files
+with the GD library, but also works independently.
+
 ## Installation
 
 You can easily install this package using [Composer](https://getcomposer.org).
