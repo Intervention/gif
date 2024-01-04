@@ -9,8 +9,8 @@ Intervention GIF is a PHP encoder and decoder for the GIF image format that
 does not depend on any image processing extension. 
 
 Only the special `Splitter::class` class divides the data stream of an animated
-GIF into individual `GDImage` objects for each frame and therefore depend on
-the GD library.
+GIF into individual `GDImage` objects for each frame and is therefore dependent
+on the GD library.
 
 ## Installation
 
