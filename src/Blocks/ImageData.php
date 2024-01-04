@@ -11,14 +11,14 @@ class ImageData extends AbstractEntity
      *
      * @var int
      */
-    protected $lzw_min_code_size;
+    protected int $lzw_min_code_size;
 
     /**
      * Sub blocks
      *
      * @var array
      */
-    protected $blocks = [];
+    protected array $blocks = [];
 
     /**
      * Get LZW min. code size
@@ -69,7 +69,7 @@ class ImageData extends AbstractEntity
     /**
      * Determine if data sub blocks are present
      *
-     * @return boolean
+     * @return bool
      */
     public function hasBlocks(): bool
     {

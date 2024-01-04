@@ -7,17 +7,15 @@ use Intervention\Gif\AbstractEntity;
 class FrameBlock extends AbstractEntity
 {
     protected ?GraphicControlExtension $graphicControlExtension = null;
-    protected ImageDescriptor $imageDescriptor;
     protected ?ColorTable $colorTable = null;
-    protected ImageData $imageData;
     protected ?PlainTextExtension $plainTextExtension = null;
     protected array $applicationExtensions = [];
     protected array $commentExtensions = [];
 
-    public function __construct()
-    {
-        $this->imageDescriptor = new ImageDescriptor();
-        $this->imageData = new ImageData();
+    public function __construct(
+        protected ImageDescriptor $imageDescriptor = new ImageDescriptor(),
+        protected ImageData $imageData = new ImageData()
+    ) {
     }
 
     public function addEntity(AbstractEntity $entity): self

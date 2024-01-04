@@ -13,7 +13,7 @@ class PlainTextExtension extends AbstractExtension
      *
      * @var array
      */
-    protected $text = [];
+    protected array $text = [];
 
     /**
      * Get current text
@@ -52,7 +52,7 @@ class PlainTextExtension extends AbstractExtension
     /**
      * Determine if any text is present
      *
-     * @return boolean
+     * @return bool
      */
     public function hasText(): bool
     {

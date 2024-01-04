@@ -13,21 +13,27 @@ class CommentExtension extends AbstractExtension
      *
      * @var array
      */
-    protected $comments = [];
+    protected array $comments = [];
 
     /**
      * Get all or one comment
      *
-     * @param  null|int $num
      * @return mixed
      */
-    public function getComments(?int $num = null)
+    public function getComments()
     {
-        if (is_null($num)) {
-            return $this->comments;
-        }
+        return $this->comments;
+    }
 
-        return array_key_exists($num, $this->comments) ? $this->comments[$num] : null;
+    /**
+     * Get one comment by key
+     *
+     * @param  int $key
+     * @return mixed
+     */
+    public function getComment(int $key): mixed
+    {
+        return array_key_exists($key, $this->comments) ? $this->comments[$key] : null;
     }
 
     /**

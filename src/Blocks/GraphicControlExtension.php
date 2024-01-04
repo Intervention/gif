@@ -13,23 +13,23 @@ class GraphicControlExtension extends AbstractExtension
     /**
      * Existance flag of transparent color
      *
-     * @var boolean
+     * @var bool
      */
     protected bool $transparentColorExistance = false;
 
     /**
      * Transparent color index
      *
-     * @var integer
+     * @var int
      */
     protected int $transparentColorIndex = 0;
 
     /**
      * User input flag
      *
-     * @var boolean
+     * @var bool
      */
-    protected $userInput = false;
+    protected bool $userInput = false;
 
     /**
      * Create new instance
@@ -124,7 +124,7 @@ class GraphicControlExtension extends AbstractExtension
     /**
      * Set existance flag of transparent color
      *
-     * @param boolean $existance
+     * @param bool $existance
      */
     public function setTransparentColorExistance(bool $existance = true): self
     {

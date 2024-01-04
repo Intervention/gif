@@ -13,14 +13,14 @@ class ApplicationExtension extends AbstractExtension
      *
      * @var string
      */
-    protected $application = '';
+    protected string $application = '';
 
     /**
      * Data Sub Blocks
      *
      * @var array
      */
-    protected $blocks = [];
+    protected array $blocks = [];
 
     public function getBlockSize(): int
     {

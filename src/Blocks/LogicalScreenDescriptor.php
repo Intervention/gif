@@ -9,64 +9,64 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Width
      *
-     * @var integer
+     * @var int
      */
-    protected $width;
+    protected int $width;
 
     /**
      * Height
      *
-     * @var integer
+     * @var int
      */
-    protected $height;
+    protected int $height;
 
     /**
      * Global color table flag
      *
      * @var bool
      */
-    protected $globalColorTableExistance = false;
+    protected bool $globalColorTableExistance = false;
 
     /**
      * Sort flag of global color table
      *
      * @var bool
      */
-    protected $globalColorTableSorted = false;
+    protected bool $globalColorTableSorted = false;
 
     /**
      * Size of global color table
      *
-     * @var integer
+     * @var int
      */
-    protected $globalColorTableSize = 0;
+    protected int $globalColorTableSize = 0;
 
     /**
      * Background color index
      *
-     * @var integer
+     * @var int
      */
-    protected $backgroundColorIndex = 0;
+    protected int $backgroundColorIndex = 0;
 
     /**
      * Color resolution
      *
-     * @var integer
+     * @var int
      */
-    protected $bitsPerPixel = 8;
+    protected int $bitsPerPixel = 8;
 
     /**
      * Pixel aspect ration
      *
-     * @var integer
+     * @var int
      */
-    protected $pixelAspectRatio = 0;
+    protected int $pixelAspectRatio = 0;
 
     /**
      * Set size
      *
-     * @param integer $width
-     * @param integer $height
+     * @param int $width
+     * @param int $height
      */
     public function setSize(int $width, int $height): self
     {
@@ -99,7 +99,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Determine if global color table is present
      *
-     * @return boolean
+     * @return bool
      */
     public function getGlobalColorTableExistance(): bool
     {
@@ -109,7 +109,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Alias of getGlobalColorTableExistance
      *
-     * @return boolean
+     * @return bool
      */
     public function hasGlobalColorTable(): bool
     {
@@ -119,7 +119,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Set global color table flag
      *
-     * @param boolean $existance
+     * @param bool $existance
      * @return self
      */
     public function setGlobalColorTableExistance($existance = true): self
@@ -142,7 +142,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Set global color table sorted flag
      *
-     * @param boolean $sorted
+     * @param bool $sorted
      * @return self
      */
     public function setGlobalColorTableSorted($sorted = true): self

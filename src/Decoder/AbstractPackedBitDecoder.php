@@ -18,7 +18,7 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
      * Determine if packed bit is set
      *
      * @param  int  $num from left to right, starting with 0
-     * @return boolean
+     * @return bool
      */
     protected function hasPackedBit(string $byte, int $num): bool
     {
@@ -28,8 +28,8 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
     /**
      * Get packed bits
      *
-     * @param  integer $start
-     * @param  integer $length
+     * @param  int $start
+     * @param  int $length
      * @return string
      */
     protected function getPackedBits(string $byte, int $start = 0, int $length = 8): string

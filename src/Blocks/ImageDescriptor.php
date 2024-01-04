@@ -13,56 +13,56 @@ class ImageDescriptor extends AbstractEntity
      *
      * @var int
      */
-    protected $width;
+    protected int $width = 0;
 
     /**
      * Height of frame
      *
      * @var int
      */
-    protected $height;
+    protected int $height = 0;
 
     /**
      * Left position of frame
      *
      * @var int
      */
-    protected $left;
+    protected int $left = 0;
 
     /**
      * Top position of frame
      *
      * @var int
      */
-    protected $top;
+    protected int $top = 0;
 
     /**
      * Determine if frame is interlaced
      *
      * @var bool
      */
-    protected $interlaced = false;
+    protected bool $interlaced = false;
 
     /**
      * Local color table flag
      *
      * @var bool
      */
-    protected $localColorTableExistance = false;
+    protected bool $localColorTableExistance = false;
 
     /**
      * Sort flag of local color table
      *
      * @var bool
      */
-    protected $localColorTableSorted = false;
+    protected bool $localColorTableSorted = false;
 
     /**
      * Size of local color table
      *
-     * @var integer
+     * @var int
      */
-    protected $localColorTableSize = 0;
+    protected int $localColorTableSize = 0;
 
     /**
      * Get current width
@@ -135,7 +135,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Determine if frame is interlaced
      *
-     * @return boolean
+     * @return bool
      */
     public function isInterlaced(): bool
     {
@@ -145,7 +145,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Set or unset interlaced value
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setInterlaced(bool $value = true): self
     {
@@ -157,7 +157,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Determine if local color table is present
      *
-     * @return boolean
+     * @return bool
      */
     public function getLocalColorTableExistance(): bool
     {
@@ -167,7 +167,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Alias for getLocalColorTableExistance
      *
-     * @return boolean
+     * @return bool
      */
     public function hasLocalColorTable(): bool
     {
@@ -177,7 +177,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Set local color table flag
      *
-     * @param boolean $existance
+     * @param bool $existance
      * @return self
      */
     public function setLocalColorTableExistance($existance = true): self
@@ -200,7 +200,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Set local color table sorted flag
      *
-     * @param boolean $sorted
+     * @param bool $sorted
      * @return self
      */
     public function setLocalColorTableSorted($sorted = true): self

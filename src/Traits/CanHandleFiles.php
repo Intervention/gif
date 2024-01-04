@@ -7,7 +7,7 @@ trait CanHandleFiles
      /**
      * Determines if input is file path
      *
-     * @return boolean
+     * @return bool
      */
     private static function isFilePath($input): bool
     {
@@ -18,7 +18,7 @@ trait CanHandleFiles
      * Determine if given string contains null bytes
      *
      * @param  string  $string
-     * @return boolean
+     * @return bool
      */
     private static function hasNullBytes($string): bool
     {

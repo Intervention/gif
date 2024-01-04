@@ -20,7 +20,7 @@ class Splitter implements IteratorAggregate
      *
      * @var array
      */
-    protected $delays = [];
+    protected array $delays = [];
 
     /**
      * Create new instance
@@ -41,11 +41,21 @@ class Splitter implements IteratorAggregate
         return new ArrayIterator($this->frames);
     }
 
+    /**
+     * Get frames
+     *
+     * @return array
+     */
     public function getFrames(): array
     {
         return $this->frames;
     }
 
+    /**
+     * Get delays
+     *
+     * @return array
+     */
     public function getDelays(): array
     {
         return $this->delays;
@@ -243,6 +253,12 @@ class Splitter implements IteratorAggregate
         return $resources;
     }
 
+    /**
+     * Find and return disposal method of given gif data stream
+     *
+     * @param GifDataStream $gif
+     * @return DisposalMethod
+     */
     private function getDisposalMethod(GifDataStream $gif): DisposalMethod
     {
         return $gif->getFirstFrame()->getGraphicControlExtension()->getDisposalMethod();
