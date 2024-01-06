@@ -2,9 +2,7 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\Color;
-use Intervention\Gif\ColorTable;
-use Intervention\Gif\LogicalScreenDescriptor;
+use Intervention\Gif\Blocks\LogicalScreenDescriptor;
 
 class LogicalScreenDescriptorTest extends BaseTestCase
 {

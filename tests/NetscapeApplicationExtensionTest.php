@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\NetscapeApplicationExtension;
+use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 
 class NetscapeApplicationExtensionTest extends BaseTestCase
 {

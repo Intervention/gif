@@ -9,34 +9,26 @@ use Traversable;
 class Splitter implements IteratorAggregate
 {
     /**
-     * Stream to split
-     *
-     * @var GifDataStream
-     */
-    protected $stream;
-
-    /**
      * Single frames
      *
      * @var array
      */
-    protected $frames = [];
+    protected array $frames = [];
 
     /**
      * Delays of each frame
      *
      * @var array
      */
-    protected $delays = [];
+    protected array $delays = [];
 
     /**
      * Create new instance
      *
      * @param GifDataStream $stream
      */
-    public function __construct(GifDataStream $stream)
+    public function __construct(protected GifDataStream $stream)
     {
-        $this->stream = $stream;
     }
 
     /**
@@ -49,11 +41,21 @@ class Splitter implements IteratorAggregate
         return new ArrayIterator($this->frames);
     }
 
+    /**
+     * Get frames
+     *
+     * @return array
+     */
     public function getFrames(): array
     {
         return $this->frames;
     }
 
+    /**
+     * Get delays
+     *
+     * @return array
+     */
     public function getDelays(): array
     {
         return $this->delays;
@@ -91,44 +93,44 @@ class Splitter implements IteratorAggregate
     {
         $this->frames = [];
 
-        foreach ($this->stream->getGraphicBlocks() as $block) {
+        foreach ($this->stream->getFrames() as $frame) {
             // create separate stream for each frame
-            $frame = Builder::canvas(
-                $this->stream->getLogicalScreen()->getDescriptor()->getWidth(),
-                $this->stream->getLogicalScreen()->getDescriptor()->getHeight()
+            $gif = Builder::canvas(
+                $this->stream->getLogicalScreenDescriptor()->getWidth(),
+                $this->stream->getLogicalScreenDescriptor()->getHeight()
             )->getGifDataStream();
 
             // check if working stream has global color table
-            if ($this->stream->getLogicalScreen()->getDescriptor()->hasGlobalColorTable()) {
-                $frame->getLogicalScreen()->setColorTable(
-                    $this->stream->getLogicalScreen()->getColorTable()
+            if ($this->stream->hasGlobalColorTable()) {
+                $gif->setGlobalColorTable($this->stream->getGlobalColorTable());
+                $gif->getLogicalScreenDescriptor()->setGlobalColorTableExistance(true);
+
+                $gif->getLogicalScreenDescriptor()->setGlobalColorTableSorted(
+                    $this->stream->getLogicalScreenDescriptor()->getGlobalColorTableSorted()
                 );
 
-                $frame->getLogicalScreen()->getDescriptor()->setGlobalColorTableExistance(
-                    true
+                $gif->getLogicalScreenDescriptor()->setGlobalColorTableSize(
+                    $this->stream->getLogicalScreenDescriptor()->getGlobalColorTableSize()
                 );
-                $frame->getLogicalScreen()->getDescriptor()->setGlobalColorTableSorted(
-                    $this->stream->getLogicalScreen()->getDescriptor()->getGlobalColorTableSorted()
+
+                $gif->getLogicalScreenDescriptor()->setBackgroundColorIndex(
+                    $this->stream->getLogicalScreenDescriptor()->getBackgroundColorIndex()
                 );
-                $frame->getLogicalScreen()->getDescriptor()->setGlobalColorTableSize(
-                    $this->stream->getLogicalScreen()->getDescriptor()->getGlobalColorTableSize()
+
+                $gif->getLogicalScreenDescriptor()->setPixelAspectRatio(
+                    $this->stream->getLogicalScreenDescriptor()->getPixelAspectRatio()
                 );
-                $frame->getLogicalScreen()->getDescriptor()->setBackgroundColorIndex(
-                    $this->stream->getLogicalScreen()->getDescriptor()->getBackgroundColorIndex()
-                );
-                $frame->getLogicalScreen()->getDescriptor()->setPixelAspectRatio(
-                    $this->stream->getLogicalScreen()->getDescriptor()->getPixelAspectRatio()
-                );
-                $frame->getLogicalScreen()->getDescriptor()->setBitsPerPixel(
-                    $this->stream->getLogicalScreen()->getDescriptor()->getBitsPerPixel()
+
+                $gif->getLogicalScreenDescriptor()->setBitsPerPixel(
+                    $this->stream->getLogicalScreenDescriptor()->getBitsPerPixel()
                 );
             }
 
-            // copy original block
-            $frame->addData($block);
+            // copy original frame
+            $gif->addFrame($frame);
 
-            $this->frames[] = $frame;
-            $this->delays[] = $block->getGraphicControlExtension()->getDelay();
+            $this->frames[] = $gif;
+            $this->delays[] = $frame->getGraphicControlExtension()->getDelay();
         }
 
         return $this;
@@ -170,10 +172,7 @@ class Splitter implements IteratorAggregate
         foreach ($resources as $key => $resource) {
             // get meta data
             $gif = $this->frames[$key];
-            $descriptor = $gif->getTableBasedImages()[0]->getDescriptor();
-
-            // $bg = $this->getBackgroundColor($gif);
-
+            $descriptor = $gif->getFirstFrame()->getImageDescriptor();
             $offset_x = $descriptor->getLeft();
             $offset_y = $descriptor->getTop();
             $w = $descriptor->getWidth();
@@ -254,8 +253,14 @@ class Splitter implements IteratorAggregate
         return $resources;
     }
 
-    private function getDisposalMethod(GifDataStream $gif): int
+    /**
+     * Find and return disposal method of given gif data stream
+     *
+     * @param GifDataStream $gif
+     * @return DisposalMethod
+     */
+    private function getDisposalMethod(GifDataStream $gif): DisposalMethod
     {
-        return $gif->getGraphicBlocks()[0]->getGraphicControlExtension()->getDisposalMethod();
+        return $gif->getFirstFrame()->getGraphicControlExtension()->getDisposalMethod();
     }
 }

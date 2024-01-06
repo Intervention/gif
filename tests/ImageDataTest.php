@@ -2,8 +2,8 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\DataSubBlock;
-use Intervention\Gif\ImageData;
+use Intervention\Gif\Blocks\DataSubBlock;
+use Intervention\Gif\Blocks\ImageData;
 
 class ImageDataTest extends BaseTestCase
 {

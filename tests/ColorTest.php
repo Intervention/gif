@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\Color;
+use Intervention\Gif\Blocks\Color;
 
 class ColorTest extends BaseTestCase
 {

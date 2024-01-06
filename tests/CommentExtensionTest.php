@@ -2,7 +2,7 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\CommentExtension;
+use Intervention\Gif\Blocks\CommentExtension;
 
 class CommentExtensionTest extends BaseTestCase
 {
@@ -14,9 +14,9 @@ class CommentExtensionTest extends BaseTestCase
         $extension->addComment('baz');
         $this->assertIsArray($extension->getComments());
         $this->assertCount(3, $extension->getComments());
-        $this->assertEquals('foo', $extension->getComments(0));
-        $this->assertEquals('bar', $extension->getComments(1));
-        $this->assertEquals('baz', $extension->getComments(2));
+        $this->assertEquals('foo', $extension->getComment(0));
+        $this->assertEquals('bar', $extension->getComment(1));
+        $this->assertEquals('baz', $extension->getComment(2));
     }
 
     public function testEncode()
@@ -44,7 +44,7 @@ class CommentExtensionTest extends BaseTestCase
             $extension = CommentExtension::decode($this->getTestHandle($source));
             $this->assertInstanceOf(CommentExtension::class, $extension);
             $this->assertCount(1, $extension->getComments());
-            $this->assertEquals('blueberry', $extension->getComments(0));
+            $this->assertEquals('blueberry', $extension->getComment(0));
         }
 
         $sources = [
@@ -55,9 +55,9 @@ class CommentExtensionTest extends BaseTestCase
             $extension = CommentExtension::decode($this->getTestHandle($source));
             $this->assertInstanceOf(CommentExtension::class, $extension);
             $this->assertCount(3, $extension->getComments());
-            $this->assertEquals('foo', $extension->getComments(0));
-            $this->assertEquals('bar', $extension->getComments(1));
-            $this->assertEquals('baz', $extension->getComments(2));
+            $this->assertEquals('foo', $extension->getComment(0));
+            $this->assertEquals('bar', $extension->getComment(1));
+            $this->assertEquals('baz', $extension->getComment(2));
         }
     }
 }

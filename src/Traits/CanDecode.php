@@ -2,32 +2,31 @@
 
 namespace Intervention\Gif\Traits;
 
-use Closure;
-use Intervention\Gif\Decoder\AbstractDecoder;
-use Intervention\Gif\Exception\DecoderException;
+use Intervention\Gif\Decoders\AbstractDecoder;
+use Intervention\Gif\Exceptions\DecoderException;
 
 trait CanDecode
 {
     /**
      * Decode current instance
      *
-     * @param  resource     $source
-     * @param  null|Closure $callback
+     * @param  resource $source
+     * @param  null|int $length
      * @return mixed
      */
-    public static function decode($source, ?Closure $callback = null)
+    public static function decode($source, ?int $length = null): mixed
     {
-        return self::getDecoder($source, $callback)->decode();
+        return self::getDecoder($source, $length)->decode();
     }
 
     /**
      * Get decoder for current instance
      *
-     * @param  resource          $source
-     * @param  null|Closure      $callback
+     * @param  resource $source
+     * @param  null|int $length
      * @return AbstractDecoder
      */
-    protected static function getDecoder($source, Closure $callback = null): AbstractDecoder
+    protected static function getDecoder($source, ?int $length = null): AbstractDecoder
     {
         $classname = self::getDecoderClassname();
 
@@ -35,7 +34,7 @@ trait CanDecode
             throw new DecoderException("Decoder for '" . get_called_class() . "' not found.");
         }
 
-        return new $classname($source, $callback);
+        return new $classname($source, $length);
     }
 
     /**
@@ -45,6 +44,6 @@ trait CanDecode
      */
     protected static function getDecoderClassname(): string
     {
-        return sprintf('Intervention\Gif\Decoder\%sDecoder', self::getShortClassname());
+        return sprintf('Intervention\Gif\Decoders\%sDecoder', self::getShortClassname());
     }
 }

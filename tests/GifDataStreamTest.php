@@ -2,18 +2,12 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\ApplicationExtension;
-use Intervention\Gif\NetscapeApplicationExtension;
-use Intervention\Gif\ColorTable;
-use Intervention\Gif\CommentExtension;
+use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Blocks\Header;
+use Intervention\Gif\Blocks\NetscapeApplicationExtension;
+use Intervention\Gif\Blocks\Trailer;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GifDataStream;
-use Intervention\Gif\GraphicBlock;
-use Intervention\Gif\GraphicControlExtension;
-use Intervention\Gif\Header;
-use Intervention\Gif\LogicalScreen;
-use Intervention\Gif\TableBasedImage;
-use Intervention\Gif\Trailer;
 
 class GifDataStreamTest extends BaseTestCase
 {
@@ -24,50 +18,20 @@ class GifDataStreamTest extends BaseTestCase
         $this->assertInstanceOf(Header::class, $gif->getHeader());
     }
 
-    public function testSetGetLogicalScreen()
-    {
-        $gif = new GifDataStream();
-        $gif->setLogicalScreen(new LogicalScreen());
-        $this->assertInstanceOf(LogicalScreen::class, $gif->getLogicalScreen());
-    }
-
-    public function testSetGetData()
-    {
-        $gif = new GifDataStream();
-        $this->assertIsArray($gif->getData());
-        $this->assertCount(0, $gif->getData());
-        $gif->addData(new GraphicBlock());
-        $gif->addData(new GraphicBlock());
-        $this->assertCount(2, $gif->getData());
-    }
-
-    public function testGetMainApplicationExtension()
-    {
-        $gif = new GifDataStream();
-        $extension1 = new ApplicationExtension();
-        $extension2 = new NetscapeApplicationExtension();
-        $gif->addData(new GraphicBlock());
-        $gif->addData($extension1);
-        $gif->addData($extension2);
-        $gif->addData(new GraphicBlock());
-        $this->assertEquals($extension2, $gif->getMainApplicationExtension());
-    }
-
     public function testEncode()
     {
         $gif = new GifDataStream();
-        $gif->setLogicalScreen($this->getTestLogicalScreen());
-        $gif->addData($this->getTestNetscapeApplicationExtension());
-        $gif->addData($this->getTestGraphicBlock());
-        $gif->addData($this->getTestCommentExtension());
+        $gif->setLogicalScreenDescriptor($this->getTestLogicalScreenDescriptor());
+        $gif->addFrame($this->getTestFrame());
 
         $result = implode('', [
-            self::HEADER_SAMPLE,
-            self::LOGICAL_SCREEN_DESCRIPTOR_SAMPLE,
-            self::APPLICATION_EXTENSION_SAMPLE,
-            self::GRAPHIC_CONTROL_EXTENSION_SAMPLE,
-            self::TABLE_BASED_IMAGE_SAMPLE,
-            self::COMMENT_EXTENSION_SAMPLE,
+            (string) $this->getTestHeader(),
+            (string) $this->getTestLogicalScreenDescriptor(),
+            (string) $this->getTestNetscapeApplicationExtension(),
+            (string) $this->getTestCommentExtension(),
+            (string) $this->getTestGraphicControlExtension(),
+            (string) $this->getTestImageDescriptor(),
+            (string) $this->getTestImageData(),
             Trailer::MARKER,
         ]);
 
@@ -76,99 +40,107 @@ class GifDataStreamTest extends BaseTestCase
 
     public function testDecode()
     {
-        $source = file_get_contents(__DIR__ . '/images/animation1.gif');
-        $gif = GifDataStream::decode($this->getTestHandle($source));
+        $gif = GifDataStream::decode(
+            $this->getTestHandle(
+                file_get_contents(__DIR__ . '/images/animation1.gif')
+            ),
+        );
+
         $this->assertInstanceOf(GifDataStream::class, $gif);
 
         // HEADER
         $this->assertEquals('89a', $gif->getHeader()->getVersion());
 
         // LOGICAL SCREEN DESCRIPTOR
-        $this->assertEquals(20, $gif->getLogicalScreen()->getDescriptor()->getWidth());
-        $this->assertEquals(15, $gif->getLogicalScreen()->getDescriptor()->getHeight());
-        $this->assertTrue($gif->getLogicalScreen()->getDescriptor()->hasGlobalColorTable());
-        $this->assertFalse($gif->getLogicalScreen()->getDescriptor()->getGlobalColorTableSorted());
-        $this->assertEquals(4, $gif->getLogicalScreen()->getDescriptor()->getGlobalColorTableSize());
-        $this->assertEquals(7, $gif->getLogicalScreen()->getDescriptor()->getBackgroundColorIndex());
-        $this->assertEquals(0, $gif->getLogicalScreen()->getDescriptor()->getPixelAspectRatio());
-        $this->assertEquals(8, $gif->getLogicalScreen()->getDescriptor()->getBitsPerPixel());
+        $this->assertEquals(20, $gif->getLogicalScreenDescriptor()->getWidth());
+        $this->assertEquals(15, $gif->getLogicalScreenDescriptor()->getHeight());
+        $this->assertTrue($gif->getLogicalScreenDescriptor()->hasGlobalColorTable());
+        $this->assertFalse($gif->getLogicalScreenDescriptor()->getGlobalColorTableSorted());
+        $this->assertEquals(4, $gif->getLogicalScreenDescriptor()->getGlobalColorTableSize());
+        $this->assertEquals(7, $gif->getLogicalScreenDescriptor()->getBackgroundColorIndex());
+        $this->assertEquals(0, $gif->getLogicalScreenDescriptor()->getPixelAspectRatio());
+        $this->assertEquals(8, $gif->getLogicalScreenDescriptor()->getBitsPerPixel());
 
         // GLOBAL COLOR TABLE
-        $this->assertInstanceOf(ColorTable::class, $gif->getLogicalScreen()->getColorTable());
-        $this->assertEquals(32, $gif->getLogicalScreen()->getColorTable()->countColors());
+        $this->assertInstanceOf(ColorTable::class, $gif->getGlobalColorTable());
+        $this->assertEquals(32, $gif->getGlobalColorTable()->countColors());
 
-        // APPLICATION EXTENSION
-        $this->assertInstanceOf(ApplicationExtension::class, $gif->getMainApplicationExtension());
+        // NETSCAPE APPLICATION EXTENSION
+        $this->assertInstanceOf(NetscapeApplicationExtension::class, $gif->getMainApplicationExtension());
         $this->assertEquals(2, $gif->getMainApplicationExtension()->getLoops());
 
-        // TABLE BASED IMAGES
-        $this->assertCount(8, $gif->getGraphicBlocks());
+        // frame blocks
+        $this->assertCount(8, $gif->getFrames());
 
-        // GRAPHICS CONTROL EXTENSIONS
-        $colortables = array_values(array_map(function ($block) {
-            return $block->getGraphicRenderingBlock()->hasColorTable();
-        }, $gif->getGraphicBlocks()));
-        $this->assertEquals(array_fill(0, 8, false), $colortables);
+        // local color tables are empty for all frames
+        $colortables = array_values(array_map(function ($frame) {
+            return $frame->getColorTable();
+        }, $gif->getFrames()));
+        $this->assertEquals(array_fill(0, 8, null), $colortables);
 
-        $delays = array_values(array_map(function ($block) {
-            return $block->getGraphicControlExtension()->getDelay();
-        }, $gif->getGraphicBlocks()));
+        // delay for every frame
+        $delays = array_values(array_map(function ($frame) {
+            return $frame->getGraphicControlExtension()->getDelay();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 8, 20), $delays);
 
-        $usrinputs = array_values(array_map(function ($block) {
-            return $block->getGraphicControlExtension()->getUserInput();
-        }, $gif->getGraphicBlocks()));
-        $this->assertEquals(array_fill(0, 8, false), $usrinputs);
+        // user input flag in every frame
+        $userInputs = array_values(array_map(function ($frame) {
+            return $frame->getGraphicControlExtension()->getUserInput();
+        }, $gif->getFrames()));
+        $this->assertEquals(array_fill(0, 8, false), $userInputs);
 
-        $disposals = array_values(array_map(function ($block) {
-            return $block->getGraphicControlExtension()->getDisposalMethod();
-        }, $gif->getGraphicBlocks()));
+        // disposal flag in every frame
+        $disposals = array_values(array_map(function ($frame) {
+            return $frame->getGraphicControlExtension()->getDisposalMethod();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 8, DisposalMethod::NONE), $disposals);
 
-        $indexes = array_values(array_map(function ($block) {
-            return $block->getGraphicControlExtension()->getTransparentColorIndex();
-        }, $gif->getGraphicBlocks()));
-        $this->assertEquals([255, 0, 0, 0, 1, 1, 1, 1], $indexes);
+        // transparent color index in every frame
+        $transparentIndexes = array_values(array_map(function ($frame) {
+            return $frame->getGraphicControlExtension()->getTransparentColorIndex();
+        }, $gif->getFrames()));
+        $this->assertEquals([255, 0, 0, 0, 1, 1, 1, 1], $transparentIndexes);
 
-        // IMAGE DESCRIPTORS
-        $lefts = array_values(array_map(function ($desc) {
-            return $desc->getLeft();
-        }, $gif->getImageDescriptors()));
+        // left position in every frame
+        $lefts = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getLeft();
+        }, $gif->getFrames()));
         $this->assertEquals([0, 5, 1, 0, 8, 5, 1, 0], $lefts);
 
-        $tops = array_values(array_map(function ($desc) {
-            return $desc->getTop();
-        }, $gif->getImageDescriptors()));
+        $tops = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getTop();
+        }, $gif->getFrames()));
         $this->assertEquals([0, 2, 0, 0, 5, 2, 0, 0], $tops);
 
-        $widths = array_values(array_map(function ($desc) {
-            return $desc->getWidth();
-        }, $gif->getImageDescriptors()));
+        $widths = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getWidth();
+        }, $gif->getFrames()));
         $this->assertEquals([20, 10, 17, 20, 5, 10, 17, 20], $widths);
 
-        $heights = array_values(array_map(function ($desc) {
-            return $desc->getHeight();
-        }, $gif->getImageDescriptors()));
+        $heights = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getHeight();
+        }, $gif->getFrames()));
         $this->assertEquals([15, 10, 15, 15, 5, 10, 15, 15], $heights);
 
-        $localcolortables = array_values(array_map(function ($desc) {
-            return $desc->hasLocalColorTable();
-        }, $gif->getImageDescriptors()));
+        $localcolortables = array_values(array_map(function ($frame) {
+            return $frame->hasColorTable();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 8, false), $localcolortables);
 
-        $interlaces = array_values(array_map(function ($desc) {
-            return $desc->isInterlaced();
-        }, $gif->getImageDescriptors()));
+        $interlaces = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->isInterlaced();
+        }, $gif->getFrames()));
         $this->assertEquals([true, false, false, false, false, false, false, false], $interlaces);
 
-        $sorts = array_values(array_map(function ($desc) {
-            return $desc->getLocalColorTableSorted();
-        }, $gif->getImageDescriptors()));
+        $sorts = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getLocalColorTableSorted();
+        }, $gif->getFrames()));
         $this->assertEquals([false, false, false, false, false, false, false, false], $sorts);
 
-        $sizes = array_values(array_map(function ($desc) {
-            return $desc->getLocalColorTableSize();
-        }, $gif->getImageDescriptors()));
+        $sizes = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getLocalColorTableSize();
+        }, $gif->getFrames()));
         $this->assertEquals([0, 0, 0, 0, 0, 0, 0, 0], $sizes);
     }
 }

@@ -2,12 +2,18 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\ColorTable;
 use Intervention\Gif\DisposalMethod;
-use Intervention\Gif\GraphicControlExtension;
+use Intervention\Gif\Blocks\GraphicControlExtension;
 
 class GraphicControlExtensionTest extends BaseTestCase
 {
+    public function testConstructor(): void
+    {
+        $ext = new GraphicControlExtension(12, DisposalMethod::BACKGROUND);
+        $this->assertEquals(12, $ext->getDelay());
+        $this->assertEquals(DisposalMethod::BACKGROUND, $ext->getDisposalMethod());
+    }
+
     public function testSetGetDelay()
     {
         $ext = new GraphicControlExtension();
@@ -36,7 +42,7 @@ class GraphicControlExtensionTest extends BaseTestCase
     {
         $ext = new GraphicControlExtension();
         $this->assertFalse($ext->getTransparentColorExistance());
-        
+
         $ext->setTransparentColorExistance();
         $this->assertTrue($ext->getTransparentColorExistance());
 
@@ -48,7 +54,7 @@ class GraphicControlExtensionTest extends BaseTestCase
     {
         $ext = new GraphicControlExtension();
         $this->assertFalse($ext->getUserInput());
-        
+
         $ext->setUserInput();
         $this->assertTrue($ext->getUserInput());
 
@@ -60,11 +66,11 @@ class GraphicControlExtensionTest extends BaseTestCase
     {
         $extension = new GraphicControlExtension();
         $extension->setDelay(150);
-        $extension->setDisposalMethod(3);
+        $extension->setDisposalMethod(DisposalMethod::PREVIOUS);
         $extension->setTransparentColorExistance();
         $extension->setTransparentColorIndex(144);
         $extension->setUserInput();
-        
+
         $this->assertEquals("\x21\xF9\x04\x0f\x96\x00\x90\x00", $extension->encode());
     }
 
@@ -78,7 +84,7 @@ class GraphicControlExtensionTest extends BaseTestCase
             $extension = GraphicControlExtension::decode($this->getTestHandle($source));
             $this->assertInstanceOf(GraphicControlExtension::class, $extension);
             $this->assertEquals(150, $extension->getDelay());
-            $this->assertEquals(3, $extension->getDisposalMethod());
+            $this->assertEquals(DisposalMethod::PREVIOUS, $extension->getDisposalMethod());
             $this->assertTrue($extension->getTransparentColorExistance());
             $this->assertEquals(144, $extension->getTransparentColorIndex());
             $this->assertTrue($extension->getUserInput());

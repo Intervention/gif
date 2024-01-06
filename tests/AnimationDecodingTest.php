@@ -2,8 +2,8 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\ApplicationExtension;
-use Intervention\Gif\ColorTable;
+use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Decoder;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GifDataStream;
@@ -15,95 +15,105 @@ class AnimationDecodingTest extends BaseTestCase
         $gif = Decoder::decode(__DIR__ . '/images/animation2.gif');
         $this->assertInstanceOf(GifDataStream::class, $gif);
 
-        // HEADER
+        // header
         $this->assertEquals('89a', $gif->getHeader()->getVersion());
 
-        // LOGICAL SCREEN DESCRIPTOR
-        $this->assertEquals(30, $gif->getLogicalScreen()->getDescriptor()->getWidth());
-        $this->assertEquals(20, $gif->getLogicalScreen()->getDescriptor()->getHeight());
-        $this->assertTrue($gif->getLogicalScreen()->getDescriptor()->hasGlobalColorTable());
-        $this->assertFalse($gif->getLogicalScreen()->getDescriptor()->getGlobalColorTableSorted());
-        $this->assertEquals(7, $gif->getLogicalScreen()->getDescriptor()->getGlobalColorTableSize());
-        $this->assertEquals(0, $gif->getLogicalScreen()->getDescriptor()->getBackgroundColorIndex());
-        $this->assertEquals(0, $gif->getLogicalScreen()->getDescriptor()->getPixelAspectRatio());
-        $this->assertEquals(1, $gif->getLogicalScreen()->getDescriptor()->getBitsPerPixel());
+        // logical screen descriptor
+        $this->assertEquals(30, $gif->getLogicalScreenDescriptor()->getWidth());
+        $this->assertEquals(20, $gif->getLogicalScreenDescriptor()->getHeight());
+        $this->assertTrue($gif->getLogicalScreenDescriptor()->hasGlobalColorTable());
+        $this->assertFalse($gif->getLogicalScreenDescriptor()->getGlobalColorTableSorted());
+        $this->assertEquals(7, $gif->getLogicalScreenDescriptor()->getGlobalColorTableSize());
+        $this->assertEquals(0, $gif->getLogicalScreenDescriptor()->getBackgroundColorIndex());
+        $this->assertEquals(0, $gif->getLogicalScreenDescriptor()->getPixelAspectRatio());
+        $this->assertEquals(1, $gif->getLogicalScreenDescriptor()->getBitsPerPixel());
 
-        // GLOBAL COLOR TABLE
-        $this->assertInstanceOf(ColorTable::class, $gif->getLogicalScreen()->getColorTable());
-        $this->assertEquals(256, $gif->getLogicalScreen()->getColorTable()->countColors());
+        // global color table
+        $this->assertInstanceOf(ColorTable::class, $gif->getGlobalColorTable());
+        $this->assertEquals(256, $gif->getGlobalColorTable()->countColors());
 
-        // APPLICATION EXTENSION
-        $this->assertInstanceOf(ApplicationExtension::class, $gif->getMainApplicationExtension());
+        // netscape application extension
+        $this->assertInstanceOf(NetscapeApplicationExtension::class, $gif->getMainApplicationExtension());
         $this->assertEquals(0, $gif->getMainApplicationExtension()->getLoops());
 
-        // TABLE BASED IMAGES
-        $this->assertCount(6, $gif->getGraphicBlocks());
+        // frame count
+        $this->assertCount(6, $gif->getFrames());
 
-        // GRAPHICS CONTROL EXTENSIONS
-        $colortables = array_values(array_map(function ($block) {
-            return $block->getGraphicRenderingBlock()->hasColorTable();
-        }, $gif->getGraphicBlocks()));
+        // local color tables in each frame
+        $colortables = array_values(array_map(function ($frame) {
+            return $frame->hasColorTable();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 6, false), $colortables);
 
-        $delays = array_values(array_map(function ($block) {
-            return $block->getGraphicControlExtension()->getDelay();
-        }, $gif->getGraphicBlocks()));
+        // delay in each frame
+        $delays = array_values(array_map(function ($frame) {
+            return $frame->getGraphicControlExtension()->getDelay();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 6, 13), $delays);
 
-        $usrinputs = array_values(array_map(function ($block) {
-            return $block->getGraphicControlExtension()->getUserInput();
-        }, $gif->getGraphicBlocks()));
-        $this->assertEquals(array_fill(0, 6, false), $usrinputs);
+        // userinput in each frame
+        $userInputs = array_values(array_map(function ($frame) {
+            return $frame->getGraphicControlExtension()->getUserInput();
+        }, $gif->getFrames()));
+        $this->assertEquals(array_fill(0, 6, false), $userInputs);
 
-        $disposals = array_values(array_map(function ($block) {
-            return $block->getGraphicControlExtension()->getDisposalMethod();
-        }, $gif->getGraphicBlocks()));
+        // disposal flag in each frame
+        $disposals = array_values(array_map(function ($frame) {
+            return $frame->getGraphicControlExtension()->getDisposalMethod();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 6, DisposalMethod::NONE), $disposals);
 
-        $indexes = array_values(array_map(function ($block) {
-            return $block->getGraphicControlExtension()->getTransparentColorIndex();
-        }, $gif->getGraphicBlocks()));
+        $indexes = array_values(array_map(function ($frame) {
+            return $frame->getGraphicControlExtension()->getTransparentColorIndex();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 6, 2), $indexes);
 
-        // IMAGE DESCRIPTORS
-        $lefts = array_values(array_map(function ($desc) {
-            return $desc->getLeft();
-        }, $gif->getImageDescriptors()));
+        // left pos. in each frame
+        $lefts = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getLeft();
+        }, $gif->getFrames()));
         $this->assertEquals([0, 9, 5, 0, 9, 5], $lefts);
 
-        $tops = array_values(array_map(function ($desc) {
-            return $desc->getTop();
-        }, $gif->getImageDescriptors()));
+        // top pos. in each frame
+        $tops = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getTop();
+        }, $gif->getFrames()));
         $this->assertEquals([0, 6, 3, 0, 6, 3], $tops);
 
-        $widths = array_values(array_map(function ($desc) {
-            return $desc->getWidth();
-        }, $gif->getImageDescriptors()));
+        // width in each frame
+        $widths = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getWidth();
+        }, $gif->getFrames()));
         $this->assertEquals([30, 12, 20, 30, 12, 20], $widths);
 
-        $heights = array_values(array_map(function ($desc) {
-            return $desc->getHeight();
-        }, $gif->getImageDescriptors()));
+        // height in each frame
+        $heights = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getHeight();
+        }, $gif->getFrames()));
         $this->assertEquals([20, 8, 14, 20, 8, 14], $heights);
 
-        $localcolortables = array_values(array_map(function ($desc) {
-            return $desc->hasLocalColorTable();
-        }, $gif->getImageDescriptors()));
+        // local color table in each frame
+        $localcolortables = array_values(array_map(function ($frame) {
+            return $frame->hasColorTable();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 6, false), $localcolortables);
 
-        $interlaces = array_values(array_map(function ($desc) {
-            return $desc->isInterlaced();
-        }, $gif->getImageDescriptors()));
+        // interlace flag in each frame
+        $interlaces = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->isInterlaced();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 6, false), $interlaces);
 
-        $sorts = array_values(array_map(function ($desc) {
-            return $desc->getLocalColorTableSorted();
-        }, $gif->getImageDescriptors()));
+        // sort flag of each frame
+        $sorts = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getLocalColorTableSorted();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 6, false), $sorts);
 
-        $sizes = array_values(array_map(function ($desc) {
-            return $desc->getLocalColorTableSize();
-        }, $gif->getImageDescriptors()));
+        // local color table size of each frame
+        $sizes = array_values(array_map(function ($frame) {
+            return $frame->getImageDescriptor()->getLocalColorTableSize();
+        }, $gif->getFrames()));
         $this->assertEquals(array_fill(0, 6, 0), $sizes);
     }
 }

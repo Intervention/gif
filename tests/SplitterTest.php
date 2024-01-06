@@ -16,8 +16,8 @@ class SplitterTest extends BaseTestCase
         $this->assertCount(8, $splitter->getFrames());
         foreach ($splitter->getFrames() as $gif) {
             $this->assertInstanceOf(GifDataStream::class, $gif);
-            $this->assertEquals(20, $gif->getLogicalScreen()->getDescriptor()->getWidth());
-            $this->assertEquals(15, $gif->getLogicalScreen()->getDescriptor()->getHeight());
+            $this->assertEquals(20, $gif->getLogicalScreenDescriptor()->getWidth());
+            $this->assertEquals(15, $gif->getLogicalScreenDescriptor()->getHeight());
             $this->assertInstanceOf(GifDataStream::class, Decoder::decode($gif->encode()));
         }
 

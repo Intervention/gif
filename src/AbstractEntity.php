@@ -22,4 +22,14 @@ abstract class AbstractEntity
     {
         return (new ReflectionClass(get_called_class()))->getShortName();
     }
+
+    /**
+     * Cast object to string
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->encode();
+    }
 }

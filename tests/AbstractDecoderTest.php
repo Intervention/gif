@@ -2,17 +2,14 @@
 
 namespace Intervention\Gif\Test;
 
-use Intervention\Gif\Decoder\AbstractDecoder;
+use Intervention\Gif\Decoders\AbstractDecoder;
 
 class AbstractDecoderTest extends BaseTestCase
 {
-    public function testConstructorWithCallback()
+    public function testConstructor()
     {
-        $callback = function ($decoder) {
-            $decoder->setLength(12);
-        };
         $handle = $this->getTestHandle('foobarbaz');
-        $decoder = $this->getMockForAbstractClass(AbstractDecoder::class, [$handle, $callback]);
+        $decoder = $this->getMockForAbstractClass(AbstractDecoder::class, [$handle, 12]);
         $this->assertEquals(12, $decoder->getLength());
     }
 

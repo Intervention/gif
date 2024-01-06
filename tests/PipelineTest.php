@@ -4,6 +4,7 @@ namespace Intervention\Gif\Test;
 
 use Intervention\Gif\Builder;
 use Intervention\Gif\Decoder;
+use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GifDataStream;
 use Intervention\Gif\Splitter;
 
@@ -17,7 +18,8 @@ class PipelineTest extends BaseTestCase
         $this->validateGif($gif);
 
         $splitter = Splitter::create($gif)->split();
-        $delays = $splitter->getDelays();
+        $this->assertEquals(array_fill(0, 6, 13), $splitter->getDelays());
+
         $gd_objects = $splitter->coalesceToResources();
         foreach ($gd_objects as $gd) {
             $this->assertEquals(30, imagesx($gd));
@@ -45,21 +47,21 @@ class PipelineTest extends BaseTestCase
         $this->assertInstanceOf(GifDataStream::class, $gif);
 
         // global color table
-        $this->assertEquals(true, $gif->getLogicalScreen()->getDescriptor()->hasGlobalColorTable());
-        $this->assertEquals(false, $gif->getLogicalScreen()->getDescriptor()->getGlobalColorTableSorted());
-        $this->assertEquals(7, $gif->getLogicalScreen()->getDescriptor()->getGlobalColorTableSize());
-        $this->assertEquals(256 * 3, $gif->getLogicalScreen()->getDescriptor()->getGlobalColorTableByteSize());
-        $this->assertEquals(0, $gif->getLogicalScreen()->getDescriptor()->getBackgroundColorIndex());
+        $this->assertEquals(true, $gif->getLogicalScreenDescriptor()->hasGlobalColorTable());
+        $this->assertEquals(false, $gif->getLogicalScreenDescriptor()->getGlobalColorTableSorted());
+        $this->assertEquals(7, $gif->getLogicalScreenDescriptor()->getGlobalColorTableSize());
+        $this->assertEquals(256 * 3, $gif->getLogicalScreenDescriptor()->getGlobalColorTableByteSize());
+        $this->assertEquals(0, $gif->getLogicalScreenDescriptor()->getBackgroundColorIndex());
 
         $this->assertEquals(0, $gif->getMainApplicationExtension()->getLoops()); // loops
 
         // frames
-        $this->assertCount(6, $gif->getGraphicBlocks());
-        foreach ($gif->getGraphicBlocks() as $block) {
-            $this->assertEquals(13, $block->getGraphicControlExtension()->getDelay()); // delay
-            $this->assertEquals(1, $block->getGraphicControlExtension()->getDisposalMethod()); // disposal
-            $this->assertFalse($block->getGraphicRenderingBlock()->hasColorTable()); // local color table
-            $this->assertFalse($block->getGraphicRenderingBlock()->getDescriptor()->isInterlaced()); // interlaced
+        $this->assertCount(6, $gif->getFrames());
+        foreach ($gif->getFrames() as $frame) {
+            $this->assertEquals(13, $frame->getGraphicControlExtension()->getDelay()); // delay
+            $this->assertEquals(DisposalMethod::NONE, $frame->getGraphicControlExtension()->getDisposalMethod());
+            $this->assertFalse($frame->hasColorTable()); // local color table
+            $this->assertFalse($frame->getImageDescriptor()->isInterlaced()); // interlaced
         }
     }
 

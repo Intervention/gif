@@ -5,9 +5,21 @@
 ![build](https://github.com/Intervention/gif/actions/workflows/build.yml/badge.svg)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/intervention/gif.svg)](https://packagist.org/packages/intervention/gif/stats)
 
+Intervention GIF is a PHP encoder and decoder for the GIF image format that
+does not depend on any image processing extension. 
+
+Only the special `Splitter::class` class divides the data stream of an animated
+GIF into individual `GDImage` objects for each frame and is therefore dependent
+on the GD library.
+
+The library is the main component of [Intervention
+Image](https://github.com/Intervention/image) for processing animated GIF files
+with the GD library, but also works independently.
+
 ## Installation
 
-You can install this package easily with [Composer](https://getcomposer.org/). Just require the package with the following command:
+You can easily install this package using [Composer](https://getcomposer.org).
+Just request the package with the following command:
 
 ```bash
 composer require intervention/gif
@@ -21,7 +33,7 @@ composer require intervention/gif
 use Intervention\Gif\Decoder;
 
 // Decode filepath to Intervention\Gif\GifDataStream::class
-$gif = Decoder::decode('/images/animation.gif');
+$gif = Decoder::decode('images/animation.gif');
 
 // Decoder can also handle binary content directly
 $gif = Decoder::decode($contents);
@@ -34,28 +46,23 @@ Use the Builder class to create a new GIF image.
 ```php
 use Intervention\Gif\Builder;
 
-// create an empty canvas
-// 
-$width = 32;
-$height = 32;
-$loops = 0; // 0 for unlimited repetitions
-
-// create new gif with width/height and optional
-// number of repetitions of animation
-$gif = Builder::canvas($width, $height, $loops);
+// create new gif canvas
+$gif = Builder::canvas(width: 32, height: 32);
 
 // add animation frames to canvas
-// 
 $delay = .25; // delay in seconds after next frame is displayed
 $left = 0; // position offset (left)
 $top = 0; // position offset (top)
 
 // add animation frames with optional delay in seconds
 // and optional position offset for each frame
-$gif->addFrame('/images/frame01.gif', $delay, $left, $top);
-$gif->addFrame('/images/frame02.gif', $delay, $left);
-$gif->addFrame('/images/frame03.gif', $delay);
-$gif->addFrame('/images/frame04.gif');
+$gif->addFrame('images/frame01.gif', $delay, $left, $top);
+$gif->addFrame('images/frame02.gif', $delay, $left);
+$gif->addFrame('images/frame03.gif', $delay);
+$gif->addFrame('images/frame04.gif');
+
+// set loop count; 0 for infinite looping
+$gif->setLoops(12);
 
 // encode
 $data = $gif->encode();
@@ -64,7 +71,7 @@ $data = $gif->encode();
 
 ## Requirements
 
-- PHP >= 8.0
+- PHP >= 8.1
 
 ## Development & Testing
 
@@ -86,4 +93,4 @@ docker-compose run --rm --build analysis
 
 Intervention GIF is licensed under the [MIT License](http://opensource.org/licenses/MIT).
 
-Copyright 2020 [Oliver Vogel](http://intervention.io/)
+Copyright 2024 [Oliver Vogel](http://intervention.io/)
