@@ -4,6 +4,7 @@ namespace Intervention\Gif\Test;
 
 use Intervention\Gif\Blocks\ColorTable;
 use Intervention\Gif\Blocks\Header;
+use Intervention\Gif\Blocks\LogicalScreenDescriptor;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Blocks\Trailer;
 use Intervention\Gif\DisposalMethod;
@@ -16,6 +17,13 @@ class GifDataStreamTest extends BaseTestCase
         $gif = new GifDataStream();
         $gif->setHeader(new Header());
         $this->assertInstanceOf(Header::class, $gif->getHeader());
+    }
+
+    public function testSetGetLogicalScreenDescriptor(): void
+    {
+        $gif = new GifDataStream();
+        $gif->setLogicalScreenDescriptor(new LogicalScreenDescriptor());
+        $this->assertInstanceOf(LogicalScreenDescriptor::class, $gif->getLogicalScreenDescriptor());
     }
 
     public function testEncode()
