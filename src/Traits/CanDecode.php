@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Intervention\Gif\Traits;
 
 use Intervention\Gif\Decoders\AbstractDecoder;
