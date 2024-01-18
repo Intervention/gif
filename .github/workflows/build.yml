@@ -28,3 +28,6 @@ jobs:
 
       - name: Run phpstan
         run: vendor/bin/phpstan analyze --no-progress --level=4 src/
+
+      - name: Validate coding standards
+        run: vendor/bin/phpcs
