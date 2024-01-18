@@ -25,7 +25,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Intervention\\Gif\\Test\\": "tests"
+            "Intervention\\Gif\\Tests\\": "tests"
         }
     },
     "minimum-stability": "stable"

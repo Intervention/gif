@@ -1,6 +1,6 @@
 <?php
 
-namespace Intervention\Gif\Test;
+namespace Intervention\Gif\Tests;
 
 use Intervention\Gif\Builder;
 use Intervention\Gif\Decoder;
