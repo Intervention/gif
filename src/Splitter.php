@@ -132,7 +132,10 @@ class Splitter implements IteratorAggregate
             $gif->addFrame($frame);
 
             $this->frames[] = $gif;
-            $this->delays[] = $frame->getGraphicControlExtension()->getDelay();
+            $this->delays[] = match (is_object($frame->getGraphicControlExtension())) {
+                true => $frame->getGraphicControlExtension()->getDelay(),
+                default => 0,
+            };
         }
 
         return $this;
@@ -167,6 +170,12 @@ class Splitter implements IteratorAggregate
     public function coalesceToResources(): array
     {
         $resources = $this->toResources();
+
+        // static gif files don't need to be coalesced
+        if (count($resources) === 1) {
+            return $resources;
+        }
+
         $width = imagesx($resources[0]);
         $height = imagesy($resources[0]);
         $transparent = imagecolortransparent($resources[0]);
