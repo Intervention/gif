@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
-<ruleset name="Intervention/image">
+<ruleset name="Intervention/gif">
 
   <rule ref="PSR12"/>
+
+  <arg name="colors"/>
+  <arg value="p"/>
 
   <file>src/</file>
   <file>tests/</file>
