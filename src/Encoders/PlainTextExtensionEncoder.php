@@ -25,7 +25,7 @@ class PlainTextExtensionEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        if (! $this->source->hasText()) {
+        if (!$this->source->hasText()) {
             return '';
         }
 

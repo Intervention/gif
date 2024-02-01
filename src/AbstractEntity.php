@@ -22,7 +22,7 @@ abstract class AbstractEntity
      */
     public static function getShortClassname(): string
     {
-        return (new ReflectionClass(get_called_class()))->getShortName();
+        return (new ReflectionClass(static::class))->getShortName();
     }
 
     /**

@@ -68,7 +68,7 @@ class Splitter implements IteratorAggregate
      *
      * @param GifDataStream $stream
      */
-    public function setStream(GifDataStream $stream): Splitter
+    public function setStream(GifDataStream $stream): self
     {
         $this->stream = $stream;
 
@@ -78,10 +78,10 @@ class Splitter implements IteratorAggregate
     /**
      * Static constructor method
      *
-     * @param  GifDataStream $stream
+     * @param GifDataStream $stream
      * @return Splitter
      */
-    public static function create(GifDataStream $stream): Splitter
+    public static function create(GifDataStream $stream): self
     {
         return new self($stream);
     }

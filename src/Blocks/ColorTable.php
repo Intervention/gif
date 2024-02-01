@@ -142,7 +142,7 @@ class ColorTable extends AbstractEntity
      */
     public function getByteSize(): int
     {
-        if (! $this->hasColors()) {
+        if (!$this->hasColors()) {
             return 0;
         }
 

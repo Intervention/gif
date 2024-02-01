@@ -53,8 +53,8 @@ class Builder
     /**
      * Create new canvas
      *
-     * @param  int         $width
-     * @param  int         $height
+     * @param int $width
+     * @param int $height
      * @return self
      */
     public static function canvas(int $width, int $height): self
@@ -153,9 +153,9 @@ class Builder
     /**
      * Build table based image object from given source
      *
-     * @param  GifDataStream $source
-     * @param  int    $left
-     * @param  int    $top
+     * @param GifDataStream $source
+     * @param int $left
+     * @param int $top
      * @return TableBasedImage
      */
     protected function buildTableBasedImage(GifDataStream $source, int $left, int $top): TableBasedImage

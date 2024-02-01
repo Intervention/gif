@@ -12,8 +12,8 @@ trait CanDecode
     /**
      * Decode current instance
      *
-     * @param  resource $source
-     * @param  null|int $length
+     * @param resource $source
+     * @param null|int $length
      * @return mixed
      */
     public static function decode($source, ?int $length = null): mixed
@@ -24,8 +24,8 @@ trait CanDecode
     /**
      * Get decoder for current instance
      *
-     * @param  resource $source
-     * @param  null|int $length
+     * @param resource $source
+     * @param null|int $length
      * @return AbstractDecoder
      */
     protected static function getDecoder($source, ?int $length = null): AbstractDecoder
@@ -33,7 +33,7 @@ trait CanDecode
         $classname = self::getDecoderClassname();
 
         if (!class_exists($classname)) {
-            throw new DecoderException("Decoder for '" . get_called_class() . "' not found.");
+            throw new DecoderException("Decoder for '" . static::class . "' not found.");
         }
 
         return new $classname($source, $length);

@@ -30,7 +30,7 @@ class CommentExtension extends AbstractExtension
     /**
      * Get one comment by key
      *
-     * @param  int $key
+     * @param int $key
      * @return mixed
      */
     public function getComment(int $key): mixed

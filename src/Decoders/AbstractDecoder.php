@@ -38,7 +38,7 @@ abstract class AbstractDecoder
     /**
      * Read given number of bytes and move file pointer
      *
-     * @param  int $length
+     * @param int $length
      * @return string
      */
     protected function getNextBytes(int $length): string
@@ -49,7 +49,7 @@ abstract class AbstractDecoder
     /**
      * Read given number of bytes and move pointer back to previous position
      *
-     * @param  int $length
+     * @param int $length
      * @return string
      */
     protected function viewNextBytes(int $length): string
@@ -81,7 +81,7 @@ abstract class AbstractDecoder
         do {
             $byte = fread($this->handle, 1);
             $all .= $byte;
-        } while (! feof($this->handle));
+        } while (!feof($this->handle));
 
         return $all;
     }
@@ -99,7 +99,7 @@ abstract class AbstractDecoder
     /**
      * Move file pointer on handle by given offset
      *
-     * @param  int    $offset
+     * @param int $offset
      * @return self
      */
     protected function movePointer(int $offset): self

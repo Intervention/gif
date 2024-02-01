@@ -19,7 +19,7 @@ trait CanHandleFiles
     /**
      * Determine if given string contains null bytes
      *
-     * @param  string  $string
+     * @param string $string
      * @return bool
      */
     private static function hasNullBytes($string): bool
@@ -30,7 +30,7 @@ trait CanHandleFiles
     /**
      * Create file pointer from given gif image data
      *
-     * @param  string $data
+     * @param string $data
      * @return resource
      */
     private static function getHandleFromData($data)
@@ -45,7 +45,7 @@ trait CanHandleFiles
     /**
      * Create file pounter from given file path
      *
-     * @param  string $path
+     * @param string $path
      * @return resource
      */
     private static function getHandleFromFilePath(string $path)
