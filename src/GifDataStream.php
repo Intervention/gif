@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Gif;
 
 use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Blocks\CommentExtension;
 use Intervention\Gif\Blocks\FrameBlock;
 use Intervention\Gif\Blocks\Header;
 use Intervention\Gif\Blocks\LogicalScreenDescriptor;
@@ -20,7 +21,8 @@ class GifDataStream extends AbstractEntity
         protected Header $header = new Header(),
         protected LogicalScreenDescriptor $logicalScreenDescriptor = new LogicalScreenDescriptor(),
         protected ?ColorTable $globalColorTable = null,
-        protected array $frames = []
+        protected array $frames = [],
+        protected array $comments = []
     ) {
     }
 
@@ -123,6 +125,16 @@ class GifDataStream extends AbstractEntity
     }
 
     /**
+     * Return array of "global" comments
+     *
+     * @return array
+     */
+    public function getComments(): array
+    {
+        return $this->comments;
+    }
+
+    /**
      * Return first frame
      *
      * @return null|FrameBlock
@@ -145,6 +157,19 @@ class GifDataStream extends AbstractEntity
     public function addFrame(FrameBlock $frame): self
     {
         $this->frames[] = $frame;
+
+        return $this;
+    }
+
+    /**
+     * Add comment extension
+     *
+     * @param CommentExtension $comment
+     * @return GifDataStream
+     */
+    public function addComment(CommentExtension $comment): self
+    {
+        $this->comments[] = $comment;
 
         return $this;
     }

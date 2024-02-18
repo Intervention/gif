@@ -33,6 +33,7 @@ class GifDataStreamTest extends BaseTestCase
         $gif = new GifDataStream();
         $gif->setLogicalScreenDescriptor($this->getTestLogicalScreenDescriptor());
         $gif->addFrame($this->getTestFrame());
+        $gif->addComment($this->getTestCommentExtension());
 
         $result = implode('', [
             (string) $this->getTestHeader(),
@@ -42,6 +43,7 @@ class GifDataStreamTest extends BaseTestCase
             (string) $this->getTestGraphicControlExtension(),
             (string) $this->getTestImageDescriptor(),
             (string) $this->getTestImageData(),
+            (string) $this->getTestCommentExtension(),
             Trailer::MARKER,
         ]);
 
@@ -152,5 +154,17 @@ class GifDataStreamTest extends BaseTestCase
             return $frame->getImageDescriptor()->getLocalColorTableSize();
         }, $gif->getFrames()));
         $this->assertEquals([0, 0, 0, 0, 0, 0, 0, 0], $sizes);
+    }
+
+    public function testDecodeTrailingComment(): void
+    {
+        $gif = GifDataStream::decode(
+            $this->getTestHandle(
+                file_get_contents(__DIR__ . '/images/animation_trailing_comment.gif')
+            ),
+        );
+
+        $this->assertInstanceOf(GifDataStream::class, $gif);
+        $this->assertCount(1, $gif->getComments());
     }
 }
