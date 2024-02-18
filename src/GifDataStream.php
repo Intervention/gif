@@ -162,9 +162,9 @@ class GifDataStream extends AbstractEntity
     }
 
     /**
-     * Add frame
+     * Add comment extension
      *
-     * @param FrameBlock $frame
+     * @param CommentExtension $comment
      * @return GifDataStream
      */
     public function addComment(CommentExtension $comment): self
