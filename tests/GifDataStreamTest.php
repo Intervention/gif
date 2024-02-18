@@ -153,4 +153,16 @@ class GifDataStreamTest extends BaseTestCase
         }, $gif->getFrames()));
         $this->assertEquals([0, 0, 0, 0, 0, 0, 0, 0], $sizes);
     }
+
+    public function testDecodeTrailingComment(): void
+    {
+        $gif = GifDataStream::decode(
+            $this->getTestHandle(
+                file_get_contents(__DIR__ . '/images/animation_trailing_comment.gif')
+            ),
+        );
+
+        $this->assertInstanceOf(GifDataStream::class, $gif);
+        $this->assertCount(1, $gif->getComments());
+    }
 }
