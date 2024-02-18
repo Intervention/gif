@@ -33,6 +33,7 @@ class GifDataStreamTest extends BaseTestCase
         $gif = new GifDataStream();
         $gif->setLogicalScreenDescriptor($this->getTestLogicalScreenDescriptor());
         $gif->addFrame($this->getTestFrame());
+        $gif->addComment($this->getTestCommentExtension());
 
         $result = implode('', [
             (string) $this->getTestHeader(),
@@ -42,6 +43,7 @@ class GifDataStreamTest extends BaseTestCase
             (string) $this->getTestGraphicControlExtension(),
             (string) $this->getTestImageDescriptor(),
             (string) $this->getTestImageData(),
+            (string) $this->getTestCommentExtension(),
             Trailer::MARKER,
         ]);
 
