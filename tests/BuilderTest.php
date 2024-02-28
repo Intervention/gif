@@ -9,19 +9,19 @@ use Intervention\Gif\GifDataStream;
 
 class BuilderTest extends BaseTestCase
 {
-    public function testGetGifDataStream()
+    public function testGetGifDataStream(): void
     {
         $builder = Builder::canvas(320, 240);
         $this->assertInstanceOf(GifDataStream::class, $builder->getGifDataStream());
     }
 
-    public function testEncode()
+    public function testEncode(): void
     {
         $builder = Builder::canvas(320, 240);
         $this->assertMatchesRegularExpression('/^\x47\x49\x46\x38(\x37|\x39)\x61/', $builder->encode());
     }
 
-    public function testCanvas()
+    public function testCanvas(): void
     {
         $builder = Builder::canvas(320, 240);
         $this->assertInstanceOf(Builder::class, $builder);
@@ -30,7 +30,7 @@ class BuilderTest extends BaseTestCase
         $this->assertEquals(240, $gif->getLogicalScreenDescriptor()->getHeight());
     }
 
-    public function testCanvasMultipleLoops()
+    public function testCanvasMultipleLoops(): void
     {
         $builder = Builder::canvas(320, 240);
         $builder->addFrame(__DIR__ . '/images/red.gif', 0.25, 1, 2);
@@ -39,7 +39,7 @@ class BuilderTest extends BaseTestCase
         $this->assertEquals(10, $gif->getMainApplicationExtension()->getLoops());
     }
 
-    public function testAddFrame()
+    public function testAddFrame(): void
     {
         $builder = Builder::canvas(320, 240);
         $result = $builder->addFrame(__DIR__ . '/images/red.gif', 0.25, 1, 2);

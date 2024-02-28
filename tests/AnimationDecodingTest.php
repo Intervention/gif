@@ -12,7 +12,7 @@ use Intervention\Gif\GifDataStream;
 
 class AnimationDecodingTest extends BaseTestCase
 {
-    public function testDecodeAnimation()
+    public function testDecodeAnimation(): void
     {
         $gif = Decoder::decode(__DIR__ . '/images/animation2.gif');
         $this->assertInstanceOf(GifDataStream::class, $gif);

@@ -9,13 +9,13 @@ use Intervention\Gif\GifDataStream;
 
 class DecoderTest extends BaseTestCase
 {
-    public function testDecodeFromPath()
+    public function testDecodeFromPath(): void
     {
         $decoded = Decoder::decode(__DIR__ . '/images/animation1.gif');
         $this->assertInstanceOf(GifDataStream::class, $decoded);
     }
 
-    public function testDecodeFromData()
+    public function testDecodeFromData(): void
     {
         $decoded = Decoder::decode(file_get_contents(__DIR__ . '/images/animation1.gif'));
         $this->assertInstanceOf(GifDataStream::class, $decoded);

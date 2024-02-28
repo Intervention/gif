@@ -8,7 +8,7 @@ use Intervention\Gif\Blocks\Header;
 
 class HeaderTest extends BaseTestCase
 {
-    public function testSetGetVersion()
+    public function testSetGetVersion(): void
     {
         $header = new Header();
         $this->assertEquals('89a', $header->getVersion());
@@ -17,13 +17,13 @@ class HeaderTest extends BaseTestCase
         $this->assertEquals('foo', $header->getVersion());
     }
 
-    public function testEncode()
+    public function testEncode(): void
     {
         $header = new Header();
         $this->assertEquals('GIF89a', $header->encode());
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         $header = Header::decode($this->getTestHandle('GIF87a'));
         $this->assertInstanceOf(Header::class, $header);

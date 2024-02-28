@@ -11,7 +11,7 @@ use Intervention\Gif\Splitter;
 
 class SplitterTest extends BaseTestCase
 {
-    public function testSplit()
+    public function testSplit(): void
     {
         $decoded = Decoder::decode(__DIR__ . '/images/animation1.gif');
         $splitter = Splitter::create($decoded)->split();
@@ -39,7 +39,7 @@ class SplitterTest extends BaseTestCase
         $this->assertEquals($delays, array_fill(0, 6, 13));
     }
 
-    public function testSplitStatic()
+    public function testSplitStatic(): void
     {
         $decoded = Decoder::decode(__DIR__ . '/images/static.gif');
         $splitter = Splitter::create($decoded)->split();

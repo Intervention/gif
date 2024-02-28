@@ -8,7 +8,7 @@ use Intervention\Gif\Blocks\DataSubBlock;
 
 class DataSubBlockTest extends BaseTestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $block = new DataSubBlock('test');
         $this->assertInstanceOf(DataSubBlock::class, $block);

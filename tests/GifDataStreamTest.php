@@ -14,7 +14,7 @@ use Intervention\Gif\GifDataStream;
 
 class GifDataStreamTest extends BaseTestCase
 {
-    public function testSetGetHeader()
+    public function testSetGetHeader(): void
     {
         $gif = new GifDataStream();
         $gif->setHeader(new Header());
@@ -28,7 +28,7 @@ class GifDataStreamTest extends BaseTestCase
         $this->assertInstanceOf(LogicalScreenDescriptor::class, $gif->getLogicalScreenDescriptor());
     }
 
-    public function testEncode()
+    public function testEncode(): void
     {
         $gif = new GifDataStream();
         $gif->setLogicalScreenDescriptor($this->getTestLogicalScreenDescriptor());
@@ -50,7 +50,7 @@ class GifDataStreamTest extends BaseTestCase
         $this->assertEquals($result, $gif->encode());
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         $gif = GifDataStream::decode(
             $this->getTestHandle(

@@ -9,7 +9,7 @@ use Intervention\Gif\Blocks\ColorTable;
 
 class ColorTableTest extends BaseTestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $table = new ColorTable([
             new Color(0, 0, 0),
@@ -21,7 +21,7 @@ class ColorTableTest extends BaseTestCase
         $this->assertEquals(3, $table->countColors());
     }
 
-    public function testGetColors()
+    public function testGetColors(): void
     {
         $table = new ColorTable();
         $table->addRgb(0, 0, 0);
@@ -35,7 +35,7 @@ class ColorTableTest extends BaseTestCase
         }
     }
 
-    public function testSetColors()
+    public function testSetColors(): void
     {
         $table = new ColorTable();
         $this->assertEquals(0, $table->countColors());
@@ -48,14 +48,14 @@ class ColorTableTest extends BaseTestCase
         $this->assertEquals(3, $table->countColors());
     }
 
-    public function testAddRgb()
+    public function testAddRgb(): void
     {
         $table = new ColorTable();
         $result = $table->addRgb(255, 255, 255);
         $this->assertInstanceOf(ColorTable::class, $result);
     }
 
-    public function testCountColors()
+    public function testCountColors(): void
     {
         $table = new ColorTable();
         $table->addRgb(0, 255, 255);
@@ -64,7 +64,7 @@ class ColorTableTest extends BaseTestCase
         $this->assertEquals(3, $table->countColors());
     }
 
-    public function testHasColors()
+    public function testHasColors(): void
     {
         $table = new ColorTable();
         $this->assertFalse($table->hasColors());
@@ -72,7 +72,7 @@ class ColorTableTest extends BaseTestCase
         $this->assertTrue($table->hasColors());
     }
 
-    public function testEmpty()
+    public function testEmpty(): void
     {
         $table = new ColorTable();
         $table->addRgb(0, 0, 0);
@@ -81,7 +81,7 @@ class ColorTableTest extends BaseTestCase
         $this->assertFalse($table->hasColors());
     }
 
-    public function testGetLogicalSize()
+    public function testGetLogicalSize(): void
     {
         $table = new ColorTable();
         $this->assertEquals(0, $table->getLogicalSize());
@@ -92,7 +92,7 @@ class ColorTableTest extends BaseTestCase
         $this->assertEquals(1, $table->getLogicalSize());
     }
 
-    public function testGetByteSize()
+    public function testGetByteSize(): void
     {
         $table = new ColorTable();
         $this->assertEquals(0, $table->getByteSize());
@@ -105,7 +105,7 @@ class ColorTableTest extends BaseTestCase
         $this->assertEquals(12, $table->getByteSize());
     }
 
-    public function testEncode()
+    public function testEncode(): void
     {
         $table = new ColorTable([
             new Color(0, 0, 0),
@@ -118,7 +118,7 @@ class ColorTableTest extends BaseTestCase
         $this->assertEquals($result, $table->encode());
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         $source = "\x00\x00\x00\xff\x00\x00\xff\xff\x00\xff\xff\xff";
         $table = ColorTable::decode($this->getTestHandle($source), 12);

@@ -8,14 +8,14 @@ use Intervention\Gif\Decoders\AbstractDecoder;
 
 class AbstractDecoderTest extends BaseTestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $handle = $this->getTestHandle('foobarbaz');
         $decoder = $this->getMockForAbstractClass(AbstractDecoder::class, [$handle, 12]);
         $this->assertEquals(12, $decoder->getLength());
     }
 
-    public function testSetHandle()
+    public function testSetHandle(): void
     {
         $handle = $this->getTestHandle('foobarbaz');
         $decoder = $this->getMockForAbstractClass(AbstractDecoder::class, [$handle]);
@@ -23,7 +23,7 @@ class AbstractDecoderTest extends BaseTestCase
         $this->assertInstanceOf(AbstractDecoder::class, $result);
     }
 
-    public function testSetGetLength()
+    public function testSetGetLength(): void
     {
         $handle = $this->getTestHandle('foobarbaz');
         $decoder = $this->getMockForAbstractClass(AbstractDecoder::class, [$handle]);
