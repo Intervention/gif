@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\Blocks\GraphicControlExtension;
+use Intervention\Gif\Tests\BaseTestCase;
 
 final class GraphicControlExtensionTest extends BaseTestCase
 {

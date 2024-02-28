@@ -19,6 +19,11 @@ use PHPUnit\Framework\TestCase;
 
 abstract class BaseTestCase extends TestCase
 {
+    public function getTestImagePath($filename = 'animation1.gif'): string
+    {
+        return sprintf('%s/images/%s', __DIR__, $filename);
+    }
+
     public function getTestHandle($data)
     {
         $handle = fopen('php://memory', 'r+');

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\ImageDescriptor;
+use Intervention\Gif\Tests\BaseTestCase;
 
 final class ImageDescriptorTest extends BaseTestCase
 {

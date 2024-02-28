@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\ApplicationExtension;
 use Intervention\Gif\Blocks\ColorTable;
@@ -13,6 +13,7 @@ use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\ImageDescriptor;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Blocks\PlainTextExtension;
+use Intervention\Gif\Tests\BaseTestCase;
 
 final class FrameBlockTest extends BaseTestCase
 {

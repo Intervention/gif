@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Builder;
 use Intervention\Gif\GifDataStream;
+use Intervention\Gif\Tests\BaseTestCase;
 
 final class BuilderTest extends BaseTestCase
 {
@@ -33,7 +34,7 @@ final class BuilderTest extends BaseTestCase
     public function testCanvasMultipleLoops(): void
     {
         $builder = Builder::canvas(320, 240);
-        $builder->addFrame(__DIR__ . '/images/red.gif', 0.25, 1, 2);
+        $builder->addFrame($this->getTestImagePath('red.gif'), 0.25, 1, 2);
         $builder->setLoops(10);
         $gif = $builder->getGifDataStream();
         $this->assertEquals(10, $gif->getMainApplicationExtension()->getLoops());
@@ -42,7 +43,7 @@ final class BuilderTest extends BaseTestCase
     public function testAddFrame(): void
     {
         $builder = Builder::canvas(320, 240);
-        $result = $builder->addFrame(__DIR__ . '/images/red.gif', 0.25, 1, 2);
+        $result = $builder->addFrame($this->getTestImagePath('red.gif'), 0.25, 1, 2);
         $this->assertInstanceOf(Builder::class, $result);
         $gif = $builder->getGifDataStream();
         $this->assertEquals(25, $gif->getFirstFrame()->getGraphicControlExtension()->getDelay());

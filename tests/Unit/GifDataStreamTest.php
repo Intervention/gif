@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\ColorTable;
 use Intervention\Gif\Blocks\Header;
@@ -11,6 +11,7 @@ use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Blocks\Trailer;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GifDataStream;
+use Intervention\Gif\Tests\BaseTestCase;
 
 final class GifDataStreamTest extends BaseTestCase
 {
@@ -54,7 +55,7 @@ final class GifDataStreamTest extends BaseTestCase
     {
         $gif = GifDataStream::decode(
             $this->getTestHandle(
-                file_get_contents(__DIR__ . '/images/animation1.gif')
+                file_get_contents($this->getTestImagePath('animation1.gif'))
             ),
         );
 
@@ -160,7 +161,7 @@ final class GifDataStreamTest extends BaseTestCase
     {
         $gif = GifDataStream::decode(
             $this->getTestHandle(
-                file_get_contents(__DIR__ . '/images/animation_trailing_comment.gif')
+                file_get_contents($this->getTestImagePath('animation_trailing_comment.gif'))
             ),
         );
 
