@@ -7,7 +7,7 @@ namespace Intervention\Gif\Tests;
 use Intervention\Gif\Blocks\Color;
 use Intervention\Gif\Blocks\ColorTable;
 
-class ColorTableTest extends BaseTestCase
+final class ColorTableTest extends BaseTestCase
 {
     public function testConstructor(): void
     {

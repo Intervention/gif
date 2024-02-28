@@ -6,7 +6,7 @@ namespace Intervention\Gif\Tests;
 
 use Intervention\Gif\Blocks\Header;
 
-class HeaderTest extends BaseTestCase
+final class HeaderTest extends BaseTestCase
 {
     public function testSetGetVersion(): void
     {

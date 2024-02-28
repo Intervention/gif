@@ -6,7 +6,7 @@ namespace Intervention\Gif\Tests;
 
 use Intervention\Gif\Decoders\AbstractDecoder;
 
-class AbstractDecoderTest extends BaseTestCase
+final class AbstractDecoderTest extends BaseTestCase
 {
     public function testConstructor(): void
     {

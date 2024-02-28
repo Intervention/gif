@@ -7,7 +7,7 @@ namespace Intervention\Gif\Tests;
 use Intervention\Gif\DisposalMethod;
 use PHPUnit\Framework\TestCase;
 
-class DisposalMethodTest extends TestCase
+final class DisposalMethodTest extends TestCase
 {
     public function testIntegerValues(): void
     {

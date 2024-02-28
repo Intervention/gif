@@ -7,7 +7,7 @@ namespace Intervention\Gif\Tests;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\Blocks\GraphicControlExtension;
 
-class GraphicControlExtensionTest extends BaseTestCase
+final class GraphicControlExtensionTest extends BaseTestCase
 {
     public function testConstructor(): void
     {

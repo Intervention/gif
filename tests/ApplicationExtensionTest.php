@@ -7,7 +7,7 @@ namespace Intervention\Gif\Tests;
 use Intervention\Gif\Blocks\ApplicationExtension;
 use Intervention\Gif\Blocks\DataSubBlock;
 
-class ApplicationExtensionTest extends BaseTestCase
+final class ApplicationExtensionTest extends BaseTestCase
 {
     public function testSetGetApplication(): void
     {

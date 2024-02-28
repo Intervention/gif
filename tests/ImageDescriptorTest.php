@@ -6,7 +6,7 @@ namespace Intervention\Gif\Tests;
 
 use Intervention\Gif\Blocks\ImageDescriptor;
 
-class ImageDescriptorTest extends BaseTestCase
+final class ImageDescriptorTest extends BaseTestCase
 {
     public function testSetGetSize(): void
     {

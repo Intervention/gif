@@ -10,7 +10,7 @@ use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GifDataStream;
 use Intervention\Gif\Splitter;
 
-class PipelineTest extends BaseTestCase
+final class PipelineTest extends BaseTestCase
 {
     public function testPipeline(): void
     {

@@ -7,7 +7,7 @@ namespace Intervention\Gif\Tests;
 use Intervention\Gif\Decoder;
 use Intervention\Gif\GifDataStream;
 
-class DecoderTest extends BaseTestCase
+final class DecoderTest extends BaseTestCase
 {
     public function testDecodeFromPath(): void
     {

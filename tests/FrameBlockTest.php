@@ -14,7 +14,7 @@ use Intervention\Gif\Blocks\ImageDescriptor;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Blocks\PlainTextExtension;
 
-class FrameBlockTest extends BaseTestCase
+final class FrameBlockTest extends BaseTestCase
 {
     public function testEncode(): void
     {

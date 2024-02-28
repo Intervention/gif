@@ -7,7 +7,7 @@ namespace Intervention\Gif\Tests;
 use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\ImageData;
 
-class ImageDataTest extends BaseTestCase
+final class ImageDataTest extends BaseTestCase
 {
     public function testSetGetBlocks(): void
     {

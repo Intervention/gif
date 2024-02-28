@@ -6,7 +6,7 @@ namespace Intervention\Gif\Tests;
 
 use Intervention\Gif\Blocks\Color;
 
-class ColorTest extends BaseTestCase
+final class ColorTest extends BaseTestCase
 {
     public function testSetGetColorValues(): void
     {

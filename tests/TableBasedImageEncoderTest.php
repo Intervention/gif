@@ -10,7 +10,7 @@ use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\ImageData;
 use Intervention\Gif\Blocks\TableBasedImage;
 
-class TableBasedImageEncoderTest extends BaseTestCase
+final class TableBasedImageEncoderTest extends BaseTestCase
 {
     public function testEncode(): void
     {

@@ -7,7 +7,7 @@ namespace Intervention\Gif\Tests;
 use Intervention\Gif\Builder;
 use Intervention\Gif\GifDataStream;
 
-class BuilderTest extends BaseTestCase
+final class BuilderTest extends BaseTestCase
 {
     public function testGetGifDataStream(): void
     {

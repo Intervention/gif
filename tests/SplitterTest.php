@@ -9,7 +9,7 @@ use Intervention\Gif\Decoder;
 use Intervention\Gif\GifDataStream;
 use Intervention\Gif\Splitter;
 
-class SplitterTest extends BaseTestCase
+final class SplitterTest extends BaseTestCase
 {
     public function testSplit(): void
     {

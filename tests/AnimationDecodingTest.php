@@ -10,7 +10,7 @@ use Intervention\Gif\Decoder;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GifDataStream;
 
-class AnimationDecodingTest extends BaseTestCase
+final class AnimationDecodingTest extends BaseTestCase
 {
     public function testDecodeAnimation(): void
     {

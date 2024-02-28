@@ -6,7 +6,7 @@ namespace Intervention\Gif\Tests;
 
 use Intervention\Gif\Blocks\LogicalScreenDescriptor;
 
-class LogicalScreenDescriptorTest extends BaseTestCase
+final class LogicalScreenDescriptorTest extends BaseTestCase
 {
     public function testSetGetSize(): void
     {

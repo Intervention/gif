@@ -12,7 +12,7 @@ use Intervention\Gif\Blocks\Trailer;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GifDataStream;
 
-class GifDataStreamTest extends BaseTestCase
+final class GifDataStreamTest extends BaseTestCase
 {
     public function testSetGetHeader(): void
     {

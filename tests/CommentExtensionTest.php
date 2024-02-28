@@ -6,7 +6,7 @@ namespace Intervention\Gif\Tests;
 
 use Intervention\Gif\Blocks\CommentExtension;
 
-class CommentExtensionTest extends BaseTestCase
+final class CommentExtensionTest extends BaseTestCase
 {
     public function testSetGetComment(): void
     {

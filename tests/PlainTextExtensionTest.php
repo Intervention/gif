@@ -6,7 +6,7 @@ namespace Intervention\Gif\Tests;
 
 use Intervention\Gif\Blocks\PlainTextExtension;
 
-class PlainTextExtensionTest extends BaseTestCase
+final class PlainTextExtensionTest extends BaseTestCase
 {
     public function testSetGetText(): void
     {

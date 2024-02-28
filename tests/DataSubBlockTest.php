@@ -6,7 +6,7 @@ namespace Intervention\Gif\Tests;
 
 use Intervention\Gif\Blocks\DataSubBlock;
 
-class DataSubBlockTest extends BaseTestCase
+final class DataSubBlockTest extends BaseTestCase
 {
     public function testConstructor(): void
     {

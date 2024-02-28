@@ -6,7 +6,7 @@ namespace Intervention\Gif\Tests;
 
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 
-class NetscapeApplicationExtensionTest extends BaseTestCase
+final class NetscapeApplicationExtensionTest extends BaseTestCase
 {
     public function testEncode(): void
     {
