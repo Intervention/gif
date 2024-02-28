@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\DisposalMethod;
 use PHPUnit\Framework\TestCase;
 
-class DisposalMethodTest extends TestCase
+final class DisposalMethodTest extends TestCase
 {
     public function testIntegerValues(): void
     {

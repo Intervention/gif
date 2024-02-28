@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\ApplicationExtension;
 use Intervention\Gif\Blocks\DataSubBlock;
+use Intervention\Gif\Tests\BaseTestCase;
 
-class ApplicationExtensionTest extends BaseTestCase
+final class ApplicationExtensionTest extends BaseTestCase
 {
-    public function testSetGetApplication()
+    public function testSetGetApplication(): void
     {
         $ext = new ApplicationExtension();
         $this->assertEquals('', $ext->getApplication());
@@ -27,7 +28,7 @@ class ApplicationExtensionTest extends BaseTestCase
         $this->assertCount(2, $extension->getBlocks());
     }
 
-    public function testEncode()
+    public function testEncode(): void
     {
         $extension = new ApplicationExtension();
         $extension->setApplication('foobar');
@@ -42,7 +43,7 @@ class ApplicationExtensionTest extends BaseTestCase
         $this->assertEquals("\x21\xff\x0b\x4e\x45\x54\x53\x43\x41\x50\x45\x32\x2e\x30\x03\x01\x0c\x00\x00", $result);
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         $source = "\x21\xff\x06\x66\x6F\x6F\x62\x61\x72\x03\x62\x61\x7A\x00";
         $extension = ApplicationExtension::decode($this->getTestHandle($source));

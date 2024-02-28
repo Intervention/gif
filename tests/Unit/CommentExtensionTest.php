@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\CommentExtension;
+use Intervention\Gif\Tests\BaseTestCase;
 
-class CommentExtensionTest extends BaseTestCase
+final class CommentExtensionTest extends BaseTestCase
 {
-    public function testSetGetComment()
+    public function testSetGetComment(): void
     {
         $extension = new CommentExtension();
         $extension->addComment('foo');
@@ -21,7 +22,7 @@ class CommentExtensionTest extends BaseTestCase
         $this->assertEquals('baz', $extension->getComment(2));
     }
 
-    public function testEncode()
+    public function testEncode(): void
     {
         $extension = new CommentExtension();
         $extension->addComment('blueberry');
@@ -36,7 +37,7 @@ class CommentExtensionTest extends BaseTestCase
         $this->assertEquals($result, $extension->encode());
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         $sources = [
             "\x21\xFE\x09\x62\x6C\x75\x65\x62\x65\x72\x72\x79\x00",

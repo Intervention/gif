@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\Blocks\GraphicControlExtension;
+use Intervention\Gif\Tests\BaseTestCase;
 
-class GraphicControlExtensionTest extends BaseTestCase
+final class GraphicControlExtensionTest extends BaseTestCase
 {
     public function testConstructor(): void
     {
@@ -16,7 +17,7 @@ class GraphicControlExtensionTest extends BaseTestCase
         $this->assertEquals(DisposalMethod::BACKGROUND, $ext->getDisposalMethod());
     }
 
-    public function testSetGetDelay()
+    public function testSetGetDelay(): void
     {
         $ext = new GraphicControlExtension();
         $this->assertEquals(0, $ext->getDelay());
@@ -24,7 +25,7 @@ class GraphicControlExtensionTest extends BaseTestCase
         $this->assertEquals(100, $ext->getDelay());
     }
 
-    public function testSetGetDisposalMethod()
+    public function testSetGetDisposalMethod(): void
     {
         $ext = new GraphicControlExtension();
         $this->assertEquals(DisposalMethod::UNDEFINED, $ext->getDisposalMethod());
@@ -32,7 +33,7 @@ class GraphicControlExtensionTest extends BaseTestCase
         $this->assertEquals(DisposalMethod::BACKGROUND, $ext->getDisposalMethod());
     }
 
-    public function testSetGetTransparentColorIndex()
+    public function testSetGetTransparentColorIndex(): void
     {
         $ext = new GraphicControlExtension();
         $this->assertEquals(0, $ext->getTransparentColorIndex());
@@ -40,7 +41,7 @@ class GraphicControlExtensionTest extends BaseTestCase
         $this->assertEquals(100, $ext->getTransparentColorIndex());
     }
 
-    public function testSetGetTransparentColorExistance()
+    public function testSetGetTransparentColorExistance(): void
     {
         $ext = new GraphicControlExtension();
         $this->assertFalse($ext->getTransparentColorExistance());
@@ -52,7 +53,7 @@ class GraphicControlExtensionTest extends BaseTestCase
         $this->assertFalse($ext->getTransparentColorExistance());
     }
 
-    public function testSetGetUserInput()
+    public function testSetGetUserInput(): void
     {
         $ext = new GraphicControlExtension();
         $this->assertFalse($ext->getUserInput());
@@ -64,7 +65,7 @@ class GraphicControlExtensionTest extends BaseTestCase
         $this->assertFalse($ext->getUserInput());
     }
 
-    public function testEncode()
+    public function testEncode(): void
     {
         $extension = new GraphicControlExtension();
         $extension->setDelay(150);
@@ -76,7 +77,7 @@ class GraphicControlExtensionTest extends BaseTestCase
         $this->assertEquals("\x21\xF9\x04\x0f\x96\x00\x90\x00", $extension->encode());
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         $sources = [
             "\x21\xF9\x04\x0f\x96\x00\x90\x00",

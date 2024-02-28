@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\ImageData;
+use Intervention\Gif\Tests\BaseTestCase;
 
-class ImageDataTest extends BaseTestCase
+final class ImageDataTest extends BaseTestCase
 {
-    public function testSetGetBlocks()
+    public function testSetGetBlocks(): void
     {
         $data = new ImageData();
         $this->assertFalse($data->hasBlocks());
@@ -21,7 +22,7 @@ class ImageDataTest extends BaseTestCase
         $this->assertTrue($data->hasBlocks());
     }
 
-    public function testEncoder()
+    public function testEncoder(): void
     {
         $data = new ImageData();
         $data->setLzwMinCodeSize(5);
@@ -35,7 +36,7 @@ class ImageDataTest extends BaseTestCase
         $this->assertEquals($result, $data->encode());
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         $source = "\x05\x24\x20\x20\x8E\x64\x69\x9E\x51\xA0\x46\x67\xEB\xBE\x70\x2C\x97\xE9\x3A\xDF\x78\xAE\xDF\x4F" .
             "\xD4\x40\x8F\x9B\x43\x15\x70\xF0\x7C\xC0\x9D\xB2\x15\x02\x04\x01\x01\x01\x01\x03\x01\x01\x01\x00";

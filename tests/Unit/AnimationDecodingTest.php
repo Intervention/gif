@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\ColorTable;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Decoder;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GifDataStream;
+use Intervention\Gif\Tests\BaseTestCase;
 
-class AnimationDecodingTest extends BaseTestCase
+final class AnimationDecodingTest extends BaseTestCase
 {
-    public function testDecodeAnimation()
+    public function testDecodeAnimation(): void
     {
-        $gif = Decoder::decode(__DIR__ . '/images/animation2.gif');
+        $gif = Decoder::decode($this->getTestImagePath('animation2.gif'));
         $this->assertInstanceOf(GifDataStream::class, $gif);
 
         // header

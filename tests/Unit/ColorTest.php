@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\Color;
+use Intervention\Gif\Tests\BaseTestCase;
 
-class ColorTest extends BaseTestCase
+final class ColorTest extends BaseTestCase
 {
-    public function testSetGetColorValues()
+    public function testSetGetColorValues(): void
     {
         $color = new Color(1, 2, 3);
         $this->assertEquals(1, $color->getRed());
@@ -23,13 +24,13 @@ class ColorTest extends BaseTestCase
         $this->assertEquals(6, $color->getBlue());
     }
 
-    public function testGetHash()
+    public function testGetHash(): void
     {
         $color = new Color(1, 2, 3);
         $this->assertEquals('202cb962ac59075b964b07152d234b70', $color->getHash());
     }
 
-    public function testEncode()
+    public function testEncode(): void
     {
         $result = (new Color())->encode();
         $this->assertEquals("\x00\x00\x00", $result);
@@ -44,7 +45,7 @@ class ColorTest extends BaseTestCase
         $this->assertEquals("\x0f\x2b\x79", $result);
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         $source = "\x00\x00\x00";
         $color = Color::decode($this->getTestHandle($source));

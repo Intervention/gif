@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Builder;
 use Intervention\Gif\Decoder;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GifDataStream;
 use Intervention\Gif\Splitter;
+use Intervention\Gif\Tests\BaseTestCase;
 
-class PipelineTest extends BaseTestCase
+final class PipelineTest extends BaseTestCase
 {
     public function testPipeline(): void
     {
-        $source = file_get_contents(__DIR__ . '/images/animation2.gif');
+        $source = file_get_contents($this->getTestImagePath('animation2.gif'));
         $gif = Decoder::decode($source);
 
         $this->validateGif($gif);

@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
+use Intervention\Gif\Tests\BaseTestCase;
 
-class NetscapeApplicationExtensionTest extends BaseTestCase
+final class NetscapeApplicationExtensionTest extends BaseTestCase
 {
-    public function testEncode()
+    public function testEncode(): void
     {
         // loops = 0
         $extension = new NetscapeApplicationExtension();
@@ -34,7 +35,7 @@ class NetscapeApplicationExtensionTest extends BaseTestCase
         $this->assertEquals("\x21\xFF\x0B\x4E\x45\x54\x53\x43\x41\x50\x45\x32\x2E\x30\x03\x01\x1A\x2B\x00", $result);
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         // loops = 0
         $source = "\x21\xFF\x0B\x4E\x45\x54\x53\x43\x41\x50\x45\x32\x2E\x30\x03\x01\x00\x00\x00";

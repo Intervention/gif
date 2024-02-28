@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\DataSubBlock;
+use Intervention\Gif\Tests\BaseTestCase;
 
-class DataSubBlockTest extends BaseTestCase
+final class DataSubBlockTest extends BaseTestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $block = new DataSubBlock('test');
         $this->assertInstanceOf(DataSubBlock::class, $block);

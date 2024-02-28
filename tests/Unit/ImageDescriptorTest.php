@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Intervention\Gif\Tests;
+namespace Intervention\Gif\Tests\Unit;
 
 use Intervention\Gif\Blocks\ImageDescriptor;
+use Intervention\Gif\Tests\BaseTestCase;
 
-class ImageDescriptorTest extends BaseTestCase
+final class ImageDescriptorTest extends BaseTestCase
 {
-    public function testSetGetSize()
+    public function testSetGetSize(): void
     {
         $desc = new ImageDescriptor();
         $this->assertEquals(0, $desc->getWidth());
@@ -19,7 +20,7 @@ class ImageDescriptorTest extends BaseTestCase
         $this->assertEquals(200, $desc->getHeight());
     }
 
-    public function testSetGetPosition()
+    public function testSetGetPosition(): void
     {
         $desc = new ImageDescriptor();
         $this->assertEquals(0, $desc->getTop());
@@ -30,7 +31,7 @@ class ImageDescriptorTest extends BaseTestCase
         $this->assertEquals(200, $desc->getTop());
     }
 
-    public function testSetGetInterlaced()
+    public function testSetGetInterlaced(): void
     {
         $desc = new ImageDescriptor();
         $this->assertFalse($desc->isInterlaced());
@@ -42,7 +43,7 @@ class ImageDescriptorTest extends BaseTestCase
         $this->assertFalse($desc->isInterlaced());
     }
 
-    public function testLocalColorTableExistanceFlag()
+    public function testLocalColorTableExistanceFlag(): void
     {
         $descriptor = new ImageDescriptor();
         $this->assertFalse($descriptor->getLocalColorTableExistance());
@@ -54,7 +55,7 @@ class ImageDescriptorTest extends BaseTestCase
         $this->assertFalse($descriptor->getLocalColorTableExistance());
     }
 
-    public function testLocalColorTableSortFlag()
+    public function testLocalColorTableSortFlag(): void
     {
         $descriptor = new ImageDescriptor();
         $this->assertFalse($descriptor->getLocalColorTableSorted());
@@ -66,7 +67,7 @@ class ImageDescriptorTest extends BaseTestCase
         $this->assertFalse($descriptor->getLocalColorTableSorted());
     }
 
-    public function testLocalColorTableSize()
+    public function testLocalColorTableSize(): void
     {
         $descriptor = new ImageDescriptor();
         $this->assertEquals(0, $descriptor->getLocalColorTableSize());
@@ -78,7 +79,7 @@ class ImageDescriptorTest extends BaseTestCase
         $this->assertEquals(2, $descriptor->getLocalColorTableSize());
     }
 
-    public function testEncode()
+    public function testEncode(): void
     {
         // width: 10
         // height: 10
@@ -111,7 +112,7 @@ class ImageDescriptorTest extends BaseTestCase
         $this->assertEquals("\x2C\x01\x00\x05\x00\x2c\x01\xc8\x00\xc4", $descriptor->encode());
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         // width: 300
         // height: 200
