@@ -49,5 +49,18 @@ final class BuilderTest extends BaseTestCase
         $this->assertEquals(25, $gif->getFirstFrame()->getGraphicControlExtension()->getDelay());
         $this->assertEquals(1, $gif->getFirstFrame()->getImageDescriptor()->getLeft());
         $this->assertEquals(2, $gif->getFirstFrame()->getImageDescriptor()->getTop());
+        $this->assertFalse($gif->getFirstFrame()->getImageDescriptor()->isInterlaced());
+    }
+
+    public function testAddFrameInterlace(): void
+    {
+        $builder = Builder::canvas(320, 240);
+        $result = $builder->addFrame($this->getTestImagePath('red.gif'), 0.25, 1, 2, true);
+        $this->assertInstanceOf(Builder::class, $result);
+        $gif = $builder->getGifDataStream();
+        $this->assertEquals(25, $gif->getFirstFrame()->getGraphicControlExtension()->getDelay());
+        $this->assertEquals(1, $gif->getFirstFrame()->getImageDescriptor()->getLeft());
+        $this->assertEquals(2, $gif->getFirstFrame()->getImageDescriptor()->getTop());
+        $this->assertTrue($gif->getFirstFrame()->getImageDescriptor()->isInterlaced());
     }
 }
