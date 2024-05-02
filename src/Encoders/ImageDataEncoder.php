@@ -23,6 +23,7 @@ class ImageDataEncoder extends AbstractEncoder
     /**
      * Encode current source
      *
+     * @throws EncoderException
      * @return string
      */
     public function encode(): string

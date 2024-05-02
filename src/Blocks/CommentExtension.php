@@ -13,7 +13,7 @@ class CommentExtension extends AbstractExtension
     /**
      * Comment blocks
      *
-     * @var array
+     * @var array<string>
      */
     protected array $comments = [];
 

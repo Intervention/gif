@@ -14,6 +14,7 @@ trait CanDecode
      *
      * @param resource $source
      * @param null|int $length
+     * @throws DecoderException
      * @return mixed
      */
     public static function decode($source, ?int $length = null): mixed
@@ -26,6 +27,7 @@ trait CanDecode
      *
      * @param resource $source
      * @param null|int $length
+     * @throws DecoderException
      * @return AbstractDecoder
      */
     protected static function getDecoder($source, ?int $length = null): AbstractDecoder

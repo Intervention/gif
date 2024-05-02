@@ -17,6 +17,12 @@ use Intervention\Gif\Exceptions\DecoderException;
 
 class FrameBlockDecoder extends AbstractDecoder
 {
+    /**
+     * Decode FrameBlock
+     *
+     * @throws DecoderException
+     * @return FrameBlock
+     */
     public function decode(): FrameBlock
     {
         $frame = new FrameBlock();

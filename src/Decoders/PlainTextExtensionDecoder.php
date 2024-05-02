@@ -42,7 +42,7 @@ class PlainTextExtensionDecoder extends AbstractDecoder
     /**
      * Decode text sub blocks
      *
-     * @return array
+     * @return array<string>
      */
     protected function decodeTextBlocks(): array
     {

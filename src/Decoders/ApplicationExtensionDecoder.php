@@ -7,12 +7,14 @@ namespace Intervention\Gif\Decoders;
 use Intervention\Gif\Blocks\ApplicationExtension;
 use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
+use Intervention\Gif\Exceptions\FormatException;
 
 class ApplicationExtensionDecoder extends AbstractDecoder
 {
     /**
      * Decode current source
      *
+     * @throws FormatException
      * @return ApplicationExtension
      */
     public function decode(): ApplicationExtension
