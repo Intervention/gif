@@ -6,7 +6,4 @@ parameters:
         check:
             missingCheckedExceptionInThrows: true
         uncheckedExceptionClasses:
-            - ImagickException
-            - ImagickDrawException
-            - ImagickPixelException
             - Error
