@@ -15,6 +15,7 @@ class Decoder
      * Decode given input
      *
      * @param mixed $input
+     * @throws DecoderException
      * @return GifDataStream
      */
     public static function decode(mixed $input): GifDataStream

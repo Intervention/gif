@@ -8,9 +8,16 @@ use Intervention\Gif\Blocks\ColorTable;
 use Intervention\Gif\Blocks\ImageData;
 use Intervention\Gif\Blocks\ImageDescriptor;
 use Intervention\Gif\Blocks\TableBasedImage;
+use Intervention\Gif\Exceptions\DecoderException;
 
 class TableBasedImageDecoder extends AbstractDecoder
 {
+    /**
+     * Decode TableBasedImage
+     *
+     * @throws DecoderException
+     * @return TableBasedImage
+     */
     public function decode(): TableBasedImage
     {
         $block = new TableBasedImage();

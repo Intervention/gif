@@ -16,6 +16,13 @@ class GifDataStream extends AbstractEntity
 {
     /**
      * Create new instance
+     *
+     * @param Header $header
+     * @param LogicalScreenDescriptor $logicalScreenDescriptor
+     * @param null|ColorTable $globalColorTable
+     * @param array<FrameBlock> $frames
+     * @param array<CommentExtension> $comments
+     * @return void
      */
     public function __construct(
         protected Header $header = new Header(),
@@ -117,7 +124,7 @@ class GifDataStream extends AbstractEntity
     /**
      * Get array of frames
      *
-     * @return array
+     * @return array<FrameBlock>
      */
     public function getFrames(): array
     {
@@ -127,7 +134,7 @@ class GifDataStream extends AbstractEntity
     /**
      * Return array of "global" comments
      *
-     * @return array
+     * @return array<CommentExtension>
      */
     public function getComments(): array
     {
@@ -177,7 +184,7 @@ class GifDataStream extends AbstractEntity
     /**
      * Set the current data
      *
-     * @param array $frames
+     * @param array<FrameBlock> $frames
      */
     public function setFrames(array $frames): self
     {

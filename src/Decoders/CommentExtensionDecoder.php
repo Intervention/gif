@@ -28,7 +28,7 @@ class CommentExtensionDecoder extends AbstractDecoder
     /**
      * Decode comment from current source
      *
-     * @return array
+     * @return array<string>
      */
     protected function decodeComments(): array
     {

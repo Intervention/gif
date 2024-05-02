@@ -10,6 +10,8 @@ use Intervention\Gif\Blocks\GraphicControlExtension;
 use Intervention\Gif\Blocks\ImageDescriptor;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Blocks\TableBasedImage;
+use Intervention\Gif\Exceptions\DecoderException;
+use Intervention\Gif\Exceptions\EncoderException;
 use Intervention\Gif\Traits\CanHandleFiles;
 
 class Builder
@@ -97,6 +99,7 @@ class Builder
      * @param int $left position offset in pixels from left
      * @param int $top position offset in pixels from top
      * @param bool $interlaced
+     * @throws DecoderException
      * @return Builder
      */
     public function addFrame(
@@ -206,6 +209,7 @@ class Builder
     /**
      * Encode the current build
      *
+     * @throws EncoderException
      * @return string
      */
     public function encode(): string

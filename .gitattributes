@@ -7,5 +7,6 @@
 /.editorconfig export-ignore
 /phpunit.xml export-ignore
 /phpcs.xml export-ignore
+/phpstan.dist.neon export-ignore
 /docker-compose.yml export-ignore
 /Dockerfile export-ignore

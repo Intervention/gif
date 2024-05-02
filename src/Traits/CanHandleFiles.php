@@ -9,9 +9,10 @@ trait CanHandleFiles
      /**
      * Determines if input is file path
      *
+     * @param mixed $input
      * @return bool
      */
-    private static function isFilePath($input): bool
+    private static function isFilePath(mixed $input): bool
     {
         return is_string($input) && !self::hasNullBytes($input) && @is_file($input);
     }
@@ -22,7 +23,7 @@ trait CanHandleFiles
      * @param string $string
      * @return bool
      */
-    private static function hasNullBytes($string): bool
+    private static function hasNullBytes(string $string): bool
     {
         return strpos($string, chr(0)) !== false;
     }

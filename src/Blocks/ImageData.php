@@ -18,7 +18,7 @@ class ImageData extends AbstractEntity
     /**
      * Sub blocks
      *
-     * @var array
+     * @var array<DataSubBlock>
      */
     protected array $blocks = [];
 
@@ -48,7 +48,7 @@ class ImageData extends AbstractEntity
     /**
      * Get current data sub blocks
      *
-     * @return array
+     * @return array<DataSubBlock>
      */
     public function getBlocks(): array
     {
