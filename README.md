@@ -4,6 +4,7 @@
 [![Latest Version](https://img.shields.io/packagist/v/intervention/gif.svg)](https://packagist.org/packages/intervention/gif)
 ![build](https://github.com/Intervention/gif/actions/workflows/build.yml/badge.svg)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/intervention/gif.svg)](https://packagist.org/packages/intervention/gif/stats)
+[![Support me on Ko-fi](https://raw.githubusercontent.com/Intervention/gif/main/.github/images/support.svg)](https://ko-fi.com/interventionphp)
 
 Intervention GIF is a PHP encoder and decoder for the GIF image format that
 does not depend on any image processing extension.
