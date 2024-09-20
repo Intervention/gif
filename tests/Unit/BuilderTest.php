@@ -63,4 +63,13 @@ final class BuilderTest extends BaseTestCase
         $this->assertEquals(2, $gif->getFirstFrame()->getImageDescriptor()->getTop());
         $this->assertTrue($gif->getFirstFrame()->getImageDescriptor()->isInterlaced());
     }
+
+    public function testAddFrameFromResource(): void
+    {
+        $pointer = fopen('php://temp', 'r+');
+        fwrite($pointer, file_get_contents($this->getTestImagePath('animation1.gif')));
+        $builder = Builder::canvas(320, 240);
+        $result = $builder->addFrame($pointer);
+        $this->assertInstanceOf(Builder::class, $result);
+    }
 }
