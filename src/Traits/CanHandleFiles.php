@@ -36,7 +36,7 @@ trait CanHandleFiles
      */
     private static function getHandleFromData($data)
     {
-        $handle = fopen('php://memory', 'r+');
+        $handle = fopen('php://temp', 'r+');
         fwrite($handle, $data);
         rewind($handle);
 
