@@ -94,7 +94,7 @@ class Builder
      * Create new animation frame from given source
      * which can be path to a file or GIF image data
      *
-     * @param string $source
+     * @param string|resource $source
      * @param float $delay time delay in seconds
      * @param int $left position offset in pixels from left
      * @param int $top position offset in pixels from top
@@ -103,7 +103,7 @@ class Builder
      * @return Builder
      */
     public function addFrame(
-        string $source,
+        mixed $source,
         float $delay = 0,
         int $left = 0,
         int $top = 0,

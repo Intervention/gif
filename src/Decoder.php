@@ -14,18 +14,34 @@ class Decoder
     /**
      * Decode given input
      *
-     * @param mixed $input
+     * @param string|resource $input
      * @throws DecoderException
      * @return GifDataStream
      */
     public static function decode(mixed $input): GifDataStream
     {
-        return GifDataStream::decode(
-            match (true) {
-                self::isFilePath($input) => self::getHandleFromFilePath($input),
-                is_string($input) => self::getHandleFromData($input),
-                default => throw new DecoderException('Decoder input must be either file path or binary data.')
-            }
-        );
+        $handle = match (true) {
+            self::isFilePath($input) => self::getHandleFromFilePath($input),
+            is_string($input) => self::getHandleFromData($input),
+            self::isFileHandle($input) => $input,
+            default => throw new DecoderException(
+                'Decoder input must be either file path, file pointer resource or binary data.'
+            )
+        };
+
+        rewind($handle);
+
+        return GifDataStream::decode($handle);
+    }
+
+    /**
+     * Determine if input is file pointer resource
+     *
+     * @param mixed $input
+     * @return bool
+     */
+    private static function isFileHandle(mixed $input): bool
+    {
+        return is_resource($input) && get_resource_type($input) === 'stream';
     }
 }

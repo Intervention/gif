@@ -21,4 +21,12 @@ final class DecoderTest extends BaseTestCase
         $decoded = Decoder::decode(file_get_contents($this->getTestImagePath('animation1.gif')));
         $this->assertInstanceOf(GifDataStream::class, $decoded);
     }
+
+    public function testDecodeFromFilePointer(): void
+    {
+        $pointer = fopen('php://temp', 'r+');
+        fwrite($pointer, file_get_contents($this->getTestImagePath('animation1.gif')));
+        $decoded = Decoder::decode($pointer);
+        $this->assertInstanceOf(GifDataStream::class, $decoded);
+    }
 }
