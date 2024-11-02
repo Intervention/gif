@@ -12,24 +12,39 @@ final class AbstractDecoderTest extends BaseTestCase
     public function testConstructor(): void
     {
         $handle = $this->getTestHandle('foobarbaz');
-        $decoder = $this->getMockForAbstractClass(AbstractDecoder::class, [$handle, 12]);
+        $decoder = $this->decoder($handle, 12);
         $this->assertEquals(12, $decoder->getLength());
     }
 
     public function testSetHandle(): void
     {
         $handle = $this->getTestHandle('foobarbaz');
-        $decoder = $this->getMockForAbstractClass(AbstractDecoder::class, [$handle]);
+        $decoder = $this->decoder($handle);
         $result = $decoder->setHandle($handle);
         $this->assertInstanceOf(AbstractDecoder::class, $result);
     }
 
     public function testSetGetLength(): void
     {
-        $handle = $this->getTestHandle('foobarbaz');
-        $decoder = $this->getMockForAbstractClass(AbstractDecoder::class, [$handle]);
+        $decoder = $this->decoder($this->getTestHandle('foobarbaz'));
         $this->assertNull($decoder->getLength());
         $decoder->setLength(1);
         $this->assertEquals(1, $decoder->getLength());
+    }
+
+    private function decoder(mixed $handle, ?int $length = null): AbstractDecoder
+    {
+        return new class ($handle, $length) extends AbstractDecoder
+        {
+            /**
+             * Decode current source
+             *
+             * @return mixed
+             */
+            public function decode(): mixed
+            {
+                return null;
+            }
+        };
     }
 }
