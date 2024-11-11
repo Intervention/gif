@@ -27,7 +27,7 @@ jobs:
         run: vendor/bin/phpunit
 
       - name: Run phpstan
-        run: vendor/bin/phpstan analyze --no-progress --level=4 src/
+        run: vendor/bin/phpstan analyze --no-progress src/
 
       - name: Validate coding standards
         run: vendor/bin/phpcs
