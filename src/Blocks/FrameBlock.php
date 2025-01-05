@@ -67,9 +67,6 @@ class FrameBlock extends AbstractEntity
                 break;
 
             case $entity instanceof NetscapeApplicationExtension:
-                $this->addApplicationExtension($entity);
-                break;
-
             case $entity instanceof ApplicationExtension:
                 $this->addApplicationExtension($entity);
                 break;

@@ -141,7 +141,7 @@ class ImageDescriptor extends AbstractEntity
      */
     public function isInterlaced(): bool
     {
-        return $this->interlaced === true;
+        return $this->interlaced;
     }
 
     /**
