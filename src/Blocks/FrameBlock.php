@@ -256,7 +256,7 @@ class FrameBlock extends AbstractEntity
      */
     public function getNetscapeExtension(): ?NetscapeApplicationExtension
     {
-        $extensions = array_filter($this->applicationExtensions, function ($extension) {
+        $extensions = array_filter($this->applicationExtensions, function (ApplicationExtension $extension): bool {
             return $extension instanceof NetscapeApplicationExtension;
         });
 
