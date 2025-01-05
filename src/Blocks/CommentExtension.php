@@ -20,7 +20,7 @@ class CommentExtension extends AbstractExtension
     /**
      * Get all or one comment
      *
-     * @return array
+     * @return array<string>
      */
     public function getComments(): array
     {
