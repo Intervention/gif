@@ -41,22 +41,30 @@ abstract class AbstractDecoder
      * Read given number of bytes and move file pointer
      *
      * @param int $length
+     * @throws DecoderException
      * @return string
      */
-    protected function getNextBytes(int $length): string
+    protected function getNextBytesOrFail(int $length): string
     {
-        return fread($this->handle, $length);
+        $bytes = fread($this->handle, $length);
+
+        if (strlen($bytes) !== $length) {
+            throw new DecoderException('Unexpected end of file.');
+        }
+
+        return $bytes;
     }
 
     /**
      * Read given number of bytes and move pointer back to previous position
      *
      * @param int $length
+     * @throws DecoderException
      * @return string
      */
     protected function viewNextBytes(int $length): string
     {
-        $bytes = $this->getNextBytes($length);
+        $bytes = $this->getNextBytesOrFail($length);
         $this->movePointer($length * -1);
 
         return $bytes;
@@ -65,6 +73,7 @@ abstract class AbstractDecoder
     /**
      * Read next byte and move pointer back to previous position
      *
+     * @throws DecoderException
      * @return string
      */
     protected function viewNextByte(): string
@@ -91,28 +100,12 @@ abstract class AbstractDecoder
     /**
      * Get next byte in stream and move file pointer
      *
-     * @return string
-     */
-    protected function getNextByte(): string
-    {
-        return $this->getNextBytes(1);
-    }
-
-    /**
-     * Get next byte in stream and move file pointer or throw exception
-     *
      * @throws DecoderException
      * @return string
      */
     protected function getNextByteOrFail(): string
     {
-        $byte = $this->getNextBytes(1);
-
-        if ($byte === '') {
-            throw new DecoderException('Unexpected end of file');
-        }
-
-        return $byte;
+        return $this->getNextBytesOrFail(1);
     }
 
     /**

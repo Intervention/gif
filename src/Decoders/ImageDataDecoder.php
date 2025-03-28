@@ -33,7 +33,7 @@ class ImageDataDecoder extends AbstractDecoder
             $char = $this->getNextByteOrFail();
             $size = (int) unpack('C', $char)[1];
             if ($size > 0) {
-                $data->addBlock(new DataSubBlock($this->getNextBytes($size)));
+                $data->addBlock(new DataSubBlock($this->getNextBytesOrFail($size)));
             }
         } while ($char !== AbstractEntity::TERMINATOR);
 
