@@ -2,7 +2,7 @@ services:
   tests:
     build: ./
     working_dir: /project
-    command: bash -c "composer install && ./vendor/bin/phpunit --filter=testDecodeCorrupted"
+    command: bash -c "composer install && ./vendor/bin/phpunit"
     volumes:
       - ./:/project
   coverage:
