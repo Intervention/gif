@@ -62,7 +62,7 @@ abstract class AbstractDecoder
      * @throws DecoderException
      * @return string
      */
-    protected function viewNextBytes(int $length): string
+    protected function viewNextBytesOrFail(int $length): string
     {
         $bytes = $this->getNextBytesOrFail($length);
         $this->movePointer($length * -1);
@@ -76,9 +76,9 @@ abstract class AbstractDecoder
      * @throws DecoderException
      * @return string
      */
-    protected function viewNextByte(): string
+    protected function viewNextByteOrFail(): string
     {
-        return $this->viewNextBytes(1);
+        return $this->viewNextBytesOrFail(1);
     }
 
     /**
