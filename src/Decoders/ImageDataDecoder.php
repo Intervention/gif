@@ -7,6 +7,7 @@ namespace Intervention\Gif\Decoders;
 use Intervention\Gif\AbstractEntity;
 use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\ImageData;
+use Intervention\Gif\Exceptions\DecoderException;
 use Intervention\Gif\Exceptions\FormatException;
 
 class ImageDataDecoder extends AbstractDecoder
@@ -14,6 +15,7 @@ class ImageDataDecoder extends AbstractDecoder
     /**
      * Decode current source
      *
+     * @throws DecoderException
      * @throws FormatException
      * @return ImageData
      */
