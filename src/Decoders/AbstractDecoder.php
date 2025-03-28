@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Gif\Decoders;
 
+use Intervention\Gif\Exceptions\DecoderException;
+
 abstract class AbstractDecoder
 {
     /**
@@ -94,6 +96,23 @@ abstract class AbstractDecoder
     protected function getNextByte(): string
     {
         return $this->getNextBytes(1);
+    }
+
+    /**
+     * Get next byte in stream and move file pointer or throw exception
+     *
+     * @throws DecoderException
+     * @return string
+     */
+    protected function getNextByteOrFail(): string
+    {
+        $byte = $this->getNextBytes(1);
+
+        if ($byte === '') {
+            throw new DecoderException('Unexpected end of file');
+        }
+
+        return $byte;
     }
 
     /**
