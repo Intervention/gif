@@ -68,8 +68,8 @@ class Builder
      * Set loop count
      *
      * @param int $loops
-     * @return Builder
      * @throws Exception
+     * @return Builder
      */
     public function setLoops(int $loops): self
     {
