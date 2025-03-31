@@ -31,6 +31,7 @@ class GifDataStream extends AbstractEntity
         protected array $frames = [],
         protected array $comments = []
     ) {
+        //
     }
 
     /**

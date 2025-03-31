@@ -44,6 +44,7 @@ class GraphicControlExtension extends AbstractExtension
         protected int $delay = 0,
         protected DisposalMethod $disposalMethod = DisposalMethod::UNDEFINED,
     ) {
+        //
     }
 
     /**

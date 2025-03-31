@@ -26,6 +26,19 @@ class Builder
      */
     public function __construct(protected GifDataStream $gif = new GifDataStream())
     {
+        //
+    }
+
+    /**
+     * Create new canvas
+     *
+     * @param int $width
+     * @param int $height
+     * @return self
+     */
+    public static function canvas(int $width, int $height): self
+    {
+        return (new self())->setSize($width, $height);
     }
 
     /**
@@ -50,18 +63,6 @@ class Builder
         $this->gif->getLogicalScreenDescriptor()->setSize($width, $height);
 
         return $this;
-    }
-
-    /**
-     * Create new canvas
-     *
-     * @param int $width
-     * @param int $height
-     * @return self
-     */
-    public static function canvas(int $width, int $height): self
-    {
-        return (new self())->setSize($width, $height);
     }
 
     /**

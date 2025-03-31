@@ -40,6 +40,17 @@ class Splitter implements IteratorAggregate
     }
 
     /**
+     * Static constructor method
+     *
+     * @param GifDataStream $stream
+     * @return Splitter
+     */
+    public static function create(GifDataStream $stream): self
+    {
+        return new self($stream);
+    }
+
+    /**
      * Iterator
      *
      * @return Traversable<GifDataStream>
@@ -79,17 +90,6 @@ class Splitter implements IteratorAggregate
         $this->stream = $stream;
 
         return $this;
-    }
-
-    /**
-     * Static constructor method
-     *
-     * @param GifDataStream $stream
-     * @return Splitter
-     */
-    public static function create(GifDataStream $stream): self
-    {
-        return new self($stream);
     }
 
     /**

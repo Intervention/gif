@@ -20,6 +20,7 @@ class Color extends AbstractEntity
         protected int $g = 0,
         protected int $b = 0
     ) {
+        //
     }
 
     /**

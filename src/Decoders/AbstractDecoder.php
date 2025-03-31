@@ -23,6 +23,7 @@ abstract class AbstractDecoder
      */
     public function __construct(protected $handle, protected ?int $length = null)
     {
+        //
     }
 
     /**
