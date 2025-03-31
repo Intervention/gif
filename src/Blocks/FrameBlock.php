@@ -6,6 +6,31 @@ namespace Intervention\Gif\Blocks;
 
 use Intervention\Gif\AbstractEntity;
 
+/**
+ * The GIF files that can be found on the Internet come in a wide variety
+ * of forms. Some strictly adhere to the original specification, others do
+ * not and differ in the actual sequence of blocks or their number.
+ *
+ * For this reason, this libary has this (kind of "virtual") FrameBlock,
+ * which can contain all possible blocks in different order that occur in
+ * a GIF animation.
+ *
+ * - Image Description
+ * - Local Color Table
+ * - Image Data Block
+ * - Plain Text Extension
+ * - Application Extension
+ * - Comment Extension
+ *
+ * The TableBasedImage block, which is a chain of ImageDescriptor, (Local
+ * Color Table) and ImageData, is used as a marker for terminating a
+ * FrameBlock.
+ *
+ * So far I have only seen GIF files that follow this scheme. However, there are
+ * examples which have one (or more) comment extensions added before the end. So
+ * there can be additional "global comments" that are not part of the FrameBlock
+ * and are appended to the GifDataStream afterwards.
+ */
 class FrameBlock extends AbstractEntity
 {
     /**
