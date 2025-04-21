@@ -15,13 +15,13 @@ final class PipelineTest extends BaseTestCase
 {
     public function testPipeline(): void
     {
-        $source = file_get_contents($this->getTestImagePath('animation2.gif'));
+        $source = file_get_contents($this->testImagePath('animation2.gif'));
         $gif = Decoder::decode($source);
 
         $this->validateGif($gif);
 
         $splitter = Splitter::create($gif)->split();
-        $this->assertEquals(array_fill(0, 6, 13), $splitter->getDelays());
+        $this->assertEquals(array_fill(0, 6, 13), $splitter->delays());
 
         $gd_objects = $splitter->coalesceToResources();
         foreach ($gd_objects as $gd) {
@@ -31,7 +31,7 @@ final class PipelineTest extends BaseTestCase
 
         $builder = Builder::canvas(30, 20);
         foreach ($gd_objects as $gd) {
-            $framesrc = $this->getBuffered(function () use ($gd) {
+            $framesrc = $this->buffered(function () use ($gd) {
                 imagecolortransparent($gd);
                 imagegif($gd);
             });
@@ -50,25 +50,25 @@ final class PipelineTest extends BaseTestCase
         $this->assertInstanceOf(GifDataStream::class, $gif);
 
         // global color table
-        $this->assertEquals(true, $gif->getLogicalScreenDescriptor()->hasGlobalColorTable());
-        $this->assertEquals(false, $gif->getLogicalScreenDescriptor()->getGlobalColorTableSorted());
-        $this->assertEquals(7, $gif->getLogicalScreenDescriptor()->getGlobalColorTableSize());
-        $this->assertEquals(256 * 3, $gif->getLogicalScreenDescriptor()->getGlobalColorTableByteSize());
-        $this->assertEquals(0, $gif->getLogicalScreenDescriptor()->getBackgroundColorIndex());
+        $this->assertEquals(true, $gif->logicalScreenDescriptor()->hasGlobalColorTable());
+        $this->assertEquals(false, $gif->logicalScreenDescriptor()->globalColorTableSorted());
+        $this->assertEquals(7, $gif->logicalScreenDescriptor()->globalColorTableSize());
+        $this->assertEquals(256 * 3, $gif->logicalScreenDescriptor()->globalColorTableByteSize());
+        $this->assertEquals(0, $gif->logicalScreenDescriptor()->backgroundColorIndex());
 
-        $this->assertEquals(0, $gif->getMainApplicationExtension()->getLoops()); // loops
+        $this->assertEquals(0, $gif->mainApplicationExtension()->loops()); // loops
 
         // frames
-        $this->assertCount(6, $gif->getFrames());
-        foreach ($gif->getFrames() as $frame) {
-            $this->assertEquals(13, $frame->getGraphicControlExtension()->getDelay()); // delay
-            $this->assertEquals(DisposalMethod::NONE, $frame->getGraphicControlExtension()->getDisposalMethod());
+        $this->assertCount(6, $gif->frames());
+        foreach ($gif->frames() as $frame) {
+            $this->assertEquals(13, $frame->graphicControlExtension()->delay()); // delay
+            $this->assertEquals(DisposalMethod::NONE, $frame->graphicControlExtension()->disposalMethod());
             $this->assertFalse($frame->hasColorTable()); // local color table
-            $this->assertFalse($frame->getImageDescriptor()->isInterlaced()); // interlaced
+            $this->assertFalse($frame->imageDescriptor()->isInterlaced()); // interlaced
         }
     }
 
-    protected function getBuffered(callable $callback): string
+    private function buffered(callable $callback): string
     {
         ob_start();
         $callback();

@@ -20,10 +20,10 @@ class PlainTextExtensionDecoder extends AbstractDecoder
         $extension = new PlainTextExtension();
 
         // skip marker & label
-        $this->getNextBytesOrFail(2);
+        $this->nextBytesOrFail(2);
 
         // skip info block
-        $this->getNextBytesOrFail($this->getInfoBlockSize());
+        $this->nextBytesOrFail($this->infoBlockSize());
 
         // text blocks
         $extension->setText($this->decodeTextBlocks());
@@ -37,9 +37,9 @@ class PlainTextExtensionDecoder extends AbstractDecoder
      * @throws DecoderException
      * @return int
      */
-    protected function getInfoBlockSize(): int
+    protected function infoBlockSize(): int
     {
-        return unpack('C', $this->getNextByteOrFail())[1];
+        return unpack('C', $this->nextByteOrFail())[1];
     }
 
     /**
@@ -53,10 +53,10 @@ class PlainTextExtensionDecoder extends AbstractDecoder
         $blocks = [];
 
         do {
-            $char = $this->getNextByteOrFail();
+            $char = $this->nextByteOrFail();
             $size = (int) unpack('C', $char)[1];
             if ($size > 0) {
-                $blocks[] = $this->getNextBytesOrFail($size);
+                $blocks[] = $this->nextBytesOrFail($size);
             }
         } while ($char !== PlainTextExtension::TERMINATOR);
 

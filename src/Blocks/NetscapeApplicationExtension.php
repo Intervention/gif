@@ -29,9 +29,9 @@ class NetscapeApplicationExtension extends ApplicationExtension
      *
      * @return int
      */
-    public function getLoops(): int
+    public function loops(): int
     {
-        return unpack('v*', substr($this->getBlocks()[0]->getValue(), 1))[1];
+        return unpack('v*', substr($this->blocks()[0]->value(), 1))[1];
     }
 
     /**

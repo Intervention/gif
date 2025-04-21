@@ -19,7 +19,7 @@ trait CanDecode
      */
     public static function decode($source, ?int $length = null): mixed
     {
-        return self::getDecoder($source, $length)->decode();
+        return self::decoder($source, $length)->decode();
     }
 
     /**
@@ -30,9 +30,9 @@ trait CanDecode
      * @throws DecoderException
      * @return AbstractDecoder
      */
-    protected static function getDecoder($source, ?int $length = null): AbstractDecoder
+    private static function decoder($source, ?int $length = null): AbstractDecoder
     {
-        $classname = self::getDecoderClassname();
+        $classname = self::decoderClassname();
 
         if (!class_exists($classname)) {
             throw new DecoderException("Decoder for '" . static::class . "' not found.");
@@ -46,8 +46,8 @@ trait CanDecode
      *
      * @return string
      */
-    protected static function getDecoderClassname(): string
+    private static function decoderClassname(): string
     {
-        return sprintf('Intervention\Gif\Decoders\%sDecoder', self::getShortClassname());
+        return sprintf('Intervention\Gif\Decoders\%sDecoder', self::shortClassname());
     }
 }

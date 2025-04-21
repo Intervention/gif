@@ -24,16 +24,16 @@ class ImageDataDecoder extends AbstractDecoder
         $data = new ImageData();
 
         // LZW min. code size
-        $char = $this->getNextByteOrFail();
+        $char = $this->nextByteOrFail();
         $size = (int) unpack('C', $char)[1];
         $data->setLzwMinCodeSize($size);
 
         do {
             // decode sub blocks
-            $char = $this->getNextByteOrFail();
+            $char = $this->nextByteOrFail();
             $size = (int) unpack('C', $char)[1];
             if ($size > 0) {
-                $data->addBlock(new DataSubBlock($this->getNextBytesOrFail($size)));
+                $data->addBlock(new DataSubBlock($this->nextBytesOrFail($size)));
             }
         } while ($char !== AbstractEntity::TERMINATOR);
 

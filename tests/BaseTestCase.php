@@ -19,12 +19,12 @@ use PHPUnit\Framework\TestCase;
 
 abstract class BaseTestCase extends TestCase
 {
-    public static function getTestImagePath($filename = 'animation1.gif'): string
+    protected static function testImagePath($filename = 'animation1.gif'): string
     {
         return sprintf('%s/images/%s', __DIR__, $filename);
     }
 
-    public function getTestHandle($data)
+    protected function testHandle($data)
     {
         $handle = fopen('php://memory', 'r+');
         fwrite($handle, $data);
@@ -33,12 +33,12 @@ abstract class BaseTestCase extends TestCase
         return $handle;
     }
 
-    protected function getTestHeader(): Header
+    protected function testHeader(): Header
     {
         return new Header();
     }
 
-    protected function getTestColorTable(): ColorTable
+    protected function testColorTable(): ColorTable
     {
         $table = new ColorTable();
         $table->addRgb(0, 0, 0);
@@ -49,7 +49,7 @@ abstract class BaseTestCase extends TestCase
         return $table;
     }
 
-    protected function getTestImageData(): ImageData
+    protected function testImageData(): ImageData
     {
         $data = new ImageData();
         $data->setLzwMinCodeSize(5);
@@ -61,7 +61,7 @@ abstract class BaseTestCase extends TestCase
         return $data;
     }
 
-    protected function getTestImageDescriptor(
+    protected function testImageDescriptor(
         int $size_x = 10,
         int $size_y = 10,
         int $pos_x = 0,
@@ -74,7 +74,7 @@ abstract class BaseTestCase extends TestCase
         return $descriptor;
     }
 
-    protected function getTestGraphicControlExtension(
+    protected function testGraphicControlExtension(
         int $delay = 120,
         DisposalMethod $disposalMethod = DisposalMethod::PREVIOUS
     ): GraphicControlExtension {
@@ -88,7 +88,7 @@ abstract class BaseTestCase extends TestCase
         return $extension;
     }
 
-    protected function getTestNetscapeApplicationExtension(int $loops = 12): NetscapeApplicationExtension
+    protected function testNetscapeApplicationExtension(int $loops = 12): NetscapeApplicationExtension
     {
         $extension = new NetscapeApplicationExtension();
         $extension->setLoops($loops);
@@ -96,7 +96,7 @@ abstract class BaseTestCase extends TestCase
         return $extension;
     }
 
-    protected function getTestCommentExtension(): CommentExtension
+    protected function testCommentExtension(): CommentExtension
     {
         $extension = new CommentExtension();
         $extension->addComment('foo');
@@ -106,7 +106,7 @@ abstract class BaseTestCase extends TestCase
         return $extension;
     }
 
-    protected function getTestLogicalScreenDescriptor(
+    protected function testLogicalScreenDescriptor(
         int $width = 100,
         int $height = 20
     ): LogicalScreenDescriptor {
@@ -116,14 +116,14 @@ abstract class BaseTestCase extends TestCase
         return $descriptor;
     }
 
-    protected function getTestFrame(): FrameBlock
+    protected function testFrame(): FrameBlock
     {
         $block = new FrameBlock();
-        $block->setGraphicControlExtension($this->getTestGraphicControlExtension());
-        $block->setImageDescriptor($this->getTestImageDescriptor());
-        $block->setImageData($this->getTestImageData());
-        $block->addApplicationExtension($this->getTestNetscapeApplicationExtension());
-        $block->addCommentExtension($this->getTestCommentExtension());
+        $block->setGraphicControlExtension($this->testGraphicControlExtension());
+        $block->setImageDescriptor($this->testImageDescriptor());
+        $block->setImageData($this->testImageData());
+        $block->addApplicationExtension($this->testNetscapeApplicationExtension());
+        $block->addCommentExtension($this->testCommentExtension());
 
         return $block;
     }

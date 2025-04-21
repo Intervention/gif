@@ -17,7 +17,7 @@ class CommentExtensionDecoder extends AbstractDecoder
      */
     public function decode(): CommentExtension
     {
-        $this->getNextBytesOrFail(2); // skip marker & label
+        $this->nextBytesOrFail(2); // skip marker & label
 
         $extension = new CommentExtension();
         foreach ($this->decodeComments() as $comment) {
@@ -38,10 +38,10 @@ class CommentExtensionDecoder extends AbstractDecoder
         $comments = [];
 
         do {
-            $byte = $this->getNextByteOrFail();
+            $byte = $this->nextByteOrFail();
             $size = $this->decodeBlocksize($byte);
             if ($size > 0) {
-                $comments[] = $this->getNextBytesOrFail($size);
+                $comments[] = $this->nextBytesOrFail($size);
             }
         } while ($byte !== CommentExtension::TERMINATOR);
 

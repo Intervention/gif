@@ -11,14 +11,14 @@ final class AbstractDecoderTest extends BaseTestCase
 {
     public function testConstructor(): void
     {
-        $handle = $this->getTestHandle('foobarbaz');
+        $handle = $this->testHandle('foobarbaz');
         $decoder = $this->decoder($handle, 12);
-        $this->assertEquals(12, $decoder->getLength());
+        $this->assertEquals(12, $decoder->length());
     }
 
     public function testSetHandle(): void
     {
-        $handle = $this->getTestHandle('foobarbaz');
+        $handle = $this->testHandle('foobarbaz');
         $decoder = $this->decoder($handle);
         $result = $decoder->setHandle($handle);
         $this->assertInstanceOf(AbstractDecoder::class, $result);
@@ -26,10 +26,10 @@ final class AbstractDecoderTest extends BaseTestCase
 
     public function testSetGetLength(): void
     {
-        $decoder = $this->decoder($this->getTestHandle('foobarbaz'));
-        $this->assertNull($decoder->getLength());
+        $decoder = $this->decoder($this->testHandle('foobarbaz'));
+        $this->assertNull($decoder->length());
         $decoder->setLength(1);
-        $this->assertEquals(1, $decoder->getLength());
+        $this->assertEquals(1, $decoder->length());
     }
 
     private function decoder(mixed $handle, ?int $length = null): AbstractDecoder

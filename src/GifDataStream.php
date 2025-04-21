@@ -39,7 +39,7 @@ class GifDataStream extends AbstractEntity
      *
      * @return Header
      */
-    public function getHeader(): Header
+    public function header(): Header
     {
         return $this->header;
     }
@@ -61,7 +61,7 @@ class GifDataStream extends AbstractEntity
      *
      * @return LogicalScreenDescriptor
      */
-    public function getLogicalScreenDescriptor(): LogicalScreenDescriptor
+    public function logicalScreenDescriptor(): LogicalScreenDescriptor
     {
         return $this->logicalScreenDescriptor;
     }
@@ -84,7 +84,7 @@ class GifDataStream extends AbstractEntity
      *
      * @return null|ColorTable
      */
-    public function getGlobalColorTable(): ?ColorTable
+    public function globalColorTable(): ?ColorTable
     {
         return $this->globalColorTable;
     }
@@ -100,7 +100,7 @@ class GifDataStream extends AbstractEntity
         $this->globalColorTable = $table;
         $this->logicalScreenDescriptor->setGlobalColorTableExistance(true);
         $this->logicalScreenDescriptor->setGlobalColorTableSize(
-            $table->getLogicalSize()
+            $table->logicalSize()
         );
 
         return $this;
@@ -111,10 +111,10 @@ class GifDataStream extends AbstractEntity
      *
      * @return NetscapeApplicationExtension
      */
-    public function getMainApplicationExtension(): ?NetscapeApplicationExtension
+    public function mainApplicationExtension(): ?NetscapeApplicationExtension
     {
         foreach ($this->frames as $frame) {
-            if ($extension = $frame->getNetscapeExtension()) {
+            if ($extension = $frame->netscapeExtension()) {
                 return $extension;
             }
         }
@@ -127,7 +127,7 @@ class GifDataStream extends AbstractEntity
      *
      * @return array<FrameBlock>
      */
-    public function getFrames(): array
+    public function frames(): array
     {
         return $this->frames;
     }
@@ -137,7 +137,7 @@ class GifDataStream extends AbstractEntity
      *
      * @return array<CommentExtension>
      */
-    public function getComments(): array
+    public function comments(): array
     {
         return $this->comments;
     }
@@ -147,7 +147,7 @@ class GifDataStream extends AbstractEntity
      *
      * @return null|FrameBlock
      */
-    public function getFirstFrame(): ?FrameBlock
+    public function firstFrame(): ?FrameBlock
     {
         if (!array_key_exists(0, $this->frames)) {
             return null;
@@ -199,7 +199,7 @@ class GifDataStream extends AbstractEntity
      *
      * @return Trailer
      */
-    public function getTrailer(): Trailer
+    public function trailer(): Trailer
     {
         return new Trailer();
     }
@@ -211,7 +211,7 @@ class GifDataStream extends AbstractEntity
      */
     public function isAnimated(): bool
     {
-        return count($this->getFrames()) > 1;
+        return count($this->frames()) > 1;
     }
 
     /**

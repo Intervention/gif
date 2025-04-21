@@ -46,7 +46,7 @@ class Builder
      *
      * @return GifDataStream
      */
-    public function getGifDataStream(): GifDataStream
+    public function gifDataStream(): GifDataStream
     {
         return $this->gif;
     }
@@ -60,7 +60,7 @@ class Builder
      */
     public function setSize(int $width, int $height): self
     {
-        $this->gif->getLogicalScreenDescriptor()->setSize($width, $height);
+        $this->gif->logicalScreenDescriptor()->setSize($width, $height);
 
         return $this;
     }
@@ -74,18 +74,18 @@ class Builder
      */
     public function setLoops(int $loops): self
     {
-        if ($this->gif->getFrames() === []) {
+        if ($this->gif->frames() === []) {
             throw new Exception('Add at least one frame before setting the loop count');
         }
 
         if ($loops >= 0) {
             // add frame count to existing or new netscape extension on first frame
-            if (!$this->gif->getFirstFrame()->getNetscapeExtension()) {
-                $this->gif->getFirstFrame()->addApplicationExtension(
+            if (!$this->gif->firstFrame()->netscapeExtension()) {
+                $this->gif->firstFrame()->addApplicationExtension(
                     new NetscapeApplicationExtension()
                 );
             }
-            $this->gif->getFirstFrame()->getNetscapeExtension()->setLoops($loops);
+            $this->gif->firstFrame()->netscapeExtension()->setLoops($loops);
         }
 
         return $this;
@@ -149,11 +149,11 @@ class Builder
         $extension = new GraphicControlExtension($delay, $disposalMethod);
 
         // set transparency index
-        $control = $source->getFirstFrame()->getGraphicControlExtension();
-        if ($control && $control->getTransparentColorExistance()) {
+        $control = $source->firstFrame()->graphicControlExtension();
+        if ($control && $control->transparentColorExistance()) {
             $extension->setTransparentColorExistance();
             $extension->setTransparentColorIndex(
-                $control->getTransparentColorIndex()
+                $control->transparentColorIndex()
             );
         }
 
@@ -179,30 +179,30 @@ class Builder
         $block->setImageDescriptor(new ImageDescriptor());
 
         // set global color table from source as local color table
-        $block->getImageDescriptor()->setLocalColorTableExistance();
-        $block->setColorTable($source->getGlobalColorTable());
+        $block->imageDescriptor()->setLocalColorTableExistance();
+        $block->setColorTable($source->globalColorTable());
 
-        $block->getImageDescriptor()->setLocalColorTableSorted(
-            $source->getLogicalScreenDescriptor()->getGlobalColorTableSorted()
+        $block->imageDescriptor()->setLocalColorTableSorted(
+            $source->logicalScreenDescriptor()->globalColorTableSorted()
         );
 
-        $block->getImageDescriptor()->setLocalColorTableSize(
-            $source->getLogicalScreenDescriptor()->getGlobalColorTableSize()
+        $block->imageDescriptor()->setLocalColorTableSize(
+            $source->logicalScreenDescriptor()->globalColorTableSize()
         );
 
-        $block->getImageDescriptor()->setSize(
-            $source->getLogicalScreenDescriptor()->getWidth(),
-            $source->getLogicalScreenDescriptor()->getHeight()
+        $block->imageDescriptor()->setSize(
+            $source->logicalScreenDescriptor()->width(),
+            $source->logicalScreenDescriptor()->height()
         );
 
         // set position
-        $block->getImageDescriptor()->setPosition($left, $top);
+        $block->imageDescriptor()->setPosition($left, $top);
 
         // set interlaced flag
-        $block->getImageDescriptor()->setInterlaced($interlaced);
+        $block->imageDescriptor()->setInterlaced($interlaced);
 
         // add image data from source
-        $block->setImageData($source->getFirstFrame()->getImageData());
+        $block->setImageData($source->firstFrame()->imageData());
 
         return $block;
     }

@@ -29,7 +29,7 @@ class ApplicationExtension extends AbstractExtension
      *
      * @return int
      */
-    public function getBlockSize(): int
+    public function blockSize(): int
     {
         return strlen($this->application);
     }
@@ -52,7 +52,7 @@ class ApplicationExtension extends AbstractExtension
      *
      * @return string
      */
-    public function getApplication(): string
+    public function application(): string
     {
         return $this->application;
     }
@@ -88,7 +88,7 @@ class ApplicationExtension extends AbstractExtension
      *
      * @return array<DataSubBlock>
      */
-    public function getBlocks(): array
+    public function blocks(): array
     {
         return $this->blocks;
     }

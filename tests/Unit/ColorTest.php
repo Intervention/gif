@@ -12,22 +12,22 @@ final class ColorTest extends BaseTestCase
     public function testSetGetColorValues(): void
     {
         $color = new Color(1, 2, 3);
-        $this->assertEquals(1, $color->getRed());
-        $this->assertEquals(2, $color->getGreen());
-        $this->assertEquals(3, $color->getBlue());
+        $this->assertEquals(1, $color->red());
+        $this->assertEquals(2, $color->green());
+        $this->assertEquals(3, $color->blue());
 
         $color->setRed(4);
         $color->setGreen(5);
         $color->setBlue(6);
-        $this->assertEquals(4, $color->getRed());
-        $this->assertEquals(5, $color->getGreen());
-        $this->assertEquals(6, $color->getBlue());
+        $this->assertEquals(4, $color->red());
+        $this->assertEquals(5, $color->green());
+        $this->assertEquals(6, $color->blue());
     }
 
     public function testGetHash(): void
     {
         $color = new Color(1, 2, 3);
-        $this->assertEquals('202cb962ac59075b964b07152d234b70', $color->getHash());
+        $this->assertEquals('202cb962ac59075b964b07152d234b70', $color->hash());
     }
 
     public function testEncode(): void
@@ -48,31 +48,31 @@ final class ColorTest extends BaseTestCase
     public function testDecode(): void
     {
         $source = "\x00\x00\x00";
-        $color = Color::decode($this->getTestHandle($source));
+        $color = Color::decode($this->testHandle($source));
         $this->assertInstanceOf(Color::class, $color);
-        $this->assertEquals(0, $color->getRed());
-        $this->assertEquals(0, $color->getGreen());
-        $this->assertEquals(0, $color->getBlue());
+        $this->assertEquals(0, $color->red());
+        $this->assertEquals(0, $color->green());
+        $this->assertEquals(0, $color->blue());
 
         $source = "\xff\x00\xff";
-        $color = Color::decode($this->getTestHandle($source));
+        $color = Color::decode($this->testHandle($source));
         $this->assertInstanceOf(Color::class, $color);
-        $this->assertEquals(255, $color->getRed());
-        $this->assertEquals(0, $color->getGreen());
-        $this->assertEquals(255, $color->getBlue());
+        $this->assertEquals(255, $color->red());
+        $this->assertEquals(0, $color->green());
+        $this->assertEquals(255, $color->blue());
 
         $source = "\x7d\x7d\x7d";
-        $color = Color::decode($this->getTestHandle($source));
+        $color = Color::decode($this->testHandle($source));
         $this->assertInstanceOf(Color::class, $color);
-        $this->assertEquals(125, $color->getRed());
-        $this->assertEquals(125, $color->getGreen());
-        $this->assertEquals(125, $color->getBlue());
+        $this->assertEquals(125, $color->red());
+        $this->assertEquals(125, $color->green());
+        $this->assertEquals(125, $color->blue());
 
         $source = "\x0f\x2b\x79";
-        $color = Color::decode($this->getTestHandle($source));
+        $color = Color::decode($this->testHandle($source));
         $this->assertInstanceOf(Color::class, $color);
-        $this->assertEquals(15, $color->getRed());
-        $this->assertEquals(43, $color->getGreen());
-        $this->assertEquals(121, $color->getBlue());
+        $this->assertEquals(15, $color->red());
+        $this->assertEquals(43, $color->green());
+        $this->assertEquals(121, $color->blue());
     }
 }

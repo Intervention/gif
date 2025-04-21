@@ -21,9 +21,9 @@ class TableBasedImageEncoder extends AbstractEncoder
     public function encode(): string
     {
         return implode('', [
-            $this->source->getImageDescriptor()->encode(),
-            $this->source->getColorTable() ? $this->source->getColorTable()->encode() : '',
-            $this->source->getImageData()->encode(),
+            $this->source->imageDescriptor()->encode(),
+            $this->source->colorTable() ? $this->source->colorTable()->encode() : '',
+            $this->source->imageData()->encode(),
         ]);
     }
 }

@@ -13,56 +13,56 @@ final class GraphicControlExtensionTest extends BaseTestCase
     public function testConstructor(): void
     {
         $ext = new GraphicControlExtension(12, DisposalMethod::BACKGROUND);
-        $this->assertEquals(12, $ext->getDelay());
-        $this->assertEquals(DisposalMethod::BACKGROUND, $ext->getDisposalMethod());
+        $this->assertEquals(12, $ext->delay());
+        $this->assertEquals(DisposalMethod::BACKGROUND, $ext->disposalMethod());
     }
 
     public function testSetGetDelay(): void
     {
         $ext = new GraphicControlExtension();
-        $this->assertEquals(0, $ext->getDelay());
+        $this->assertEquals(0, $ext->delay());
         $ext->setDelay(100);
-        $this->assertEquals(100, $ext->getDelay());
+        $this->assertEquals(100, $ext->delay());
     }
 
     public function testSetGetDisposalMethod(): void
     {
         $ext = new GraphicControlExtension();
-        $this->assertEquals(DisposalMethod::UNDEFINED, $ext->getDisposalMethod());
+        $this->assertEquals(DisposalMethod::UNDEFINED, $ext->disposalMethod());
         $ext->setDisposalMethod(DisposalMethod::BACKGROUND);
-        $this->assertEquals(DisposalMethod::BACKGROUND, $ext->getDisposalMethod());
+        $this->assertEquals(DisposalMethod::BACKGROUND, $ext->disposalMethod());
     }
 
     public function testSetGetTransparentColorIndex(): void
     {
         $ext = new GraphicControlExtension();
-        $this->assertEquals(0, $ext->getTransparentColorIndex());
+        $this->assertEquals(0, $ext->transparentColorIndex());
         $ext->setTransparentColorIndex(100);
-        $this->assertEquals(100, $ext->getTransparentColorIndex());
+        $this->assertEquals(100, $ext->transparentColorIndex());
     }
 
     public function testSetGetTransparentColorExistance(): void
     {
         $ext = new GraphicControlExtension();
-        $this->assertFalse($ext->getTransparentColorExistance());
+        $this->assertFalse($ext->transparentColorExistance());
 
         $ext->setTransparentColorExistance();
-        $this->assertTrue($ext->getTransparentColorExistance());
+        $this->assertTrue($ext->transparentColorExistance());
 
         $ext->setTransparentColorExistance(false);
-        $this->assertFalse($ext->getTransparentColorExistance());
+        $this->assertFalse($ext->transparentColorExistance());
     }
 
     public function testSetGetUserInput(): void
     {
         $ext = new GraphicControlExtension();
-        $this->assertFalse($ext->getUserInput());
+        $this->assertFalse($ext->userInput());
 
         $ext->setUserInput();
-        $this->assertTrue($ext->getUserInput());
+        $this->assertTrue($ext->userInput());
 
         $ext->setUserInput(false);
-        $this->assertFalse($ext->getUserInput());
+        $this->assertFalse($ext->userInput());
     }
 
     public function testEncode(): void
@@ -84,13 +84,13 @@ final class GraphicControlExtensionTest extends BaseTestCase
         ];
 
         foreach ($sources as $source) {
-            $extension = GraphicControlExtension::decode($this->getTestHandle($source));
+            $extension = GraphicControlExtension::decode($this->testHandle($source));
             $this->assertInstanceOf(GraphicControlExtension::class, $extension);
-            $this->assertEquals(150, $extension->getDelay());
-            $this->assertEquals(DisposalMethod::PREVIOUS, $extension->getDisposalMethod());
-            $this->assertTrue($extension->getTransparentColorExistance());
-            $this->assertEquals(144, $extension->getTransparentColorIndex());
-            $this->assertTrue($extension->getUserInput());
+            $this->assertEquals(150, $extension->delay());
+            $this->assertEquals(DisposalMethod::PREVIOUS, $extension->disposalMethod());
+            $this->assertTrue($extension->transparentColorExistance());
+            $this->assertEquals(144, $extension->transparentColorIndex());
+            $this->assertTrue($extension->userInput());
         }
     }
 }

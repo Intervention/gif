@@ -24,7 +24,7 @@ class ColorTable extends AbstractEntity
      *
      * @return array<Color>
      */
-    public function getColors(): array
+    public function colors(): array
     {
         return array_values($this->colors);
     }
@@ -110,7 +110,7 @@ class ColorTable extends AbstractEntity
      *
      * @return int
      */
-    public function getLogicalSize(): int
+    public function logicalSize(): int
     {
         return match ($this->countColors()) {
             4 => 1,
@@ -129,12 +129,12 @@ class ColorTable extends AbstractEntity
      *
      * @return int
      */
-    public function getByteSize(): int
+    public function byteSize(): int
     {
         if (!$this->hasColors()) {
             return 0;
         }
 
-        return 3 * pow(2, $this->getLogicalSize() + 1);
+        return 3 * pow(2, $this->logicalSize() + 1);
     }
 }

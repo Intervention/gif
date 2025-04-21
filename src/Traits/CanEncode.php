@@ -17,7 +17,7 @@ trait CanEncode
      */
     public function encode(): string
     {
-        return $this->getEncoder()->encode();
+        return $this->encoder()->encode();
     }
 
     /**
@@ -26,9 +26,9 @@ trait CanEncode
      * @throws EncoderException
      * @return AbstractEncoder
      */
-    protected function getEncoder(): AbstractEncoder
+    private function encoder(): AbstractEncoder
     {
-        $classname = $this->getEncoderClassname();
+        $classname = $this->encoderClassname();
 
         if (!class_exists($classname)) {
             throw new EncoderException("Encoder for '" . $this::class . "' not found.");
@@ -42,8 +42,8 @@ trait CanEncode
      *
      * @return string
      */
-    protected function getEncoderClassname(): string
+    private function encoderClassname(): string
     {
-        return sprintf('Intervention\Gif\Encoders\%sEncoder', $this->getShortClassname());
+        return sprintf('Intervention\Gif\Encoders\%sEncoder', $this->shortClassname());
     }
 }

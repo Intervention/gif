@@ -19,9 +19,9 @@ class DataSubBlockDecoder extends AbstractDecoder
      */
     public function decode(): DataSubBlock
     {
-        $char = $this->getNextByteOrFail();
+        $char = $this->nextByteOrFail();
         $size = (int) unpack('C', $char)[1];
 
-        return new DataSubBlock($this->getNextBytesOrFail($size));
+        return new DataSubBlock($this->nextBytesOrFail($size));
     }
 }

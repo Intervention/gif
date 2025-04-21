@@ -64,7 +64,7 @@ class GraphicControlExtension extends AbstractExtension
      *
      * @return int
      */
-    public function getDelay(): int
+    public function delay(): int
     {
         return $this->delay;
     }
@@ -87,7 +87,7 @@ class GraphicControlExtension extends AbstractExtension
      *
      * @return DisposalMethod
      */
-    public function getDisposalMethod(): DisposalMethod
+    public function disposalMethod(): DisposalMethod
     {
         return $this->disposalMethod;
     }
@@ -97,7 +97,7 @@ class GraphicControlExtension extends AbstractExtension
      *
      * @return int
      */
-    public function getTransparentColorIndex(): int
+    public function transparentColorIndex(): int
     {
         return $this->transparentColorIndex;
     }
@@ -119,7 +119,7 @@ class GraphicControlExtension extends AbstractExtension
      *
      * @return bool
      */
-    public function getTransparentColorExistance(): bool
+    public function transparentColorExistance(): bool
     {
         return $this->transparentColorExistance;
     }
@@ -141,7 +141,7 @@ class GraphicControlExtension extends AbstractExtension
      *
      * @return bool
      */
-    public function getUserInput(): bool
+    public function userInput(): bool
     {
         return $this->userInput;
     }
