@@ -23,25 +23,25 @@ class ApplicationExtensionDecoder extends AbstractDecoder
     {
         $result = new ApplicationExtension();
 
-        $this->getNextByteOrFail(); // marker
-        $this->getNextByteOrFail(); // label
-        $blocksize = $this->decodeBlockSize($this->getNextByteOrFail());
-        $application = $this->getNextBytesOrFail($blocksize);
+        $this->nextByteOrFail(); // marker
+        $this->nextByteOrFail(); // label
+        $blocksize = $this->decodeBlockSize($this->nextByteOrFail());
+        $application = $this->nextBytesOrFail($blocksize);
 
         if ($application === NetscapeApplicationExtension::IDENTIFIER . NetscapeApplicationExtension::AUTH_CODE) {
             $result = new NetscapeApplicationExtension();
 
             // skip length
-            $this->getNextByteOrFail();
+            $this->nextByteOrFail();
 
             $result->setBlocks([
                 new DataSubBlock(
-                    $this->getNextBytesOrFail(3)
+                    $this->nextBytesOrFail(3)
                 )
             ]);
 
             // skip terminator
-            $this->getNextByteOrFail();
+            $this->nextByteOrFail();
 
             return $result;
         }
@@ -49,10 +49,10 @@ class ApplicationExtensionDecoder extends AbstractDecoder
         $result->setApplication($application);
 
         // decode data sub blocks
-        $blocksize = $this->decodeBlockSize($this->getNextByteOrFail());
+        $blocksize = $this->decodeBlockSize($this->nextByteOrFail());
         while ($blocksize > 0) {
-            $result->addBlock(new DataSubBlock($this->getNextBytesOrFail($blocksize)));
-            $blocksize = $this->decodeBlockSize($this->getNextByteOrFail());
+            $result->addBlock(new DataSubBlock($this->nextBytesOrFail($blocksize)));
+            $blocksize = $this->decodeBlockSize($this->nextByteOrFail());
         }
 
         return $result;

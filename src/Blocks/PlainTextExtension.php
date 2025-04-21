@@ -22,7 +22,7 @@ class PlainTextExtension extends AbstractExtension
      *
      * @return array<string>
      */
-    public function getText(): array
+    public function text(): array
     {
         return $this->text;
     }

@@ -71,7 +71,7 @@ class ImageDescriptor extends AbstractEntity
      *
      * @return int
      */
-    public function getWidth(): int
+    public function width(): int
     {
         return intval($this->width);
     }
@@ -81,7 +81,7 @@ class ImageDescriptor extends AbstractEntity
      *
      * @return int
      */
-    public function getHeight(): int
+    public function height(): int
     {
         return intval($this->height);
     }
@@ -91,7 +91,7 @@ class ImageDescriptor extends AbstractEntity
      *
      * @return int
      */
-    public function getTop(): int
+    public function top(): int
     {
         return intval($this->top);
     }
@@ -101,7 +101,7 @@ class ImageDescriptor extends AbstractEntity
      *
      * @return int
      */
-    public function getLeft(): int
+    public function left(): int
     {
         return intval($this->left);
     }
@@ -161,19 +161,19 @@ class ImageDescriptor extends AbstractEntity
      *
      * @return bool
      */
-    public function getLocalColorTableExistance(): bool
+    public function localColorTableExistance(): bool
     {
         return $this->localColorTableExistance;
     }
 
     /**
-     * Alias for getLocalColorTableExistance
+     * Alias for localColorTableExistance()
      *
      * @return bool
      */
     public function hasLocalColorTable(): bool
     {
-        return $this->getLocalColorTableExistance();
+        return $this->localColorTableExistance();
     }
 
     /**
@@ -194,7 +194,7 @@ class ImageDescriptor extends AbstractEntity
      *
      * @return bool
      */
-    public function getLocalColorTableSorted(): bool
+    public function localColorTableSorted(): bool
     {
         return $this->localColorTableSorted;
     }
@@ -217,7 +217,7 @@ class ImageDescriptor extends AbstractEntity
      *
      * @return int
      */
-    public function getLocalColorTableSize(): int
+    public function localColorTableSize(): int
     {
         return $this->localColorTableSize;
     }
@@ -227,9 +227,9 @@ class ImageDescriptor extends AbstractEntity
      *
      * @return int
      */
-    public function getLocalColorTableByteSize(): int
+    public function localColorTableByteSize(): int
     {
-        return 3 * pow(2, $this->getLocalColorTableSize() + 1);
+        return 3 * pow(2, $this->localColorTableSize() + 1);
     }
 
     /**

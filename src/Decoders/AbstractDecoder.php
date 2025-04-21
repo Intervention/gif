@@ -45,7 +45,7 @@ abstract class AbstractDecoder
      * @throws DecoderException
      * @return string
      */
-    protected function getNextBytesOrFail(int $length): string
+    protected function nextBytesOrFail(int $length): string
     {
         $bytes = fread($this->handle, $length);
 
@@ -65,7 +65,7 @@ abstract class AbstractDecoder
      */
     protected function viewNextBytesOrFail(int $length): string
     {
-        $bytes = $this->getNextBytesOrFail($length);
+        $bytes = $this->nextBytesOrFail($length);
         $this->movePointer($length * -1);
 
         return $bytes;
@@ -87,7 +87,7 @@ abstract class AbstractDecoder
      *
      * @return string
      */
-    protected function getRemainingBytes(): string
+    protected function remainingBytes(): string
     {
         $all = '';
         do {
@@ -104,9 +104,9 @@ abstract class AbstractDecoder
      * @throws DecoderException
      * @return string
      */
-    protected function getNextByteOrFail(): string
+    protected function nextByteOrFail(): string
     {
-        return $this->getNextBytesOrFail(1);
+        return $this->nextBytesOrFail(1);
     }
 
     /**
@@ -149,7 +149,7 @@ abstract class AbstractDecoder
      *
      * @return null|int
      */
-    public function getLength(): ?int
+    public function length(): ?int
     {
         return $this->length;
     }
@@ -159,7 +159,7 @@ abstract class AbstractDecoder
      *
      * @return int
      */
-    public function getPosition(): int
+    public function position(): int
     {
         return ftell($this->handle);
     }

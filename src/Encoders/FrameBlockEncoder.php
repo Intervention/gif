@@ -26,24 +26,24 @@ class FrameBlockEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        $graphicControlExtension = $this->source->getGraphicControlExtension();
-        $colorTable = $this->source->getColorTable();
-        $plainTextExtension = $this->source->getPlainTextExtension();
+        $graphicControlExtension = $this->source->graphicControlExtension();
+        $colorTable = $this->source->colorTable();
+        $plainTextExtension = $this->source->plainTextExtension();
 
         return implode('', [
             implode('', array_map(
                 fn(ApplicationExtension $extension): string => $extension->encode(),
-                $this->source->getApplicationExtensions(),
+                $this->source->applicationExtensions(),
             )),
             implode('', array_map(
                 fn(CommentExtension $extension): string => $extension->encode(),
-                $this->source->getCommentExtensions(),
+                $this->source->commentExtensions(),
             )),
             $plainTextExtension ? $plainTextExtension->encode() : '',
             $graphicControlExtension ? $graphicControlExtension->encode() : '',
-            $this->source->getImageDescriptor()->encode(),
+            $this->source->imageDescriptor()->encode(),
             $colorTable ? $colorTable->encode() : '',
-            $this->source->getImageData()->encode(),
+            $this->source->imageData()->encode(),
         ]);
     }
 }

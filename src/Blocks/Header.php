@@ -35,7 +35,7 @@ class Header extends AbstractEntity
      *
      * @return string
      */
-    public function getVersion(): string
+    public function version(): string
     {
         return $this->version;
     }

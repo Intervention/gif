@@ -22,7 +22,7 @@ abstract class AbstractEntity implements Stringable
      *
      * @return string
      */
-    public static function getShortClassname(): string
+    protected static function shortClassname(): string
     {
         return (new ReflectionClass(static::class))->getShortName();
     }

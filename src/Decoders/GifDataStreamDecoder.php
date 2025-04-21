@@ -34,8 +34,8 @@ class GifDataStreamDecoder extends AbstractDecoder
             LogicalScreenDescriptor::decode($this->handle),
         );
 
-        if ($gif->getLogicalScreenDescriptor()->hasGlobalColorTable()) {
-            $length = $gif->getLogicalScreenDescriptor()->getGlobalColorTableByteSize();
+        if ($gif->logicalScreenDescriptor()->hasGlobalColorTable()) {
+            $length = $gif->logicalScreenDescriptor()->globalColorTableByteSize();
             $gif->setGlobalColorTable(
                 ColorTable::decode($this->handle, $length)
             );

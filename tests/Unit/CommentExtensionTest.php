@@ -15,11 +15,11 @@ final class CommentExtensionTest extends BaseTestCase
         $extension->addComment('foo');
         $extension->addComment('bar');
         $extension->addComment('baz');
-        $this->assertIsArray($extension->getComments());
-        $this->assertCount(3, $extension->getComments());
-        $this->assertEquals('foo', $extension->getComment(0));
-        $this->assertEquals('bar', $extension->getComment(1));
-        $this->assertEquals('baz', $extension->getComment(2));
+        $this->assertIsArray($extension->comments());
+        $this->assertCount(3, $extension->comments());
+        $this->assertEquals('foo', $extension->comment(0));
+        $this->assertEquals('bar', $extension->comment(1));
+        $this->assertEquals('baz', $extension->comment(2));
     }
 
     public function testEncode(): void
@@ -44,10 +44,10 @@ final class CommentExtensionTest extends BaseTestCase
         ];
 
         foreach ($sources as $source) {
-            $extension = CommentExtension::decode($this->getTestHandle($source));
+            $extension = CommentExtension::decode($this->testHandle($source));
             $this->assertInstanceOf(CommentExtension::class, $extension);
-            $this->assertCount(1, $extension->getComments());
-            $this->assertEquals('blueberry', $extension->getComment(0));
+            $this->assertCount(1, $extension->comments());
+            $this->assertEquals('blueberry', $extension->comment(0));
         }
 
         $sources = [
@@ -55,12 +55,12 @@ final class CommentExtensionTest extends BaseTestCase
         ];
 
         foreach ($sources as $source) {
-            $extension = CommentExtension::decode($this->getTestHandle($source));
+            $extension = CommentExtension::decode($this->testHandle($source));
             $this->assertInstanceOf(CommentExtension::class, $extension);
-            $this->assertCount(3, $extension->getComments());
-            $this->assertEquals('foo', $extension->getComment(0));
-            $this->assertEquals('bar', $extension->getComment(1));
-            $this->assertEquals('baz', $extension->getComment(2));
+            $this->assertCount(3, $extension->comments());
+            $this->assertEquals('foo', $extension->comment(0));
+            $this->assertEquals('bar', $extension->comment(1));
+            $this->assertEquals('baz', $extension->comment(2));
         }
     }
 }

@@ -34,7 +34,7 @@ trait CanHandleFiles
      * @param string $data
      * @return resource
      */
-    private static function getHandleFromData($data)
+    private static function handleFromData($data)
     {
         $handle = fopen('php://temp', 'r+');
         fwrite($handle, $data);
@@ -49,7 +49,7 @@ trait CanHandleFiles
      * @param string $path
      * @return resource
      */
-    private static function getHandleFromFilePath(string $path)
+    private static function handleFromFilePath(string $path)
     {
         return fopen($path, 'rb');
     }

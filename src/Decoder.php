@@ -21,8 +21,8 @@ class Decoder
     public static function decode(mixed $input): GifDataStream
     {
         $handle = match (true) {
-            self::isFilePath($input) => self::getHandleFromFilePath($input),
-            is_string($input) => self::getHandleFromData($input),
+            self::isFilePath($input) => self::handleFromFilePath($input),
+            is_string($input) => self::handleFromData($input),
             self::isFileHandle($input) => $input,
             default => throw new DecoderException(
                 'Decoder input must be either file path, file pointer resource or binary data.'

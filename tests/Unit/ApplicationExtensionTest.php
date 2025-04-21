@@ -13,19 +13,19 @@ final class ApplicationExtensionTest extends BaseTestCase
     public function testSetGetApplication(): void
     {
         $ext = new ApplicationExtension();
-        $this->assertEquals('', $ext->getApplication());
+        $this->assertEquals('', $ext->application());
 
         $ext->setApplication('foo');
-        $this->assertEquals('foo', $ext->getApplication());
+        $this->assertEquals('foo', $ext->application());
     }
 
     public function testAddBlock(): void
     {
         $extension = new ApplicationExtension();
-        $this->assertCount(0, $extension->getBlocks());
+        $this->assertCount(0, $extension->blocks());
         $extension->addBlock(new DataSubBlock('foo'));
         $extension->addBlock(new DataSubBlock('bar'));
-        $this->assertCount(2, $extension->getBlocks());
+        $this->assertCount(2, $extension->blocks());
     }
 
     public function testEncode(): void
@@ -46,9 +46,9 @@ final class ApplicationExtensionTest extends BaseTestCase
     public function testDecode(): void
     {
         $source = "\x21\xff\x06\x66\x6F\x6F\x62\x61\x72\x03\x62\x61\x7A\x00";
-        $extension = ApplicationExtension::decode($this->getTestHandle($source));
+        $extension = ApplicationExtension::decode($this->testHandle($source));
         $this->assertInstanceOf(ApplicationExtension::class, $extension);
-        $this->assertCount(1, $extension->getBlocks());
-        $this->assertEquals('foobar', $extension->getApplication());
+        $this->assertCount(1, $extension->blocks());
+        $this->assertEquals('foobar', $extension->application());
     }
 }

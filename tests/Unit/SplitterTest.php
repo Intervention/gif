@@ -14,13 +14,13 @@ final class SplitterTest extends BaseTestCase
 {
     public function testSplit(): void
     {
-        $decoded = Decoder::decode($this->getTestImagePath('animation1.gif'));
+        $decoded = Decoder::decode($this->testImagePath('animation1.gif'));
         $splitter = Splitter::create($decoded)->split();
-        $this->assertCount(8, $splitter->getFrames());
-        foreach ($splitter->getFrames() as $gif) {
+        $this->assertCount(8, $splitter->frames());
+        foreach ($splitter->frames() as $gif) {
             $this->assertInstanceOf(GifDataStream::class, $gif);
-            $this->assertEquals(20, $gif->getLogicalScreenDescriptor()->getWidth());
-            $this->assertEquals(15, $gif->getLogicalScreenDescriptor()->getHeight());
+            $this->assertEquals(20, $gif->logicalScreenDescriptor()->width());
+            $this->assertEquals(15, $gif->logicalScreenDescriptor()->height());
             $this->assertInstanceOf(GifDataStream::class, Decoder::decode($gif->encode()));
         }
 
@@ -35,20 +35,20 @@ final class SplitterTest extends BaseTestCase
 
     public function testGetDelays(): void
     {
-        $decoded = Decoder::decode($this->getTestImagePath('animation2.gif'));
-        $delays = Splitter::create($decoded)->split()->getDelays();
+        $decoded = Decoder::decode($this->testImagePath('animation2.gif'));
+        $delays = Splitter::create($decoded)->split()->delays();
         $this->assertEquals($delays, array_fill(0, 6, 13));
     }
 
     public function testSplitStatic(): void
     {
-        $decoded = Decoder::decode($this->getTestImagePath('static.gif'));
+        $decoded = Decoder::decode($this->testImagePath('static.gif'));
         $splitter = Splitter::create($decoded)->split();
-        $this->assertCount(1, $splitter->getFrames());
-        foreach ($splitter->getFrames() as $gif) {
+        $this->assertCount(1, $splitter->frames());
+        foreach ($splitter->frames() as $gif) {
             $this->assertInstanceOf(GifDataStream::class, $gif);
-            $this->assertEquals(16, $gif->getLogicalScreenDescriptor()->getWidth());
-            $this->assertEquals(10, $gif->getLogicalScreenDescriptor()->getHeight());
+            $this->assertEquals(16, $gif->logicalScreenDescriptor()->width());
+            $this->assertEquals(10, $gif->logicalScreenDescriptor()->height());
             $this->assertInstanceOf(GifDataStream::class, Decoder::decode($gif->encode()));
         }
 
@@ -63,8 +63,8 @@ final class SplitterTest extends BaseTestCase
 
     public function testGetDelaysStatic(): void
     {
-        $decoded = Decoder::decode($this->getTestImagePath('static.gif'));
-        $delays = Splitter::create($decoded)->split()->getDelays();
+        $decoded = Decoder::decode($this->testImagePath('static.gif'));
+        $delays = Splitter::create($decoded)->split()->delays();
         $this->assertEquals($delays, [0]);
     }
 }

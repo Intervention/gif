@@ -27,7 +27,7 @@ class ImageData extends AbstractEntity
      *
      * @return int
      */
-    public function getLzwMinCodeSize(): int
+    public function lzwMinCodeSize(): int
     {
         return $this->lzw_min_code_size;
     }
@@ -50,7 +50,7 @@ class ImageData extends AbstractEntity
      *
      * @return array<DataSubBlock>
      */
-    public function getBlocks(): array
+    public function blocks(): array
     {
         return $this->blocks;
     }

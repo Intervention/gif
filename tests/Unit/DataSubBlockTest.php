@@ -13,13 +13,13 @@ final class DataSubBlockTest extends BaseTestCase
     {
         $block = new DataSubBlock('test');
         $this->assertInstanceOf(DataSubBlock::class, $block);
-        $this->assertEquals(4, $block->getSize());
+        $this->assertEquals(4, $block->size());
     }
 
     public function testGetValue(): void
     {
         $block = new DataSubBlock('test');
-        $this->assertEquals('test', $block->getValue());
+        $this->assertEquals('test', $block->value());
     }
 
     public function testEncode(): void
@@ -39,8 +39,8 @@ final class DataSubBlockTest extends BaseTestCase
             "\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78" .
             "\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78";
 
-        $block = DataSubBlock::decode($this->getTestHandle($source));
+        $block = DataSubBlock::decode($this->testHandle($source));
         $this->assertInstanceOf(DataSubBlock::class, $block);
-        $this->assertEquals(64, $block->getSize());
+        $this->assertEquals(64, $block->size());
     }
 }

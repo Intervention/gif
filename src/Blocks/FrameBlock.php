@@ -86,7 +86,7 @@ class FrameBlock extends AbstractEntity
      *
      * @return array<ApplicationExtension>
      */
-    public function getApplicationExtensions(): array
+    public function applicationExtensions(): array
     {
         return $this->applicationExtensions;
     }
@@ -96,7 +96,7 @@ class FrameBlock extends AbstractEntity
      *
      * @return array<CommentExtension>
      */
-    public function getCommentExtensions(): array
+    public function commentExtensions(): array
     {
         return $this->commentExtensions;
     }
@@ -119,7 +119,7 @@ class FrameBlock extends AbstractEntity
      *
      * @return null|GraphicControlExtension
      */
-    public function getGraphicControlExtension(): ?GraphicControlExtension
+    public function graphicControlExtension(): ?GraphicControlExtension
     {
         return $this->graphicControlExtension;
     }
@@ -141,7 +141,7 @@ class FrameBlock extends AbstractEntity
      *
      * @return ImageDescriptor
      */
-    public function getImageDescriptor(): ImageDescriptor
+    public function imageDescriptor(): ImageDescriptor
     {
         return $this->imageDescriptor;
     }
@@ -164,7 +164,7 @@ class FrameBlock extends AbstractEntity
      *
      * @return null|ColorTable
      */
-    public function getColorTable(): ?ColorTable
+    public function colorTable(): ?ColorTable
     {
         return $this->colorTable;
     }
@@ -197,7 +197,7 @@ class FrameBlock extends AbstractEntity
      *
      * @return ImageData
      */
-    public function getImageData(): ImageData
+    public function imageData(): ImageData
     {
         return $this->imageData;
     }
@@ -220,7 +220,7 @@ class FrameBlock extends AbstractEntity
      *
      * @return null|PlainTextExtension
      */
-    public function getPlainTextExtension(): ?PlainTextExtension
+    public function plainTextExtension(): ?PlainTextExtension
     {
         return $this->plainTextExtension;
     }
@@ -256,7 +256,7 @@ class FrameBlock extends AbstractEntity
      *
      * @return null|NetscapeApplicationExtension
      */
-    public function getNetscapeExtension(): ?NetscapeApplicationExtension
+    public function netscapeExtension(): ?NetscapeApplicationExtension
     {
         $extensions = array_filter(
             $this->applicationExtensions,
@@ -274,13 +274,13 @@ class FrameBlock extends AbstractEntity
      */
     public function setTableBasedImage(TableBasedImage $tableBasedImage): self
     {
-        $this->setImageDescriptor($tableBasedImage->getImageDescriptor());
+        $this->setImageDescriptor($tableBasedImage->imageDescriptor());
 
-        if ($colorTable = $tableBasedImage->getColorTable()) {
+        if ($colorTable = $tableBasedImage->colorTable()) {
             $this->setColorTable($colorTable);
         }
 
-        $this->setImageData($tableBasedImage->getImageData());
+        $this->setImageData($tableBasedImage->imageData());
 
         return $this;
     }
