@@ -27,7 +27,7 @@ trait CanDecode
      * @param  null|Closure      $callback
      * @return AbstractDecoder
      */
-    protected static function getDecoder($source, Closure $callback = null): AbstractDecoder
+    protected static function getDecoder($source, ?Closure $callback = null): AbstractDecoder
     {
         $classname = self::getDecoderClassname();
 

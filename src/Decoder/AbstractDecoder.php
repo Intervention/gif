@@ -158,7 +158,7 @@ abstract class AbstractDecoder
      *
      * @param  string|null $message
      */
-    protected function abort(string $message = null): void
+    protected function abort(?string $message = null): void
     {
         throw new DecoderException($message);
     }
