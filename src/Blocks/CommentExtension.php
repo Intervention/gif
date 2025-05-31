@@ -35,7 +35,7 @@ class CommentExtension extends AbstractExtension
      */
     public function getComment(int $key): mixed
     {
-        return array_key_exists($key, $this->comments) ? $this->comments[$key] : null;
+        return $this->comments[$key] ?? null;
     }
 
     /**
