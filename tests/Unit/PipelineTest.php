@@ -31,7 +31,7 @@ final class PipelineTest extends BaseTestCase
 
         $builder = Builder::canvas(30, 20);
         foreach ($gd_objects as $gd) {
-            $framesrc = $this->getBuffered(function () use ($gd) {
+            $framesrc = $this->getBuffered(function () use ($gd): void {
                 imagecolortransparent($gd);
                 imagegif($gd);
             });
