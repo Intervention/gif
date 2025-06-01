@@ -10,10 +10,6 @@ class Color extends AbstractEntity
 {
     /**
      * Create new instance
-     *
-     * @param int $r
-     * @param int $g
-     * @param int $b
      */
     public function __construct(
         protected int $r = 0,
@@ -25,8 +21,6 @@ class Color extends AbstractEntity
 
     /**
      * Get red value
-     *
-     * @return int
      */
     public function getRed(): int
     {
@@ -35,8 +29,6 @@ class Color extends AbstractEntity
 
     /**
      * Set red value
-     *
-     * @param int $value
      */
     public function setRed(int $value): self
     {
@@ -47,8 +39,6 @@ class Color extends AbstractEntity
 
     /**
      * Get green value
-     *
-     * @return int
      */
     public function getGreen(): int
     {
@@ -57,8 +47,6 @@ class Color extends AbstractEntity
 
     /**
      * Set green value
-     *
-     * @param int $value
      */
     public function setGreen(int $value): self
     {
@@ -69,8 +57,6 @@ class Color extends AbstractEntity
 
     /**
      * Get blue value
-     *
-     * @return int
      */
     public function getBlue(): int
     {
@@ -79,8 +65,6 @@ class Color extends AbstractEntity
 
     /**
      * Set blue value
-     *
-     * @param int $value
      */
     public function setBlue(int $value): self
     {
@@ -91,8 +75,6 @@ class Color extends AbstractEntity
 
     /**
      * Return hash value of current color
-     *
-     * @return string
      */
     public function getHash(): string
     {

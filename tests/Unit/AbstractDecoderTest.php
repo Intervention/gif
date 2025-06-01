@@ -38,8 +38,6 @@ final class AbstractDecoderTest extends BaseTestCase
         {
             /**
              * Decode current source
-             *
-             * @return mixed
              */
             public function decode(): mixed
             {

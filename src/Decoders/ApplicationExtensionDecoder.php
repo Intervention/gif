@@ -17,7 +17,6 @@ class ApplicationExtensionDecoder extends AbstractDecoder
      *
      * @throws FormatException
      * @throws DecoderException
-     * @return ApplicationExtension
      */
     public function decode(): ApplicationExtension
     {
@@ -60,9 +59,6 @@ class ApplicationExtensionDecoder extends AbstractDecoder
 
     /**
      * Decode block size of ApplicationExtension from given byte
-     *
-     * @param string $byte
-     * @return int
      */
     protected function decodeBlockSize(string $byte): int
     {

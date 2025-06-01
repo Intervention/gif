@@ -17,7 +17,6 @@ class ImageDataDecoder extends AbstractDecoder
      *
      * @throws DecoderException
      * @throws FormatException
-     * @return ImageData
      */
     public function decode(): ImageData
     {

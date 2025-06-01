@@ -13,7 +13,6 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
      * Decode given string to current instance
      *
      * @throws DecoderException
-     * @return ImageDescriptor
      */
     public function decode(): ImageDescriptor
     {
@@ -54,8 +53,6 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode local color table existance
-     *
-     * @return bool
      */
     protected function decodeLocalColorTableExistance(string $byte): bool
     {
@@ -64,8 +61,6 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode local color table sort method
-     *
-     * @return bool
      */
     protected function decodeLocalColorTableSorted(string $byte): bool
     {
@@ -74,8 +69,6 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode local color table size
-     *
-     * @return int
      */
     protected function decodeLocalColorTableSize(string $byte): int
     {
@@ -84,8 +77,6 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode interlaced flag
-     *
-     * @return bool
      */
     protected function decodeInterlaced(string $byte): bool
     {

@@ -31,8 +31,6 @@ class Splitter implements IteratorAggregate
 
     /**
      * Create new instance
-     *
-     * @param GifDataStream $stream
      */
     public function __construct(protected GifDataStream $stream)
     {
@@ -41,9 +39,6 @@ class Splitter implements IteratorAggregate
 
     /**
      * Static constructor method
-     *
-     * @param GifDataStream $stream
-     * @return Splitter
      */
     public static function create(GifDataStream $stream): self
     {
@@ -52,8 +47,6 @@ class Splitter implements IteratorAggregate
 
     /**
      * Iterator
-     *
-     * @return Traversable<GifDataStream>
      */
     public function getIterator(): Traversable
     {
@@ -82,8 +75,6 @@ class Splitter implements IteratorAggregate
 
     /**
      * Set stream of instance
-     *
-     * @param GifDataStream $stream
      */
     public function setStream(GifDataStream $stream): self
     {
@@ -94,8 +85,6 @@ class Splitter implements IteratorAggregate
 
     /**
      * Split current stream into array of seperate streams for each frame
-     *
-     * @return Splitter
      */
     public function split(): self
     {
@@ -272,9 +261,6 @@ class Splitter implements IteratorAggregate
 
     /**
      * Find and return disposal method of given gif data stream
-     *
-     * @param GifDataStream $gif
-     * @return DisposalMethod
      */
     private function getDisposalMethod(GifDataStream $gif): DisposalMethod
     {

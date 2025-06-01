@@ -15,7 +15,6 @@ class DataSubBlockDecoder extends AbstractDecoder
      *
      * @throws FormatException
      * @throws DecoderException
-     * @return DataSubBlock
      */
     public function decode(): DataSubBlock
     {

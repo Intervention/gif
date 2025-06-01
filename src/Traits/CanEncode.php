@@ -13,7 +13,6 @@ trait CanEncode
      * Encode current entity
      *
      * @throws EncoderException
-     * @return string
      */
     public function encode(): string
     {
@@ -24,7 +23,6 @@ trait CanEncode
      * Get encoder object for current entity
      *
      * @throws EncoderException
-     * @return AbstractEncoder
      */
     protected function getEncoder(): AbstractEncoder
     {
@@ -39,8 +37,6 @@ trait CanEncode
 
     /**
      * Get encoder classname for current entity
-     *
-     * @return string
      */
     protected function getEncoderClassname(): string
     {

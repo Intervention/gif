@@ -10,28 +10,21 @@ abstract class AbstractDecoder
 {
     /**
      * Decode current source
-     *
-     * @return mixed
      */
     abstract public function decode(): mixed;
 
     /**
      * Create new instance
-     *
-     * @param resource $handle
-     * @param null|int $length
      */
-    public function __construct(protected $handle, protected ?int $length = null)
+    public function __construct(protected mixed $handle, protected ?int $length = null)
     {
         //
     }
 
     /**
      * Set source to decode
-     *
-     * @param resource $handle
      */
-    public function setHandle($handle): self
+    public function setHandle(mixed $handle): self
     {
         $this->handle = $handle;
 
@@ -41,9 +34,7 @@ abstract class AbstractDecoder
     /**
      * Read given number of bytes and move file pointer
      *
-     * @param int $length
      * @throws DecoderException
-     * @return string
      */
     protected function getNextBytesOrFail(int $length): string
     {
@@ -59,9 +50,7 @@ abstract class AbstractDecoder
     /**
      * Read given number of bytes and move pointer back to previous position
      *
-     * @param int $length
      * @throws DecoderException
-     * @return string
      */
     protected function viewNextBytesOrFail(int $length): string
     {
@@ -75,7 +64,6 @@ abstract class AbstractDecoder
      * Read next byte and move pointer back to previous position
      *
      * @throws DecoderException
-     * @return string
      */
     protected function viewNextByteOrFail(): string
     {
@@ -84,8 +72,6 @@ abstract class AbstractDecoder
 
     /**
      * Read all remaining bytes from file handler
-     *
-     * @return string
      */
     protected function getRemainingBytes(): string
     {
@@ -102,7 +88,6 @@ abstract class AbstractDecoder
      * Get next byte in stream and move file pointer
      *
      * @throws DecoderException
-     * @return string
      */
     protected function getNextByteOrFail(): string
     {
@@ -111,9 +96,6 @@ abstract class AbstractDecoder
 
     /**
      * Move file pointer on handle by given offset
-     *
-     * @param int $offset
-     * @return self
      */
     protected function movePointer(int $offset): self
     {
@@ -124,8 +106,6 @@ abstract class AbstractDecoder
 
     /**
      * Decode multi byte value
-     *
-     * @return int
      */
     protected function decodeMultiByte(string $bytes): int
     {
@@ -134,8 +114,6 @@ abstract class AbstractDecoder
 
     /**
      * Set length
-     *
-     * @param int $length
      */
     public function setLength(int $length): self
     {
@@ -146,8 +124,6 @@ abstract class AbstractDecoder
 
     /**
      * Get length
-     *
-     * @return null|int
      */
     public function getLength(): ?int
     {
@@ -156,8 +132,6 @@ abstract class AbstractDecoder
 
     /**
      * Get current handle position
-     *
-     * @return int
      */
     public function getPosition(): int
     {

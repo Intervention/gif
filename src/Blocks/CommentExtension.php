@@ -29,9 +29,6 @@ class CommentExtension extends AbstractExtension
 
     /**
      * Get one comment by key
-     *
-     * @param int $key
-     * @return mixed
      */
     public function getComment(int $key): mixed
     {
@@ -40,8 +37,6 @@ class CommentExtension extends AbstractExtension
 
     /**
      * Set comment text
-     *
-     * @param string $value
      */
     public function addComment(string $value): self
     {

@@ -19,12 +19,12 @@ use PHPUnit\Framework\TestCase;
 
 abstract class BaseTestCase extends TestCase
 {
-    public static function getTestImagePath($filename = 'animation1.gif'): string
+    public static function getTestImagePath(string $filename = 'animation1.gif'): string
     {
         return sprintf('%s/images/%s', __DIR__, $filename);
     }
 
-    public function getTestHandle($data)
+    public function getTestHandle(string $data): mixed
     {
         $handle = fopen('php://memory', 'r+');
         fwrite($handle, $data);

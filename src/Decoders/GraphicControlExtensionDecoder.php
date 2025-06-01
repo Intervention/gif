@@ -14,7 +14,6 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
      * Decode given string to current instance
      *
      * @throws DecoderException
-     * @return GraphicControlExtension
      */
     public function decode(): GraphicControlExtension
     {
@@ -45,8 +44,6 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode disposal method
-     *
-     * @return DisposalMethod
      */
     protected function decodeDisposalMethod(string $byte): DisposalMethod
     {
@@ -57,8 +54,6 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode user input flag
-     *
-     * @return bool
      */
     protected function decodeUserInput(string $byte): bool
     {
@@ -67,8 +62,6 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode transparent color existance
-     *
-     * @return bool
      */
     protected function decodeTransparentColorExistance(string $byte): bool
     {
@@ -77,8 +70,6 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode delay value
-     *
-     * @return int
      */
     protected function decodeDelay(string $bytes): int
     {
@@ -87,8 +78,6 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode transparent color index
-     *
-     * @return int
      */
     protected function decodeTransparentColorIndex(string $byte): int
     {

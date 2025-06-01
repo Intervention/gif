@@ -13,7 +13,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
      * Decode given string to current instance
      *
      * @throws DecoderException
-     * @return LogicalScreenDescriptor
      */
     public function decode(): LogicalScreenDescriptor
     {
@@ -59,8 +58,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode width
-     *
-     * @return int
      */
     protected function decodeWidth(string $source): int
     {
@@ -69,8 +66,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode height
-     *
-     * @return int
      */
     protected function decodeHeight(string $source): int
     {
@@ -79,8 +74,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode existance of global color table
-     *
-     * @return bool
      */
     protected function decodeGlobalColorTableExistance(string $byte): bool
     {
@@ -89,8 +82,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode color resolution in bits per pixel
-     *
-     * @return int
      */
     protected function decodeBitsPerPixel(string $byte): int
     {
@@ -99,8 +90,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode global color table sorted status
-     *
-     * @return bool
      */
     protected function decodeGlobalColorTableSorted(string $byte): bool
     {
@@ -109,8 +98,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode size of global color table
-     *
-     * @return int
      */
     protected function decodeGlobalColorTableSize(string $byte): int
     {
@@ -119,8 +106,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode background color index
-     *
-     * @return int
      */
     protected function decodeBackgroundColorIndex(string $source): int
     {
@@ -129,8 +114,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode pixel aspect ratio
-     *
-     * @return int
      */
     protected function decodePixelAspectRatio(string $source): int
     {

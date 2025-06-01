@@ -26,8 +26,6 @@ class NetscapeApplicationExtension extends ApplicationExtension
 
     /**
      * Get number of loops
-     *
-     * @return int
      */
     public function getLoops(): int
     {
@@ -37,9 +35,7 @@ class NetscapeApplicationExtension extends ApplicationExtension
     /**
      * Set number of loops
      *
-     * @param int $loops
      * @throws FormatException
-     * @return self
      */
     public function setLoops(int $loops): self
     {

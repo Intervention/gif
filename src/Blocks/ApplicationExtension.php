@@ -12,8 +12,6 @@ class ApplicationExtension extends AbstractExtension
 
     /**
      * Application Identifier & Auth Code
-     *
-     * @var string
      */
     protected string $application = '';
 
@@ -26,8 +24,6 @@ class ApplicationExtension extends AbstractExtension
 
     /**
      * Get size of block
-     *
-     * @return int
      */
     public function getBlockSize(): int
     {
@@ -36,9 +32,6 @@ class ApplicationExtension extends AbstractExtension
 
     /**
      * Set application name
-     *
-     * @param string $value
-     * @return ApplicationExtension
      */
     public function setApplication(string $value): self
     {
@@ -49,8 +42,6 @@ class ApplicationExtension extends AbstractExtension
 
     /**
      * Get application name
-     *
-     * @return string
      */
     public function getApplication(): string
     {
@@ -59,9 +50,6 @@ class ApplicationExtension extends AbstractExtension
 
     /**
      * Add block to application extension
-     *
-     * @param DataSubBlock $block
-     * @return ApplicationExtension
      */
     public function addBlock(DataSubBlock $block): self
     {
@@ -74,7 +62,6 @@ class ApplicationExtension extends AbstractExtension
      *  Set data sub blocks of instance
      *
      * @param array<DataSubBlock> $blocks
-     * @return ApplicationExtension
      */
     public function setBlocks(array $blocks): self
     {

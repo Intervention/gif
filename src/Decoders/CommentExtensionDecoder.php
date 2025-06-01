@@ -13,7 +13,6 @@ class CommentExtensionDecoder extends AbstractDecoder
      * Decode current source
      *
      * @throws DecoderException
-     * @return CommentExtension
      */
     public function decode(): CommentExtension
     {
@@ -50,9 +49,6 @@ class CommentExtensionDecoder extends AbstractDecoder
 
     /**
      * Decode blocksize of following comment
-     *
-     * @param string $byte
-     * @return int
      */
     protected function decodeBlocksize(string $byte): int
     {

@@ -8,9 +8,6 @@ trait CanHandleFiles
 {
      /**
      * Determines if input is file path
-     *
-     * @param mixed $input
-     * @return bool
      */
     private static function isFilePath(mixed $input): bool
     {
@@ -19,9 +16,6 @@ trait CanHandleFiles
 
     /**
      * Determine if given string contains null bytes
-     *
-     * @param string $string
-     * @return bool
      */
     private static function hasNullBytes(string $string): bool
     {
@@ -30,11 +24,8 @@ trait CanHandleFiles
 
     /**
      * Create file pointer from given gif image data
-     *
-     * @param string $data
-     * @return resource
      */
-    private static function getHandleFromData($data)
+    private static function getHandleFromData(string $data): mixed
     {
         $handle = fopen('php://temp', 'r+');
         fwrite($handle, $data);
@@ -45,11 +36,8 @@ trait CanHandleFiles
 
     /**
      * Create file pounter from given file path
-     *
-     * @param string $path
-     * @return resource
      */
-    private static function getHandleFromFilePath(string $path)
+    private static function getHandleFromFilePath(string $path): mixed
     {
         return fopen($path, 'rb');
     }

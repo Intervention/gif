@@ -13,7 +13,6 @@ class PlainTextExtensionDecoder extends AbstractDecoder
      * Decode current source
      *
      * @throws DecoderException
-     * @return PlainTextExtension
      */
     public function decode(): PlainTextExtension
     {
@@ -35,7 +34,6 @@ class PlainTextExtensionDecoder extends AbstractDecoder
      * Get number of bytes in header block
      *
      * @throws DecoderException
-     * @return int
      */
     protected function getInfoBlockSize(): int
     {

@@ -20,9 +20,6 @@ class Builder
 
     /**
      * Create new instance
-     *
-     * @param GifDataStream $gif
-     * @return void
      */
     public function __construct(protected GifDataStream $gif = new GifDataStream())
     {
@@ -31,10 +28,6 @@ class Builder
 
     /**
      * Create new canvas
-     *
-     * @param int $width
-     * @param int $height
-     * @return self
      */
     public static function canvas(int $width, int $height): self
     {
@@ -43,8 +36,6 @@ class Builder
 
     /**
      * Get GifDataStream object we're currently building
-     *
-     * @return GifDataStream
      */
     public function getGifDataStream(): GifDataStream
     {
@@ -53,10 +44,6 @@ class Builder
 
     /**
      * Set canvas size of gif
-     *
-     * @param int $width
-     * @param int $height
-     * @return Builder
      */
     public function setSize(int $width, int $height): self
     {
@@ -68,9 +55,7 @@ class Builder
     /**
      * Set loop count
      *
-     * @param int $loops
      * @throws Exception
-     * @return Builder
      */
     public function setLoops(int $loops): self
     {
@@ -95,13 +80,7 @@ class Builder
      * Create new animation frame from given source
      * which can be path to a file or GIF image data
      *
-     * @param string|resource $source
-     * @param float $delay time delay in seconds
-     * @param int $left position offset in pixels from left
-     * @param int $top position offset in pixels from top
-     * @param bool $interlaced
      * @throws DecoderException
-     * @return Builder
      */
     public function addFrame(
         mixed $source,
@@ -134,11 +113,6 @@ class Builder
 
     /**
      * Build new graphic control extension with given delay & disposal method
-     *
-     * @param GifDataStream $source
-     * @param int $delay
-     * @param DisposalMethod $disposalMethod
-     * @return GraphicControlExtension
      */
     protected function buildGraphicControlExtension(
         GifDataStream $source,
@@ -162,12 +136,6 @@ class Builder
 
     /**
      * Build table based image object from given source
-     *
-     * @param GifDataStream $source
-     * @param int $left
-     * @param int $top
-     * @param bool $interlaced
-     * @return TableBasedImage
      */
     protected function buildTableBasedImage(
         GifDataStream $source,
@@ -211,7 +179,6 @@ class Builder
      * Encode the current build
      *
      * @throws EncoderException
-     * @return string
      */
     public function encode(): string
     {
