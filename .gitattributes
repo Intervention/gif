@@ -10,3 +10,4 @@
 /phpstan.dist.neon export-ignore
 /docker-compose.yml export-ignore
 /Dockerfile export-ignore
+CONTRIBUTING.md export-ignore
