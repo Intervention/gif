@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Gif\Traits;
 
+use Intervention\Gif\Exceptions\RuntimeException;
+
 trait CanHandleFiles
 {
      /**
@@ -24,10 +26,17 @@ trait CanHandleFiles
 
     /**
      * Create file pointer from given gif image data
+     *
+     * @throws RuntimeException
      */
     private static function getHandleFromData(string $data): mixed
     {
         $handle = fopen('php://temp', 'r+');
+
+        if ($handle === false) {
+            throw new RuntimeException('Unable to create tempory file handle.');
+        }
+
         fwrite($handle, $data);
         rewind($handle);
 

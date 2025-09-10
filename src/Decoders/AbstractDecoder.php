@@ -38,9 +38,12 @@ abstract class AbstractDecoder
      */
     protected function getNextBytesOrFail(int $length): string
     {
-        $bytes = fread($this->handle, $length);
+        if ($length < 1) {
+            throw new DecoderException('The length passed must be at least one byte.');
+        }
 
-        if (strlen($bytes) !== $length) {
+        $bytes = fread($this->handle, $length);
+        if ($bytes === false || strlen($bytes) !== $length) {
             throw new DecoderException('Unexpected end of file.');
         }
 
@@ -106,10 +109,18 @@ abstract class AbstractDecoder
 
     /**
      * Decode multi byte value
+     *
+     * @throws DecoderException
      */
     protected function decodeMultiByte(string $bytes): int
     {
-        return unpack('v*', $bytes)[1];
+        $unpacked = unpack('v*', $bytes);
+
+        if ($unpacked === false || !array_key_exists(1, $unpacked)) {
+            throw new DecoderException('Unable to decode given bytes.');
+        }
+
+        return $unpacked[1];
     }
 
     /**
@@ -132,9 +143,17 @@ abstract class AbstractDecoder
 
     /**
      * Get current handle position
+     *
+     * @throws DecoderException
      */
     public function getPosition(): int
     {
-        return ftell($this->handle);
+        $position = ftell($this->handle);
+
+        if ($position === false) {
+            throw new DecoderException('Unable to read current position from handle.');
+        }
+
+        return $position;
     }
 }

@@ -58,22 +58,40 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode width
+     *
+     * @throws DecoderException
      */
     protected function decodeWidth(string $source): int
     {
-        return unpack('v*', $source)[1];
+        $unpacked = unpack('v*', $source);
+
+        if ($unpacked === false || !array_key_exists(1, $unpacked)) {
+            throw new DecoderException('Unable to decode width.');
+        }
+
+        return $unpacked[1];
     }
 
     /**
      * Decode height
+     *
+     * @throws DecoderException
      */
     protected function decodeHeight(string $source): int
     {
-        return unpack('v*', $source)[1];
+        $unpacked = unpack('v*', $source);
+
+        if ($unpacked === false || !array_key_exists(1, $unpacked)) {
+            throw new DecoderException('Unable to decode height.');
+        }
+
+        return $unpacked[1];
     }
 
     /**
      * Decode existance of global color table
+     *
+     * @throws DecoderException
      */
     protected function decodeGlobalColorTableExistance(string $byte): bool
     {
@@ -82,14 +100,18 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode color resolution in bits per pixel
+     *
+     * @throws DecoderException
      */
     protected function decodeBitsPerPixel(string $byte): int
     {
-        return bindec($this->getPackedBits($byte, 1, 3)) + 1;
+        return intval(bindec($this->getPackedBits($byte, 1, 3))) + 1;
     }
 
     /**
      * Decode global color table sorted status
+     *
+     * @throws DecoderException
      */
     protected function decodeGlobalColorTableSorted(string $byte): bool
     {
@@ -98,25 +120,43 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode size of global color table
+     *
+     * @throws DecoderException
      */
     protected function decodeGlobalColorTableSize(string $byte): int
     {
-        return bindec($this->getPackedBits($byte, 5, 3));
+        return intval(bindec($this->getPackedBits($byte, 5, 3)));
     }
 
     /**
      * Decode background color index
+     *
+     * @throws DecoderException
      */
     protected function decodeBackgroundColorIndex(string $source): int
     {
-        return unpack('C', $source)[1];
+        $unpacked = unpack('C', $source);
+
+        if ($unpacked === false || !array_key_exists(1, $unpacked)) {
+            throw new DecoderException('Unable to decode background color index.');
+        }
+
+        return $unpacked[1];
     }
 
     /**
      * Decode pixel aspect ratio
+     *
+     * @throws DecoderException
      */
     protected function decodePixelAspectRatio(string $source): int
     {
-        return unpack('C', $source)[1];
+        $unpacked = unpack('C', $source);
+
+        if ($unpacked === false || !array_key_exists(1, $unpacked)) {
+            throw new DecoderException('Unable to decode pixel aspect ratio.');
+        }
+
+        return $unpacked[1];
     }
 }

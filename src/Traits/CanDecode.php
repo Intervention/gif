@@ -26,20 +26,18 @@ trait CanDecode
      */
     protected static function getDecoder(mixed $source, ?int $length = null): AbstractDecoder
     {
-        $classname = self::getDecoderClassname();
+        $classname = sprintf('Intervention\Gif\Decoders\%sDecoder', self::getShortClassname());
 
         if (!class_exists($classname)) {
             throw new DecoderException("Decoder for '" . static::class . "' not found.");
         }
 
-        return new $classname($source, $length);
-    }
+        $decoder = new $classname($source, $length);
 
-    /**
-     * Get classname of decoder for current classname
-     */
-    protected static function getDecoderClassname(): string
-    {
-        return sprintf('Intervention\Gif\Decoders\%sDecoder', self::getShortClassname());
+        if (!($decoder instanceof AbstractDecoder)) {
+            throw new DecoderException("Decoder for '" . static::class . "' not found.");
+        }
+
+        return $decoder;
     }
 }

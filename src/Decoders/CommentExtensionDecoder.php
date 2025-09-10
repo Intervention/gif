@@ -49,9 +49,17 @@ class CommentExtensionDecoder extends AbstractDecoder
 
     /**
      * Decode blocksize of following comment
+     *
+     * @throws DecoderException
      */
     protected function decodeBlocksize(string $byte): int
     {
-        return (int) @unpack('C', $byte)[1];
+        $unpacked = @unpack('C', $byte);
+
+        if ($unpacked === false || !array_key_exists(1, $unpacked)) {
+            throw new DecoderException('Unable to decode comment extension block size.');
+        }
+
+        return intval($unpacked[1]);
     }
 }

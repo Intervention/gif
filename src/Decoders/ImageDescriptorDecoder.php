@@ -53,6 +53,8 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode local color table existance
+     *
+     * @throws DecoderException
      */
     protected function decodeLocalColorTableExistance(string $byte): bool
     {
@@ -61,6 +63,8 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode local color table sort method
+     *
+     * @throws DecoderException
      */
     protected function decodeLocalColorTableSorted(string $byte): bool
     {
@@ -69,14 +73,18 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode local color table size
+     *
+     * @throws DecoderException
      */
     protected function decodeLocalColorTableSize(string $byte): int
     {
-        return bindec($this->getPackedBits($byte, 5, 3));
+        return (int) bindec($this->getPackedBits($byte, 5, 3));
     }
 
     /**
      * Decode interlaced flag
+     *
+     * @throws DecoderException
      */
     protected function decodeInterlaced(string $byte): bool
     {

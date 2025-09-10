@@ -28,6 +28,13 @@ final class ApplicationExtensionTest extends BaseTestCase
         $this->assertCount(2, $extension->getBlocks());
     }
 
+    public function testGetFirstBlock(): void
+    {
+        $extension = new ApplicationExtension();
+        $extension->addBlock(new DataSubBlock('foo'));
+        $this->assertInstanceOf(DataSubBlock::class, $extension->getFirstBlock());
+    }
+
     public function testEncode(): void
     {
         $extension = new ApplicationExtension();
