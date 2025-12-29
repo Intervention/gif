@@ -7,7 +7,6 @@ namespace Intervention\Gif\Encoders;
 use Intervention\Gif\Blocks\ApplicationExtension;
 use Intervention\Gif\Blocks\CommentExtension;
 use Intervention\Gif\Blocks\FrameBlock;
-use Intervention\Gif\Exceptions\EncoderException;
 
 class FrameBlockEncoder extends AbstractEncoder
 {
@@ -19,9 +18,6 @@ class FrameBlockEncoder extends AbstractEncoder
         $this->source = $source;
     }
 
-    /**
-     * @throws EncoderException
-     */
     public function encode(): string
     {
         $graphicControlExtension = $this->source->getGraphicControlExtension();

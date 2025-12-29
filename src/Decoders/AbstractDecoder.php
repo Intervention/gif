@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\Exceptions\DecoderException;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
 
 abstract class AbstractDecoder
 {
@@ -33,18 +34,16 @@ abstract class AbstractDecoder
 
     /**
      * Read given number of bytes and move file pointer
-     *
-     * @throws DecoderException
      */
     protected function getNextBytesOrFail(int $length): string
     {
         if ($length < 1) {
-            throw new DecoderException('The length passed must be at least one byte.');
+            throw new InvalidArgumentException('The length of the next byte chain must be at least one byte');
         }
 
         $bytes = fread($this->handle, $length);
         if ($bytes === false || strlen($bytes) !== $length) {
-            throw new DecoderException('Unexpected end of file.');
+            throw new DecoderException('Unexpected end of file');
         }
 
         return $bytes;
@@ -52,8 +51,6 @@ abstract class AbstractDecoder
 
     /**
      * Read given number of bytes and move pointer back to previous position
-     *
-     * @throws DecoderException
      */
     protected function viewNextBytesOrFail(int $length): string
     {
@@ -65,8 +62,6 @@ abstract class AbstractDecoder
 
     /**
      * Read next byte and move pointer back to previous position
-     *
-     * @throws DecoderException
      */
     protected function viewNextByteOrFail(): string
     {
@@ -89,8 +84,6 @@ abstract class AbstractDecoder
 
     /**
      * Get next byte in stream and move file pointer
-     *
-     * @throws DecoderException
      */
     protected function getNextByteOrFail(): string
     {
@@ -109,15 +102,13 @@ abstract class AbstractDecoder
 
     /**
      * Decode multi byte value
-     *
-     * @throws DecoderException
      */
     protected function decodeMultiByte(string $bytes): int
     {
         $unpacked = unpack('v*', $bytes);
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
-            throw new DecoderException('Unable to decode given bytes.');
+            throw new DecoderException('Failed to decode given bytes');
         }
 
         return $unpacked[1];
@@ -143,15 +134,14 @@ abstract class AbstractDecoder
 
     /**
      * Get current handle position
-     *
-     * @throws DecoderException
      */
     public function getPosition(): int
     {
+        // todo: rename handle to filePointer globally
         $position = ftell($this->handle);
 
         if ($position === false) {
-            throw new DecoderException('Unable to read current position from handle.');
+            throw new DecoderException('Failed to read current position from file pointer');
         }
 
         return $position;

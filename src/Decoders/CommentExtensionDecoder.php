@@ -11,8 +11,6 @@ class CommentExtensionDecoder extends AbstractDecoder
 {
     /**
      * Decode current source
-     *
-     * @throws DecoderException
      */
     public function decode(): CommentExtension
     {
@@ -29,7 +27,6 @@ class CommentExtensionDecoder extends AbstractDecoder
     /**
      * Decode comment from current source
      *
-     * @throws DecoderException
      * @return array<string>
      */
     protected function decodeComments(): array
@@ -49,15 +46,13 @@ class CommentExtensionDecoder extends AbstractDecoder
 
     /**
      * Decode blocksize of following comment
-     *
-     * @throws DecoderException
      */
     protected function decodeBlocksize(string $byte): int
     {
         $unpacked = @unpack('C', $byte);
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
-            throw new DecoderException('Unable to decode comment extension block size.');
+            throw new DecoderException('Failed to decode block size of comment extension');
         }
 
         return intval($unpacked[1]);

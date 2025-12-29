@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Intervention\Gif;
 
-use Exception;
 use Intervention\Gif\Blocks\FrameBlock;
 use Intervention\Gif\Blocks\GraphicControlExtension;
 use Intervention\Gif\Blocks\ImageDescriptor;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Blocks\TableBasedImage;
-use Intervention\Gif\Exceptions\DecoderException;
-use Intervention\Gif\Exceptions\EncoderException;
+use Intervention\Gif\Exceptions\StateException;
 use Intervention\Gif\Traits\CanHandleFiles;
 
 class Builder
@@ -54,13 +52,11 @@ class Builder
 
     /**
      * Set loop count
-     *
-     * @throws Exception
      */
     public function setLoops(int $loops): self
     {
         if ($this->gif->getFrames() === []) {
-            throw new Exception('Add at least one frame before setting the loop count');
+            throw new StateException('Add at least one frame before setting the loop count');
         }
 
         if ($loops >= 0) {
@@ -79,8 +75,6 @@ class Builder
     /**
      * Create new animation frame from given source
      * which can be path to a file or GIF image data
-     *
-     * @throws DecoderException
      */
     public function addFrame(
         mixed $source,
@@ -177,8 +171,6 @@ class Builder
 
     /**
      * Encode the current build
-     *
-     * @throws EncoderException
      */
     public function encode(): string
     {

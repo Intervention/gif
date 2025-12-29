@@ -10,14 +10,13 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
 {
     /**
      * Decode packed byte
-     *
-     * @throws DecoderException
      */
     protected function decodePackedByte(string $byte): int
     {
         $unpacked = unpack('C', $byte);
+
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
-            throw new DecoderException('Unable to get info block size.');
+            throw new DecoderException('Failed to decode packed info block size');
         }
 
         return intval($unpacked[1]);
@@ -25,8 +24,6 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
 
     /**
      * Determine if packed bit is set
-     *
-     * @throws DecoderException
      */
     protected function hasPackedBit(string $byte, int $num): bool
     {
@@ -35,8 +32,6 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
 
     /**
      * Get packed bits
-     *
-     * @throws DecoderException
      */
     protected function getPackedBits(string $byte, int $start = 0, int $length = 8): string
     {

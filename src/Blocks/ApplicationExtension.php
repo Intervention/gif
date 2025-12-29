@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Gif\Blocks;
 
 use Intervention\Gif\AbstractExtension;
-use Intervention\Gif\Exceptions\RuntimeException;
+use Intervention\Gif\Exceptions\BlockException;
 
 class ApplicationExtension extends AbstractExtension
 {
@@ -83,13 +83,11 @@ class ApplicationExtension extends AbstractExtension
 
     /**
      * Get first block of ApplicationExtension
-     *
-     * @throws RuntimeException
      */
     public function getFirstBlock(): DataSubBlock
     {
         if (!array_key_exists(0, $this->blocks)) {
-            throw new RuntimeException('Unable to retrieve data sub block.');
+            throw new BlockException('Failed to retrieve data sub block');
         }
 
         return $this->blocks[0];

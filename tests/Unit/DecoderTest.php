@@ -6,7 +6,7 @@ namespace Intervention\Gif\Tests\Unit;
 
 use Generator;
 use Intervention\Gif\Decoder;
-use Intervention\Gif\Exceptions\DecoderException;
+use Intervention\Gif\Exceptions\GifException;
 use Intervention\Gif\GifDataStream;
 use Intervention\Gif\Tests\BaseTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -36,7 +36,7 @@ final class DecoderTest extends BaseTestCase
     #[DataProvider('corruptedFilePathDataProvider')]
     public function testDecodeCorrupted(string $path): void
     {
-        $this->expectException(DecoderException::class);
+        $this->expectException(GifException::class);
         Decoder::decode($path);
     }
 

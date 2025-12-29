@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Gif\Blocks;
 
 use Intervention\Gif\AbstractEntity;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
 
 class Color extends AbstractEntity
 {
@@ -16,7 +17,17 @@ class Color extends AbstractEntity
         protected int $g = 0,
         protected int $b = 0
     ) {
-        //
+        if ($r < 0 || $r > 255) {
+            throw new InvalidArgumentException('Color channel value $r must be in range 0 to 255');
+        }
+
+        if ($g < 0 || $g > 255) {
+            throw new InvalidArgumentException('Color channel value $g must be in range 0 to 255');
+        }
+
+        if ($b < 0 || $b > 255) {
+            throw new InvalidArgumentException('Color channel value $b must be in range 0 to 255');
+        }
     }
 
     /**
@@ -78,6 +89,6 @@ class Color extends AbstractEntity
      */
     public function getHash(): string
     {
-        return md5($this->r . $this->g . $this->b);
+        return md5(strval($this->r . $this->g . $this->b));
     }
 }

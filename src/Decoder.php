@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Gif;
 
-use Intervention\Gif\Exceptions\DecoderException;
-use Intervention\Gif\Exceptions\RuntimeException;
+use Intervention\Gif\Exceptions\FilePointerException;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
 use Intervention\Gif\Traits\CanHandleFiles;
 
 class Decoder
@@ -14,25 +14,23 @@ class Decoder
 
     /**
      * Decode given input
-     *
-     * @throws DecoderException
      */
     public static function decode(mixed $input): GifDataStream
     {
-        try {
-            $handle = match (true) {
-                self::isFilePath($input) => self::getHandleFromFilePath($input),
-                is_string($input) => self::getHandleFromData($input),
-                self::isFileHandle($input) => $input,
-                default => throw new DecoderException(
-                    'Decoder input must be either file path, file pointer resource or binary data.'
-                )
-            };
-        } catch (RuntimeException $e) {
-            throw new DecoderException($e->getMessage());
-        }
+        $handle = match (true) {
+            self::isFilePath($input) => self::getHandleFromFilePath($input),
+            is_string($input) => self::getHandleFromData($input),
+            self::isFileHandle($input) => $input,
+            default => throw new InvalidArgumentException(
+                'Decoder input must be either file path, file pointer resource or binary data'
+            )
+        };
 
-        rewind($handle);
+        $result = rewind($handle);
+
+        if ($result === false) {
+            throw new FilePointerException('Failed to rewind file pointer');
+        }
 
         return GifDataStream::decode($handle);
     }

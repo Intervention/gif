@@ -6,7 +6,6 @@ namespace Intervention\Gif\Encoders;
 
 use Intervention\Gif\Blocks\CommentExtension;
 use Intervention\Gif\Blocks\FrameBlock;
-use Intervention\Gif\Exceptions\EncoderException;
 use Intervention\Gif\GifDataStream;
 
 class GifDataStreamEncoder extends AbstractEncoder
@@ -21,8 +20,6 @@ class GifDataStreamEncoder extends AbstractEncoder
 
     /**
      * Encode current source
-     *
-     * @throws EncoderException
      */
     public function encode(): string
     {
@@ -47,8 +44,6 @@ class GifDataStreamEncoder extends AbstractEncoder
 
     /**
      * Encode data blocks of source
-     *
-     * @throws EncoderException
      */
     protected function encodeFrames(): string
     {
@@ -60,8 +55,6 @@ class GifDataStreamEncoder extends AbstractEncoder
 
     /**
      * Encode comment extension blocks of source
-     *
-     * @throws EncoderException
      */
     protected function encodeComments(): string
     {

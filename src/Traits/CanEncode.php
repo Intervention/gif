@@ -11,8 +11,6 @@ trait CanEncode
 {
     /**
      * Encode current entity
-     *
-     * @throws EncoderException
      */
     public function encode(): string
     {
@@ -21,21 +19,19 @@ trait CanEncode
 
     /**
      * Get encoder object for current entity
-     *
-     * @throws EncoderException
      */
     protected function getEncoder(): AbstractEncoder
     {
         $classname = sprintf('Intervention\Gif\Encoders\%sEncoder', $this->getShortClassname());
 
         if (!class_exists($classname)) {
-            throw new EncoderException("Encoder for '" . $this::class . "' not found.");
+            throw new EncoderException('Encoder for "' . $this::class . '" not found');
         }
 
         $encoder = new $classname($this);
 
         if (!($encoder instanceof AbstractEncoder)) {
-            throw new EncoderException("Encoder for '" . $this::class . "' not found.");
+            throw new EncoderException('Encoder for "' . $this::class . '" not found');
         }
 
         return $encoder;

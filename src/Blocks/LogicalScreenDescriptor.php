@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Gif\Blocks;
 
 use Intervention\Gif\AbstractEntity;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
 
 class LogicalScreenDescriptor extends AbstractEntity
 {
@@ -53,6 +54,14 @@ class LogicalScreenDescriptor extends AbstractEntity
      */
     public function setSize(int $width, int $height): self
     {
+        if ($width <= 0) {
+            throw new InvalidArgumentException('Width in ' . $this::class . ' must be larger than 0');
+        }
+
+        if ($height <= 0) {
+            throw new InvalidArgumentException('Height in ' . $this::class . ' must be larger than 0');
+        }
+
         $this->width = $width;
         $this->height = $height;
 
@@ -64,7 +73,7 @@ class LogicalScreenDescriptor extends AbstractEntity
      */
     public function getWidth(): int
     {
-        return intval($this->width);
+        return $this->width;
     }
 
     /**
@@ -72,7 +81,7 @@ class LogicalScreenDescriptor extends AbstractEntity
      */
     public function getHeight(): int
     {
-        return intval($this->height);
+        return $this->height;
     }
 
     /**

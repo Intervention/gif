@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\Gif\Traits;
 
-use Intervention\Gif\Exceptions\RuntimeException;
+use Intervention\Gif\Exceptions\FilePointerException;
 
 trait CanHandleFiles
 {
@@ -13,7 +13,7 @@ trait CanHandleFiles
      */
     private static function isFilePath(mixed $input): bool
     {
-        return is_string($input) && !self::hasNullBytes($input) && @is_file($input);
+        return is_string($input) && !self::hasNullBytes($input) && @is_file($input) === true;
     }
 
     /**
@@ -26,19 +26,24 @@ trait CanHandleFiles
 
     /**
      * Create file pointer from given gif image data
-     *
-     * @throws RuntimeException
      */
     private static function getHandleFromData(string $data): mixed
     {
         $handle = fopen('php://temp', 'r+');
 
         if ($handle === false) {
-            throw new RuntimeException('Unable to create tempory file handle.');
+            throw new FilePointerException('Failed to create tempory file handle');
         }
 
-        fwrite($handle, $data);
-        rewind($handle);
+        $result = fwrite($handle, $data);
+        if ($result === false) {
+            throw new FilePointerException('Failed to write tempory file handle');
+        }
+
+        $result = rewind($handle);
+        if ($result === false) {
+            throw new FilePointerException('Failed to rewind tempory file handle');
+        }
 
         return $handle;
     }
@@ -48,6 +53,12 @@ trait CanHandleFiles
      */
     private static function getHandleFromFilePath(string $path): mixed
     {
-        return fopen($path, 'rb');
+        $handle = fopen($path, 'rb');
+
+        if ($handle === false) {
+            throw new FilePointerException('Failed to create file handle from path');
+        }
+
+        return $handle;
     }
 }

@@ -6,7 +6,6 @@ namespace Intervention\Gif\Encoders;
 
 use Intervention\Gif\Blocks\ApplicationExtension;
 use Intervention\Gif\Blocks\DataSubBlock;
-use Intervention\Gif\Exceptions\EncoderException;
 
 class ApplicationExtensionEncoder extends AbstractEncoder
 {
@@ -20,8 +19,6 @@ class ApplicationExtensionEncoder extends AbstractEncoder
 
     /**
      * Encode current source
-     *
-     * @throws EncoderException
      */
     public function encode(): string
     {

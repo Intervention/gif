@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\Gif\Blocks;
 
-use Intervention\Gif\Exceptions\FormatException;
-use Intervention\Gif\Exceptions\RuntimeException;
+use Intervention\Gif\Exceptions\BlockException;
 
 class NetscapeApplicationExtension extends ApplicationExtension
 {
@@ -15,8 +14,6 @@ class NetscapeApplicationExtension extends ApplicationExtension
 
     /**
      * Create new instance
-     *
-     * @throws FormatException
      */
     public function __construct()
     {
@@ -26,15 +23,13 @@ class NetscapeApplicationExtension extends ApplicationExtension
 
     /**
      * Get number of loops
-     *
-     * @throws RuntimeException
      */
     public function getLoops(): int
     {
         $unpacked = unpack('v*', substr($this->getFirstBlock()->getValue(), 1));
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
-            throw new RuntimeException('Unable to get loop count.');
+            throw new BlockException('Failed to calculate loop count');
         }
 
         return $unpacked[1];
@@ -42,8 +37,6 @@ class NetscapeApplicationExtension extends ApplicationExtension
 
     /**
      * Set number of loops
-     *
-     * @throws FormatException
      */
     public function setLoops(int $loops): self
     {

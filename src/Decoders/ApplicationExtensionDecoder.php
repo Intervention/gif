@@ -8,15 +8,11 @@ use Intervention\Gif\Blocks\ApplicationExtension;
 use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Exceptions\DecoderException;
-use Intervention\Gif\Exceptions\FormatException;
 
 class ApplicationExtensionDecoder extends AbstractDecoder
 {
     /**
      * Decode current source
-     *
-     * @throws FormatException
-     * @throws DecoderException
      */
     public function decode(): ApplicationExtension
     {
@@ -59,15 +55,13 @@ class ApplicationExtensionDecoder extends AbstractDecoder
 
     /**
      * Decode block size of ApplicationExtension from given byte
-     *
-     * @throws DecoderException
      */
     protected function decodeBlockSize(string $byte): int
     {
         $unpacked = @unpack('C', $byte);
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
-            throw new DecoderException('Unable to decode application extension block size.');
+            throw new DecoderException('Failed to decode block size of application extension');
         }
 
         return intval($unpacked[1]);

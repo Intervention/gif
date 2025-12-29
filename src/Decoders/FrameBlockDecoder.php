@@ -19,8 +19,6 @@ class FrameBlockDecoder extends AbstractDecoder
 {
     /**
      * Decode FrameBlock
-     *
-     * @throws DecoderException
      */
     public function decode(): FrameBlock
     {
@@ -40,7 +38,7 @@ class FrameBlockDecoder extends AbstractDecoder
                 => CommentExtension::decode($this->handle),
                 default => match ($this->viewNextByteOrFail()) {
                     ImageDescriptor::SEPARATOR => TableBasedImage::decode($this->handle),
-                    default => throw new DecoderException('Unable to decode Data Block'),
+                    default => throw new DecoderException('Failed to decode data block'),
                 }
             };
 

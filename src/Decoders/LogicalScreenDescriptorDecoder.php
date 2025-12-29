@@ -11,8 +11,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 {
     /**
      * Decode given string to current instance
-     *
-     * @throws DecoderException
      */
     public function decode(): LogicalScreenDescriptor
     {
@@ -58,15 +56,13 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode width
-     *
-     * @throws DecoderException
      */
     protected function decodeWidth(string $source): int
     {
         $unpacked = unpack('v*', $source);
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
-            throw new DecoderException('Unable to decode width.');
+            throw new DecoderException('Failed to decode width in logical screen descriptor');
         }
 
         return $unpacked[1];
@@ -74,15 +70,13 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode height
-     *
-     * @throws DecoderException
      */
     protected function decodeHeight(string $source): int
     {
         $unpacked = unpack('v*', $source);
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
-            throw new DecoderException('Unable to decode height.');
+            throw new DecoderException('Failed to decode height in logical screen descriptor');
         }
 
         return $unpacked[1];
@@ -90,8 +84,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode existance of global color table
-     *
-     * @throws DecoderException
      */
     protected function decodeGlobalColorTableExistance(string $byte): bool
     {
@@ -100,8 +92,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode color resolution in bits per pixel
-     *
-     * @throws DecoderException
      */
     protected function decodeBitsPerPixel(string $byte): int
     {
@@ -110,8 +100,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode global color table sorted status
-     *
-     * @throws DecoderException
      */
     protected function decodeGlobalColorTableSorted(string $byte): bool
     {
@@ -120,8 +108,6 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode size of global color table
-     *
-     * @throws DecoderException
      */
     protected function decodeGlobalColorTableSize(string $byte): int
     {
@@ -130,15 +116,13 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode background color index
-     *
-     * @throws DecoderException
      */
     protected function decodeBackgroundColorIndex(string $source): int
     {
         $unpacked = unpack('C', $source);
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
-            throw new DecoderException('Unable to decode background color index.');
+            throw new DecoderException('Failed to decode background color index in logical screen descriptor');
         }
 
         return $unpacked[1];
@@ -146,15 +130,13 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode pixel aspect ratio
-     *
-     * @throws DecoderException
      */
     protected function decodePixelAspectRatio(string $source): int
     {
         $unpacked = unpack('C', $source);
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
-            throw new DecoderException('Unable to decode pixel aspect ratio.');
+            throw new DecoderException('Failed to decode pixel aspect ratio in logical screen descriptor');
         }
 
         return $unpacked[1];

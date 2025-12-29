@@ -11,8 +11,6 @@ trait CanDecode
 {
     /**
      * Decode current instance
-     *
-     * @throws DecoderException
      */
     public static function decode(mixed $source, ?int $length = null): mixed
     {
@@ -21,21 +19,19 @@ trait CanDecode
 
     /**
      * Get decoder for current instance
-     *
-     * @throws DecoderException
      */
     protected static function getDecoder(mixed $source, ?int $length = null): AbstractDecoder
     {
         $classname = sprintf('Intervention\Gif\Decoders\%sDecoder', self::getShortClassname());
 
         if (!class_exists($classname)) {
-            throw new DecoderException("Decoder for '" . static::class . "' not found.");
+            throw new DecoderException('Decoder for "' . static::class . '" not found');
         }
 
         $decoder = new $classname($source, $length);
 
         if (!($decoder instanceof AbstractDecoder)) {
-            throw new DecoderException("Decoder for '" . static::class . "' not found.");
+            throw new DecoderException('Decoder for "' . static::class . '" not found');
         }
 
         return $decoder;

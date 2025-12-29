@@ -6,7 +6,8 @@ namespace Intervention\Gif;
 
 use ArrayIterator;
 use GdImage;
-use Intervention\Gif\Exceptions\EncoderException;
+use Intervention\Gif\Exceptions\CoreException;
+use Intervention\Gif\Exceptions\GifException;
 use IteratorAggregate;
 use Traversable;
 
@@ -139,7 +140,6 @@ class Splitter implements IteratorAggregate
     /**
      * Return array of GD library resources for each frame
      *
-     * @throws EncoderException
      * @return array<GdImage>
      */
     public function toResources(): array
@@ -148,12 +148,23 @@ class Splitter implements IteratorAggregate
 
         foreach ($this->frames as $frame) {
             $resource = imagecreatefromstring($frame->encode());
+
             if ($resource === false) {
-                throw new EncoderException('Unable to extract animation frames.');
+                throw new CoreException('Failed to extract animation frames');
             }
 
-            imagepalettetotruecolor($resource);
-            imagesavealpha($resource, true);
+            $result = imagepalettetotruecolor($resource);
+
+            if ($result === false) {
+                throw new CoreException('Failed to transform animation frames to truecolor');
+            }
+
+            $result = imagesavealpha($resource, true);
+
+            if ($result === false) {
+                throw new CoreException('Failed to set alpha channel flag on animation frames');
+            }
+
             $resources[] = $resource;
         }
 
@@ -163,7 +174,6 @@ class Splitter implements IteratorAggregate
     /**
      * Return array of coalesced GD library resources for each frame
      *
-     * @throws EncoderException
      * @return array<GdImage>
      */
     public function coalesceToResources(): array
@@ -192,6 +202,11 @@ class Splitter implements IteratorAggregate
                 if ($key >= 1) {
                     // create normalized gd image
                     $canvas = imagecreatetruecolor($width, $height);
+
+                    if ($canvas === false) {
+                        throw new CoreException('Failed to create new image instance for animation frame #' . $key);
+                    }
+
                     if (imagecolortransparent($resource) != -1) {
                         $transparent = imagecolortransparent($resource);
                     } else {
@@ -199,16 +214,26 @@ class Splitter implements IteratorAggregate
                     }
 
                     if (!is_int($transparent)) {
-                        throw new EncoderException('Animation frames cannot be converted into resources.');
+                        throw new CoreException(
+                            'Failed to allocate transparent color in animation frame #' . $key,
+                        );
                     }
 
                     // fill with transparent
-                    imagefill($canvas, 0, 0, $transparent);
+                    $result = imagefill($canvas, 0, 0, $transparent);
+                    if ($result === false) {
+                        throw new CoreException('Failed to fill frame #' . $key . ' with transparency');
+                    }
+
                     imagecolortransparent($canvas, $transparent);
-                    imagealphablending($canvas, true);
+
+                    $result = imagealphablending($canvas, true);
+                    if ($result === false) {
+                        throw new CoreException('Failed to set alpha blending mode on frame #' . $key);
+                    }
 
                     // insert last as base
-                    imagecopy(
+                    $result = imagecopy(
                         $canvas,
                         $resources[$key - 1],
                         0,
@@ -218,6 +243,10 @@ class Splitter implements IteratorAggregate
                         $width,
                         $height
                     );
+
+                    if ($result === false) {
+                        throw new CoreException('Failed to copy frame #' . $key);
+                    }
 
                     // insert resource
                     imagecopy(
@@ -230,13 +259,24 @@ class Splitter implements IteratorAggregate
                         $w,
                         $h
                     );
+
+                    if ($result === false) {
+                        throw new CoreException('Failed to copy frame #' . $key);
+                    }
                 } else {
-                    imagealphablending($resource, true);
+                    $result = imagealphablending($resource, true);
+                    if ($result === false) {
+                        throw new CoreException('Failed to set alpha blending mode on frame #' . $key);
+                    }
                     $canvas = $resource;
                 }
             } else {
                 // create normalized gd image
                 $canvas = imagecreatetruecolor($width, $height);
+                if ($canvas === false) {
+                    throw new CoreException('Failed to create new image instance for animation frame #' . $key);
+                }
+
                 if (imagecolortransparent($resource) != -1) {
                     $transparent = imagecolortransparent($resource);
                 } else {
@@ -244,16 +284,24 @@ class Splitter implements IteratorAggregate
                 }
 
                 if (!is_int($transparent)) {
-                    throw new EncoderException('Animation frames cannot be converted into resources.');
+                    throw new GifException('Animation frames cannot be converted into resources');
                 }
 
                 // fill with transparent
-                imagefill($canvas, 0, 0, $transparent);
+                $result = imagefill($canvas, 0, 0, $transparent);
+                if ($result === false) {
+                    throw new CoreException('Failed to fill frame #' . $key . ' with transparency');
+                }
+
                 imagecolortransparent($canvas, $transparent);
-                imagealphablending($canvas, true);
+
+                $result = imagealphablending($canvas, true);
+                if ($result === false) {
+                    throw new CoreException('Failed to set alpha blending mode on frame #' . $key);
+                }
 
                 // insert frame resource
-                imagecopy(
+                $result = imagecopy(
                     $canvas,
                     $resource,
                     $offset_x,
@@ -263,6 +311,10 @@ class Splitter implements IteratorAggregate
                     $w,
                     $h
                 );
+
+                if ($result === false) {
+                    throw new CoreException('Failed to copy frame #' . $key);
+                }
             }
 
             $resources[$key] = $canvas;
