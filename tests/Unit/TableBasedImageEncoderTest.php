@@ -10,6 +10,7 @@ use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\ImageData;
 use Intervention\Gif\Blocks\TableBasedImage;
 use Intervention\Gif\Tests\BaseTestCase;
+use Intervention\Gif\Tests\Providers\BlockTypeProvider;
 
 final class TableBasedImageEncoderTest extends BaseTestCase
 {
@@ -17,7 +18,7 @@ final class TableBasedImageEncoderTest extends BaseTestCase
     {
         $tbi = new TableBasedImage();
         $tbi->setImageDescriptor(
-            $this->imageDescriptor()
+            BlockTypeProvider::imageDescriptor()
                 ->setSize(10, 10)
                 ->setPosition(10, 10)
         );

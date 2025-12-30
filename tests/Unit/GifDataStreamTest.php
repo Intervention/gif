@@ -13,6 +13,7 @@ use Intervention\Gif\Blocks\Trailer;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\GifDataStream;
 use Intervention\Gif\Tests\BaseTestCase;
+use Intervention\Gif\Tests\Providers\BlockTypeProvider;
 
 final class GifDataStreamTest extends BaseTestCase
 {
@@ -33,19 +34,19 @@ final class GifDataStreamTest extends BaseTestCase
     public function testEncode(): void
     {
         $gif = new GifDataStream();
-        $gif->setLogicalScreenDescriptor($this->logicalScreenDescriptor());
-        $gif->addFrame($this->frame());
-        $gif->addComment($this->commentExtension());
+        $gif->setLogicalScreenDescriptor(BlockTypeProvider::logicalScreenDescriptor());
+        $gif->addFrame(BlockTypeProvider::frame());
+        $gif->addComment(BlockTypeProvider::commentExtension());
 
         $result = implode('', [
-            (string) $this->header(),
-            (string) $this->logicalScreenDescriptor(),
-            (string) $this->netscapeApplicationExtension(),
-            (string) $this->commentExtension(),
-            (string) $this->graphicControlExtension(),
-            (string) $this->imageDescriptor(),
-            (string) $this->imageData(),
-            (string) $this->commentExtension(),
+            (string) BlockTypeProvider::header(),
+            (string) BlockTypeProvider::logicalScreenDescriptor(),
+            (string) BlockTypeProvider::netscapeApplicationExtension(),
+            (string) BlockTypeProvider::commentExtension(),
+            (string) BlockTypeProvider::graphicControlExtension(),
+            (string) BlockTypeProvider::imageDescriptor(),
+            (string) BlockTypeProvider::imageData(),
+            (string) BlockTypeProvider::commentExtension(),
             Trailer::MARKER,
         ]);
 
