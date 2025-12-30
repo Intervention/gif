@@ -107,8 +107,8 @@ class Splitter implements IteratorAggregate
             }
 
             // check if working stream has global color table
-            if ($this->stream->hasGlobalColorTable()) {
-                $gif->setGlobalColorTable($this->stream->globalColorTable());
+            if ($table = $this->stream->globalColorTable()) {
+                $gif->setGlobalColorTable($table);
                 $gif->logicalScreenDescriptor()->setGlobalColorTableExistance(true);
 
                 $gif->logicalScreenDescriptor()->setGlobalColorTableSorted(
@@ -178,6 +178,7 @@ class Splitter implements IteratorAggregate
     /**
      * Return array of coalesced GD library resources for each frame
      *
+     * @throws SplitterException
      * @throws CoreException
      * @return array<GdImage>
      */
@@ -197,11 +198,11 @@ class Splitter implements IteratorAggregate
         foreach ($resources as $key => $resource) {
             // get meta data
             $gif = $this->frames[$key];
-            $descriptor = $gif->firstFrame()->imageDescriptor();
-            $offset_x = $descriptor->left();
-            $offset_y = $descriptor->top();
-            $w = $descriptor->width();
-            $h = $descriptor->height();
+            $descriptor = $gif->firstFrame()?->imageDescriptor();
+            $offset_x = $descriptor?->left() ?: 0;
+            $offset_y = $descriptor?->top() ?: 0;
+            $w = $descriptor?->width() ?: 0;
+            $h = $descriptor?->height() ?: 0;
 
             if (in_array($this->disposalMethod($gif), [DisposalMethod::NONE, DisposalMethod::PREVIOUS])) {
                 if ($key >= 1) {
@@ -299,9 +300,13 @@ class Splitter implements IteratorAggregate
 
     /**
      * Find and return disposal method of given gif data stream
+     *
+     * @throws SplitterException
      */
     private function disposalMethod(GifDataStream $gif): DisposalMethod
     {
-        return $gif->firstFrame()->graphicControlExtension()->disposalMethod();
+        $disposalMethod = $gif->firstFrame()?->graphicControlExtension()?->disposalMethod();
+
+        return $disposalMethod ?: throw new SplitterException('Failed to find disposal method in gif data stream');
     }
 }

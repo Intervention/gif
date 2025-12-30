@@ -72,12 +72,12 @@ class Builder
 
         if ($loops >= 0) {
             // add frame count to existing or new netscape extension on first frame
-            if (!$this->gif->firstFrame()->netscapeExtension()) {
-                $this->gif->firstFrame()->addApplicationExtension(
+            if (!$this->gif->firstFrame()?->netscapeExtension()) {
+                $this->gif->firstFrame()?->addApplicationExtension(
                     new NetscapeApplicationExtension()
                 );
             }
-            $this->gif->firstFrame()->netscapeExtension()->setLoops($loops);
+            $this->gif->firstFrame()?->netscapeExtension()?->setLoops($loops);
         }
 
         return $this;
@@ -132,7 +132,7 @@ class Builder
         $extension = new GraphicControlExtension($delay, $disposalMethod);
 
         // set transparency index
-        $control = $source->firstFrame()->graphicControlExtension();
+        $control = $source->firstFrame()?->graphicControlExtension();
         if ($control && $control->transparentColorExistance()) {
             $extension->setTransparentColorExistance();
             $extension->setTransparentColorIndex(
@@ -159,7 +159,15 @@ class Builder
 
         // set global color table from source as local color table
         $block->imageDescriptor()->setLocalColorTableExistance();
-        $block->setColorTable($source->globalColorTable());
+        $globalColorTable = $source->globalColorTable();
+
+        if ($globalColorTable === null) {
+            throw new DecoderException(
+                'Failed to build table based image. Unable to find global color table in gif data stream',
+            );
+        }
+
+        $block->setColorTable($globalColorTable);
 
         $block->imageDescriptor()->setLocalColorTableSorted(
             $source->logicalScreenDescriptor()->globalColorTableSorted()
@@ -188,7 +196,11 @@ class Builder
         $block->imageDescriptor()->setInterlaced($interlaced);
 
         // add image data from source
-        $block->setImageData($source->firstFrame()->imageData());
+        $block->setImageData(
+            $source->firstFrame()?->imageData() ?: throw new DecoderException(
+                'Failed to build table based image. Unable to find image data',
+            )
+        );
 
         return $block;
     }
