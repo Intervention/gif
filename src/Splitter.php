@@ -166,17 +166,8 @@ class Splitter implements IteratorAggregate
                 throw new CoreException('Failed to extract animation frames to resources');
             }
 
-            $result = imagepalettetotruecolor($resource);
-
-            if ($result === false) {
-                throw new CoreException('Failed to transform animation frames to truecolor');
-            }
-
-            $result = imagesavealpha($resource, true);
-
-            if ($result === false) {
-                throw new CoreException('Failed to set alpha channel flag on animation frames');
-            }
+            imagepalettetotruecolor($resource);
+            imagesavealpha($resource, true);
 
             $resources[] = $resource;
         }
@@ -234,20 +225,12 @@ class Splitter implements IteratorAggregate
                     }
 
                     // fill with transparent
-                    $result = imagefill($canvas, 0, 0, $transparent);
-                    if ($result === false) {
-                        throw new CoreException('Failed to fill frame #' . $key . ' with transparency');
-                    }
-
+                    imagefill($canvas, 0, 0, $transparent);
                     imagecolortransparent($canvas, $transparent);
-
-                    $result = imagealphablending($canvas, true);
-                    if ($result === false) {
-                        throw new CoreException('Failed to set alpha blending mode on frame #' . $key);
-                    }
+                    imagealphablending($canvas, true);
 
                     // insert last as base
-                    $result = imagecopy(
+                    imagecopy(
                         $canvas,
                         $resources[$key - 1],
                         0,
@@ -258,12 +241,8 @@ class Splitter implements IteratorAggregate
                         $height
                     );
 
-                    if ($result === false) {
-                        throw new CoreException('Failed to copy frame #' . $key);
-                    }
-
                     // insert resource
-                    $result = imagecopy(
+                    imagecopy(
                         $canvas,
                         $resource,
                         $offset_x,
@@ -273,15 +252,8 @@ class Splitter implements IteratorAggregate
                         $w,
                         $h
                     );
-
-                    if ($result === false) {
-                        throw new CoreException('Failed to copy frame #' . $key);
-                    }
                 } else {
-                    $result = imagealphablending($resource, true);
-                    if ($result === false) {
-                        throw new CoreException('Failed to set alpha blending mode on frame #' . $key);
-                    }
+                    imagealphablending($resource, true);
                     $canvas = $resource;
                 }
             } else {
@@ -302,20 +274,12 @@ class Splitter implements IteratorAggregate
                 }
 
                 // fill with transparent
-                $result = imagefill($canvas, 0, 0, $transparent);
-                if ($result === false) {
-                    throw new CoreException('Failed to fill frame #' . $key . ' with transparency');
-                }
-
+                imagefill($canvas, 0, 0, $transparent);
                 imagecolortransparent($canvas, $transparent);
-
-                $result = imagealphablending($canvas, true);
-                if ($result === false) {
-                    throw new CoreException('Failed to set alpha blending mode on frame #' . $key);
-                }
+                imagealphablending($canvas, true);
 
                 // insert frame resource
-                $result = imagecopy(
+                imagecopy(
                     $canvas,
                     $resource,
                     $offset_x,
@@ -325,10 +289,6 @@ class Splitter implements IteratorAggregate
                     $w,
                     $h
                 );
-
-                if ($result === false) {
-                    throw new CoreException('Failed to copy frame #' . $key);
-                }
             }
 
             $resources[$key] = $canvas;
