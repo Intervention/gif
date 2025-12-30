@@ -38,7 +38,7 @@ final class PlainTextExtensionTest extends BaseTestCase
             "\x21\x01\x0C\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x66\x6f\x6f\x03\x62\x61\x72\x00",
         ];
         foreach ($sources as $source) {
-            $extension = PlainTextExtension::decode($this->getTestHandle($source));
+            $extension = PlainTextExtension::decode($this->filePointer($source));
             $this->assertInstanceOf(PlainTextExtension::class, $extension);
             $this->assertEquals(['foo', 'bar'], $extension->getText());
         }

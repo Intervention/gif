@@ -66,7 +66,7 @@ final class FrameBlockTest extends BaseTestCase
             "\xD4\x40\x8F\x9B\x43\x15\x70\xF0\x7C\xC0\x9D\xB2\x15\x02\x04\x01\x01\x01\x01\x03\x01\x01\x01\x00",
         ]);
 
-        $block = FrameBlock::decode($this->getTestHandle($source));
+        $block = FrameBlock::decode($this->filePointer($source));
         $this->assertInstanceOf(FrameBlock::class, $block);
         $this->assertInstanceOf(GraphicControlExtension::class, $block->getGraphicControlExtension());
         $this->assertInstanceOf(NetscapeApplicationExtension::class, $block->getNetscapeExtension());

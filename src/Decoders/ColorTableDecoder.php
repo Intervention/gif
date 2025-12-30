@@ -17,7 +17,7 @@ class ColorTableDecoder extends AbstractDecoder
         $table = new ColorTable();
 
         for ($i = 0; $i < ($this->getLength() / 3); $i++) {
-            $table->addColor(Color::decode($this->handle));
+            $table->addColor(Color::decode($this->filePointer));
         }
 
         return $table;

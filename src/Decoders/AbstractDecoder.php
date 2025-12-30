@@ -17,7 +17,7 @@ abstract class AbstractDecoder
     /**
      * Create new instance
      */
-    public function __construct(protected mixed $handle, protected ?int $length = null)
+    public function __construct(protected mixed $filePointer, protected ?int $length = null)
     {
         //
     }
@@ -25,9 +25,9 @@ abstract class AbstractDecoder
     /**
      * Set source to decode
      */
-    public function setHandle(mixed $handle): self
+    public function setFilePointer(mixed $filePointer): self
     {
-        $this->handle = $handle;
+        $this->filePointer = $filePointer;
 
         return $this;
     }
@@ -41,7 +41,7 @@ abstract class AbstractDecoder
             throw new InvalidArgumentException('The length of the next byte chain must be at least one byte');
         }
 
-        $bytes = fread($this->handle, $length);
+        $bytes = fread($this->filePointer, $length);
         if ($bytes === false || strlen($bytes) !== $length) {
             throw new DecoderException('Unexpected end of file');
         }
@@ -69,15 +69,15 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Read all remaining bytes from file handler
+     * Read all remaining bytes from file pointer
      */
     protected function getRemainingBytes(): string
     {
         $all = '';
         do {
-            $byte = fread($this->handle, 1);
+            $byte = fread($this->filePointer, 1);
             $all .= $byte;
-        } while (!feof($this->handle));
+        } while (!feof($this->filePointer));
 
         return $all;
     }
@@ -91,11 +91,11 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Move file pointer on handle by given offset
+     * Move file pointer on file pointer by given offset
      */
     protected function movePointer(int $offset): self
     {
-        fseek($this->handle, $offset, SEEK_CUR);
+        fseek($this->filePointer, $offset, SEEK_CUR);
 
         return $this;
     }
@@ -133,12 +133,11 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Get current handle position
+     * Get current file pointer position
      */
     public function getPosition(): int
     {
-        // todo: rename handle to filePointer globally
-        $position = ftell($this->handle);
+        $position = ftell($this->filePointer);
 
         if ($position === false) {
             throw new DecoderException('Failed to read current position from file pointer');

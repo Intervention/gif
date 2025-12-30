@@ -17,28 +17,28 @@ class Decoder
      */
     public static function decode(mixed $input): GifDataStream
     {
-        $handle = match (true) {
-            self::isFilePath($input) => self::getHandleFromFilePath($input),
-            is_string($input) => self::getHandleFromData($input),
-            self::isFileHandle($input) => $input,
+        $filePointer = match (true) {
+            self::isFilePath($input) => self::filePointerFromFilePath($input),
+            is_string($input) => self::filePointerFromData($input),
+            self::isFilePointer($input) => $input,
             default => throw new InvalidArgumentException(
                 'Decoder input must be either file path, file pointer resource or binary data'
             )
         };
 
-        $result = rewind($handle);
+        $result = rewind($filePointer);
 
         if ($result === false) {
             throw new FilePointerException('Failed to rewind file pointer');
         }
 
-        return GifDataStream::decode($handle);
+        return GifDataStream::decode($filePointer);
     }
 
     /**
      * Determine if input is file pointer resource
      */
-    private static function isFileHandle(mixed $input): bool
+    private static function isFilePointer(mixed $input): bool
     {
         return is_resource($input) && get_resource_type($input) === 'stream';
     }

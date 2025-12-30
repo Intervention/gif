@@ -44,7 +44,7 @@ final class CommentExtensionTest extends BaseTestCase
         ];
 
         foreach ($sources as $source) {
-            $extension = CommentExtension::decode($this->getTestHandle($source));
+            $extension = CommentExtension::decode($this->filePointer($source));
             $this->assertInstanceOf(CommentExtension::class, $extension);
             $this->assertCount(1, $extension->getComments());
             $this->assertEquals('blueberry', $extension->getComment(0));
@@ -55,7 +55,7 @@ final class CommentExtensionTest extends BaseTestCase
         ];
 
         foreach ($sources as $source) {
-            $extension = CommentExtension::decode($this->getTestHandle($source));
+            $extension = CommentExtension::decode($this->filePointer($source));
             $this->assertInstanceOf(CommentExtension::class, $extension);
             $this->assertCount(3, $extension->getComments());
             $this->assertEquals('foo', $extension->getComment(0));

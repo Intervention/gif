@@ -24,13 +24,13 @@ abstract class BaseTestCase extends TestCase
         return sprintf('%s/images/%s', __DIR__, $filename);
     }
 
-    public function getTestHandle(string $data): mixed
+    public function filePointer(string $data): mixed
     {
-        $handle = fopen('php://memory', 'r+');
-        fwrite($handle, $data);
-        rewind($handle);
+        $filePointer = fopen('php://memory', 'r+');
+        fwrite($filePointer, $data);
+        rewind($filePointer);
 
-        return $handle;
+        return $filePointer;
     }
 
     protected function getTestHeader(): Header

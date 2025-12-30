@@ -18,19 +18,19 @@ class TableBasedImageDecoder extends AbstractDecoder
     {
         $block = new TableBasedImage();
 
-        $block->setImageDescriptor(ImageDescriptor::decode($this->handle));
+        $block->setImageDescriptor(ImageDescriptor::decode($this->filePointer));
 
         if ($block->getImageDescriptor()->hasLocalColorTable()) {
             $block->setColorTable(
                 ColorTable::decode(
-                    $this->handle,
+                    $this->filePointer,
                     $block->getImageDescriptor()->getLocalColorTableByteSize()
                 )
             );
         }
 
         $block->setImageData(
-            ImageData::decode($this->handle)
+            ImageData::decode($this->filePointer)
         );
 
         return $block;

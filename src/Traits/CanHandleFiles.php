@@ -27,38 +27,38 @@ trait CanHandleFiles
     /**
      * Create file pointer from given gif image data
      */
-    private static function getHandleFromData(string $data): mixed
+    private static function filePointerFromData(string $data): mixed
     {
-        $handle = fopen('php://temp', 'r+');
+        $filePointer = fopen('php://temp', 'r+');
 
-        if ($handle === false) {
-            throw new FilePointerException('Failed to create tempory file handle');
+        if ($filePointer === false) {
+            throw new FilePointerException('Failed to create tempory file pointer');
         }
 
-        $result = fwrite($handle, $data);
+        $result = fwrite($filePointer, $data);
         if ($result === false) {
-            throw new FilePointerException('Failed to write tempory file handle');
+            throw new FilePointerException('Failed to write tempory file pointer');
         }
 
-        $result = rewind($handle);
+        $result = rewind($filePointer);
         if ($result === false) {
-            throw new FilePointerException('Failed to rewind tempory file handle');
+            throw new FilePointerException('Failed to rewind tempory file pointer');
         }
 
-        return $handle;
+        return $filePointer;
     }
 
     /**
      * Create file pounter from given file path
      */
-    private static function getHandleFromFilePath(string $path): mixed
+    private static function filePointerFromFilePath(string $path): mixed
     {
-        $handle = fopen($path, 'rb');
+        $filePointer = fopen($path, 'rb');
 
-        if ($handle === false) {
-            throw new FilePointerException('Failed to create file handle from path');
+        if ($filePointer === false) {
+            throw new FilePointerException('Failed to create file pointer from path');
         }
 
-        return $handle;
+        return $filePointer;
     }
 }

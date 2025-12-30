@@ -27,17 +27,17 @@ class FrameBlockDecoder extends AbstractDecoder
         do {
             $block = match ($this->viewNextBytesOrFail(2)) {
                 AbstractExtension::MARKER . GraphicControlExtension::LABEL
-                => GraphicControlExtension::decode($this->handle),
+                => GraphicControlExtension::decode($this->filePointer),
                 AbstractExtension::MARKER . NetscapeApplicationExtension::LABEL
-                => NetscapeApplicationExtension::decode($this->handle),
+                => NetscapeApplicationExtension::decode($this->filePointer),
                 AbstractExtension::MARKER . ApplicationExtension::LABEL
-                => ApplicationExtension::decode($this->handle),
+                => ApplicationExtension::decode($this->filePointer),
                 AbstractExtension::MARKER . PlainTextExtension::LABEL
-                => PlainTextExtension::decode($this->handle),
+                => PlainTextExtension::decode($this->filePointer),
                 AbstractExtension::MARKER . CommentExtension::LABEL
-                => CommentExtension::decode($this->handle),
+                => CommentExtension::decode($this->filePointer),
                 default => match ($this->viewNextByteOrFail()) {
-                    ImageDescriptor::SEPARATOR => TableBasedImage::decode($this->handle),
+                    ImageDescriptor::SEPARATOR => TableBasedImage::decode($this->filePointer),
                     default => throw new DecoderException('Failed to decode data block'),
                 }
             };
