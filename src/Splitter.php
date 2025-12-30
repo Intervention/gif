@@ -7,7 +7,9 @@ namespace Intervention\Gif;
 use ArrayIterator;
 use GdImage;
 use Intervention\Gif\Exceptions\CoreException;
+use Intervention\Gif\Exceptions\DecoderException;
 use Intervention\Gif\Exceptions\EncoderException;
+use Intervention\Gif\Exceptions\FilePointerException;
 use Intervention\Gif\Exceptions\InvalidArgumentException;
 use Intervention\Gif\Exceptions\SplitterException;
 use IteratorAggregate;
@@ -46,6 +48,18 @@ class Splitter implements IteratorAggregate
     public static function create(GifDataStream $stream): self
     {
         return new self($stream);
+    }
+
+    /**
+     * Decode raw data and create splitter in one step
+     *
+     * @throws InvalidArgumentException
+     * @throws FilePointerException
+     * @throws DecoderException
+     */
+    public static function decodeCreate(mixed $input): self
+    {
+        return new self(Decoder::decode($input));
     }
 
     /**

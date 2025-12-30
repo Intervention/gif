@@ -12,6 +12,12 @@ use Intervention\Gif\Tests\BaseTestCase;
 
 final class SplitterTest extends BaseTestCase
 {
+    public function testDecodeCreate(): void
+    {
+        $splitter = Splitter::decodeCreate($this->imagePath('animation1.gif'));
+        $this->assertInstanceOf(Splitter::class, $splitter);
+    }
+
     public function testSplit(): void
     {
         $decoded = Decoder::decode($this->imagePath('animation1.gif'));
