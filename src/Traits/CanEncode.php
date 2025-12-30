@@ -14,15 +14,15 @@ trait CanEncode
      */
     public function encode(): string
     {
-        return $this->getEncoder()->encode();
+        return $this->encoder()->encode();
     }
 
     /**
      * Get encoder object for current entity
      */
-    protected function getEncoder(): AbstractEncoder
+    protected function encoder(): AbstractEncoder
     {
-        $classname = sprintf('Intervention\Gif\Encoders\%sEncoder', $this->getShortClassname());
+        $classname = sprintf('Intervention\Gif\Encoders\%sEncoder', $this->shortClassname());
 
         if (!class_exists($classname)) {
             throw new EncoderException('Encoder for "' . $this::class . '" not found');

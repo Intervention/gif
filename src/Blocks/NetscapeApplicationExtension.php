@@ -24,9 +24,9 @@ class NetscapeApplicationExtension extends ApplicationExtension
     /**
      * Get number of loops
      */
-    public function getLoops(): int
+    public function loops(): int
     {
-        $unpacked = unpack('v*', substr($this->getFirstBlock()->getValue(), 1));
+        $unpacked = unpack('v*', substr($this->firstBlock()->value(), 1));
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
             throw new BlockException('Failed to calculate loop count');

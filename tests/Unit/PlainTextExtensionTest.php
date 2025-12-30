@@ -12,14 +12,14 @@ final class PlainTextExtensionTest extends BaseTestCase
     public function testSetGetText(): void
     {
         $extension = new PlainTextExtension();
-        $this->assertCount(0, $extension->getText());
+        $this->assertCount(0, $extension->text());
 
         $extension->addText('foo');
         $extension->addText('bar');
-        $this->assertCount(2, $extension->getText());
+        $this->assertCount(2, $extension->text());
 
         $extension->setText(['foo']);
-        $this->assertCount(1, $extension->getText());
+        $this->assertCount(1, $extension->text());
     }
 
     public function testEncode(): void
@@ -40,7 +40,7 @@ final class PlainTextExtensionTest extends BaseTestCase
         foreach ($sources as $source) {
             $extension = PlainTextExtension::decode($this->filePointer($source));
             $this->assertInstanceOf(PlainTextExtension::class, $extension);
-            $this->assertEquals(['foo', 'bar'], $extension->getText());
+            $this->assertEquals(['foo', 'bar'], $extension->text());
         }
     }
 }

@@ -12,7 +12,7 @@ class TableBasedImage extends AbstractEntity
     protected ?ColorTable $colorTable = null;
     protected ImageData $imageData;
 
-    public function getImageDescriptor(): ImageDescriptor
+    public function imageDescriptor(): ImageDescriptor
     {
         return $this->imageDescriptor;
     }
@@ -24,7 +24,7 @@ class TableBasedImage extends AbstractEntity
         return $this;
     }
 
-    public function getImageData(): ImageData
+    public function imageData(): ImageData
     {
         return $this->imageData;
     }
@@ -36,7 +36,7 @@ class TableBasedImage extends AbstractEntity
         return $this;
     }
 
-    public function getColorTable(): ?ColorTable
+    public function colorTable(): ?ColorTable
     {
         return $this->colorTable;
     }

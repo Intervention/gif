@@ -12,23 +12,23 @@ final class ImageDescriptorTest extends BaseTestCase
     public function testSetGetSize(): void
     {
         $desc = new ImageDescriptor();
-        $this->assertEquals(0, $desc->getWidth());
-        $this->assertEquals(0, $desc->getHeight());
+        $this->assertEquals(0, $desc->width());
+        $this->assertEquals(0, $desc->height());
 
         $desc->setSize(300, 200);
-        $this->assertEquals(300, $desc->getWidth());
-        $this->assertEquals(200, $desc->getHeight());
+        $this->assertEquals(300, $desc->width());
+        $this->assertEquals(200, $desc->height());
     }
 
     public function testSetGetPosition(): void
     {
         $desc = new ImageDescriptor();
-        $this->assertEquals(0, $desc->getTop());
-        $this->assertEquals(0, $desc->getLeft());
+        $this->assertEquals(0, $desc->top());
+        $this->assertEquals(0, $desc->left());
 
         $desc->setPosition(300, 200);
-        $this->assertEquals(300, $desc->getLeft());
-        $this->assertEquals(200, $desc->getTop());
+        $this->assertEquals(300, $desc->left());
+        $this->assertEquals(200, $desc->top());
     }
 
     public function testSetGetInterlaced(): void
@@ -46,37 +46,37 @@ final class ImageDescriptorTest extends BaseTestCase
     public function testLocalColorTableExistanceFlag(): void
     {
         $descriptor = new ImageDescriptor();
-        $this->assertFalse($descriptor->getLocalColorTableExistance());
+        $this->assertFalse($descriptor->localColorTableExistance());
 
         $descriptor->setLocalColorTableExistance();
-        $this->assertTrue($descriptor->getLocalColorTableExistance());
+        $this->assertTrue($descriptor->localColorTableExistance());
 
         $descriptor->setLocalColorTableExistance(false);
-        $this->assertFalse($descriptor->getLocalColorTableExistance());
+        $this->assertFalse($descriptor->localColorTableExistance());
     }
 
     public function testLocalColorTableSortFlag(): void
     {
         $descriptor = new ImageDescriptor();
-        $this->assertFalse($descriptor->getLocalColorTableSorted());
+        $this->assertFalse($descriptor->localColorTableSorted());
 
         $descriptor->setLocalColorTableSorted();
-        $this->assertTrue($descriptor->getLocalColorTableSorted());
+        $this->assertTrue($descriptor->localColorTableSorted());
 
         $descriptor->setLocalColorTableSorted(false);
-        $this->assertFalse($descriptor->getLocalColorTableSorted());
+        $this->assertFalse($descriptor->localColorTableSorted());
     }
 
     public function testLocalColorTableSize(): void
     {
         $descriptor = new ImageDescriptor();
-        $this->assertEquals(0, $descriptor->getLocalColorTableSize());
+        $this->assertEquals(0, $descriptor->localColorTableSize());
 
         $descriptor->setLocalColorTableSize(7);
-        $this->assertEquals(7, $descriptor->getLocalColorTableSize());
+        $this->assertEquals(7, $descriptor->localColorTableSize());
 
         $descriptor->setLocalColorTableSize(2);
-        $this->assertEquals(2, $descriptor->getLocalColorTableSize());
+        $this->assertEquals(2, $descriptor->localColorTableSize());
     }
 
     public function testEncode(): void
@@ -125,13 +125,13 @@ final class ImageDescriptorTest extends BaseTestCase
         $source = "\x2C\x05\x00\x00\x00\x2c\x01\xc8\x00\xc4";
         $descriptor = ImageDescriptor::decode($this->filePointer($source));
         $this->assertInstanceOf(ImageDescriptor::class, $descriptor);
-        $this->assertEquals(300, $descriptor->getWidth());
-        $this->assertEquals(200, $descriptor->getHeight());
-        $this->assertEquals(0, $descriptor->getTop());
-        $this->assertEquals(5, $descriptor->getLeft());
-        $this->assertTrue($descriptor->getLocalColorTableExistance());
-        $this->assertFalse($descriptor->getLocalColorTableSorted());
-        $this->assertEquals(4, $descriptor->getLocalColorTableSize());
+        $this->assertEquals(300, $descriptor->width());
+        $this->assertEquals(200, $descriptor->height());
+        $this->assertEquals(0, $descriptor->top());
+        $this->assertEquals(5, $descriptor->left());
+        $this->assertTrue($descriptor->localColorTableExistance());
+        $this->assertFalse($descriptor->localColorTableSorted());
+        $this->assertEquals(4, $descriptor->localColorTableSize());
         $this->assertTrue($descriptor->isInterlaced());
     }
 }

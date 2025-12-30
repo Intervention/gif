@@ -16,9 +16,9 @@ class ColorDecoder extends AbstractDecoder
     {
         $color = new Color();
 
-        $color->setRed($this->decodeColorValue($this->getNextByteOrFail()));
-        $color->setGreen($this->decodeColorValue($this->getNextByteOrFail()));
-        $color->setBlue($this->decodeColorValue($this->getNextByteOrFail()));
+        $color->setRed($this->decodeColorValue($this->nextByteOrFail()));
+        $color->setGreen($this->decodeColorValue($this->nextByteOrFail()));
+        $color->setBlue($this->decodeColorValue($this->nextByteOrFail()));
 
         return $color;
     }

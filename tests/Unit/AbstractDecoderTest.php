@@ -13,7 +13,7 @@ final class AbstractDecoderTest extends BaseTestCase
     {
         $filePointer = $this->filePointer('foobarbaz');
         $decoder = $this->decoder($filePointer, 12);
-        $this->assertEquals(12, $decoder->getLength());
+        $this->assertEquals(12, $decoder->length());
     }
 
     public function testSetFilePointer(): void
@@ -27,9 +27,9 @@ final class AbstractDecoderTest extends BaseTestCase
     public function testSetGetLength(): void
     {
         $decoder = $this->decoder($this->filePointer('foobarbaz'));
-        $this->assertNull($decoder->getLength());
+        $this->assertNull($decoder->length());
         $decoder->setLength(1);
-        $this->assertEquals(1, $decoder->getLength());
+        $this->assertEquals(1, $decoder->length());
     }
 
     private function decoder(mixed $filePointer, ?int $length = null): AbstractDecoder

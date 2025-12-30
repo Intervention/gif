@@ -14,7 +14,7 @@ class DataSubBlockDecoder extends AbstractDecoder
      */
     public function decode(): DataSubBlock
     {
-        $char = $this->getNextByteOrFail();
+        $char = $this->nextByteOrFail();
         $unpacked = unpack('C', $char);
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
@@ -23,6 +23,6 @@ class DataSubBlockDecoder extends AbstractDecoder
 
         $size = (int) $unpacked[1];
 
-        return new DataSubBlock($this->getNextBytesOrFail($size));
+        return new DataSubBlock($this->nextBytesOrFail($size));
     }
 }

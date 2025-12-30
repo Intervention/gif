@@ -36,7 +36,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeLeft(): string
     {
-        return pack('v*', $this->source->getLeft());
+        return pack('v*', $this->source->left());
     }
 
     /**
@@ -44,7 +44,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeTop(): string
     {
-        return pack('v*', $this->source->getTop());
+        return pack('v*', $this->source->top());
     }
 
     /**
@@ -52,7 +52,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeWidth(): string
     {
-        return pack('v*', $this->source->getWidth());
+        return pack('v*', $this->source->width());
     }
 
     /**
@@ -60,7 +60,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeHeight(): string
     {
-        return pack('v*', $this->source->getHeight());
+        return pack('v*', $this->source->height());
     }
 
     /**
@@ -68,7 +68,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeLocalColorTableSize(): string
     {
-        return str_pad(decbin($this->source->getLocalColorTableSize()), 3, '0', STR_PAD_LEFT);
+        return str_pad(decbin($this->source->localColorTableSize()), 3, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -85,9 +85,9 @@ class ImageDescriptorEncoder extends AbstractEncoder
     protected function encodePackedField(): string
     {
         return pack('C', bindec(implode('', [
-            (int) $this->source->getLocalColorTableExistance(),
+            (int) $this->source->localColorTableExistance(),
             (int) $this->source->isInterlaced(),
-            (int) $this->source->getLocalColorTableSorted(),
+            (int) $this->source->localColorTableSorted(),
             $this->encodeReservedField(),
             $this->encodeLocalColorTableSize(),
         ])));

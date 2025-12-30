@@ -68,60 +68,60 @@ final class FrameBlockTest extends BaseTestCase
 
         $block = FrameBlock::decode($this->filePointer($source));
         $this->assertInstanceOf(FrameBlock::class, $block);
-        $this->assertInstanceOf(GraphicControlExtension::class, $block->getGraphicControlExtension());
-        $this->assertInstanceOf(NetscapeApplicationExtension::class, $block->getNetscapeExtension());
-        $this->assertInstanceOf(PlainTextExtension::class, $block->getPlainTextExtension());
-        $this->assertCount(2, $block->getApplicationExtensions());
-        $this->assertCount(2, $block->getCommentExtensions());
+        $this->assertInstanceOf(GraphicControlExtension::class, $block->graphicControlExtension());
+        $this->assertInstanceOf(NetscapeApplicationExtension::class, $block->netscapeExtension());
+        $this->assertInstanceOf(PlainTextExtension::class, $block->plainTextExtension());
+        $this->assertCount(2, $block->applicationExtensions());
+        $this->assertCount(2, $block->commentExtensions());
     }
 
     public function testAddGetNetscapeExtension(): void
     {
         $frame = new FrameBlock();
-        $this->assertNull($frame->getNetscapeExtension());
+        $this->assertNull($frame->netscapeExtension());
 
         $frame->addApplicationExtension(new ApplicationExtension());
-        $this->assertNull($frame->getNetscapeExtension());
+        $this->assertNull($frame->netscapeExtension());
 
         $frame->addApplicationExtension(new NetscapeApplicationExtension());
-        $this->assertInstanceOf(NetscapeApplicationExtension::class, $frame->getNetscapeExtension());
+        $this->assertInstanceOf(NetscapeApplicationExtension::class, $frame->netscapeExtension());
     }
 
     public function testSetGetGraphicControlExtension(): void
     {
         $frame = new FrameBlock();
-        $this->assertNull($frame->getGraphicControlExtension());
+        $this->assertNull($frame->graphicControlExtension());
         $frame->setGraphicControlExtension(new GraphicControlExtension());
-        $this->assertInstanceOf(GraphicControlExtension::class, $frame->getGraphicControlExtension());
+        $this->assertInstanceOf(GraphicControlExtension::class, $frame->graphicControlExtension());
     }
 
     public function testSetGetImageDescriptor(): void
     {
         $frame = new FrameBlock();
         $frame->setImageDescriptor(new ImageDescriptor());
-        $this->assertInstanceOf(ImageDescriptor::class, $frame->getImageDescriptor());
+        $this->assertInstanceOf(ImageDescriptor::class, $frame->imageDescriptor());
     }
 
     public function testSetGetImageData(): void
     {
         $frame = new FrameBlock();
         $frame->setImageData(new ImageData());
-        $this->assertInstanceOf(ImageData::class, $frame->getImageData());
+        $this->assertInstanceOf(ImageData::class, $frame->imageData());
     }
 
     public function testSetGetColorTable(): void
     {
         $frame = new FrameBlock();
-        $this->assertNull($frame->getColorTable());
+        $this->assertNull($frame->colorTable());
         $frame->setColorTable(new ColorTable());
-        $this->assertInstanceOf(ColorTable::class, $frame->getColorTable());
+        $this->assertInstanceOf(ColorTable::class, $frame->colorTable());
     }
 
     public function testSetGetPlainTextExtension(): void
     {
         $frame = new FrameBlock();
-        $this->assertNull($frame->getPlainTextExtension());
+        $this->assertNull($frame->plainTextExtension());
         $frame->setPlainTextExtension(new PlainTextExtension());
-        $this->assertInstanceOf(PlainTextExtension::class, $frame->getPlainTextExtension());
+        $this->assertInstanceOf(PlainTextExtension::class, $frame->plainTextExtension());
     }
 }

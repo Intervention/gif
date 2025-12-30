@@ -26,7 +26,7 @@ class ApplicationExtension extends AbstractExtension
     /**
      * Get size of block
      */
-    public function getBlockSize(): int
+    public function blockSize(): int
     {
         return strlen($this->application);
     }
@@ -44,7 +44,7 @@ class ApplicationExtension extends AbstractExtension
     /**
      * Get application name
      */
-    public function getApplication(): string
+    public function application(): string
     {
         return $this->application;
     }
@@ -76,7 +76,7 @@ class ApplicationExtension extends AbstractExtension
      *
      * @return array<DataSubBlock>
      */
-    public function getBlocks(): array
+    public function blocks(): array
     {
         return $this->blocks;
     }
@@ -84,7 +84,7 @@ class ApplicationExtension extends AbstractExtension
     /**
      * Get first block of ApplicationExtension
      */
-    public function getFirstBlock(): DataSubBlock
+    public function firstBlock(): DataSubBlock
     {
         if (!array_key_exists(0, $this->blocks)) {
             throw new BlockException('Failed to retrieve data sub block');

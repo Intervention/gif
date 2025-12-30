@@ -35,7 +35,7 @@ abstract class AbstractDecoder
     /**
      * Read given number of bytes and move file pointer
      */
-    protected function getNextBytesOrFail(int $length): string
+    protected function nextBytesOrFail(int $length): string
     {
         if ($length < 1) {
             throw new InvalidArgumentException('The length of the next byte chain must be at least one byte');
@@ -54,7 +54,7 @@ abstract class AbstractDecoder
      */
     protected function viewNextBytesOrFail(int $length): string
     {
-        $bytes = $this->getNextBytesOrFail($length);
+        $bytes = $this->nextBytesOrFail($length);
         $this->movePointer($length * -1);
 
         return $bytes;
@@ -71,7 +71,7 @@ abstract class AbstractDecoder
     /**
      * Read all remaining bytes from file pointer
      */
-    protected function getRemainingBytes(): string
+    protected function remainingBytes(): string
     {
         $all = '';
         do {
@@ -85,9 +85,9 @@ abstract class AbstractDecoder
     /**
      * Get next byte in stream and move file pointer
      */
-    protected function getNextByteOrFail(): string
+    protected function nextByteOrFail(): string
     {
-        return $this->getNextBytesOrFail(1);
+        return $this->nextBytesOrFail(1);
     }
 
     /**
@@ -127,7 +127,7 @@ abstract class AbstractDecoder
     /**
      * Get length
      */
-    public function getLength(): ?int
+    public function length(): ?int
     {
         return $this->length;
     }
@@ -135,7 +135,7 @@ abstract class AbstractDecoder
     /**
      * Get current file pointer position
      */
-    public function getPosition(): int
+    public function position(): int
     {
         $position = ftell($this->filePointer);
 

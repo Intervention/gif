@@ -33,7 +33,7 @@ class Color extends AbstractEntity
     /**
      * Get red value
      */
-    public function getRed(): int
+    public function red(): int
     {
         return $this->r;
     }
@@ -51,7 +51,7 @@ class Color extends AbstractEntity
     /**
      * Get green value
      */
-    public function getGreen(): int
+    public function green(): int
     {
         return $this->g;
     }
@@ -69,7 +69,7 @@ class Color extends AbstractEntity
     /**
      * Get blue value
      */
-    public function getBlue(): int
+    public function blue(): int
     {
         return $this->b;
     }
@@ -87,7 +87,7 @@ class Color extends AbstractEntity
     /**
      * Return hash value of current color
      */
-    public function getHash(): string
+    public function hash(): string
     {
         return md5(strval($this->r . $this->g . $this->b));
     }

@@ -71,7 +71,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Get width of current instance
      */
-    public function getWidth(): int
+    public function width(): int
     {
         return $this->width;
     }
@@ -79,7 +79,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Get height of current instance
      */
-    public function getHeight(): int
+    public function height(): int
     {
         return $this->height;
     }
@@ -87,17 +87,17 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Determine if global color table is present
      */
-    public function getGlobalColorTableExistance(): bool
+    public function globalColorTableExistance(): bool
     {
         return $this->globalColorTableExistance;
     }
 
     /**
-     * Alias of getGlobalColorTableExistance
+     * Alias of globalColorTableExistance
      */
     public function hasGlobalColorTable(): bool
     {
-        return $this->getGlobalColorTableExistance();
+        return $this->globalColorTableExistance();
     }
 
     /**
@@ -113,7 +113,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Get global color table sorted flag
      */
-    public function getGlobalColorTableSorted(): bool
+    public function globalColorTableSorted(): bool
     {
         return $this->globalColorTableSorted;
     }
@@ -131,7 +131,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Get size of global color table
      */
-    public function getGlobalColorTableSize(): int
+    public function globalColorTableSize(): int
     {
         return $this->globalColorTableSize;
     }
@@ -139,9 +139,9 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Get byte size of global color table
      */
-    public function getGlobalColorTableByteSize(): int
+    public function globalColorTableByteSize(): int
     {
-        return 3 * pow(2, $this->getGlobalColorTableSize() + 1);
+        return 3 * pow(2, $this->globalColorTableSize() + 1);
     }
 
     /**
@@ -157,7 +157,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Get background color index
      */
-    public function getBackgroundColorIndex(): int
+    public function backgroundColorIndex(): int
     {
         return $this->backgroundColorIndex;
     }
@@ -175,7 +175,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Get current pixel aspect ration
      */
-    public function getPixelAspectRatio(): int
+    public function pixelAspectRatio(): int
     {
         return $this->pixelAspectRatio;
     }
@@ -193,7 +193,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     /**
      * Get color resolution
      */
-    public function getBitsPerPixel(): int
+    public function bitsPerPixel(): int
     {
         return $this->bitsPerPixel;
     }

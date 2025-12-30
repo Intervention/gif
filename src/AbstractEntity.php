@@ -20,7 +20,7 @@ abstract class AbstractEntity implements Stringable
     /**
      * Get short classname of current instance
      */
-    public static function getShortClassname(): ?string
+    public static function shortClassname(): ?string
     {
         try {
             return (new ReflectionClass(static::class))->getShortName();

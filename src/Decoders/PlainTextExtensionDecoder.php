@@ -17,10 +17,10 @@ class PlainTextExtensionDecoder extends AbstractDecoder
         $extension = new PlainTextExtension();
 
         // skip marker & label
-        $this->getNextBytesOrFail(2);
+        $this->nextBytesOrFail(2);
 
         // skip info block
-        $this->getNextBytesOrFail($this->getInfoBlockSize());
+        $this->nextBytesOrFail($this->infoBlockSize());
 
         // text blocks
         $extension->setText($this->decodeTextBlocks());
@@ -31,9 +31,9 @@ class PlainTextExtensionDecoder extends AbstractDecoder
     /**
      * Get number of bytes in header block
      */
-    protected function getInfoBlockSize(): int
+    protected function infoBlockSize(): int
     {
-        $unpacked = unpack('C', $this->getNextByteOrFail());
+        $unpacked = unpack('C', $this->nextByteOrFail());
 
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
             throw new DecoderException('Failed to decode info block size of plain text extension');
@@ -52,7 +52,7 @@ class PlainTextExtensionDecoder extends AbstractDecoder
         $blocks = [];
 
         do {
-            $char = $this->getNextByteOrFail();
+            $char = $this->nextByteOrFail();
             $unpacked = unpack('C', $char);
             if ($unpacked === false || !array_key_exists(1, $unpacked)) {
                 throw new DecoderException('Failed to decode text blocks in plain text extension');
@@ -61,7 +61,7 @@ class PlainTextExtensionDecoder extends AbstractDecoder
             $size = (int) $unpacked[1];
 
             if ($size > 0) {
-                $blocks[] = $this->getNextBytesOrFail($size);
+                $blocks[] = $this->nextBytesOrFail($size);
             }
         } while ($char !== PlainTextExtension::TERMINATOR);
 

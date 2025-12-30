@@ -19,7 +19,7 @@ class ImageDataDecoder extends AbstractDecoder
         $data = new ImageData();
 
         // LZW min. code size
-        $char = $this->getNextByteOrFail();
+        $char = $this->nextByteOrFail();
         $unpacked = unpack('C', $char);
         if ($unpacked === false || !array_key_exists(1, $unpacked)) {
             throw new DecoderException('Failed to decode lzw min. code size in image data');
@@ -29,7 +29,7 @@ class ImageDataDecoder extends AbstractDecoder
 
         do {
             // decode sub blocks
-            $char = $this->getNextByteOrFail();
+            $char = $this->nextByteOrFail();
             $unpacked = unpack('C', $char);
             if ($unpacked === false || !array_key_exists(1, $unpacked)) {
                 throw new DecoderException('Failed to decode image data sub block in image data');
@@ -38,7 +38,7 @@ class ImageDataDecoder extends AbstractDecoder
             $size = intval($unpacked[1]);
 
             if ($size > 0) {
-                $data->addBlock(new DataSubBlock($this->getNextBytesOrFail($size)));
+                $data->addBlock(new DataSubBlock($this->nextBytesOrFail($size)));
             }
         } while ($char !== AbstractEntity::TERMINATOR);
 

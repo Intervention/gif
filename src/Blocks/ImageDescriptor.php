@@ -54,7 +54,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Get current width
      */
-    public function getWidth(): int
+    public function width(): int
     {
         return $this->width;
     }
@@ -62,7 +62,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Get current width
      */
-    public function getHeight(): int
+    public function height(): int
     {
         return $this->height;
     }
@@ -70,7 +70,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Get current Top
      */
-    public function getTop(): int
+    public function top(): int
     {
         return $this->top;
     }
@@ -78,7 +78,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Get current Left
      */
-    public function getLeft(): int
+    public function left(): int
     {
         return $this->left;
     }
@@ -134,17 +134,17 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Determine if local color table is present
      */
-    public function getLocalColorTableExistance(): bool
+    public function localColorTableExistance(): bool
     {
         return $this->localColorTableExistance;
     }
 
     /**
-     * Alias for getLocalColorTableExistance
+     * Alias for localColorTableExistance
      */
     public function hasLocalColorTable(): bool
     {
-        return $this->getLocalColorTableExistance();
+        return $this->localColorTableExistance();
     }
 
     /**
@@ -160,7 +160,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Get local color table sorted flag
      */
-    public function getLocalColorTableSorted(): bool
+    public function localColorTableSorted(): bool
     {
         return $this->localColorTableSorted;
     }
@@ -178,7 +178,7 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Get size of local color table
      */
-    public function getLocalColorTableSize(): int
+    public function localColorTableSize(): int
     {
         return $this->localColorTableSize;
     }
@@ -186,9 +186,9 @@ class ImageDescriptor extends AbstractEntity
     /**
      * Get byte size of global color table
      */
-    public function getLocalColorTableByteSize(): int
+    public function localColorTableByteSize(): int
     {
-        return 3 * pow(2, $this->getLocalColorTableSize() + 1);
+        return 3 * pow(2, $this->localColorTableSize() + 1);
     }
 
     /**

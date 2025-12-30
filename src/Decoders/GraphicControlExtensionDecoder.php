@@ -18,24 +18,24 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
         $result = new GraphicControlExtension();
 
         // bytes 1-3
-        $this->getNextBytesOrFail(3); // skip marker, label & bytesize
+        $this->nextBytesOrFail(3); // skip marker, label & bytesize
 
         // byte #4
-        $packedField = $this->getNextByteOrFail();
+        $packedField = $this->nextByteOrFail();
         $result->setDisposalMethod($this->decodeDisposalMethod($packedField));
         $result->setUserInput($this->decodeUserInput($packedField));
         $result->setTransparentColorExistance($this->decodeTransparentColorExistance($packedField));
 
         // bytes 5-6
-        $result->setDelay($this->decodeDelay($this->getNextBytesOrFail(2)));
+        $result->setDelay($this->decodeDelay($this->nextBytesOrFail(2)));
 
         // byte #7
         $result->setTransparentColorIndex($this->decodeTransparentColorIndex(
-            $this->getNextByteOrFail()
+            $this->nextByteOrFail()
         ));
 
         // byte #8 (terminator)
-        $this->getNextByteOrFail();
+        $this->nextByteOrFail();
 
         return $result;
     }
@@ -46,7 +46,7 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
     protected function decodeDisposalMethod(string $byte): DisposalMethod
     {
         return DisposalMethod::from(
-            intval(bindec($this->getPackedBits($byte, 3, 3)))
+            intval(bindec($this->packedBits($byte, 3, 3)))
         );
     }
 

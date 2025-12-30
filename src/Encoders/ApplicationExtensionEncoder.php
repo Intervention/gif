@@ -25,9 +25,9 @@ class ApplicationExtensionEncoder extends AbstractEncoder
         return implode('', [
             ApplicationExtension::MARKER,
             ApplicationExtension::LABEL,
-            pack('C', $this->source->getBlockSize()),
-            $this->source->getApplication(),
-            implode('', array_map(fn(DataSubBlock $block): string => $block->encode(), $this->source->getBlocks())),
+            pack('C', $this->source->blockSize()),
+            $this->source->application(),
+            implode('', array_map(fn(DataSubBlock $block): string => $block->encode(), $this->source->blocks())),
             ApplicationExtension::TERMINATOR,
         ]);
     }

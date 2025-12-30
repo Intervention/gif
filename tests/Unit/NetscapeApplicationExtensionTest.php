@@ -41,24 +41,24 @@ final class NetscapeApplicationExtensionTest extends BaseTestCase
         $source = "\x21\xFF\x0B\x4E\x45\x54\x53\x43\x41\x50\x45\x32\x2E\x30\x03\x01\x00\x00\x00";
         $extension = NetscapeApplicationExtension::decode($this->filePointer($source));
         $this->assertInstanceOf(NetscapeApplicationExtension::class, $extension);
-        $this->assertEquals(0, $extension->getLoops());
+        $this->assertEquals(0, $extension->loops());
 
         // loops = 1
         $source = "\x21\xFF\x0B\x4E\x45\x54\x53\x43\x41\x50\x45\x32\x2E\x30\x03\x01\x01\x00\x00";
         $extension = NetscapeApplicationExtension::decode($this->filePointer($source));
         $this->assertInstanceOf(NetscapeApplicationExtension::class, $extension);
-        $this->assertEquals(1, $extension->getLoops());
+        $this->assertEquals(1, $extension->loops());
 
         // loops = 26
         $source = "\x21\xFF\x0B\x4E\x45\x54\x53\x43\x41\x50\x45\x32\x2E\x30\x03\x01\x1A\x00\x00";
         $extension = NetscapeApplicationExtension::decode($this->filePointer($source));
         $this->assertInstanceOf(NetscapeApplicationExtension::class, $extension);
-        $this->assertEquals(26, $extension->getLoops());
+        $this->assertEquals(26, $extension->loops());
 
         // loops = 111034
         $source = "\x21\xFF\x0B\x4E\x45\x54\x53\x43\x41\x50\x45\x32\x2E\x30\x03\x01\x1A\x2B\x00";
         $extension = NetscapeApplicationExtension::decode($this->filePointer($source));
         $this->assertInstanceOf(NetscapeApplicationExtension::class, $extension);
-        $this->assertEquals(11034, $extension->getLoops());
+        $this->assertEquals(11034, $extension->loops());
     }
 }

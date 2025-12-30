@@ -14,7 +14,7 @@ class DataSubBlock extends AbstractEntity
      */
     public function __construct(protected string $value)
     {
-        if ($this->getSize() > 255) {
+        if ($this->size() > 255) {
             throw new InvalidArgumentException(
                 'Data Sub-Block can not have a block size larger than 255 bytes'
             );
@@ -24,7 +24,7 @@ class DataSubBlock extends AbstractEntity
     /**
      * Return size of current block
      */
-    public function getSize(): int
+    public function size(): int
     {
         return strlen($this->value);
     }
@@ -32,7 +32,7 @@ class DataSubBlock extends AbstractEntity
     /**
      * Return block value
      */
-    public function getValue(): string
+    public function value(): string
     {
         return $this->value;
     }

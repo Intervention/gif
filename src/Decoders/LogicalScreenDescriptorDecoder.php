@@ -18,12 +18,12 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
         // bytes 1-4
         $logicalScreenDescriptor->setSize(
-            $this->decodeWidth($this->getNextBytesOrFail(2)),
-            $this->decodeHeight($this->getNextBytesOrFail(2))
+            $this->decodeWidth($this->nextBytesOrFail(2)),
+            $this->decodeHeight($this->nextBytesOrFail(2))
         );
 
         // byte 5
-        $packedField = $this->getNextByteOrFail();
+        $packedField = $this->nextByteOrFail();
 
         $logicalScreenDescriptor->setGlobalColorTableExistance(
             $this->decodeGlobalColorTableExistance($packedField)
@@ -43,12 +43,12 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
         // byte 6
         $logicalScreenDescriptor->setBackgroundColorIndex(
-            $this->decodeBackgroundColorIndex($this->getNextByteOrFail())
+            $this->decodeBackgroundColorIndex($this->nextByteOrFail())
         );
 
         // byte 7
         $logicalScreenDescriptor->setPixelAspectRatio(
-            $this->decodePixelAspectRatio($this->getNextByteOrFail())
+            $this->decodePixelAspectRatio($this->nextByteOrFail())
         );
 
         return $logicalScreenDescriptor;
@@ -95,7 +95,7 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
      */
     protected function decodeBitsPerPixel(string $byte): int
     {
-        return intval(bindec($this->getPackedBits($byte, 1, 3))) + 1;
+        return intval(bindec($this->packedBits($byte, 1, 3))) + 1;
     }
 
     /**
@@ -111,7 +111,7 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
      */
     protected function decodeGlobalColorTableSize(string $byte): int
     {
-        return intval(bindec($this->getPackedBits($byte, 5, 3)));
+        return intval(bindec($this->packedBits($byte, 5, 3)));
     }
 
     /**

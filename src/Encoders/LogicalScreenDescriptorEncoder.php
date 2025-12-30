@@ -35,7 +35,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeWidth(): string
     {
-        return pack('v*', $this->source->getWidth());
+        return pack('v*', $this->source->width());
     }
 
     /**
@@ -43,7 +43,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeHeight(): string
     {
-        return pack('v*', $this->source->getHeight());
+        return pack('v*', $this->source->height());
     }
 
     /**
@@ -51,7 +51,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeBackgroundColorIndex(): string
     {
-        return pack('C', $this->source->getBackgroundColorIndex());
+        return pack('C', $this->source->backgroundColorIndex());
     }
 
     /**
@@ -59,7 +59,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodePixelAspectRatio(): string
     {
-        return pack('C', $this->source->getPixelAspectRatio());
+        return pack('C', $this->source->pixelAspectRatio());
     }
 
     /**
@@ -67,7 +67,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeColorResolution(): string
     {
-        return str_pad(decbin($this->source->getBitsPerPixel() - 1), 3, '0', STR_PAD_LEFT);
+        return str_pad(decbin($this->source->bitsPerPixel() - 1), 3, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -75,7 +75,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeGlobalColorTableSize(): string
     {
-        return str_pad(decbin($this->source->getGlobalColorTableSize()), 3, '0', STR_PAD_LEFT);
+        return str_pad(decbin($this->source->globalColorTableSize()), 3, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -84,9 +84,9 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
     protected function encodePackedField(): string
     {
         return pack('C', bindec(implode('', [
-            (int) $this->source->getGlobalColorTableExistance(),
+            (int) $this->source->globalColorTableExistance(),
             $this->encodeColorResolution(),
-            (int) $this->source->getGlobalColorTableSorted(),
+            (int) $this->source->globalColorTableSorted(),
             $this->encodeGlobalColorTableSize(),
         ])));
     }

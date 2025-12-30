@@ -28,10 +28,10 @@ final class ColorTableTest extends BaseTestCase
         $table->addRgb(0, 0, 0);
         $table->addRgb(0, 255, 0);
 
-        $this->assertIsArray($table->getColors());
-        $this->assertCount(2, $table->getColors());
+        $this->assertIsArray($table->colors());
+        $this->assertCount(2, $table->colors());
 
-        foreach (array_keys($table->getColors()) as $key) {
+        foreach (array_keys($table->colors()) as $key) {
             $this->assertIsNumeric($key);
         }
     }
@@ -85,25 +85,25 @@ final class ColorTableTest extends BaseTestCase
     public function testGetLogicalSize(): void
     {
         $table = new ColorTable();
-        $this->assertEquals(0, $table->getLogicalSize());
+        $this->assertEquals(0, $table->logicalSize());
         $table->addRgb(0, 0, 0);
         $table->addRgb(255, 0, 0);
         $table->addRgb(255, 255, 0);
         $table->addRgb(255, 255, 255);
-        $this->assertEquals(1, $table->getLogicalSize());
+        $this->assertEquals(1, $table->logicalSize());
     }
 
     public function testGetByteSize(): void
     {
         $table = new ColorTable();
-        $this->assertEquals(0, $table->getByteSize());
+        $this->assertEquals(0, $table->byteSize());
 
         $table->addRgb(0, 0, 0);
         $table->addRgb(255, 0, 0);
         $table->addRgb(255, 255, 0);
         $table->addRgb(255, 255, 255);
 
-        $this->assertEquals(12, $table->getByteSize());
+        $this->assertEquals(12, $table->byteSize());
     }
 
     public function testEncode(): void

@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 abstract class BaseTestCase extends TestCase
 {
-    public static function getTestImagePath(string $filename = 'animation1.gif'): string
+    public static function imagePath(string $filename = 'animation1.gif'): string
     {
         return sprintf('%s/images/%s', __DIR__, $filename);
     }
@@ -33,12 +33,12 @@ abstract class BaseTestCase extends TestCase
         return $filePointer;
     }
 
-    protected function getTestHeader(): Header
+    protected function header(): Header
     {
         return new Header();
     }
 
-    protected function getTestColorTable(): ColorTable
+    protected function colorTable(): ColorTable
     {
         $table = new ColorTable();
         $table->addRgb(0, 0, 0);
@@ -49,7 +49,7 @@ abstract class BaseTestCase extends TestCase
         return $table;
     }
 
-    protected function getTestImageData(): ImageData
+    protected function imageData(): ImageData
     {
         $data = new ImageData();
         $data->setLzwMinCodeSize(5);
@@ -61,7 +61,7 @@ abstract class BaseTestCase extends TestCase
         return $data;
     }
 
-    protected function getTestImageDescriptor(
+    protected function imageDescriptor(
         int $size_x = 10,
         int $size_y = 10,
         int $pos_x = 0,
@@ -74,7 +74,7 @@ abstract class BaseTestCase extends TestCase
         return $descriptor;
     }
 
-    protected function getTestGraphicControlExtension(
+    protected function graphicControlExtension(
         int $delay = 120,
         DisposalMethod $disposalMethod = DisposalMethod::PREVIOUS
     ): GraphicControlExtension {
@@ -88,7 +88,7 @@ abstract class BaseTestCase extends TestCase
         return $extension;
     }
 
-    protected function getTestNetscapeApplicationExtension(int $loops = 12): NetscapeApplicationExtension
+    protected function netscapeApplicationExtension(int $loops = 12): NetscapeApplicationExtension
     {
         $extension = new NetscapeApplicationExtension();
         $extension->setLoops($loops);
@@ -96,7 +96,7 @@ abstract class BaseTestCase extends TestCase
         return $extension;
     }
 
-    protected function getTestCommentExtension(): CommentExtension
+    protected function commentExtension(): CommentExtension
     {
         $extension = new CommentExtension();
         $extension->addComment('foo');
@@ -106,7 +106,7 @@ abstract class BaseTestCase extends TestCase
         return $extension;
     }
 
-    protected function getTestLogicalScreenDescriptor(
+    protected function logicalScreenDescriptor(
         int $width = 100,
         int $height = 20
     ): LogicalScreenDescriptor {
@@ -116,14 +116,15 @@ abstract class BaseTestCase extends TestCase
         return $descriptor;
     }
 
-    protected function getTestFrame(): FrameBlock
+    // TODO: move to provider class
+    protected function frame(): FrameBlock
     {
         $block = new FrameBlock();
-        $block->setGraphicControlExtension($this->getTestGraphicControlExtension());
-        $block->setImageDescriptor($this->getTestImageDescriptor());
-        $block->setImageData($this->getTestImageData());
-        $block->addApplicationExtension($this->getTestNetscapeApplicationExtension());
-        $block->addCommentExtension($this->getTestCommentExtension());
+        $block->setGraphicControlExtension($this->graphicControlExtension());
+        $block->setImageDescriptor($this->imageDescriptor());
+        $block->setImageData($this->imageData());
+        $block->addApplicationExtension($this->netscapeApplicationExtension());
+        $block->addCommentExtension($this->commentExtension());
 
         return $block;
     }

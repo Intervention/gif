@@ -22,7 +22,7 @@ class CommentExtension extends AbstractExtension
      *
      * @return array<string>
      */
-    public function getComments(): array
+    public function comments(): array
     {
         return $this->comments;
     }
@@ -30,7 +30,7 @@ class CommentExtension extends AbstractExtension
     /**
      * Get one comment by key
      */
-    public function getComment(int $key): mixed
+    public function comment(int $key): mixed
     {
         return $this->comments[$key] ?? null;
     }

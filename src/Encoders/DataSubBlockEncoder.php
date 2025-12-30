@@ -21,6 +21,6 @@ class DataSubBlockEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        return pack('C', $this->source->getSize()) . $this->source->getValue();
+        return pack('C', $this->source->size()) . $this->source->value();
     }
 }

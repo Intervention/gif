@@ -15,19 +15,19 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
     {
         $descriptor = new ImageDescriptor();
 
-        $this->getNextByteOrFail(); // skip separator
+        $this->nextByteOrFail(); // skip separator
 
         $descriptor->setPosition(
-            $this->decodeMultiByte($this->getNextBytesOrFail(2)),
-            $this->decodeMultiByte($this->getNextBytesOrFail(2))
+            $this->decodeMultiByte($this->nextBytesOrFail(2)),
+            $this->decodeMultiByte($this->nextBytesOrFail(2))
         );
 
         $descriptor->setSize(
-            $this->decodeMultiByte($this->getNextBytesOrFail(2)),
-            $this->decodeMultiByte($this->getNextBytesOrFail(2))
+            $this->decodeMultiByte($this->nextBytesOrFail(2)),
+            $this->decodeMultiByte($this->nextBytesOrFail(2))
         );
 
-        $packedField = $this->getNextByteOrFail();
+        $packedField = $this->nextByteOrFail();
 
         $descriptor->setLocalColorTableExistance(
             $this->decodeLocalColorTableExistance($packedField)
@@ -69,7 +69,7 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
      */
     protected function decodeLocalColorTableSize(string $byte): int
     {
-        return (int) bindec($this->getPackedBits($byte, 5, 3));
+        return (int) bindec($this->packedBits($byte, 5, 3));
     }
 
     /**

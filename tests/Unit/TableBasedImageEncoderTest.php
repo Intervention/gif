@@ -17,7 +17,7 @@ final class TableBasedImageEncoderTest extends BaseTestCase
     {
         $tbi = new TableBasedImage();
         $tbi->setImageDescriptor(
-            $this->getTestImageDescriptor()
+            $this->imageDescriptor()
                 ->setSize(10, 10)
                 ->setPosition(10, 10)
         );

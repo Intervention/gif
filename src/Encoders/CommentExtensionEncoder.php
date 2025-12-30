@@ -36,6 +36,6 @@ class CommentExtensionEncoder extends AbstractEncoder
     {
         return implode('', array_map(function (string $comment): string {
             return pack('C', strlen($comment)) . $comment;
-        }, $this->source->getComments()));
+        }, $this->source->comments()));
     }
 }

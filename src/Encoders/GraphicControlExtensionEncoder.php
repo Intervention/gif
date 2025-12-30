@@ -37,7 +37,7 @@ class GraphicControlExtensionEncoder extends AbstractEncoder
      */
     protected function encodeDelay(): string
     {
-        return pack('v*', $this->source->getDelay());
+        return pack('v*', $this->source->delay());
     }
 
     /**
@@ -45,7 +45,7 @@ class GraphicControlExtensionEncoder extends AbstractEncoder
      */
     protected function encodeTransparentColorIndex(): string
     {
-        return pack('C', $this->source->getTransparentColorIndex());
+        return pack('C', $this->source->transparentColorIndex());
     }
 
     /**
@@ -55,9 +55,9 @@ class GraphicControlExtensionEncoder extends AbstractEncoder
     {
         return pack('C', bindec(implode('', [
             str_pad('0', 3, '0', STR_PAD_LEFT),
-            str_pad(decbin($this->source->getDisposalMethod()->value), 3, '0', STR_PAD_LEFT),
-            (int) $this->source->getUserInput(),
-            (int) $this->source->getTransparentColorExistance(),
+            str_pad(decbin($this->source->disposalMethod()->value), 3, '0', STR_PAD_LEFT),
+            (int) $this->source->userInput(),
+            (int) $this->source->transparentColorExistance(),
         ])));
     }
 }

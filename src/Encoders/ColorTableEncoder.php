@@ -24,7 +24,7 @@ class ColorTableEncoder extends AbstractEncoder
     {
         return implode('', array_map(
             fn(Color $color): string => $color->encode(),
-            $this->source->getColors(),
+            $this->source->colors(),
         ));
     }
 }
