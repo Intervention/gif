@@ -58,6 +58,7 @@ class BlockTypeProvider
 
         return $descriptor;
     }
+
     public static function graphicControlExtension(
         int $delay = 120,
         DisposalMethod $disposalMethod = DisposalMethod::PREVIOUS
