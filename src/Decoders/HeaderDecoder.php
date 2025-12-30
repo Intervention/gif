@@ -11,6 +11,8 @@ class HeaderDecoder extends AbstractDecoder
 {
     /**
      * Decode current sourc
+     *
+     * @throws DecoderException
      */
     public function decode(): Header
     {
@@ -22,6 +24,8 @@ class HeaderDecoder extends AbstractDecoder
 
     /**
      * Decode version string
+     *
+     * @throws DecoderException
      */
     protected function decodeVersion(): string
     {

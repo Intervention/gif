@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\Gif;
 
+use Intervention\Gif\Exceptions\EncoderException;
 use Intervention\Gif\Traits\CanDecode;
 use Intervention\Gif\Traits\CanEncode;
 use ReflectionClass;
@@ -31,6 +32,8 @@ abstract class AbstractEntity implements Stringable
 
     /**
      * Cast object to string
+     *
+     * @throws EncoderException
      */
     public function __toString(): string
     {

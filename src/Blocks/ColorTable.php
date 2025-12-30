@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Gif\Blocks;
 
 use Intervention\Gif\AbstractEntity;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
 
 class ColorTable extends AbstractEntity
 {
@@ -31,6 +32,8 @@ class ColorTable extends AbstractEntity
 
     /**
      * Add color to table
+     *
+     * @throws InvalidArgumentException
      */
     public function addRgb(int $r, int $g, int $b): self
     {

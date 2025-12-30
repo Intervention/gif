@@ -7,6 +7,7 @@ namespace Intervention\Gif\Encoders;
 use Intervention\Gif\Blocks\ApplicationExtension;
 use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
+use Intervention\Gif\Exceptions\EncoderException;
 
 class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
 {
@@ -20,6 +21,8 @@ class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
 
     /**
      * Encode current source
+     *
+     * @throws EncoderException
      */
     public function encode(): string
     {

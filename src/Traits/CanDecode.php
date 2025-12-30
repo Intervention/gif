@@ -11,6 +11,8 @@ trait CanDecode
 {
     /**
      * Decode current instance
+     *
+     * @throws DecoderException
      */
     public static function decode(mixed $source, ?int $length = null): mixed
     {
@@ -19,6 +21,8 @@ trait CanDecode
 
     /**
      * Get decoder for current instance
+     *
+     * @throws DecoderException
      */
     protected static function decoder(mixed $source, ?int $length = null): AbstractDecoder
     {

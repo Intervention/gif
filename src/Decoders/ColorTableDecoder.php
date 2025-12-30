@@ -6,11 +6,14 @@ namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\Blocks\Color;
 use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Exceptions\DecoderException;
 
 class ColorTableDecoder extends AbstractDecoder
 {
     /**
      * Decode given string to ColorTable
+     *
+     * @throws DecoderException
      */
     public function decode(): ColorTable
     {

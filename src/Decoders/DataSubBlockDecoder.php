@@ -6,11 +6,14 @@ namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Exceptions\DecoderException;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
 
 class DataSubBlockDecoder extends AbstractDecoder
 {
     /**
      * Decode current sourc
+     *
+     * @throws DecoderException
      */
     public function decode(): DataSubBlock
     {
@@ -23,6 +26,13 @@ class DataSubBlockDecoder extends AbstractDecoder
 
         $size = (int) $unpacked[1];
 
-        return new DataSubBlock($this->nextBytesOrFail($size));
+        try {
+            return new DataSubBlock($this->nextBytesOrFail($size));
+        } catch (InvalidArgumentException $e) {
+            throw new DecoderException(
+                'Failed to decode image data sub block of image data',
+                previous: $e
+            );
+        }
     }
 }

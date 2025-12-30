@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\Blocks\ImageDescriptor;
+use Intervention\Gif\Exceptions\DecoderException;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
 
 class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 {
     /**
      * Decode given string to current instance
+     *
+     * @throws DecoderException
      */
     public function decode(): ImageDescriptor
     {
@@ -22,10 +26,14 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
             $this->decodeMultiByte($this->nextBytesOrFail(2))
         );
 
-        $descriptor->setSize(
-            $this->decodeMultiByte($this->nextBytesOrFail(2)),
-            $this->decodeMultiByte($this->nextBytesOrFail(2))
-        );
+        try {
+            $descriptor->setSize(
+                $this->decodeMultiByte($this->nextBytesOrFail(2)),
+                $this->decodeMultiByte($this->nextBytesOrFail(2))
+            );
+        } catch (InvalidArgumentException $e) {
+            throw new DecoderException('Failed to decode image size of image descriptor', previous: $e);
+        }
 
         $packedField = $this->nextByteOrFail();
 
@@ -50,6 +58,8 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode local color table existance
+     *
+     * @throws DecoderException
      */
     protected function decodeLocalColorTableExistance(string $byte): bool
     {
@@ -58,6 +68,8 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode local color table sort method
+     *
+     * @throws DecoderException
      */
     protected function decodeLocalColorTableSorted(string $byte): bool
     {
@@ -66,6 +78,8 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode local color table size
+     *
+     * @throws DecoderException
      */
     protected function decodeLocalColorTableSize(string $byte): int
     {
@@ -74,6 +88,8 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode interlaced flag
+     *
+     * @throws DecoderException
      */
     protected function decodeInterlaced(string $byte): bool
     {

@@ -11,6 +11,8 @@ trait CanEncode
 {
     /**
      * Encode current entity
+     *
+     * @throws EncoderException
      */
     public function encode(): string
     {
@@ -19,6 +21,8 @@ trait CanEncode
 
     /**
      * Get encoder object for current entity
+     *
+     * @throws EncoderException
      */
     protected function encoder(): AbstractEncoder
     {

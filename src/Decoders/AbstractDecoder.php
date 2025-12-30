@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\Exceptions\DecoderException;
-use Intervention\Gif\Exceptions\InvalidArgumentException;
 
 abstract class AbstractDecoder
 {
@@ -34,11 +33,13 @@ abstract class AbstractDecoder
 
     /**
      * Read given number of bytes and move file pointer
+     *
+     * @throws DecoderException
      */
     protected function nextBytesOrFail(int $length): string
     {
         if ($length < 1) {
-            throw new InvalidArgumentException('The length of the next byte chain must be at least one byte');
+            throw new DecoderException('The length of the next byte chain must be at least one byte');
         }
 
         $bytes = fread($this->filePointer, $length);
@@ -51,6 +52,8 @@ abstract class AbstractDecoder
 
     /**
      * Read given number of bytes and move pointer back to previous position
+     *
+     * @throws DecoderException
      */
     protected function viewNextBytesOrFail(int $length): string
     {
@@ -62,6 +65,8 @@ abstract class AbstractDecoder
 
     /**
      * Read next byte and move pointer back to previous position
+     *
+     * @throws DecoderException
      */
     protected function viewNextByteOrFail(): string
     {
@@ -84,6 +89,8 @@ abstract class AbstractDecoder
 
     /**
      * Get next byte in stream and move file pointer
+     *
+     * @throws DecoderException
      */
     protected function nextByteOrFail(): string
     {
@@ -92,16 +99,24 @@ abstract class AbstractDecoder
 
     /**
      * Move file pointer on file pointer by given offset
+     *
+     * @throws DecoderException
      */
     protected function movePointer(int $offset): self
     {
-        fseek($this->filePointer, $offset, SEEK_CUR);
+        $result = fseek($this->filePointer, $offset, SEEK_CUR);
+
+        if ($result !== 0) {
+            throw new DecoderException('Failed to move position of file pointer by offset ' . $offset);
+        }
 
         return $this;
     }
 
     /**
      * Decode multi byte value
+     *
+     * @throws DecoderException
      */
     protected function decodeMultiByte(string $bytes): int
     {
@@ -134,6 +149,8 @@ abstract class AbstractDecoder
 
     /**
      * Get current file pointer position
+     *
+     * @throws DecoderException
      */
     public function position(): int
     {

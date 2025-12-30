@@ -11,6 +11,8 @@ class DataSubBlock extends AbstractEntity
 {
     /**
      * Create new instance
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(protected string $value)
     {

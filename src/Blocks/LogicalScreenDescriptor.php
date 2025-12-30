@@ -51,6 +51,8 @@ class LogicalScreenDescriptor extends AbstractEntity
 
     /**
      * Set size
+     *
+     * @throws InvalidArgumentException
      */
     public function setSize(int $width, int $height): self
     {

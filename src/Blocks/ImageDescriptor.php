@@ -85,6 +85,8 @@ class ImageDescriptor extends AbstractEntity
 
     /**
      * Set size of current instance
+     *
+     * @throws InvalidArgumentException
      */
     public function setSize(int $width, int $height): self
     {

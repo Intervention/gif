@@ -6,21 +6,28 @@ namespace Intervention\Gif\Decoders;
 
 use Intervention\Gif\Blocks\LogicalScreenDescriptor;
 use Intervention\Gif\Exceptions\DecoderException;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
 
 class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 {
     /**
      * Decode given string to current instance
+     *
+     * @throws DecoderException
      */
     public function decode(): LogicalScreenDescriptor
     {
         $logicalScreenDescriptor = new LogicalScreenDescriptor();
 
         // bytes 1-4
-        $logicalScreenDescriptor->setSize(
-            $this->decodeWidth($this->nextBytesOrFail(2)),
-            $this->decodeHeight($this->nextBytesOrFail(2))
-        );
+        try {
+            $logicalScreenDescriptor->setSize(
+                $this->decodeWidth($this->nextBytesOrFail(2)),
+                $this->decodeHeight($this->nextBytesOrFail(2))
+            );
+        } catch (InvalidArgumentException $e) {
+            throw new DecoderException('Failed to decode image size of logical screen descriptor', previous: $e);
+        }
 
         // byte 5
         $packedField = $this->nextByteOrFail();
@@ -56,6 +63,8 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode width
+     *
+     * @throws DecoderException
      */
     protected function decodeWidth(string $source): int
     {
@@ -70,6 +79,8 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode height
+     *
+     * @throws DecoderException
      */
     protected function decodeHeight(string $source): int
     {
@@ -84,6 +95,8 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode existance of global color table
+     *
+     * @throws DecoderException
      */
     protected function decodeGlobalColorTableExistance(string $byte): bool
     {
@@ -92,6 +105,8 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode color resolution in bits per pixel
+     *
+     * @throws DecoderException
      */
     protected function decodeBitsPerPixel(string $byte): int
     {
@@ -100,6 +115,8 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode global color table sorted status
+     *
+     * @throws DecoderException
      */
     protected function decodeGlobalColorTableSorted(string $byte): bool
     {
@@ -108,6 +125,8 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode size of global color table
+     *
+     * @throws DecoderException
      */
     protected function decodeGlobalColorTableSize(string $byte): int
     {
@@ -116,6 +135,8 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode background color index
+     *
+     * @throws DecoderException
      */
     protected function decodeBackgroundColorIndex(string $source): int
     {
@@ -130,6 +151,8 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 
     /**
      * Decode pixel aspect ratio
+     *
+     * @throws DecoderException
      */
     protected function decodePixelAspectRatio(string $source): int
     {

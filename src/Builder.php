@@ -9,6 +9,10 @@ use Intervention\Gif\Blocks\GraphicControlExtension;
 use Intervention\Gif\Blocks\ImageDescriptor;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Blocks\TableBasedImage;
+use Intervention\Gif\Exceptions\DecoderException;
+use Intervention\Gif\Exceptions\EncoderException;
+use Intervention\Gif\Exceptions\FilePointerException;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
 use Intervention\Gif\Exceptions\StateException;
 use Intervention\Gif\Traits\CanHandleFiles;
 
@@ -26,6 +30,8 @@ class Builder
 
     /**
      * Create new canvas
+     *
+     * @throws InvalidArgumentException
      */
     public static function canvas(int $width, int $height): self
     {
@@ -42,6 +48,8 @@ class Builder
 
     /**
      * Set canvas size of gif
+     *
+     * @throws InvalidArgumentException
      */
     public function setSize(int $width, int $height): self
     {
@@ -52,6 +60,9 @@ class Builder
 
     /**
      * Set loop count
+     *
+     * @throws StateException
+     * @throws InvalidArgumentException
      */
     public function setLoops(int $loops): self
     {
@@ -75,6 +86,10 @@ class Builder
     /**
      * Create new animation frame from given source
      * which can be path to a file or GIF image data
+     *
+     * @throws DecoderException
+     * @throws FilePointerException
+     * @throws InvalidArgumentException
      */
     public function addFrame(
         mixed $source,
@@ -130,6 +145,8 @@ class Builder
 
     /**
      * Build table based image object from given source
+     *
+     * @throws DecoderException
      */
     protected function buildTableBasedImage(
         GifDataStream $source,
@@ -148,14 +165,21 @@ class Builder
             $source->logicalScreenDescriptor()->globalColorTableSorted()
         );
 
-        $block->imageDescriptor()->setLocalColorTableSize(
-            $source->logicalScreenDescriptor()->globalColorTableSize()
-        );
+        try {
+            $block->imageDescriptor()->setLocalColorTableSize(
+                $source->logicalScreenDescriptor()->globalColorTableSize()
+            );
 
-        $block->imageDescriptor()->setSize(
-            $source->logicalScreenDescriptor()->width(),
-            $source->logicalScreenDescriptor()->height()
-        );
+            $block->imageDescriptor()->setSize(
+                $source->logicalScreenDescriptor()->width(),
+                $source->logicalScreenDescriptor()->height()
+            );
+        } catch (InvalidArgumentException $e) {
+            throw new DecoderException(
+                'Failed to decode image source',
+                previous: $e
+            );
+        }
 
         // set position
         $block->imageDescriptor()->setPosition($left, $top);
@@ -171,6 +195,8 @@ class Builder
 
     /**
      * Encode the current build
+     *
+     * @throws EncoderException
      */
     public function encode(): string
     {

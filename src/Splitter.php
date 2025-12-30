@@ -7,7 +7,9 @@ namespace Intervention\Gif;
 use ArrayIterator;
 use GdImage;
 use Intervention\Gif\Exceptions\CoreException;
-use Intervention\Gif\Exceptions\GifException;
+use Intervention\Gif\Exceptions\EncoderException;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
+use Intervention\Gif\Exceptions\SplitterException;
 use IteratorAggregate;
 use Traversable;
 
@@ -86,6 +88,8 @@ class Splitter implements IteratorAggregate
 
     /**
      * Split current stream into array of seperate streams for each frame
+     *
+     * @throws SplitterException
      */
     public function split(): self
     {
@@ -93,10 +97,14 @@ class Splitter implements IteratorAggregate
 
         foreach ($this->stream->frames() as $frame) {
             // create separate stream for each frame
-            $gif = Builder::canvas(
-                $this->stream->logicalScreenDescriptor()->width(),
-                $this->stream->logicalScreenDescriptor()->height()
-            )->gifDataStream();
+            try {
+                $gif = Builder::canvas(
+                    $this->stream->logicalScreenDescriptor()->width(),
+                    $this->stream->logicalScreenDescriptor()->height()
+                )->gifDataStream();
+            } catch (InvalidArgumentException $e) {
+                throw new SplitterException('Failed to create separate file pointer for each frame', previous: $e);
+            }
 
             // check if working stream has global color table
             if ($this->stream->hasGlobalColorTable()) {
@@ -140,6 +148,7 @@ class Splitter implements IteratorAggregate
     /**
      * Return array of GD library resources for each frame
      *
+     * @throws CoreException
      * @return array<GdImage>
      */
     public function toResources(): array
@@ -147,10 +156,14 @@ class Splitter implements IteratorAggregate
         $resources = [];
 
         foreach ($this->frames as $frame) {
-            $resource = imagecreatefromstring($frame->encode());
+            try {
+                $resource = imagecreatefromstring($frame->encode());
+            } catch (EncoderException) {
+                throw new CoreException('Failed to extract animation frames to resources');
+            }
 
             if ($resource === false) {
-                throw new CoreException('Failed to extract animation frames');
+                throw new CoreException('Failed to extract animation frames to resources');
             }
 
             $result = imagepalettetotruecolor($resource);
@@ -174,6 +187,7 @@ class Splitter implements IteratorAggregate
     /**
      * Return array of coalesced GD library resources for each frame
      *
+     * @throws CoreException
      * @return array<GdImage>
      */
     public function coalesceToResources(): array
@@ -249,7 +263,7 @@ class Splitter implements IteratorAggregate
                     }
 
                     // insert resource
-                    imagecopy(
+                    $result = imagecopy(
                         $canvas,
                         $resource,
                         $offset_x,
@@ -284,7 +298,7 @@ class Splitter implements IteratorAggregate
                 }
 
                 if (!is_int($transparent)) {
-                    throw new GifException('Animation frames cannot be converted into resources');
+                    throw new CoreException('Animation frames cannot be converted into resources');
                 }
 
                 // fill with transparent

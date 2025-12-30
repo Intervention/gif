@@ -10,6 +10,8 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
 {
     /**
      * Decode packed byte
+     *
+     * @throws DecoderException
      */
     protected function decodePackedByte(string $byte): int
     {
@@ -24,6 +26,8 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
 
     /**
      * Determine if packed bit is set
+     *
+     * @throws DecoderException
      */
     protected function hasPackedBit(string $byte, int $num): bool
     {
@@ -32,6 +36,8 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
 
     /**
      * Get packed bits
+     *
+     * @throws DecoderException
      */
     protected function packedBits(string $byte, int $start = 0, int $length = 8): string
     {

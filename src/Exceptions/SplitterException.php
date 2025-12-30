@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\Gif\Exceptions;
 
-class BlockException extends RuntimeException
+class SplitterException extends RuntimeException
 {
     //
 }

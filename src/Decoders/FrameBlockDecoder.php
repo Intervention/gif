@@ -19,6 +19,8 @@ class FrameBlockDecoder extends AbstractDecoder
 {
     /**
      * Decode FrameBlock
+     *
+     * @throws DecoderException
      */
     public function decode(): FrameBlock
     {

@@ -11,6 +11,8 @@ class Color extends AbstractEntity
 {
     /**
      * Create new instance
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(
         protected int $r = 0,
@@ -18,15 +20,15 @@ class Color extends AbstractEntity
         protected int $b = 0
     ) {
         if ($r < 0 || $r > 255) {
-            throw new InvalidArgumentException('Color channel value $r must be in range 0 to 255');
+            throw new InvalidArgumentException('Color channel red must be in range 0 to 255');
         }
 
         if ($g < 0 || $g > 255) {
-            throw new InvalidArgumentException('Color channel value $g must be in range 0 to 255');
+            throw new InvalidArgumentException('Color channel green must be in range 0 to 255');
         }
 
         if ($b < 0 || $b > 255) {
-            throw new InvalidArgumentException('Color channel value $b must be in range 0 to 255');
+            throw new InvalidArgumentException('Color channel blue must be in range 0 to 255');
         }
     }
 

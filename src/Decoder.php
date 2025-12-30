@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\Gif;
 
+use Intervention\Gif\Exceptions\DecoderException;
 use Intervention\Gif\Exceptions\FilePointerException;
 use Intervention\Gif\Exceptions\InvalidArgumentException;
 use Intervention\Gif\Traits\CanHandleFiles;
@@ -14,6 +15,10 @@ class Decoder
 
     /**
      * Decode given input
+     *
+     * @throws InvalidArgumentException
+     * @throws FilePointerException
+     * @throws DecoderException
      */
     public static function decode(mixed $input): GifDataStream
     {

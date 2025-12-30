@@ -6,6 +6,7 @@ namespace Intervention\Gif\Encoders;
 
 use Intervention\Gif\Blocks\Color;
 use Intervention\Gif\Blocks\ColorTable;
+use Intervention\Gif\Exceptions\EncoderException;
 
 class ColorTableEncoder extends AbstractEncoder
 {
@@ -19,6 +20,8 @@ class ColorTableEncoder extends AbstractEncoder
 
     /**
      * Encode current source
+     *
+     * @throws EncoderException
      */
     public function encode(): string
     {

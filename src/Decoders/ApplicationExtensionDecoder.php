@@ -8,11 +8,14 @@ use Intervention\Gif\Blocks\ApplicationExtension;
 use Intervention\Gif\Blocks\DataSubBlock;
 use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Exceptions\DecoderException;
+use Intervention\Gif\Exceptions\InvalidArgumentException;
 
 class ApplicationExtensionDecoder extends AbstractDecoder
 {
     /**
      * Decode current source
+     *
+     * @throws DecoderException
      */
     public function decode(): ApplicationExtension
     {
@@ -29,11 +32,16 @@ class ApplicationExtensionDecoder extends AbstractDecoder
             // skip length
             $this->nextByteOrFail();
 
-            $result->setBlocks([
-                new DataSubBlock(
-                    $this->nextBytesOrFail(3)
-                )
-            ]);
+            try {
+                $result->setBlocks([
+                    new DataSubBlock($this->nextBytesOrFail(3))
+                ]);
+            } catch (InvalidArgumentException $e) {
+                throw new DecoderException(
+                    'Failed to decode image data sub block of image data',
+                    previous: $e
+                );
+            }
 
             // skip terminator
             $this->nextByteOrFail();
@@ -46,7 +54,15 @@ class ApplicationExtensionDecoder extends AbstractDecoder
         // decode data sub blocks
         $blocksize = $this->decodeBlockSize($this->nextByteOrFail());
         while ($blocksize > 0) {
-            $result->addBlock(new DataSubBlock($this->nextBytesOrFail($blocksize)));
+            try {
+                $result->addBlock(new DataSubBlock($this->nextBytesOrFail($blocksize)));
+            } catch (InvalidArgumentException $e) {
+                throw new DecoderException(
+                    'Failed to decode image data sub block of image data',
+                    previous: $e
+                );
+            }
+
             $blocksize = $this->decodeBlockSize($this->nextByteOrFail());
         }
 
@@ -55,6 +71,8 @@ class ApplicationExtensionDecoder extends AbstractDecoder
 
     /**
      * Decode block size of ApplicationExtension from given byte
+     *
+     * @throws DecoderException
      */
     protected function decodeBlockSize(string $byte): int
     {

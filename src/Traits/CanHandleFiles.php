@@ -26,6 +26,8 @@ trait CanHandleFiles
 
     /**
      * Create file pointer from given gif image data
+     *
+     * @throws FilePointerException
      */
     private static function filePointerFromData(string $data): mixed
     {
@@ -50,6 +52,8 @@ trait CanHandleFiles
 
     /**
      * Create file pounter from given file path
+     *
+     * @throws FilePointerException
      */
     private static function filePointerFromFilePath(string $path): mixed
     {
