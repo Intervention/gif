@@ -174,7 +174,7 @@ class Splitter implements IteratorAggregate
 
             $result = imagesavealpha($resource, true);
 
-            if ($result !== true) {
+            if ($result === false) {
                 throw new CoreException('Failed to set alpha channel flag on animation frames');
             }
 
