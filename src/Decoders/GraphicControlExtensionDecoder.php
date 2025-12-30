@@ -7,6 +7,8 @@ namespace Intervention\Gif\Decoders;
 use Intervention\Gif\Blocks\GraphicControlExtension;
 use Intervention\Gif\DisposalMethod;
 use Intervention\Gif\Exceptions\DecoderException;
+use TypeError;
+use ValueError;
 
 class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
 {
@@ -49,9 +51,16 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
      */
     protected function decodeDisposalMethod(string $byte): DisposalMethod
     {
-        return DisposalMethod::from(
-            intval(bindec($this->packedBits($byte, 3, 3)))
-        );
+        try {
+            return DisposalMethod::from(
+                intval(bindec($this->packedBits($byte, 3, 3)))
+            );
+        } catch (TypeError | ValueError $e) {
+            throw new DecoderException(
+                'Failed to decode disposal method in graphic control extension',
+                previous: $e,
+            );
+        }
     }
 
     /**

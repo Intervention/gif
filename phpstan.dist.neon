@@ -2,8 +2,3 @@ parameters:
     level: 8
     paths:
         - src
-    exceptions:
-        check:
-            missingCheckedExceptionInThrows: true
-        uncheckedExceptionClasses:
-            - Error
