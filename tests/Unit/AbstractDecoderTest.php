@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Gif\Tests\Unit;
 
+use Intervention\Gif\AbstractEntity;
+use Intervention\Gif\Blocks\Header;
 use Intervention\Gif\Decoders\AbstractDecoder;
 use Intervention\Gif\Tests\BaseTestCase;
 
@@ -39,9 +41,9 @@ final class AbstractDecoderTest extends BaseTestCase
             /**
              * Decode current source
              */
-            public function decode(): mixed
+            public function decode(): AbstractEntity
             {
-                return null;
+                return new Header();
             }
         };
     }
