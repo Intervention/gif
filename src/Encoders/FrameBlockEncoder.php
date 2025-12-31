@@ -14,9 +14,9 @@ class FrameBlockEncoder extends AbstractEncoder
     /**
      * Create new decoder instance
      */
-    public function __construct(FrameBlock $source)
+    public function __construct(FrameBlock $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -26,24 +26,24 @@ class FrameBlockEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        $graphicControlExtension = $this->source->graphicControlExtension();
-        $colorTable = $this->source->colorTable();
-        $plainTextExtension = $this->source->plainTextExtension();
+        $graphicControlExtension = $this->entity->graphicControlExtension();
+        $colorTable = $this->entity->colorTable();
+        $plainTextExtension = $this->entity->plainTextExtension();
 
         return implode('', [
             implode('', array_map(
                 fn(ApplicationExtension $extension): string => $extension->encode(),
-                $this->source->applicationExtensions(),
+                $this->entity->applicationExtensions(),
             )),
             implode('', array_map(
                 fn(CommentExtension $extension): string => $extension->encode(),
-                $this->source->commentExtensions(),
+                $this->entity->commentExtensions(),
             )),
             $plainTextExtension ? $plainTextExtension->encode() : '',
             $graphicControlExtension ? $graphicControlExtension->encode() : '',
-            $this->source->imageDescriptor()->encode(),
+            $this->entity->imageDescriptor()->encode(),
             $colorTable ? $colorTable->encode() : '',
-            $this->source->imageData()->encode(),
+            $this->entity->imageData()->encode(),
         ]);
     }
 }

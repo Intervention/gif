@@ -11,9 +11,9 @@ class DataSubBlockEncoder extends AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(DataSubBlock $source)
+    public function __construct(DataSubBlock $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -21,6 +21,6 @@ class DataSubBlockEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        return pack('C', $this->source->size()) . $this->source->value();
+        return pack('C', $this->entity->size()) . $this->entity->value();
     }
 }

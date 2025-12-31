@@ -14,9 +14,9 @@ class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
     /**
      * Create new decoder instance
      */
-    public function __construct(NetscapeApplicationExtension $source)
+    public function __construct(NetscapeApplicationExtension $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -29,9 +29,9 @@ class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
         return implode('', [
             ApplicationExtension::MARKER,
             ApplicationExtension::LABEL,
-            pack('C', $this->source->blockSize()),
-            $this->source->application(),
-            implode('', array_map(fn(DataSubBlock $block): string => $block->encode(), $this->source->blocks())),
+            pack('C', $this->entity->blockSize()),
+            $this->entity->application(),
+            implode('', array_map(fn(DataSubBlock $block): string => $block->encode(), $this->entity->blocks())),
             ApplicationExtension::TERMINATOR,
         ]);
     }

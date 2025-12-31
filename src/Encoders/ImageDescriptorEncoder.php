@@ -11,9 +11,9 @@ class ImageDescriptorEncoder extends AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(ImageDescriptor $source)
+    public function __construct(ImageDescriptor $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -36,7 +36,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeLeft(): string
     {
-        return pack('v*', $this->source->left());
+        return pack('v*', $this->entity->left());
     }
 
     /**
@@ -44,7 +44,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeTop(): string
     {
-        return pack('v*', $this->source->top());
+        return pack('v*', $this->entity->top());
     }
 
     /**
@@ -52,7 +52,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeWidth(): string
     {
-        return pack('v*', $this->source->width());
+        return pack('v*', $this->entity->width());
     }
 
     /**
@@ -60,7 +60,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeHeight(): string
     {
-        return pack('v*', $this->source->height());
+        return pack('v*', $this->entity->height());
     }
 
     /**
@@ -68,7 +68,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeLocalColorTableSize(): string
     {
-        return str_pad(decbin($this->source->localColorTableSize()), 3, '0', STR_PAD_LEFT);
+        return str_pad(decbin($this->entity->localColorTableSize()), 3, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -85,9 +85,9 @@ class ImageDescriptorEncoder extends AbstractEncoder
     protected function encodePackedField(): string
     {
         return pack('C', bindec(implode('', [
-            (int) $this->source->localColorTableExistance(),
-            (int) $this->source->isInterlaced(),
-            (int) $this->source->localColorTableSorted(),
+            (int) $this->entity->localColorTableExistance(),
+            (int) $this->entity->isInterlaced(),
+            (int) $this->entity->localColorTableSorted(),
             $this->encodeReservedField(),
             $this->encodeLocalColorTableSize(),
         ])));

@@ -11,9 +11,9 @@ class ColorEncoder extends AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(Color $source)
+    public function __construct(Color $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -22,9 +22,9 @@ class ColorEncoder extends AbstractEncoder
     public function encode(): string
     {
         return implode('', [
-            $this->encodeColorValue($this->source->red()),
-            $this->encodeColorValue($this->source->green()),
-            $this->encodeColorValue($this->source->blue()),
+            $this->encodeColorValue($this->entity->red()),
+            $this->encodeColorValue($this->entity->green()),
+            $this->encodeColorValue($this->entity->blue()),
         ]);
     }
 

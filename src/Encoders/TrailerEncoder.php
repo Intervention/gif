@@ -11,9 +11,9 @@ class TrailerEncoder extends AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(Trailer $source)
+    public function __construct(Trailer $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**

@@ -11,9 +11,9 @@ class HeaderEncoder extends AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(Header $source)
+    public function __construct(Header $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -21,6 +21,6 @@ class HeaderEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        return Header::SIGNATURE . $this->source->version();
+        return Header::SIGNATURE . $this->entity->version();
     }
 }

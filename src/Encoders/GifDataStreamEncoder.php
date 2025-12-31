@@ -14,9 +14,9 @@ class GifDataStreamEncoder extends AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(GifDataStream $source)
+    public function __construct(GifDataStream $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -27,22 +27,22 @@ class GifDataStreamEncoder extends AbstractEncoder
     public function encode(): string
     {
         return implode('', [
-            $this->source->header()->encode(),
-            $this->source->logicalScreenDescriptor()->encode(),
+            $this->entity->header()->encode(),
+            $this->entity->logicalScreenDescriptor()->encode(),
             $this->maybeEncodeGlobalColorTable(),
             $this->encodeFrames(),
             $this->encodeComments(),
-            $this->source->trailer()->encode(),
+            $this->entity->trailer()->encode(),
         ]);
     }
 
     protected function maybeEncodeGlobalColorTable(): string
     {
-        if (!$this->source->hasGlobalColorTable()) {
+        if (!$this->entity->hasGlobalColorTable()) {
             return '';
         }
 
-        return $this->source->globalColorTable()->encode();
+        return $this->entity->globalColorTable()->encode();
     }
 
     /**
@@ -54,7 +54,7 @@ class GifDataStreamEncoder extends AbstractEncoder
     {
         return implode('', array_map(
             fn(FrameBlock $frame): string => $frame->encode(),
-            $this->source->frames(),
+            $this->entity->frames(),
         ));
     }
 
@@ -67,7 +67,7 @@ class GifDataStreamEncoder extends AbstractEncoder
     {
         return implode('', array_map(
             fn(CommentExtension $commentExtension): string => $commentExtension->encode(),
-            $this->source->comments()
+            $this->entity->comments()
         ));
     }
 }

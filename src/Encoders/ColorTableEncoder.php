@@ -13,9 +13,9 @@ class ColorTableEncoder extends AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(ColorTable $source)
+    public function __construct(ColorTable $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -27,7 +27,7 @@ class ColorTableEncoder extends AbstractEncoder
     {
         return implode('', array_map(
             fn(Color $color): string => $color->encode(),
-            $this->source->colors(),
+            $this->entity->colors(),
         ));
     }
 }

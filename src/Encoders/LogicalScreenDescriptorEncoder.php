@@ -11,9 +11,9 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(LogicalScreenDescriptor $source)
+    public function __construct(LogicalScreenDescriptor $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -35,7 +35,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeWidth(): string
     {
-        return pack('v*', $this->source->width());
+        return pack('v*', $this->entity->width());
     }
 
     /**
@@ -43,7 +43,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeHeight(): string
     {
-        return pack('v*', $this->source->height());
+        return pack('v*', $this->entity->height());
     }
 
     /**
@@ -51,7 +51,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeBackgroundColorIndex(): string
     {
-        return pack('C', $this->source->backgroundColorIndex());
+        return pack('C', $this->entity->backgroundColorIndex());
     }
 
     /**
@@ -59,7 +59,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodePixelAspectRatio(): string
     {
-        return pack('C', $this->source->pixelAspectRatio());
+        return pack('C', $this->entity->pixelAspectRatio());
     }
 
     /**
@@ -67,7 +67,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeColorResolution(): string
     {
-        return str_pad(decbin($this->source->bitsPerPixel() - 1), 3, '0', STR_PAD_LEFT);
+        return str_pad(decbin($this->entity->bitsPerPixel() - 1), 3, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -75,7 +75,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     protected function encodeGlobalColorTableSize(): string
     {
-        return str_pad(decbin($this->source->globalColorTableSize()), 3, '0', STR_PAD_LEFT);
+        return str_pad(decbin($this->entity->globalColorTableSize()), 3, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -84,9 +84,9 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
     protected function encodePackedField(): string
     {
         return pack('C', bindec(implode('', [
-            (int) $this->source->globalColorTableExistance(),
+            (int) $this->entity->globalColorTableExistance(),
             $this->encodeColorResolution(),
-            (int) $this->source->globalColorTableSorted(),
+            (int) $this->entity->globalColorTableSorted(),
             $this->encodeGlobalColorTableSize(),
         ])));
     }

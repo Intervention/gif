@@ -11,9 +11,9 @@ class CommentExtensionEncoder extends AbstractEncoder
     /**
      * Create new decoder instance
      */
-    public function __construct(CommentExtension $source)
+    public function __construct(CommentExtension $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -36,6 +36,6 @@ class CommentExtensionEncoder extends AbstractEncoder
     {
         return implode('', array_map(function (string $comment): string {
             return pack('C', strlen($comment)) . $comment;
-        }, $this->source->comments()));
+        }, $this->entity->comments()));
     }
 }

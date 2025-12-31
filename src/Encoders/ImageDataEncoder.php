@@ -15,9 +15,9 @@ class ImageDataEncoder extends AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(ImageData $source)
+    public function __construct(ImageData $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -28,15 +28,15 @@ class ImageDataEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        if (!$this->source->hasBlocks()) {
+        if (!$this->entity->hasBlocks()) {
             throw new StateException('No data blocks in image data');
         }
 
         return implode('', [
-            pack('C', $this->source->lzwMinCodeSize()),
+            pack('C', $this->entity->lzwMinCodeSize()),
             implode('', array_map(
                 fn(DataSubBlock $block): string => $block->encode(),
-                $this->source->blocks(),
+                $this->entity->blocks(),
             )),
             AbstractEntity::TERMINATOR,
         ]);

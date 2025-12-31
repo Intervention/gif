@@ -14,7 +14,7 @@ abstract class AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(protected mixed $source)
+    public function __construct(protected mixed $entity)
     {
         //
     }

@@ -11,9 +11,9 @@ class PlainTextExtensionEncoder extends AbstractEncoder
     /**
      * Create new instance
      */
-    public function __construct(PlainTextExtension $source)
+    public function __construct(PlainTextExtension $entity)
     {
-        $this->source = $source;
+        $this->entity = $entity;
     }
 
     /**
@@ -21,7 +21,7 @@ class PlainTextExtensionEncoder extends AbstractEncoder
      */
     public function encode(): string
     {
-        if (!$this->source->hasText()) {
+        if (!$this->entity->hasText()) {
             return '';
         }
 
@@ -49,7 +49,7 @@ class PlainTextExtensionEncoder extends AbstractEncoder
     {
         return implode('', array_map(
             fn(string $text): string => pack('C', strlen($text)) . $text,
-            $this->source->text(),
+            $this->entity->text(),
         ));
     }
 }
