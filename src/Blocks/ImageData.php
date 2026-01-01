@@ -9,19 +9,19 @@ use Intervention\Gif\AbstractEntity;
 class ImageData extends AbstractEntity
 {
     /**
-     * LZW min. code size
+     * LZW min. code size.
      */
     protected int $lzw_min_code_size;
 
     /**
-     * Sub blocks
+     * Sub blocks.
      *
      * @var array<DataSubBlock>
      */
     protected array $blocks = [];
 
     /**
-     * Get LZW min. code size
+     * Get LZW min. code size.
      */
     public function lzwMinCodeSize(): int
     {
@@ -29,7 +29,7 @@ class ImageData extends AbstractEntity
     }
 
     /**
-     * Set lzw min. code size
+     * Set lzw min. code size.
      */
     public function setLzwMinCodeSize(int $size): self
     {
@@ -39,7 +39,7 @@ class ImageData extends AbstractEntity
     }
 
     /**
-     * Get current data sub blocks
+     * Get current data sub blocks.
      *
      * @return array<DataSubBlock>
      */
@@ -49,7 +49,7 @@ class ImageData extends AbstractEntity
     }
 
     /**
-     * Addd sub block
+     * Addd sub block.
      */
     public function addBlock(DataSubBlock $block): self
     {
@@ -59,7 +59,7 @@ class ImageData extends AbstractEntity
     }
 
     /**
-     * Determine if data sub blocks are present
+     * Determine if data sub blocks are present.
      */
     public function hasBlocks(): bool
     {

@@ -10,10 +10,9 @@ use Intervention\Gif\Exceptions\InvalidArgumentException;
 class ColorTable extends AbstractEntity
 {
     /**
-     * Create new instance
+     * Create new instance.
      *
      * @param array<Color> $colors
-     * @return void
      */
     public function __construct(protected array $colors = [])
     {
@@ -21,7 +20,7 @@ class ColorTable extends AbstractEntity
     }
 
     /**
-     * Return array of current colors
+     * Return array of current colors.
      *
      * @return array<Color>
      */
@@ -31,7 +30,7 @@ class ColorTable extends AbstractEntity
     }
 
     /**
-     * Add color to table
+     * Add color to table.
      *
      * @throws InvalidArgumentException
      */
@@ -43,7 +42,7 @@ class ColorTable extends AbstractEntity
     }
 
     /**
-     * Add color to table
+     * Add color to table.
      */
     public function addColor(Color $color): self
     {
@@ -53,7 +52,7 @@ class ColorTable extends AbstractEntity
     }
 
     /**
-     * Reset colors to array of color objects
+     * Reset colors to array of color objects.
      *
      * @param array<Color> $colors
      */
@@ -68,7 +67,7 @@ class ColorTable extends AbstractEntity
     }
 
     /**
-     * Count colors of current instance
+     * Count colors of current instance.
      */
     public function countColors(): int
     {
@@ -84,7 +83,7 @@ class ColorTable extends AbstractEntity
     }
 
     /**
-     * Empty color table
+     * Empty color table.
      */
     public function empty(): self
     {
@@ -94,7 +93,7 @@ class ColorTable extends AbstractEntity
     }
 
     /**
-     * Get size of color table in logical screen descriptor
+     * Get size of color table in logical screen descriptor.
      */
     public function logicalSize(): int
     {
@@ -111,7 +110,7 @@ class ColorTable extends AbstractEntity
     }
 
     /**
-     * Calculate the number of bytes contained by the current table
+     * Calculate the number of bytes contained by the current table.
      */
     public function byteSize(): int
     {

@@ -10,7 +10,7 @@ use Intervention\Gif\Exceptions\InvalidArgumentException;
 class Color extends AbstractEntity
 {
     /**
-     * Create new instance
+     * Create new instance.
      *
      * @throws InvalidArgumentException
      */
@@ -33,7 +33,7 @@ class Color extends AbstractEntity
     }
 
     /**
-     * Get red value
+     * Get red value.
      */
     public function red(): int
     {
@@ -41,7 +41,7 @@ class Color extends AbstractEntity
     }
 
     /**
-     * Set red value
+     * Set red value.
      */
     public function setRed(int $value): self
     {
@@ -51,7 +51,7 @@ class Color extends AbstractEntity
     }
 
     /**
-     * Get green value
+     * Get green value.
      */
     public function green(): int
     {
@@ -59,7 +59,7 @@ class Color extends AbstractEntity
     }
 
     /**
-     * Set green value
+     * Set green value.
      */
     public function setGreen(int $value): self
     {
@@ -69,7 +69,7 @@ class Color extends AbstractEntity
     }
 
     /**
-     * Get blue value
+     * Get blue value.
      */
     public function blue(): int
     {
@@ -77,7 +77,7 @@ class Color extends AbstractEntity
     }
 
     /**
-     * Set blue value
+     * Set blue value.
      */
     public function setBlue(int $value): self
     {
@@ -87,7 +87,7 @@ class Color extends AbstractEntity
     }
 
     /**
-     * Return hash value of current color
+     * Return hash value of current color.
      */
     public function hash(): string
     {

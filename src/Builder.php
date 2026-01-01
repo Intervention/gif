@@ -21,7 +21,7 @@ class Builder
     use CanHandleFiles;
 
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(protected GifDataStream $gif = new GifDataStream())
     {
@@ -29,7 +29,7 @@ class Builder
     }
 
     /**
-     * Create new canvas
+     * Create new canvas.
      *
      * @throws InvalidArgumentException
      */
@@ -39,7 +39,7 @@ class Builder
     }
 
     /**
-     * Get GifDataStream object we're currently building
+     * Get GifDataStream object we're currently building.
      */
     public function gifDataStream(): GifDataStream
     {
@@ -47,7 +47,7 @@ class Builder
     }
 
     /**
-     * Set canvas size of gif
+     * Set canvas size of gif.
      *
      * @throws InvalidArgumentException
      */
@@ -59,7 +59,7 @@ class Builder
     }
 
     /**
-     * Set loop count
+     * Set loop count.
      *
      * @throws StateException
      * @throws InvalidArgumentException
@@ -84,8 +84,7 @@ class Builder
     }
 
     /**
-     * Create new animation frame from given source
-     * which can be path to a file or GIF image data
+     * Create new animation frame from given source which can be path to a file or GIF image data.
      *
      * @throws DecoderException
      * @throws FilePointerException
@@ -144,7 +143,7 @@ class Builder
     }
 
     /**
-     * Build table based image object from given source
+     * Build table based image object from given source.
      *
      * @throws DecoderException
      */
@@ -206,7 +205,7 @@ class Builder
     }
 
     /**
-     * Encode the current build
+     * Encode the current build.
      *
      * @throws EncoderException
      */

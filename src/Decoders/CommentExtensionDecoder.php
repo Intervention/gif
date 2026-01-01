@@ -10,7 +10,7 @@ use Intervention\Gif\Exceptions\DecoderException;
 class CommentExtensionDecoder extends AbstractDecoder
 {
     /**
-     * Decode current source
+     * Decode current source.
      *
      * @throws DecoderException
      */
@@ -27,7 +27,7 @@ class CommentExtensionDecoder extends AbstractDecoder
     }
 
     /**
-     * Decode comment from current source
+     * Decode comment from current source.
      *
      * @throws DecoderException
      * @return array<string>
@@ -48,7 +48,7 @@ class CommentExtensionDecoder extends AbstractDecoder
     }
 
     /**
-     * Decode blocksize of following comment
+     * Decode blocksize of following comment.
      *
      * @throws DecoderException
      */

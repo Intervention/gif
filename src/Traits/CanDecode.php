@@ -10,7 +10,7 @@ use Intervention\Gif\Exceptions\DecoderException;
 trait CanDecode
 {
     /**
-     * Decode current instance
+     * Decode current instance.
      *
      * @throws DecoderException
      */
@@ -20,7 +20,7 @@ trait CanDecode
     }
 
     /**
-     * Get decoder for current instance
+     * Get decoder for current instance.
      *
      * @throws DecoderException
      */

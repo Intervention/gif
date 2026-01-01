@@ -8,11 +8,17 @@ use Intervention\Gif\Blocks\TableBasedImage;
 
 class TableBasedImageEncoder extends AbstractEncoder
 {
+    /**
+     * Create new instance.
+     */
     public function __construct(TableBasedImage $entity)
     {
         $this->entity = $entity;
     }
 
+    /**
+     * Encode current entity.
+     */
     public function encode(): string
     {
         return implode('', [

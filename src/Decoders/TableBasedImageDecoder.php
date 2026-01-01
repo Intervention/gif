@@ -13,7 +13,7 @@ use Intervention\Gif\Exceptions\DecoderException;
 class TableBasedImageDecoder extends AbstractDecoder
 {
     /**
-     * Decode TableBasedImage
+     * Decode TableBasedImage.
      *
      * @throws DecoderException
      */

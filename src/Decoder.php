@@ -14,7 +14,7 @@ class Decoder
     use CanHandleFiles;
 
     /**
-     * Decode given input
+     * Decode given input.
      *
      * @throws InvalidArgumentException
      * @throws FilePointerException
@@ -41,7 +41,7 @@ class Decoder
     }
 
     /**
-     * Determine if input is file pointer resource
+     * Determine if input is file pointer resource.
      */
     private static function isFilePointer(mixed $input): bool
     {

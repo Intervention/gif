@@ -9,7 +9,7 @@ use Intervention\Gif\Exceptions\FilePointerException;
 trait CanHandleFiles
 {
      /**
-     * Determines if input is file path
+     * Determines if input is file path.
      */
     private static function isFilePath(mixed $input): bool
     {
@@ -17,7 +17,7 @@ trait CanHandleFiles
     }
 
     /**
-     * Determine if given string contains null bytes
+     * Determine if given string contains null bytes.
      */
     private static function hasNullBytes(string $string): bool
     {
@@ -25,7 +25,7 @@ trait CanHandleFiles
     }
 
     /**
-     * Create file pointer from given gif image data
+     * Create file pointer from given gif image data.
      *
      * @throws FilePointerException
      */
@@ -51,7 +51,7 @@ trait CanHandleFiles
     }
 
     /**
-     * Create file pounter from given file path
+     * Create file pounter from given file path.
      *
      * @throws FilePointerException
      */

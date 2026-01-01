@@ -12,7 +12,7 @@ use Intervention\Gif\Exceptions\EncoderException;
 class FrameBlockEncoder extends AbstractEncoder
 {
     /**
-     * Create new decoder instance
+     * Create new decoder instance.
      */
     public function __construct(FrameBlock $entity)
     {
@@ -20,7 +20,7 @@ class FrameBlockEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode frame block
+     * Encode current entity.
      *
      * @throws EncoderException
      */

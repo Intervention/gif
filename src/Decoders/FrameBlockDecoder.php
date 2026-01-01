@@ -18,7 +18,7 @@ use Intervention\Gif\Exceptions\DecoderException;
 class FrameBlockDecoder extends AbstractDecoder
 {
     /**
-     * Decode FrameBlock
+     * Decode FrameBlock.
      *
      * @throws DecoderException
      */

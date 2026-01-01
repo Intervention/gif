@@ -13,7 +13,7 @@ use Intervention\Gif\Exceptions\StateException;
 class ImageDataEncoder extends AbstractEncoder
 {
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(ImageData $entity)
     {
@@ -21,7 +21,7 @@ class ImageDataEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode current source
+     * Encode current entity.
      *
      * @throws EncoderException
      * @throws StateException

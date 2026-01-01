@@ -15,7 +15,7 @@ class NetscapeApplicationExtension extends ApplicationExtension
     public const SUB_BLOCK_PREFIX = "\x01";
 
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct()
     {
@@ -28,7 +28,7 @@ class NetscapeApplicationExtension extends ApplicationExtension
     }
 
     /**
-     * Get number of loops
+     * Get number of loops.
      *
      * @throws DecoderException
      */
@@ -51,7 +51,7 @@ class NetscapeApplicationExtension extends ApplicationExtension
     }
 
     /**
-     * Set number of loops
+     * Set number of loops.
      *
      * @throws InvalidArgumentException
      */

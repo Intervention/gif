@@ -10,7 +10,7 @@ use Intervention\Gif\Exceptions\DecoderException;
 class PlainTextExtensionDecoder extends AbstractDecoder
 {
     /**
-     * Decode current source
+     * Decode current source.
      *
      * @throws DecoderException
      */
@@ -31,11 +31,11 @@ class PlainTextExtensionDecoder extends AbstractDecoder
     }
 
     /**
-     * Get number of bytes in header block
+     * Get number of bytes in header block.
      *
      * @throws DecoderException
      */
-    protected function infoBlockSize(): int
+    private function infoBlockSize(): int
     {
         $unpacked = unpack('C', $this->nextByteOrFail());
 
@@ -47,12 +47,12 @@ class PlainTextExtensionDecoder extends AbstractDecoder
     }
 
     /**
-     * Decode text sub blocks
+     * Decode text sub blocks.
      *
      * @throws DecoderException
      * @return array<string>
      */
-    protected function decodeTextBlocks(): array
+    private function decodeTextBlocks(): array
     {
         $blocks = [];
 

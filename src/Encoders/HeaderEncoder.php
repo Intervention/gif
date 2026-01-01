@@ -9,7 +9,7 @@ use Intervention\Gif\Blocks\Header;
 class HeaderEncoder extends AbstractEncoder
 {
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(Header $entity)
     {
@@ -17,7 +17,7 @@ class HeaderEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode current source
+     * Encode current entity.
      */
     public function encode(): string
     {

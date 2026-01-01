@@ -10,12 +10,12 @@ use Intervention\Gif\Exceptions\DecoderException;
 abstract class AbstractDecoder
 {
     /**
-     * Decode current source
+     * Decode current source.
      */
     abstract public function decode(): AbstractEntity;
 
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(protected mixed $filePointer, protected ?int $length = null)
     {
@@ -23,7 +23,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Set source to decode
+     * Set source to decode.
      */
     public function setFilePointer(mixed $filePointer): self
     {
@@ -33,7 +33,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Read given number of bytes and move file pointer
+     * Read given number of bytes and move file pointer.
      *
      * @throws DecoderException
      */
@@ -52,7 +52,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Read given number of bytes and move pointer back to previous position
+     * Read given number of bytes and move pointer back to previous position.
      *
      * @throws DecoderException
      */
@@ -65,7 +65,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Read next byte and move pointer back to previous position
+     * Read next byte and move pointer back to previous position.
      *
      * @throws DecoderException
      */
@@ -75,7 +75,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Read all remaining bytes from file pointer
+     * Read all remaining bytes from file pointer.
      */
     protected function remainingBytes(): string
     {
@@ -89,7 +89,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Get next byte in stream and move file pointer
+     * Get next byte in stream and move file pointer.
      *
      * @throws DecoderException
      */
@@ -99,7 +99,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Move file pointer on file pointer by given offset
+     * Move file pointer on file pointer by given offset.
      *
      * @throws DecoderException
      */
@@ -115,7 +115,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Decode multi byte value
+     * Decode multi byte value.
      *
      * @throws DecoderException
      */
@@ -131,7 +131,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Set length
+     * Set length.
      */
     public function setLength(int $length): self
     {
@@ -141,7 +141,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Get length
+     * Get length.
      */
     public function length(): ?int
     {
@@ -149,7 +149,7 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Get current file pointer position
+     * Get current file pointer position.
      *
      * @throws DecoderException
      */

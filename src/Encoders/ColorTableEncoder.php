@@ -11,7 +11,7 @@ use Intervention\Gif\Exceptions\EncoderException;
 class ColorTableEncoder extends AbstractEncoder
 {
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(ColorTable $entity)
     {
@@ -19,7 +19,7 @@ class ColorTableEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode current source
+     * Encode current entity.
      *
      * @throws EncoderException
      */

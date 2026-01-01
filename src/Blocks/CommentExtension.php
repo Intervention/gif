@@ -11,14 +11,14 @@ class CommentExtension extends AbstractExtension
     public const LABEL = "\xFE";
 
     /**
-     * Comment blocks
+     * Comment blocks.
      *
      * @var array<string>
      */
     protected array $comments = [];
 
     /**
-     * Get all or one comment
+     * Get all or one comment.
      *
      * @return array<string>
      */
@@ -28,7 +28,7 @@ class CommentExtension extends AbstractExtension
     }
 
     /**
-     * Get one comment by key
+     * Get one comment by key.
      */
     public function comment(int $key): mixed
     {
@@ -36,7 +36,7 @@ class CommentExtension extends AbstractExtension
     }
 
     /**
-     * Set comment text
+     * Set comment text.
      */
     public function addComment(string $value): self
     {

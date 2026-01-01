@@ -9,7 +9,7 @@ use Intervention\Gif\Exceptions\DecoderException;
 abstract class AbstractPackedBitDecoder extends AbstractDecoder
 {
     /**
-     * Decode packed byte
+     * Decode packed byte.
      *
      * @throws DecoderException
      */
@@ -25,7 +25,7 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
     }
 
     /**
-     * Determine if packed bit is set
+     * Determine if packed bit is set.
      *
      * @throws DecoderException
      */
@@ -35,7 +35,7 @@ abstract class AbstractPackedBitDecoder extends AbstractDecoder
     }
 
     /**
-     * Get packed bits
+     * Get packed bits.
      *
      * @throws DecoderException
      */

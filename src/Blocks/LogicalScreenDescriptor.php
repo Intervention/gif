@@ -10,47 +10,47 @@ use Intervention\Gif\Exceptions\InvalidArgumentException;
 class LogicalScreenDescriptor extends AbstractEntity
 {
     /**
-     * Width
+     * Width.
      */
     protected int $width;
 
     /**
-     * Height
+     * Height.
      */
     protected int $height;
 
     /**
-     * Global color table flag
+     * Global color table flag.
      */
     protected bool $globalColorTableExistance = false;
 
     /**
-     * Sort flag of global color table
+     * Sort flag of global color table.
      */
     protected bool $globalColorTableSorted = false;
 
     /**
-     * Size of global color table
+     * Size of global color table.
      */
     protected int $globalColorTableSize = 0;
 
     /**
-     * Background color index
+     * Background color index.
      */
     protected int $backgroundColorIndex = 0;
 
     /**
-     * Color resolution
+     * Color resolution.
      */
     protected int $bitsPerPixel = 8;
 
     /**
-     * Pixel aspect ration
+     * Pixel aspect ration.
      */
     protected int $pixelAspectRatio = 0;
 
     /**
-     * Set size
+     * Set size.
      *
      * @throws InvalidArgumentException
      */
@@ -71,7 +71,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Get width of current instance
+     * Get width of current instance.
      */
     public function width(): int
     {
@@ -79,7 +79,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Get height of current instance
+     * Get height of current instance.
      */
     public function height(): int
     {
@@ -87,7 +87,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Determine if global color table is present
+     * Determine if global color table is present.
      */
     public function globalColorTableExistance(): bool
     {
@@ -95,7 +95,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Alias of globalColorTableExistance
+     * Alias of globalColorTableExistance.
      */
     public function hasGlobalColorTable(): bool
     {
@@ -103,7 +103,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Set global color table flag
+     * Set global color table flag.
      */
     public function setGlobalColorTableExistance(bool $existance = true): self
     {
@@ -113,7 +113,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Get global color table sorted flag
+     * Get global color table sorted flag.
      */
     public function globalColorTableSorted(): bool
     {
@@ -121,7 +121,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Set global color table sorted flag
+     * Set global color table sorted flag.
      */
     public function setGlobalColorTableSorted(bool $sorted = true): self
     {
@@ -131,7 +131,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Get size of global color table
+     * Get size of global color table.
      */
     public function globalColorTableSize(): int
     {
@@ -139,7 +139,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Get byte size of global color table
+     * Get byte size of global color table.
      */
     public function globalColorTableByteSize(): int
     {
@@ -147,7 +147,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Set size of global color table
+     * Set size of global color table.
      */
     public function setGlobalColorTableSize(int $size): self
     {
@@ -157,7 +157,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Get background color index
+     * Get background color index.
      */
     public function backgroundColorIndex(): int
     {
@@ -165,7 +165,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Set background color index
+     * Set background color index.
      */
     public function setBackgroundColorIndex(int $index): self
     {
@@ -175,7 +175,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Get current pixel aspect ration
+     * Get current pixel aspect ration.
      */
     public function pixelAspectRatio(): int
     {
@@ -183,7 +183,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Set pixel aspect ratio
+     * Set pixel aspect ratio.
      */
     public function setPixelAspectRatio(int $ratio): self
     {
@@ -193,7 +193,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Get color resolution
+     * Get color resolution.
      */
     public function bitsPerPixel(): int
     {
@@ -201,7 +201,7 @@ class LogicalScreenDescriptor extends AbstractEntity
     }
 
     /**
-     * Set color resolution
+     * Set color resolution.
      */
     public function setBitsPerPixel(int $value): self
     {

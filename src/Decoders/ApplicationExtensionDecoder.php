@@ -13,7 +13,7 @@ use Intervention\Gif\Exceptions\InvalidArgumentException;
 class ApplicationExtensionDecoder extends AbstractDecoder
 {
     /**
-     * Decode current source
+     * Decode current source.
      *
      * @throws DecoderException
      */
@@ -70,7 +70,7 @@ class ApplicationExtensionDecoder extends AbstractDecoder
     }
 
     /**
-     * Decode block size of ApplicationExtension from given byte
+     * Decode block size of ApplicationExtension from given byte.
      *
      * @throws DecoderException
      */

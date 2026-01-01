@@ -12,7 +12,7 @@ use Intervention\Gif\GifDataStream;
 class GifDataStreamEncoder extends AbstractEncoder
 {
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(GifDataStream $entity)
     {
@@ -20,7 +20,7 @@ class GifDataStreamEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode current source
+     * Encode current entity.
      *
      * @throws EncoderException
      */
@@ -36,7 +36,10 @@ class GifDataStreamEncoder extends AbstractEncoder
         ]);
     }
 
-    protected function maybeEncodeGlobalColorTable(): string
+    /**
+     * Decode global color table if present in gif data.
+     */
+    private function maybeEncodeGlobalColorTable(): string
     {
         if (!$this->entity->hasGlobalColorTable()) {
             return '';
@@ -46,11 +49,11 @@ class GifDataStreamEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode data blocks of source
+     * Encode data blocks of source.
      *
      * @throws EncoderException
      */
-    protected function encodeFrames(): string
+    private function encodeFrames(): string
     {
         return implode('', array_map(
             fn(FrameBlock $frame): string => $frame->encode(),
@@ -59,11 +62,11 @@ class GifDataStreamEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode comment extension blocks of source
+     * Encode comment extension blocks of source.
      *
      * @throws EncoderException
      */
-    protected function encodeComments(): string
+    private function encodeComments(): string
     {
         return implode('', array_map(
             fn(CommentExtension $commentExtension): string => $commentExtension->encode(),

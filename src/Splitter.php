@@ -21,26 +21,26 @@ use Traversable;
 class Splitter implements IteratorAggregate
 {
     /**
-     * Single frames resolved to GifDataStream
+     * Single frames resolved from main GifDataStream.
      *
      * @var array<GifDataStream>
      */
     protected array $frames = [];
 
     /**
-     * Delays of each frame
+     * Delays of each frame resolved from main GifDataStream.
      *
      * @var array<int>
      */
     protected array $delays = [];
 
     /**
-     * Loop count of currently handled gif data
+     * Loop count of main GifDataStream.
      */
     protected int $loops;
 
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(protected GifDataStream $gif)
     {
@@ -48,7 +48,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Static constructor method
+     * Static constructor method.
      */
     public static function create(GifDataStream $stream): self
     {
@@ -56,7 +56,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Decode raw data and create splitter in one step
+     * Decode raw data and create splitter in one step.
      *
      * @throws InvalidArgumentException
      * @throws FilePointerException
@@ -68,7 +68,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Iterator
+     * Iterator.
      */
     public function getIterator(): Traversable
     {
@@ -76,7 +76,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Get frames
+     * Get frames.
      *
      * @return array<GifDataStream>
      */
@@ -86,7 +86,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Get delays
+     * Get delays.
      *
      * @return array<int>
      */
@@ -96,7 +96,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Get loop count of currently handled gif data
+     * Get loop count of currently handled gif data.
      */
     public function loops(): int
     {
@@ -104,7 +104,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Set stream of instance
+     * Set stream of instance.
      */
     public function setStream(GifDataStream $stream): self
     {
@@ -114,7 +114,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Split current stream into array of seperate streams for each frame
+     * Split current stream into array of seperate streams for each frame.
      *
      * @throws SplitterException
      */
@@ -173,7 +173,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Return array of GD library resources for each frame
+     * Return array of GD library resources for each frame.
      *
      * @throws CoreException
      * @return array<GdImage>
@@ -203,7 +203,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Return array of coalesced GD library resources for each frame
+     * Return array of coalesced GD library resources for each frame.
      *
      * @throws SplitterException
      * @throws CoreException
@@ -326,7 +326,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Find and return disposal method of given gif data stream
+     * Find and return disposal method of given gif data stream.
      *
      * @throws SplitterException
      */

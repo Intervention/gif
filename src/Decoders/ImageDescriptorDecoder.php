@@ -11,7 +11,7 @@ use Intervention\Gif\Exceptions\InvalidArgumentException;
 class ImageDescriptorDecoder extends AbstractPackedBitDecoder
 {
     /**
-     * Decode given string to current instance
+     * Decode given string to current instance.
      *
      * @throws DecoderException
      */
@@ -57,41 +57,41 @@ class ImageDescriptorDecoder extends AbstractPackedBitDecoder
     }
 
     /**
-     * Decode local color table existance
+     * Decode local color table existance.
      *
      * @throws DecoderException
      */
-    protected function decodeLocalColorTableExistance(string $byte): bool
+    private function decodeLocalColorTableExistance(string $byte): bool
     {
         return $this->hasPackedBit($byte, 0);
     }
 
     /**
-     * Decode local color table sort method
+     * Decode local color table sort method.
      *
      * @throws DecoderException
      */
-    protected function decodeLocalColorTableSorted(string $byte): bool
+    private function decodeLocalColorTableSorted(string $byte): bool
     {
         return $this->hasPackedBit($byte, 2);
     }
 
     /**
-     * Decode local color table size
+     * Decode local color table size.
      *
      * @throws DecoderException
      */
-    protected function decodeLocalColorTableSize(string $byte): int
+    private function decodeLocalColorTableSize(string $byte): int
     {
         return (int) bindec($this->packedBits($byte, 5, 3));
     }
 
     /**
-     * Decode interlaced flag
+     * Decode interlaced flag.
      *
      * @throws DecoderException
      */
-    protected function decodeInterlaced(string $byte): bool
+    private function decodeInterlaced(string $byte): bool
     {
         return $this->hasPackedBit($byte, 1);
     }

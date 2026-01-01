@@ -12,7 +12,7 @@ use Intervention\Gif\Exceptions\EncoderException;
 class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
 {
     /**
-     * Create new decoder instance
+     * Create new decoder instance.
      */
     public function __construct(NetscapeApplicationExtension $entity)
     {
@@ -20,7 +20,7 @@ class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
     }
 
     /**
-     * Encode current source
+     * Encode current source.
      *
      * @throws EncoderException
      */

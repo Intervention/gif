@@ -17,7 +17,7 @@ use Intervention\Gif\GifDataStream;
 class GifDataStreamDecoder extends AbstractDecoder
 {
     /**
-     * Decode current source to GifDataStream
+     * Decode current source to GifDataStream.
      *
      * @throws DecoderException
      */

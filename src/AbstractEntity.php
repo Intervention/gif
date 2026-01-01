@@ -19,7 +19,7 @@ abstract class AbstractEntity implements Stringable
     public const TERMINATOR = "\x00";
 
     /**
-     * Get short classname of current instance
+     * Get short classname of current instance.
      */
     public static function shortClassname(): ?string
     {
@@ -31,7 +31,7 @@ abstract class AbstractEntity implements Stringable
     }
 
     /**
-     * Cast object to string
+     * Cast object to string.
      *
      * @throws EncoderException
      */

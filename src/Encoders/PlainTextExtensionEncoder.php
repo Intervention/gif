@@ -9,7 +9,7 @@ use Intervention\Gif\Blocks\PlainTextExtension;
 class PlainTextExtensionEncoder extends AbstractEncoder
 {
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(PlainTextExtension $entity)
     {
@@ -17,7 +17,7 @@ class PlainTextExtensionEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode current source
+     * Encode current entity.
      */
     public function encode(): string
     {
@@ -35,17 +35,17 @@ class PlainTextExtensionEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode head block
+     * Encode head block.
      */
-    protected function encodeHead(): string
+    private function encodeHead(): string
     {
         return "\x0c\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
     }
 
     /**
-     * Encode text chunks
+     * Encode text chunks.
      */
-    protected function encodeTexts(): string
+    private function encodeTexts(): string
     {
         return implode('', array_map(
             fn(string $text): string => pack('C', strlen($text)) . $text,

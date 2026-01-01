@@ -11,7 +11,7 @@ use Intervention\Gif\Exceptions\EncoderException;
 class ApplicationExtensionEncoder extends AbstractEncoder
 {
     /**
-     * Create new decoder instance
+     * Create new decoder instance.
      */
     public function __construct(ApplicationExtension $entity)
     {
@@ -19,7 +19,7 @@ class ApplicationExtensionEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode current source
+     * Encode current entity.
      *
      * @throws EncoderException
      */

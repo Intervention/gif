@@ -13,7 +13,7 @@ use ValueError;
 class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
 {
     /**
-     * Decode given string to current instance
+     * Decode given string to current instance.
      *
      * @throws DecoderException
      */
@@ -64,31 +64,31 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
     }
 
     /**
-     * Decode user input flag
+     * Decode user input flag.
      *
      * @throws DecoderException
      */
-    protected function decodeUserInput(string $byte): bool
+    private function decodeUserInput(string $byte): bool
     {
         return $this->hasPackedBit($byte, 6);
     }
 
     /**
-     * Decode transparent color existance
+     * Decode transparent color existance.
      *
      * @throws DecoderException
      */
-    protected function decodeTransparentColorExistance(string $byte): bool
+    private function decodeTransparentColorExistance(string $byte): bool
     {
         return $this->hasPackedBit($byte, 7);
     }
 
     /**
-     * Decode delay value
+     * Decode delay value.
      *
      * @throws DecoderException
      */
-    protected function decodeDelay(string $bytes): int
+    private function decodeDelay(string $bytes): int
     {
         $unpacked = unpack('v*', $bytes);
 
@@ -100,11 +100,11 @@ class GraphicControlExtensionDecoder extends AbstractPackedBitDecoder
     }
 
     /**
-     * Decode transparent color index
+     * Decode transparent color index.
      *
      * @throws DecoderException
      */
-    protected function decodeTransparentColorIndex(string $byte): int
+    private function decodeTransparentColorIndex(string $byte): int
     {
         $unpacked = unpack('C', $byte);
 

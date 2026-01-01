@@ -9,7 +9,7 @@ use Intervention\Gif\Blocks\GraphicControlExtension;
 class GraphicControlExtensionEncoder extends AbstractEncoder
 {
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(GraphicControlExtension $entity)
     {
@@ -17,7 +17,7 @@ class GraphicControlExtensionEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode current source
+     * Encode current entity.
      */
     public function encode(): string
     {
@@ -33,25 +33,25 @@ class GraphicControlExtensionEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode delay time
+     * Encode delay time.
      */
-    protected function encodeDelay(): string
+    private function encodeDelay(): string
     {
         return pack('v*', $this->entity->delay());
     }
 
     /**
-     * Encode transparent color index
+     * Encode transparent color index.
      */
-    protected function encodeTransparentColorIndex(): string
+    private function encodeTransparentColorIndex(): string
     {
         return pack('C', $this->entity->transparentColorIndex());
     }
 
     /**
-     * Encode packed field
+     * Encode packed field.
      */
-    protected function encodePackedField(): string
+    private function encodePackedField(): string
     {
         return pack('C', bindec(implode('', [
             str_pad('0', 3, '0', STR_PAD_LEFT),

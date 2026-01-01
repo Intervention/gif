@@ -12,47 +12,47 @@ class ImageDescriptor extends AbstractEntity
     public const SEPARATOR = "\x2C";
 
     /**
-     * Width of frame
+     * Width of frame.
      */
     protected int $width = 0;
 
     /**
-     * Height of frame
+     * Height of frame.
      */
     protected int $height = 0;
 
     /**
-     * Left position of frame
+     * Left position of frame.
      */
     protected int $left = 0;
 
     /**
-     * Top position of frame
+     * Top position of frame.
      */
     protected int $top = 0;
 
     /**
-     * Determine if frame is interlaced
+     * Determine if frame is interlaced.
      */
     protected bool $interlaced = false;
 
     /**
-     * Local color table flag
+     * Local color table flag.
      */
     protected bool $localColorTableExistance = false;
 
     /**
-     * Sort flag of local color table
+     * Sort flag of local color table.
      */
     protected bool $localColorTableSorted = false;
 
     /**
-     * Size of local color table
+     * Size of local color table.
      */
     protected int $localColorTableSize = 0;
 
     /**
-     * Get current width
+     * Get current width.
      */
     public function width(): int
     {
@@ -60,7 +60,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Get current width
+     * Get current width.
      */
     public function height(): int
     {
@@ -68,7 +68,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Get current Top
+     * Get current Top.
      */
     public function top(): int
     {
@@ -76,7 +76,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Get current Left
+     * Get current Left.
      */
     public function left(): int
     {
@@ -84,7 +84,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Set size of current instance
+     * Set size of current instance.
      *
      * @throws InvalidArgumentException
      */
@@ -105,7 +105,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Set position of current instance
+     * Set position of current instance.
      */
     public function setPosition(int $left, int $top): self
     {
@@ -116,7 +116,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Determine if frame is interlaced
+     * Determine if frame is interlaced.
      */
     public function isInterlaced(): bool
     {
@@ -124,7 +124,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Set or unset interlaced value
+     * Set or unset interlaced value.
      */
     public function setInterlaced(bool $value = true): self
     {
@@ -134,7 +134,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Determine if local color table is present
+     * Determine if local color table is present.
      */
     public function localColorTableExistance(): bool
     {
@@ -142,7 +142,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Alias for localColorTableExistance
+     * Alias for localColorTableExistance.
      */
     public function hasLocalColorTable(): bool
     {
@@ -150,7 +150,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Set local color table flag
+     * Set local color table flag.
      */
     public function setLocalColorTableExistance(bool $existance = true): self
     {
@@ -160,7 +160,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Get local color table sorted flag
+     * Get local color table sorted flag.
      */
     public function localColorTableSorted(): bool
     {
@@ -168,7 +168,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Set local color table sorted flag
+     * Set local color table sorted flag.
      */
     public function setLocalColorTableSorted(bool $sorted = true): self
     {
@@ -178,7 +178,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Get size of local color table
+     * Get size of local color table.
      */
     public function localColorTableSize(): int
     {
@@ -186,7 +186,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Get byte size of global color table
+     * Get byte size of global color table.
      */
     public function localColorTableByteSize(): int
     {
@@ -194,7 +194,7 @@ class ImageDescriptor extends AbstractEntity
     }
 
     /**
-     * Set size of local color table
+     * Set size of local color table.
      */
     public function setLocalColorTableSize(int $size): self
     {

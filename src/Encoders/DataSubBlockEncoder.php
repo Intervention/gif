@@ -9,7 +9,7 @@ use Intervention\Gif\Blocks\DataSubBlock;
 class DataSubBlockEncoder extends AbstractEncoder
 {
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(DataSubBlock $entity)
     {
@@ -17,7 +17,7 @@ class DataSubBlockEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode current source
+     * Encode current entity.
      */
     public function encode(): string
     {

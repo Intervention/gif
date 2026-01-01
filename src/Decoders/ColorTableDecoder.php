@@ -11,7 +11,7 @@ use Intervention\Gif\Exceptions\DecoderException;
 class ColorTableDecoder extends AbstractDecoder
 {
     /**
-     * Decode given string to ColorTable
+     * Decode given string to ColorTable.
      *
      * @throws DecoderException
      */

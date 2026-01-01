@@ -11,7 +11,7 @@ use Intervention\Gif\Exceptions\InvalidArgumentException;
 class DataSubBlockDecoder extends AbstractDecoder
 {
     /**
-     * Decode current sourc
+     * Decode current source.
      *
      * @throws DecoderException
      */

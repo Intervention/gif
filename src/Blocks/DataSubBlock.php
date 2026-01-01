@@ -10,7 +10,7 @@ use Intervention\Gif\Exceptions\InvalidArgumentException;
 class DataSubBlock extends AbstractEntity
 {
     /**
-     * Create new instance
+     * Create new instance.
      *
      * @throws InvalidArgumentException
      */
@@ -24,7 +24,7 @@ class DataSubBlock extends AbstractEntity
     }
 
     /**
-     * Return size of current block
+     * Return size of current block.
      */
     public function size(): int
     {
@@ -32,7 +32,7 @@ class DataSubBlock extends AbstractEntity
     }
 
     /**
-     * Return block value
+     * Return block value.
      */
     public function value(): string
     {

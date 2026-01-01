@@ -13,7 +13,7 @@ use Intervention\Gif\Exceptions\InvalidArgumentException;
 class ImageDataDecoder extends AbstractDecoder
 {
     /**
-     * Decode current source
+     * Decode current source.
      *
      * @throws DecoderException
      */

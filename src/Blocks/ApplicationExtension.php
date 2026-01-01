@@ -12,19 +12,19 @@ class ApplicationExtension extends AbstractExtension
     public const LABEL = "\xFF";
 
     /**
-     * Application Identifier & Auth Code
+     * Application Identifier & Auth Code.
      */
     protected string $application = '';
 
     /**
-     * Data Sub Blocks
+     * Data Sub Blocks.
      *
      * @var array<DataSubBlock>
      */
     protected array $blocks = [];
 
     /**
-     * Get size of block
+     * Get size of block.
      */
     public function blockSize(): int
     {
@@ -32,7 +32,7 @@ class ApplicationExtension extends AbstractExtension
     }
 
     /**
-     * Set application name
+     * Set application name.
      */
     public function setApplication(string $value): self
     {
@@ -42,7 +42,7 @@ class ApplicationExtension extends AbstractExtension
     }
 
     /**
-     * Get application name
+     * Get application name.
      */
     public function application(): string
     {
@@ -50,7 +50,7 @@ class ApplicationExtension extends AbstractExtension
     }
 
     /**
-     * Add block to application extension
+     * Add block to application extension.
      */
     public function addBlock(DataSubBlock $block): self
     {
@@ -60,7 +60,7 @@ class ApplicationExtension extends AbstractExtension
     }
 
     /**
-     *  Set data sub blocks of instance
+     *  Set data sub blocks of instance.
      *
      * @param array<DataSubBlock> $blocks
      */
@@ -72,7 +72,7 @@ class ApplicationExtension extends AbstractExtension
     }
 
     /**
-     * Get blocks of ApplicationExtension
+     * Get blocks of ApplicationExtension.
      *
      * @return array<DataSubBlock>
      */
@@ -82,7 +82,7 @@ class ApplicationExtension extends AbstractExtension
     }
 
     /**
-     * Get first block of ApplicationExtension
+     * Get first block of ApplicationExtension.
      *
      * @throws StateException
      */

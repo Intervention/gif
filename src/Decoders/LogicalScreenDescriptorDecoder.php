@@ -11,7 +11,7 @@ use Intervention\Gif\Exceptions\InvalidArgumentException;
 class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
 {
     /**
-     * Decode given string to current instance
+     * Decode given string to current instance.
      *
      * @throws DecoderException
      */
@@ -62,11 +62,11 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
     }
 
     /**
-     * Decode width
+     * Decode width.
      *
      * @throws DecoderException
      */
-    protected function decodeWidth(string $source): int
+    private function decodeWidth(string $source): int
     {
         $unpacked = unpack('v*', $source);
 
@@ -78,11 +78,11 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
     }
 
     /**
-     * Decode height
+     * Decode height.
      *
      * @throws DecoderException
      */
-    protected function decodeHeight(string $source): int
+    private function decodeHeight(string $source): int
     {
         $unpacked = unpack('v*', $source);
 
@@ -94,51 +94,51 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
     }
 
     /**
-     * Decode existance of global color table
+     * Decode existance of global color table.
      *
      * @throws DecoderException
      */
-    protected function decodeGlobalColorTableExistance(string $byte): bool
+    private function decodeGlobalColorTableExistance(string $byte): bool
     {
         return $this->hasPackedBit($byte, 0);
     }
 
     /**
-     * Decode color resolution in bits per pixel
+     * Decode color resolution in bits per pixel.
      *
      * @throws DecoderException
      */
-    protected function decodeBitsPerPixel(string $byte): int
+    private function decodeBitsPerPixel(string $byte): int
     {
         return intval(bindec($this->packedBits($byte, 1, 3))) + 1;
     }
 
     /**
-     * Decode global color table sorted status
+     * Decode global color table sorted status.
      *
      * @throws DecoderException
      */
-    protected function decodeGlobalColorTableSorted(string $byte): bool
+    private function decodeGlobalColorTableSorted(string $byte): bool
     {
         return $this->hasPackedBit($byte, 4);
     }
 
     /**
-     * Decode size of global color table
+     * Decode size of global color table.
      *
      * @throws DecoderException
      */
-    protected function decodeGlobalColorTableSize(string $byte): int
+    private function decodeGlobalColorTableSize(string $byte): int
     {
         return intval(bindec($this->packedBits($byte, 5, 3)));
     }
 
     /**
-     * Decode background color index
+     * Decode background color index.
      *
      * @throws DecoderException
      */
-    protected function decodeBackgroundColorIndex(string $source): int
+    private function decodeBackgroundColorIndex(string $source): int
     {
         $unpacked = unpack('C', $source);
 
@@ -150,11 +150,11 @@ class LogicalScreenDescriptorDecoder extends AbstractPackedBitDecoder
     }
 
     /**
-     * Decode pixel aspect ratio
+     * Decode pixel aspect ratio.
      *
      * @throws DecoderException
      */
-    protected function decodePixelAspectRatio(string $source): int
+    private function decodePixelAspectRatio(string $source): int
     {
         $unpacked = unpack('C', $source);
 

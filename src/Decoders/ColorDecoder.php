@@ -11,7 +11,7 @@ use Intervention\Gif\Exceptions\InvalidArgumentException;
 class ColorDecoder extends AbstractDecoder
 {
     /**
-     * Decode current source to Color
+     * Decode current source to Color.
      *
      * @throws DecoderException
      */
@@ -32,7 +32,7 @@ class ColorDecoder extends AbstractDecoder
     }
 
     /**
-     * Decode color value from source
+     * Decode color value from source.
      *
      * @throws DecoderException
      */

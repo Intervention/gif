@@ -10,7 +10,7 @@ use Intervention\Gif\Exceptions\EncoderException;
 trait CanEncode
 {
     /**
-     * Encode current entity
+     * Encode current entity.
      *
      * @throws EncoderException
      */
@@ -20,7 +20,7 @@ trait CanEncode
     }
 
     /**
-     * Get encoder object for current entity
+     * Get encoder object for current entity.
      *
      * @throws EncoderException
      */

@@ -9,7 +9,7 @@ use Intervention\Gif\Blocks\Color;
 class ColorEncoder extends AbstractEncoder
 {
     /**
-     * Create new instance
+     * Create new instance.
      */
     public function __construct(Color $entity)
     {
@@ -17,7 +17,7 @@ class ColorEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode current source
+     * Encode current entity.
      */
     public function encode(): string
     {
@@ -29,9 +29,9 @@ class ColorEncoder extends AbstractEncoder
     }
 
     /**
-     * Encode color value
+     * Encode color value.
      */
-    protected function encodeColorValue(int $value): string
+    private function encodeColorValue(int $value): string
     {
         return pack('C', $value);
     }

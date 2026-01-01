@@ -9,17 +9,17 @@ use Intervention\Gif\AbstractEntity;
 class Header extends AbstractEntity
 {
     /**
-     * Header signature
+     * Header signature.
      */
     public const SIGNATURE = 'GIF';
 
     /**
-     * Current GIF version
+     * Current GIF version.
      */
     protected string $version = '89a';
 
     /**
-     * Set GIF version
+     * Set GIF version.
      */
     public function setVersion(string $value): self
     {
@@ -29,7 +29,7 @@ class Header extends AbstractEntity
     }
 
     /**
-     * Return current version
+     * Return current version.
      */
     public function version(): string
     {
