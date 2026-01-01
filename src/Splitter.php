@@ -35,11 +35,16 @@ class Splitter implements IteratorAggregate
     protected array $delays = [];
 
     /**
+     * Loop count of currently handled gif data
+     */
+    protected int $loops;
+
+    /**
      * Create new instance
      */
     public function __construct(protected GifDataStream $stream)
     {
-        //
+        $this->loops = $stream->mainApplicationExtension()?->loops() ?: 0;
     }
 
     /**
@@ -88,6 +93,14 @@ class Splitter implements IteratorAggregate
     public function delays(): array
     {
         return $this->delays;
+    }
+
+    /**
+     * Get loop count of currently handled gif data
+     */
+    public function loops(): int
+    {
+        return $this->loops;
     }
 
     /**

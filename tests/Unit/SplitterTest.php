@@ -46,6 +46,18 @@ final class SplitterTest extends BaseTestCase
         $this->assertEquals($delays, array_fill(0, 6, 13));
     }
 
+    public function testGetLoopCount(): void
+    {
+        $decoded = Decoder::decode($this->imagePath('animation1.gif'));
+        $this->assertEquals(2, Splitter::create($decoded)->split()->loops());
+
+        $decoded = Decoder::decode($this->imagePath('animation2.gif'));
+        $this->assertEquals(0, Splitter::create($decoded)->split()->loops());
+
+        $decoded = Decoder::decode($this->imagePath('static.gif'));
+        $this->assertEquals(0, Splitter::create($decoded)->split()->loops());
+    }
+
     public function testSplitStatic(): void
     {
         $decoded = Decoder::decode($this->imagePath('static.gif'));
