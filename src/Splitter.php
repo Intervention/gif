@@ -42,9 +42,9 @@ class Splitter implements IteratorAggregate
     /**
      * Create new instance
      */
-    public function __construct(protected GifDataStream $stream)
+    public function __construct(protected GifDataStream $gif)
     {
-        $this->loops = $stream->mainApplicationExtension()?->loops() ?: 0;
+        $this->loops = $gif->mainApplicationExtension()?->loops() ?: 0;
     }
 
     /**
@@ -108,7 +108,7 @@ class Splitter implements IteratorAggregate
      */
     public function setStream(GifDataStream $stream): self
     {
-        $this->stream = $stream;
+        $this->gif = $stream;
 
         return $this;
     }
@@ -122,40 +122,40 @@ class Splitter implements IteratorAggregate
     {
         $this->frames = [];
 
-        foreach ($this->stream->frames() as $frame) {
+        foreach ($this->gif->frames() as $frame) {
             // create separate stream for each frame
             try {
                 $gif = Builder::canvas(
-                    $this->stream->logicalScreenDescriptor()->width(),
-                    $this->stream->logicalScreenDescriptor()->height()
+                    $this->gif->logicalScreenDescriptor()->width(),
+                    $this->gif->logicalScreenDescriptor()->height()
                 )->gifDataStream();
             } catch (InvalidArgumentException $e) {
                 throw new SplitterException('Failed to create separate file pointer for each frame', previous: $e);
             }
 
             // check if working stream has global color table
-            if ($table = $this->stream->globalColorTable()) {
+            if ($table = $this->gif->globalColorTable()) {
                 $gif->setGlobalColorTable($table);
                 $gif->logicalScreenDescriptor()->setGlobalColorTableExistance(true);
 
                 $gif->logicalScreenDescriptor()->setGlobalColorTableSorted(
-                    $this->stream->logicalScreenDescriptor()->globalColorTableSorted()
+                    $this->gif->logicalScreenDescriptor()->globalColorTableSorted()
                 );
 
                 $gif->logicalScreenDescriptor()->setGlobalColorTableSize(
-                    $this->stream->logicalScreenDescriptor()->globalColorTableSize()
+                    $this->gif->logicalScreenDescriptor()->globalColorTableSize()
                 );
 
                 $gif->logicalScreenDescriptor()->setBackgroundColorIndex(
-                    $this->stream->logicalScreenDescriptor()->backgroundColorIndex()
+                    $this->gif->logicalScreenDescriptor()->backgroundColorIndex()
                 );
 
                 $gif->logicalScreenDescriptor()->setPixelAspectRatio(
-                    $this->stream->logicalScreenDescriptor()->pixelAspectRatio()
+                    $this->gif->logicalScreenDescriptor()->pixelAspectRatio()
                 );
 
                 $gif->logicalScreenDescriptor()->setBitsPerPixel(
-                    $this->stream->logicalScreenDescriptor()->bitsPerPixel()
+                    $this->gif->logicalScreenDescriptor()->bitsPerPixel()
                 );
             }
 
