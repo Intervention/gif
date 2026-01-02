@@ -23,7 +23,7 @@ final class PipelineTest extends BaseTestCase
         $splitter = Splitter::create($gif)->split();
         $this->assertEquals(array_fill(0, 6, 13), $splitter->delays());
 
-        $gd_objects = $splitter->coalesceToResources();
+        $gd_objects = $splitter->flatten();
         foreach ($gd_objects as $gd) {
             $this->assertEquals(30, imagesx($gd));
             $this->assertEquals(20, imagesy($gd));

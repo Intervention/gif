@@ -48,7 +48,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Static constructor method.
+     * Create splitter instance from gif data stream object.
      */
     public static function create(GifDataStream $stream): self
     {
@@ -56,19 +56,29 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Decode raw data and create splitter in one step.
+     * Create splitter instance from raw binary gif image data.
      *
      * @throws InvalidArgumentException
      * @throws FilePointerException
      * @throws DecoderException
      */
-    public static function decodeCreate(mixed $input): self
+    public static function decode(mixed $input): self
     {
         return new self(Decoder::decode($input));
     }
 
     /**
-     * Iterator.
+     * Set stream of instance.
+     */
+    public function setStream(GifDataStream $stream): self
+    {
+        $this->gif = $stream;
+
+        return $this;
+    }
+
+    /**
+     * Build iterator.
      */
     public function getIterator(): Traversable
     {
@@ -101,16 +111,6 @@ class Splitter implements IteratorAggregate
     public function loops(): int
     {
         return $this->loops;
-    }
-
-    /**
-     * Set stream of instance.
-     */
-    public function setStream(GifDataStream $stream): self
-    {
-        $this->gif = $stream;
-
-        return $this;
     }
 
     /**
@@ -173,47 +173,17 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Return array of GD library resources for each frame.
-     *
-     * @throws CoreException
-     * @return array<GdImage>
-     */
-    public function toResources(): array
-    {
-        $resources = [];
-
-        foreach ($this->frames as $frame) {
-            try {
-                $resource = imagecreatefromstring($frame->encode());
-            } catch (EncoderException) {
-                throw new CoreException('Failed to extract animation frames to resources');
-            }
-
-            if ($resource === false) {
-                throw new CoreException('Failed to extract animation frames to resources');
-            }
-
-            imagepalettetotruecolor($resource);
-            imagesavealpha($resource, true);
-
-            $resources[] = $resource;
-        }
-
-        return $resources;
-    }
-
-    /**
-     * Return array of coalesced GD library resources for each frame.
+     * Return array of transparency flattened GDImage objects for each frame.
      *
      * @throws SplitterException
      * @throws CoreException
      * @return array<GdImage>
      */
-    public function coalesceToResources(): array
+    public function flatten(): array
     {
-        $resources = $this->toResources();
+        $resources = $this->extractFrames();
 
-        // static gif files don't need to be coalesced
+        // static gif files don't need to be flattened
         if (count($resources) === 1) {
             return $resources;
         }
@@ -320,6 +290,36 @@ class Splitter implements IteratorAggregate
             }
 
             $resources[$key] = $canvas;
+        }
+
+        return $resources;
+    }
+
+    /**
+     * Return array of GDImage objects for each frame.
+     *
+     * @throws CoreException
+     * @return array<GdImage>
+     */
+    private function extractFrames(): array
+    {
+        $resources = [];
+
+        foreach ($this->frames as $frame) {
+            try {
+                $resource = imagecreatefromstring($frame->encode());
+            } catch (EncoderException) {
+                throw new CoreException('Failed to extract animation frame to GDImage object');
+            }
+
+            if ($resource === false) {
+                throw new CoreException('Failed to extract animation frame to GDImage object');
+            }
+
+            imagepalettetotruecolor($resource);
+            imagesavealpha($resource, true);
+
+            $resources[] = $resource;
         }
 
         return $resources;

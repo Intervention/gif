@@ -14,7 +14,7 @@ final class SplitterTest extends BaseTestCase
 {
     public function testDecodeCreate(): void
     {
-        $splitter = Splitter::decodeCreate($this->imagePath('animation1.gif'));
+        $splitter = Splitter::decode($this->imagePath('animation1.gif'));
         $this->assertInstanceOf(Splitter::class, $splitter);
     }
 
@@ -30,11 +30,7 @@ final class SplitterTest extends BaseTestCase
             $this->assertInstanceOf(GifDataStream::class, Decoder::decode($gif->encode()));
         }
 
-        foreach ($splitter->toResources() as $gif) {
-            $this->assertInstanceOf(GdImage::class, $gif);
-        }
-
-        foreach ($splitter->coalesceToResources() as $gif) {
+        foreach ($splitter->flatten() as $gif) {
             $this->assertInstanceOf(GdImage::class, $gif);
         }
     }
@@ -70,11 +66,7 @@ final class SplitterTest extends BaseTestCase
             $this->assertInstanceOf(GifDataStream::class, Decoder::decode($gif->encode()));
         }
 
-        foreach ($splitter->toResources() as $gif) {
-            $this->assertInstanceOf(GdImage::class, $gif);
-        }
-
-        foreach ($splitter->coalesceToResources() as $gif) {
+        foreach ($splitter->flatten() as $gif) {
             $this->assertInstanceOf(GdImage::class, $gif);
         }
     }
