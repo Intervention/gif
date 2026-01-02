@@ -16,14 +16,14 @@ use IteratorAggregate;
 use Traversable;
 
 /**
- * @implements IteratorAggregate<GifDataStream>
+ * @implements IteratorAggregate<GifDataStream|GdImage>
  */
 class Splitter implements IteratorAggregate
 {
     /**
      * Single frames resolved from main GifDataStream.
      *
-     * @var array<GifDataStream>
+     * @var array<GifDataStream|GdImage>
      */
     protected array $frames = [];
 
@@ -68,6 +68,16 @@ class Splitter implements IteratorAggregate
     }
 
     /**
+     * Iterate over the frames and pass each frame to a closure.
+     */
+    public function each(callable $callback): self
+    {
+        array_map($callback, $this->frames, $this->delays);
+
+        return $this;
+    }
+
+    /**
      * Set stream of instance.
      */
     public function setStream(GifDataStream $stream): self
@@ -88,7 +98,7 @@ class Splitter implements IteratorAggregate
     /**
      * Get frames.
      *
-     * @return array<GifDataStream>
+     * @return array<GifDataStream|GdImage>
      */
     public function frames(): array
     {
@@ -114,7 +124,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Split current stream into array of seperate streams for each frame.
+     * Split current stream into array of seperate gif data stream objects for each frame.
      *
      * @throws SplitterException
      */
@@ -173,28 +183,32 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Return array of transparency flattened GDImage objects for each frame.
+     * Transform current frames to an a rray of transparency flattened GDImage objects for each frame.
      *
      * @throws SplitterException
      * @throws CoreException
-     * @return array<GdImage>
      */
-    public function flatten(): array
+    public function flatten(): self
     {
+        $frames = $this->unprocessedFramesOrFail();
         $gdImages = $this->extractFrames();
 
-        // static gif files don't need to be flattened
-        if (count($gdImages) === 1) {
-            return $gdImages;
+        // non-animated gif files don't need to be flattened
+        // just replace frames with extracted
+        if (count($frames) === 1) {
+            $this->frames = $gdImages;
+
+            return $this;
         }
 
+        // get main image size
         $width = imagesx($gdImages[0]);
         $height = imagesy($gdImages[0]);
         $transparent = imagecolortransparent($gdImages[0]);
 
         foreach ($gdImages as $key => $gdImage) {
-            // get meta data
-            $gif = $this->frames[$key];
+            // get meta data of frame
+            $gif = $frames[$key];
             $descriptor = $gif->firstFrame()?->imageDescriptor();
             $offsetX = $descriptor?->left() ?: 0;
             $offsetY = $descriptor?->top() ?: 0;
@@ -292,7 +306,9 @@ class Splitter implements IteratorAggregate
             $gdImages[$key] = $canvas;
         }
 
-        return $gdImages;
+        $this->frames = $gdImages;
+
+        return $this;
     }
 
     /**
@@ -305,7 +321,7 @@ class Splitter implements IteratorAggregate
     {
         $gdImages = [];
 
-        foreach ($this->frames as $frame) {
+        foreach ($this->unprocessedFramesOrFail() as $frame) {
             try {
                 $gdImage = imagecreatefromstring($frame->encode());
             } catch (EncoderException) {
@@ -335,5 +351,33 @@ class Splitter implements IteratorAggregate
         $disposalMethod = $gif->firstFrame()?->graphicControlExtension()?->disposalMethod();
 
         return $disposalMethod ?: throw new SplitterException('Failed to find disposal method in gif data stream');
+    }
+
+    /**
+     * Return array of unprocessed frames or throw exception if frames are already processed.
+     *
+     * @throws SplitterException
+     * @return array<GifDataStream>
+     */
+    private function unprocessedFramesOrFail(): array
+    {
+        if (count($this->frames) === 0) {
+            throw new SplitterException('No frames available. Run ' . $this::class . '::split() first');
+        }
+
+        // if any frame is instanceof GDImage, frame was already flattened
+        $processed = count(array_filter(
+            $this->frames,
+            fn(GDImage|GifDataStream $frame): bool => $frame instanceof GDImage,
+        )) > 0;
+
+        if ($processed) {
+            throw new SplitterException('Frames have already been flattened');
+        }
+
+        return array_filter(
+            $this->frames,
+            fn(GifDataStream|GdImage $frame): bool => $frame instanceof GifDataStream,
+        );
     }
 }

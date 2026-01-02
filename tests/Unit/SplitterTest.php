@@ -12,10 +12,29 @@ use Intervention\Gif\Tests\BaseTestCase;
 
 final class SplitterTest extends BaseTestCase
 {
-    public function testDecodeCreate(): void
+    public function testCreate(): void
+    {
+        $splitter = Splitter::create(new GifDataStream());
+        $this->assertInstanceOf(Splitter::class, $splitter);
+    }
+
+    public function testDecode(): void
     {
         $splitter = Splitter::decode($this->imagePath('animation1.gif'));
         $this->assertInstanceOf(Splitter::class, $splitter);
+    }
+
+    public function testIterator(): void
+    {
+        $splitter = Splitter::decode($this->imagePath('animation1.gif'))->split();
+
+        foreach ($splitter as $item) {
+            $this->assertInstanceOf(GifDataStream::class, $item);
+        }
+
+        foreach ($splitter->flatten() as $item) {
+            $this->assertInstanceOf(GdImage::class, $item);
+        }
     }
 
     public function testSplit(): void
@@ -33,6 +52,18 @@ final class SplitterTest extends BaseTestCase
         foreach ($splitter->flatten() as $gif) {
             $this->assertInstanceOf(GdImage::class, $gif);
         }
+    }
+
+    public function testEach(): void
+    {
+        $count = 0;
+        Splitter::decode($this->imagePath('animation2.gif'))
+            ->split()
+            ->each(function () use (&$count): void {
+                $count++;
+            });
+
+        $this->assertEquals(6, $count);
     }
 
     public function testGetDelays(): void
@@ -66,8 +97,8 @@ final class SplitterTest extends BaseTestCase
             $this->assertInstanceOf(GifDataStream::class, Decoder::decode($gif->encode()));
         }
 
-        foreach ($splitter->flatten() as $gif) {
-            $this->assertInstanceOf(GdImage::class, $gif);
+        foreach ($splitter->flatten() as $frame) {
+            $this->assertInstanceOf(GdImage::class, $frame);
         }
     }
 
