@@ -23,14 +23,14 @@ final class PipelineTest extends BaseTestCase
         $splitter = Splitter::create($gif)->split();
         $this->assertEquals(array_fill(0, 6, 13), $splitter->delays());
 
-        $gd_objects = $splitter->flatten();
-        foreach ($gd_objects as $gd) {
+        $gdObjects = $splitter->flatten();
+        foreach ($gdObjects as $gd) {
             $this->assertEquals(30, imagesx($gd));
             $this->assertEquals(20, imagesy($gd));
         }
 
         $builder = Builder::canvas(30, 20);
-        foreach ($gd_objects as $gd) {
+        foreach ($gdObjects as $gd) {
             $framesrc = $this->buffered(function () use ($gd): void {
                 imagecolortransparent($gd);
                 imagegif($gd);

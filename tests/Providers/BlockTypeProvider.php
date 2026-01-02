@@ -47,14 +47,14 @@ class BlockTypeProvider
     }
 
     public static function imageDescriptor(
-        int $size_x = 10,
-        int $size_y = 10,
-        int $pos_x = 0,
-        int $pos_y = 0
+        int $sizeX = 10,
+        int $sizeY = 10,
+        int $posX = 0,
+        int $posY = 0
     ): ImageDescriptor {
         $descriptor = new ImageDescriptor();
-        $descriptor->setSize($size_x, $size_y);
-        $descriptor->setPosition($pos_x, $pos_y);
+        $descriptor->setSize($sizeX, $sizeY);
+        $descriptor->setPosition($posX, $posY);
 
         return $descriptor;
     }

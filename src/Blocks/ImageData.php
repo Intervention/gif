@@ -11,7 +11,7 @@ class ImageData extends AbstractEntity
     /**
      * LZW min. code size.
      */
-    protected int $lzw_min_code_size;
+    protected int $lzwMinCodeSize;
 
     /**
      * Sub blocks.
@@ -25,7 +25,7 @@ class ImageData extends AbstractEntity
      */
     public function lzwMinCodeSize(): int
     {
-        return $this->lzw_min_code_size;
+        return $this->lzwMinCodeSize;
     }
 
     /**
@@ -33,7 +33,7 @@ class ImageData extends AbstractEntity
      */
     public function setLzwMinCodeSize(int $size): self
     {
-        $this->lzw_min_code_size = $size;
+        $this->lzwMinCodeSize = $size;
 
         return $this;
     }

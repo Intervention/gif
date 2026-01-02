@@ -181,23 +181,23 @@ class Splitter implements IteratorAggregate
      */
     public function flatten(): array
     {
-        $resources = $this->extractFrames();
+        $gdImages = $this->extractFrames();
 
         // static gif files don't need to be flattened
-        if (count($resources) === 1) {
-            return $resources;
+        if (count($gdImages) === 1) {
+            return $gdImages;
         }
 
-        $width = imagesx($resources[0]);
-        $height = imagesy($resources[0]);
-        $transparent = imagecolortransparent($resources[0]);
+        $width = imagesx($gdImages[0]);
+        $height = imagesy($gdImages[0]);
+        $transparent = imagecolortransparent($gdImages[0]);
 
-        foreach ($resources as $key => $resource) {
+        foreach ($gdImages as $key => $gdImage) {
             // get meta data
             $gif = $this->frames[$key];
             $descriptor = $gif->firstFrame()?->imageDescriptor();
-            $offset_x = $descriptor?->left() ?: 0;
-            $offset_y = $descriptor?->top() ?: 0;
+            $offsetX = $descriptor?->left() ?: 0;
+            $offsetY = $descriptor?->top() ?: 0;
             $w = $descriptor?->width() ?: 0;
             $h = $descriptor?->height() ?: 0;
 
@@ -210,10 +210,10 @@ class Splitter implements IteratorAggregate
                         throw new CoreException('Failed to create new image instance for animation frame #' . $key);
                     }
 
-                    if (imagecolortransparent($resource) != -1) {
-                        $transparent = imagecolortransparent($resource);
+                    if (imagecolortransparent($gdImage) != -1) {
+                        $transparent = imagecolortransparent($gdImage);
                     } else {
-                        $transparent = imagecolorallocatealpha($resource, 255, 0, 255, 127);
+                        $transparent = imagecolorallocatealpha($gdImage, 255, 0, 255, 127);
                     }
 
                     if (!is_int($transparent)) {
@@ -230,7 +230,7 @@ class Splitter implements IteratorAggregate
                     // insert last as base
                     imagecopy(
                         $canvas,
-                        $resources[$key - 1],
+                        $gdImages[$key - 1],
                         0,
                         0,
                         0,
@@ -239,20 +239,20 @@ class Splitter implements IteratorAggregate
                         $height
                     );
 
-                    // insert resource
+                    // insert gd image
                     imagecopy(
                         $canvas,
-                        $resource,
-                        $offset_x,
-                        $offset_y,
+                        $gdImage,
+                        $offsetX,
+                        $offsetY,
                         0,
                         0,
                         $w,
                         $h
                     );
                 } else {
-                    imagealphablending($resource, true);
-                    $canvas = $resource;
+                    imagealphablending($gdImage, true);
+                    $canvas = $gdImage;
                 }
             } else {
                 // create normalized gd image
@@ -261,14 +261,14 @@ class Splitter implements IteratorAggregate
                     throw new CoreException('Failed to create new image instance for animation frame #' . $key);
                 }
 
-                if (imagecolortransparent($resource) != -1) {
-                    $transparent = imagecolortransparent($resource);
+                if (imagecolortransparent($gdImage) != -1) {
+                    $transparent = imagecolortransparent($gdImage);
                 } else {
-                    $transparent = imagecolorallocatealpha($resource, 255, 0, 255, 127);
+                    $transparent = imagecolorallocatealpha($gdImage, 255, 0, 255, 127);
                 }
 
                 if (!is_int($transparent)) {
-                    throw new CoreException('Animation frames cannot be converted into resources');
+                    throw new CoreException('Animation frames cannot be converted into GDImage objects');
                 }
 
                 // fill with transparent
@@ -276,12 +276,12 @@ class Splitter implements IteratorAggregate
                 imagecolortransparent($canvas, $transparent);
                 imagealphablending($canvas, true);
 
-                // insert frame resource
+                // insert frame gd image
                 imagecopy(
                     $canvas,
-                    $resource,
-                    $offset_x,
-                    $offset_y,
+                    $gdImage,
+                    $offsetX,
+                    $offsetY,
                     0,
                     0,
                     $w,
@@ -289,10 +289,10 @@ class Splitter implements IteratorAggregate
                 );
             }
 
-            $resources[$key] = $canvas;
+            $gdImages[$key] = $canvas;
         }
 
-        return $resources;
+        return $gdImages;
     }
 
     /**
@@ -303,26 +303,26 @@ class Splitter implements IteratorAggregate
      */
     private function extractFrames(): array
     {
-        $resources = [];
+        $gdImages = [];
 
         foreach ($this->frames as $frame) {
             try {
-                $resource = imagecreatefromstring($frame->encode());
+                $gdImage = imagecreatefromstring($frame->encode());
             } catch (EncoderException) {
                 throw new CoreException('Failed to extract animation frame to GDImage object');
             }
 
-            if ($resource === false) {
+            if ($gdImage === false) {
                 throw new CoreException('Failed to extract animation frame to GDImage object');
             }
 
-            imagepalettetotruecolor($resource);
-            imagesavealpha($resource, true);
+            imagepalettetotruecolor($gdImage);
+            imagesavealpha($gdImage, true);
 
-            $resources[] = $resource;
+            $gdImages[] = $gdImage;
         }
 
-        return $resources;
+        return $gdImages;
     }
 
     /**
