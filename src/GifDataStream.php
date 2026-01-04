@@ -127,6 +127,10 @@ class GifDataStream extends AbstractEntity
      */
     public function firstFrame(): ?FrameBlock
     {
+        if ($this->frames === []) {
+            return null;
+        }
+
         if (!array_key_exists(0, $this->frames)) {
             return null;
         }
