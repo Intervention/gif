@@ -200,6 +200,16 @@ class FrameBlock extends AbstractEntity
     }
 
     /**
+     * Remove all application extensions from the current frame block.
+     */
+    public function clearApplicationExtensions(): self
+    {
+        $this->applicationExtensions = [];
+
+        return $this;
+    }
+
+    /**
      * Add given comment extension to the current frame block
      */
     public function addCommentExtension(CommentExtension $extension): self

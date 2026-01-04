@@ -31,13 +31,37 @@ final class BuilderTest extends BaseTestCase
         $this->assertEquals(240, $gif->getLogicalScreenDescriptor()->getHeight());
     }
 
+    public function testCanvasSingleLoop(): void
+    {
+        $builder = Builder::canvas(320, 240);
+        $builder->addFrame($this->getTestImagePath('red.gif'), 0.25, 1, 2);
+        $builder->setLoops(1);
+        $gif = $builder->getGifDataStream();
+
+        // one loop means no loop count in gif
+        $this->assertEquals(null, $gif->getMainApplicationExtension()?->getLoops());
+    }
+
     public function testCanvasMultipleLoops(): void
     {
         $builder = Builder::canvas(320, 240);
         $builder->addFrame($this->getTestImagePath('red.gif'), 0.25, 1, 2);
         $builder->setLoops(10);
         $gif = $builder->getGifDataStream();
-        $this->assertEquals(10, $gif->getMainApplicationExtension()->getLoops());
+
+        // 10 loops means 9 repetitions in gif
+        $this->assertEquals(9, $gif->getMainApplicationExtension()->getLoops());
+    }
+
+    public function testCanvasInfiniteLoops(): void
+    {
+        $builder = Builder::canvas(320, 240);
+        $builder->addFrame($this->getTestImagePath('red.gif'), 0.25, 1, 2);
+        $builder->setLoops(0);
+        $gif = $builder->getGifDataStream();
+
+        // 0 loops means 0 (aka infinite) repetitions in gif
+        $this->assertEquals(0, $gif->getMainApplicationExtension()->getLoops());
     }
 
     public function testAddFrame(): void
