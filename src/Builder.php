@@ -70,13 +70,13 @@ class Builder
         // with one single loop the netscape extension must be removed otherwise the
         // gif is looped twice because the first repetition always takes place
         if ($loops === 1) {
-            $this->gif->getFirstFrame()->clearApplicationExtensions();
+            $this->gif->getFirstFrame()?->clearApplicationExtensions();
             return $this;
         }
 
         // make sure a netscape extension is present to store the loop count
-        if (!$this->gif->getFirstFrame()->getNetscapeExtension()) {
-            $this->gif->getFirstFrame()->addApplicationExtension(
+        if (!$this->gif->getFirstFrame()?->getNetscapeExtension()) {
+            $this->gif->getFirstFrame()?->addApplicationExtension(
                 new NetscapeApplicationExtension()
             );
         }
@@ -88,7 +88,7 @@ class Builder
         $loops = $loops === 0 ? $loops : $loops - 1;
 
         // add loop count to netscape extension on first frame
-        $this->gif->getFirstFrame()->getNetscapeExtension()->setLoops($loops);
+        $this->gif->getFirstFrame()?->getNetscapeExtension()?->setLoops($loops);
 
         return $this;
     }
