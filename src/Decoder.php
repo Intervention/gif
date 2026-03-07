@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Gif;
 
 use Intervention\Gif\Exceptions\DecoderException;
-use Intervention\Gif\Exceptions\FilePointerException;
+use Intervention\Gif\Exceptions\StreamException;
 use Intervention\Gif\Exceptions\InvalidArgumentException;
 use Intervention\Gif\Traits\CanHandleFiles;
 
@@ -17,7 +17,7 @@ class Decoder
      * Decode given input.
      *
      * @throws InvalidArgumentException
-     * @throws FilePointerException
+     * @throws StreamException
      * @throws DecoderException
      */
     public static function decode(mixed $input): GifDataStream
@@ -34,7 +34,7 @@ class Decoder
         $result = rewind($filePointer);
 
         if ($result === false) {
-            throw new FilePointerException('Failed to rewind file pointer');
+            throw new StreamException('Failed to rewind file pointer');
         }
 
         return GifDataStream::decode($filePointer);

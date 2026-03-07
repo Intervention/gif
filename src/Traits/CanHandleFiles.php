@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\Gif\Traits;
 
-use Intervention\Gif\Exceptions\FilePointerException;
+use Intervention\Gif\Exceptions\StreamException;
 
 trait CanHandleFiles
 {
@@ -27,24 +27,24 @@ trait CanHandleFiles
     /**
      * Create file pointer from given gif image data.
      *
-     * @throws FilePointerException
+     * @throws StreamException
      */
     private static function filePointerFromData(string $data): mixed
     {
         $filePointer = fopen('php://temp', 'r+');
 
         if ($filePointer === false) {
-            throw new FilePointerException('Failed to create tempory file pointer');
+            throw new StreamException('Failed to create tempory file pointer');
         }
 
         $result = fwrite($filePointer, $data);
         if ($result === false) {
-            throw new FilePointerException('Failed to write tempory file pointer');
+            throw new StreamException('Failed to write tempory file pointer');
         }
 
         $result = rewind($filePointer);
         if ($result === false) {
-            throw new FilePointerException('Failed to rewind tempory file pointer');
+            throw new StreamException('Failed to rewind tempory file pointer');
         }
 
         return $filePointer;
@@ -53,14 +53,14 @@ trait CanHandleFiles
     /**
      * Create file pounter from given file path.
      *
-     * @throws FilePointerException
+     * @throws StreamException
      */
     private static function filePointerFromFilePath(string $path): mixed
     {
         $filePointer = fopen($path, 'rb');
 
         if ($filePointer === false) {
-            throw new FilePointerException('Failed to create file pointer from path');
+            throw new StreamException('Failed to create file pointer from path');
         }
 
         return $filePointer;

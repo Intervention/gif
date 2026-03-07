@@ -9,7 +9,7 @@ use GdImage;
 use Intervention\Gif\Exceptions\CoreException;
 use Intervention\Gif\Exceptions\DecoderException;
 use Intervention\Gif\Exceptions\EncoderException;
-use Intervention\Gif\Exceptions\FilePointerException;
+use Intervention\Gif\Exceptions\StreamException;
 use Intervention\Gif\Exceptions\InvalidArgumentException;
 use Intervention\Gif\Exceptions\SplitterException;
 use IteratorAggregate;
@@ -59,7 +59,7 @@ class Splitter implements IteratorAggregate
      * Create splitter instance from raw binary gif image data.
      *
      * @throws InvalidArgumentException
-     * @throws FilePointerException
+     * @throws StreamException
      * @throws DecoderException
      */
     public static function decode(mixed $input): self

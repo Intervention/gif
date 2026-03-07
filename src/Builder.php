@@ -11,7 +11,7 @@ use Intervention\Gif\Blocks\NetscapeApplicationExtension;
 use Intervention\Gif\Blocks\TableBasedImage;
 use Intervention\Gif\Exceptions\DecoderException;
 use Intervention\Gif\Exceptions\EncoderException;
-use Intervention\Gif\Exceptions\FilePointerException;
+use Intervention\Gif\Exceptions\StreamException;
 use Intervention\Gif\Exceptions\InvalidArgumentException;
 use Intervention\Gif\Exceptions\StateException;
 use Intervention\Gif\Traits\CanHandleFiles;
@@ -104,7 +104,7 @@ class Builder
      * Create new animation frame from given source which can be path to a file or GIF image data.
      *
      * @throws DecoderException
-     * @throws FilePointerException
+     * @throws StreamException
      * @throws InvalidArgumentException
      */
     public function addFrame(
