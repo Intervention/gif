@@ -17,7 +17,7 @@ abstract class AbstractDecoder
     /**
      * Create new instance.
      */
-    public function __construct(protected mixed $filePointer, protected ?int $length = null)
+    public function __construct(protected mixed $stream, protected ?int $length = null)
     {
         //
     }
@@ -25,15 +25,15 @@ abstract class AbstractDecoder
     /**
      * Set source to decode.
      */
-    public function setFilePointer(mixed $filePointer): self
+    public function setStream(mixed $stream): self
     {
-        $this->filePointer = $filePointer;
+        $this->stream = $stream;
 
         return $this;
     }
 
     /**
-     * Read given number of bytes and move file pointer.
+     * Read given number of bytes and move stream position.
      *
      * @throws DecoderException
      */
@@ -43,7 +43,7 @@ abstract class AbstractDecoder
             throw new DecoderException('The length of the next byte chain must be at least one byte');
         }
 
-        $bytes = fread($this->filePointer, $length);
+        $bytes = fread($this->stream, $length);
         if ($bytes === false || strlen($bytes) !== $length) {
             throw new DecoderException('Unexpected end of file');
         }
@@ -52,20 +52,20 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Read given number of bytes and move pointer back to previous position.
+     * Read given number of bytes and move stream position back to previous position.
      *
      * @throws DecoderException
      */
     protected function viewNextBytesOrFail(int $length): string
     {
         $bytes = $this->nextBytesOrFail($length);
-        $this->movePointer($length * -1);
+        $this->moveStreamPosition($length * -1);
 
         return $bytes;
     }
 
     /**
-     * Read next byte and move pointer back to previous position.
+     * Read next byte and move stream position back to previous position.
      *
      * @throws DecoderException
      */
@@ -75,21 +75,21 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Read all remaining bytes from file pointer.
+     * Read all remaining bytes from stream.
      */
     protected function remainingBytes(): string
     {
         $all = '';
         do {
-            $byte = fread($this->filePointer, 1);
+            $byte = fread($this->stream, 1);
             $all .= $byte;
-        } while (!feof($this->filePointer));
+        } while (!feof($this->stream));
 
         return $all;
     }
 
     /**
-     * Get next byte in stream and move file pointer.
+     * Get next byte in stream and move stream position.
      *
      * @throws DecoderException
      */
@@ -99,16 +99,16 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Move file pointer on file pointer by given offset.
+     * Move stream position by given offset.
      *
      * @throws DecoderException
      */
-    protected function movePointer(int $offset): self
+    protected function moveStreamPosition(int $offset): self
     {
-        $result = fseek($this->filePointer, $offset, SEEK_CUR);
+        $result = fseek($this->stream, $offset, SEEK_CUR);
 
         if ($result !== 0) {
-            throw new DecoderException('Failed to move position of file pointer by offset ' . $offset);
+            throw new DecoderException('Failed to move stream position by offset ' . $offset);
         }
 
         return $this;
@@ -149,16 +149,16 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Get current file pointer position.
+     * Get current stream position.
      *
      * @throws DecoderException
      */
     public function position(): int
     {
-        $position = ftell($this->filePointer);
+        $position = ftell($this->stream);
 
         if ($position === false) {
-            throw new DecoderException('Failed to read current position from file pointer');
+            throw new DecoderException('Failed to read current position from stream');
         }
 
         return $position;

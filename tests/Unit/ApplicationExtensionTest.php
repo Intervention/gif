@@ -53,7 +53,7 @@ final class ApplicationExtensionTest extends BaseTestCase
     public function testDecode(): void
     {
         $source = "\x21\xff\x06\x66\x6F\x6F\x62\x61\x72\x03\x62\x61\x7A\x00";
-        $extension = ApplicationExtension::decode($this->filePointer($source));
+        $extension = ApplicationExtension::decode($this->stream($source));
         $this->assertInstanceOf(ApplicationExtension::class, $extension);
         $this->assertCount(1, $extension->blocks());
         $this->assertEquals('foobar', $extension->application());

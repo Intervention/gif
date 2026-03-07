@@ -140,7 +140,7 @@ class Splitter implements IteratorAggregate
                     $this->gif->logicalScreenDescriptor()->height()
                 )->gifDataStream();
             } catch (InvalidArgumentException $e) {
-                throw new SplitterException('Failed to create separate file pointer for each frame', previous: $e);
+                throw new SplitterException('Failed to create separate stream resource for each frame', previous: $e);
             }
 
             // check if working stream has global color table

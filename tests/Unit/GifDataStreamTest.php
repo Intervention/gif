@@ -56,7 +56,7 @@ final class GifDataStreamTest extends BaseTestCase
     public function testDecode(): void
     {
         $gif = GifDataStream::decode(
-            $this->filePointer(
+            $this->stream(
                 file_get_contents($this->imagePath('animation1.gif'))
             ),
         );
@@ -162,7 +162,7 @@ final class GifDataStreamTest extends BaseTestCase
     public function testDecodeTrailingComment(): void
     {
         $gif = GifDataStream::decode(
-            $this->filePointer(
+            $this->stream(
                 file_get_contents($this->imagePath('animation_trailing_comment.gif'))
             ),
         );

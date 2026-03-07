@@ -13,12 +13,12 @@ abstract class BaseTestCase extends TestCase
         return sprintf('%s/images/%s', __DIR__, $filename);
     }
 
-    public function filePointer(string $data): mixed
+    public function stream(string $data): mixed
     {
-        $filePointer = fopen('php://memory', 'r+');
-        fwrite($filePointer, $data);
-        rewind($filePointer);
+        $stream = fopen('php://memory', 'r+');
+        fwrite($stream, $data);
+        rewind($stream);
 
-        return $filePointer;
+        return $stream;
     }
 }

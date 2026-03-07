@@ -144,7 +144,7 @@ final class LogicalScreenDescriptorTest extends BaseTestCase
         // BackgroundColorIndex: 128
         // PixelAspectRatio: 0
         $source = "\x2c\x01\xc8\x00\xff\x80\x00";
-        $descriptor = LogicalScreenDescriptor::decode($this->filePointer($source));
+        $descriptor = LogicalScreenDescriptor::decode($this->stream($source));
         $this->assertInstanceOf(LogicalScreenDescriptor::class, $descriptor);
         $this->assertEquals(300, $descriptor->width());
         $this->assertEquals(200, $descriptor->height());

@@ -13,30 +13,30 @@ final class AbstractDecoderTest extends BaseTestCase
 {
     public function testConstructor(): void
     {
-        $filePointer = $this->filePointer('foobarbaz');
-        $decoder = $this->decoder($filePointer, 12);
+        $stream = $this->stream('foobarbaz');
+        $decoder = $this->decoder($stream, 12);
         $this->assertEquals(12, $decoder->length());
     }
 
-    public function testSetFilePointer(): void
+    public function testSetStream(): void
     {
-        $filePointer = $this->filePointer('foobarbaz');
-        $decoder = $this->decoder($filePointer);
-        $result = $decoder->setFilePointer($filePointer);
+        $stream = $this->stream('foobarbaz');
+        $decoder = $this->decoder($stream);
+        $result = $decoder->setStream($stream);
         $this->assertInstanceOf(AbstractDecoder::class, $result);
     }
 
     public function testSetGetLength(): void
     {
-        $decoder = $this->decoder($this->filePointer('foobarbaz'));
+        $decoder = $this->decoder($this->stream('foobarbaz'));
         $this->assertNull($decoder->length());
         $decoder->setLength(1);
         $this->assertEquals(1, $decoder->length());
     }
 
-    private function decoder(mixed $filePointer, ?int $length = null): AbstractDecoder
+    private function decoder(mixed $stream, ?int $length = null): AbstractDecoder
     {
-        return new class ($filePointer, $length) extends AbstractDecoder
+        return new class ($stream, $length) extends AbstractDecoder
         {
             /**
              * Decode current source

@@ -84,7 +84,7 @@ final class GraphicControlExtensionTest extends BaseTestCase
         ];
 
         foreach ($sources as $source) {
-            $extension = GraphicControlExtension::decode($this->filePointer($source));
+            $extension = GraphicControlExtension::decode($this->stream($source));
             $this->assertInstanceOf(GraphicControlExtension::class, $extension);
             $this->assertEquals(150, $extension->delay());
             $this->assertEquals(DisposalMethod::PREVIOUS, $extension->disposalMethod());

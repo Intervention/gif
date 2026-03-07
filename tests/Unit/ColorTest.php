@@ -48,28 +48,28 @@ final class ColorTest extends BaseTestCase
     public function testDecode(): void
     {
         $source = "\x00\x00\x00";
-        $color = Color::decode($this->filePointer($source));
+        $color = Color::decode($this->stream($source));
         $this->assertInstanceOf(Color::class, $color);
         $this->assertEquals(0, $color->red());
         $this->assertEquals(0, $color->green());
         $this->assertEquals(0, $color->blue());
 
         $source = "\xff\x00\xff";
-        $color = Color::decode($this->filePointer($source));
+        $color = Color::decode($this->stream($source));
         $this->assertInstanceOf(Color::class, $color);
         $this->assertEquals(255, $color->red());
         $this->assertEquals(0, $color->green());
         $this->assertEquals(255, $color->blue());
 
         $source = "\x7d\x7d\x7d";
-        $color = Color::decode($this->filePointer($source));
+        $color = Color::decode($this->stream($source));
         $this->assertInstanceOf(Color::class, $color);
         $this->assertequals(125, $color->red());
         $this->assertequals(125, $color->green());
         $this->assertEquals(125, $color->blue());
 
         $source = "\x0f\x2b\x79";
-        $color = Color::decode($this->filePointer($source));
+        $color = Color::decode($this->stream($source));
         $this->assertInstanceOf(Color::class, $color);
         $this->assertEquals(15, $color->red());
         $this->assertEquals(43, $color->green());

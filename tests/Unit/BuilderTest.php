@@ -90,10 +90,10 @@ final class BuilderTest extends BaseTestCase
 
     public function testAddFrameFromResource(): void
     {
-        $pointer = fopen('php://temp', 'r+');
-        fwrite($pointer, file_get_contents($this->imagePath('animation1.gif')));
+        $stream = fopen('php://temp', 'r+');
+        fwrite($stream, file_get_contents($this->imagePath('animation1.gif')));
         $builder = Builder::canvas(320, 240);
-        $result = $builder->addFrame($pointer);
+        $result = $builder->addFrame($stream);
         $this->assertInstanceOf(Builder::class, $result);
     }
 }

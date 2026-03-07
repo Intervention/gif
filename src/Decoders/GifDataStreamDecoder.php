@@ -26,17 +26,17 @@ class GifDataStreamDecoder extends AbstractDecoder
         $gif = new GifDataStream();
 
         $gif->setHeader(
-            Header::decode($this->filePointer),
+            Header::decode($this->stream),
         );
 
         $gif->setLogicalScreenDescriptor(
-            LogicalScreenDescriptor::decode($this->filePointer),
+            LogicalScreenDescriptor::decode($this->stream),
         );
 
         if ($gif->logicalScreenDescriptor()->hasGlobalColorTable()) {
             $length = $gif->logicalScreenDescriptor()->globalColorTableByteSize();
             $gif->setGlobalColorTable(
-                ColorTable::decode($this->filePointer, $length)
+                ColorTable::decode($this->stream, $length)
             );
         }
 
@@ -45,10 +45,10 @@ class GifDataStreamDecoder extends AbstractDecoder
                 // handle trailing "global" comment blocks which are not part of "FrameBlock"
                 AbstractExtension::MARKER . CommentExtension::LABEL
                 => $gif->addComment(
-                    CommentExtension::decode($this->filePointer)
+                    CommentExtension::decode($this->stream)
                 ),
                 default => $gif->addFrame(
-                    FrameBlock::decode($this->filePointer)
+                    FrameBlock::decode($this->stream)
                 ),
             };
         }

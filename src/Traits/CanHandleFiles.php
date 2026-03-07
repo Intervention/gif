@@ -25,44 +25,44 @@ trait CanHandleFiles
     }
 
     /**
-     * Create file pointer from given gif image data.
+     * Create stream resource from given gif image data.
      *
      * @throws StreamException
      */
-    private static function filePointerFromData(string $data): mixed
+    private static function streamFromData(string $data): mixed
     {
-        $filePointer = fopen('php://temp', 'r+');
+        $stream = fopen('php://temp', 'r+');
 
-        if ($filePointer === false) {
-            throw new StreamException('Failed to create tempory file pointer');
+        if ($stream === false) {
+            throw new StreamException('Failed to create tempory stream resource');
         }
 
-        $result = fwrite($filePointer, $data);
+        $result = fwrite($stream, $data);
         if ($result === false) {
-            throw new StreamException('Failed to write tempory file pointer');
+            throw new StreamException('Failed to write tempory stream resource');
         }
 
-        $result = rewind($filePointer);
+        $result = rewind($stream);
         if ($result === false) {
-            throw new StreamException('Failed to rewind tempory file pointer');
+            throw new StreamException('Failed to rewind tempory stream resource');
         }
 
-        return $filePointer;
+        return $stream;
     }
 
     /**
-     * Create file pounter from given file path.
+     * Create stream resource from given file path.
      *
      * @throws StreamException
      */
-    private static function filePointerFromFilePath(string $path): mixed
+    private static function streamFromFilePath(string $path): mixed
     {
-        $filePointer = fopen($path, 'rb');
+        $stream = fopen($path, 'rb');
 
-        if ($filePointer === false) {
-            throw new StreamException('Failed to create file pointer from path');
+        if ($stream === false) {
+            throw new StreamException('Failed to create stream resource from path');
         }
 
-        return $filePointer;
+        return $stream;
     }
 }

@@ -39,7 +39,7 @@ final class DataSubBlockTest extends BaseTestCase
             "\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78" .
             "\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78\x78";
 
-        $block = DataSubBlock::decode($this->filePointer($source));
+        $block = DataSubBlock::decode($this->stream($source));
         $this->assertInstanceOf(DataSubBlock::class, $block);
         $this->assertEquals(64, $block->size());
     }
