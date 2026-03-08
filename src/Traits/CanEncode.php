@@ -26,7 +26,7 @@ trait CanEncode
      */
     protected function encoder(): AbstractEncoder
     {
-        $classname = sprintf('Intervention\Gif\Encoders\%sEncoder', $this->shortClassname());
+        $classname = sprintf('Intervention\Gif\Encoders\%sEncoder', self::shortClassname());
 
         if (!class_exists($classname)) {
             throw new EncoderException('Encoder for "' . $this::class . '" not found');
