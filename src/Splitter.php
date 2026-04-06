@@ -41,14 +41,22 @@ class Splitter implements IteratorAggregate
 
     /**
      * Create new instance.
+     *
+     * @throws SplitterException
      */
     public function __construct(protected GifDataStream $gif)
     {
-        $this->loops = $gif->mainApplicationExtension()?->loops() ?: 0;
+        try {
+            $this->loops = $gif->mainApplicationExtension()?->loops() ?: 0;
+        } catch (DecoderException $e) {
+            throw new SplitterException('Failed to create instance from ' . GifDataStream::class, previous: $e);
+        }
     }
 
     /**
      * Create splitter instance from gif data stream object.
+     *
+     * @throws SplitterException
      */
     public static function create(GifDataStream $stream): self
     {
@@ -58,6 +66,7 @@ class Splitter implements IteratorAggregate
     /**
      * Create splitter instance from raw binary gif image data.
      *
+     * @throws SplitterException
      * @throws InvalidArgumentException
      * @throws StreamException
      * @throws DecoderException
@@ -315,6 +324,7 @@ class Splitter implements IteratorAggregate
      * Return array of GDImage objects for each frame.
      *
      * @throws CoreException
+     * @throws SplitterException
      * @return array<GdImage>
      */
     private function extractFrames(): array
