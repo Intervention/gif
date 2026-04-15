@@ -76,16 +76,18 @@ abstract class AbstractDecoder
 
     /**
      * Read all remaining bytes from stream.
+     *
+     * @throws DecoderException
      */
     protected function remainingBytes(): string
     {
-        $all = '';
-        do {
-            $byte = fread($this->stream, 1);
-            $all .= $byte;
-        } while (!feof($this->stream));
+        $contents = stream_get_contents($this->stream);
 
-        return $all;
+        if ($contents === false) {
+            throw new DecoderException('Failed to read remaining bytes from stream');
+        }
+
+        return $contents;
     }
 
     /**
