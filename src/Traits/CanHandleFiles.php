@@ -39,11 +39,13 @@ trait CanHandleFiles
 
         $result = fwrite($stream, $data);
         if ($result === false) {
+            fclose($stream);
             throw new StreamException('Failed to write tempory stream resource');
         }
 
         $result = rewind($stream);
         if ($result === false) {
+            fclose($stream);
             throw new StreamException('Failed to rewind tempory stream resource');
         }
 
