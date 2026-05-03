@@ -192,7 +192,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Transform current frames to an a rray of transparency flattened GDImage objects for each frame.
+     * Transform current frames to an a rray of transparency flattened GdImage objects for each frame.
      *
      * @throws SplitterException
      * @throws CoreException
@@ -291,7 +291,7 @@ class Splitter implements IteratorAggregate
                 }
 
                 if (!is_int($transparent)) {
-                    throw new CoreException('Animation frames cannot be converted into GDImage objects');
+                    throw new CoreException('Animation frames cannot be converted into GdImage objects');
                 }
 
                 // fill with transparent
@@ -321,7 +321,7 @@ class Splitter implements IteratorAggregate
     }
 
     /**
-     * Return array of GDImage objects for each frame.
+     * Return array of GdImage objects for each frame.
      *
      * @throws CoreException
      * @throws SplitterException
@@ -335,11 +335,11 @@ class Splitter implements IteratorAggregate
             try {
                 $gdImage = imagecreatefromstring($frame->encode());
             } catch (EncoderException) {
-                throw new CoreException('Failed to extract animation frame to GDImage object');
+                throw new CoreException('Failed to extract animation frame to GdImage object');
             }
 
             if ($gdImage === false) {
-                throw new CoreException('Failed to extract animation frame to GDImage object');
+                throw new CoreException('Failed to extract animation frame to GdImage object');
             }
 
             imagepalettetotruecolor($gdImage);
@@ -375,10 +375,10 @@ class Splitter implements IteratorAggregate
             throw new SplitterException('No frames available. Run ' . $this::class . '::split() first');
         }
 
-        // if any frame is instanceof GDImage, frame was already flattened
+        // if any frame is instanceof GdImage, frame was already flattened
         $processed = count(array_filter(
             $this->frames,
-            fn(GDImage|GifDataStream $frame): bool => $frame instanceof GDImage,
+            fn(GdImage|GifDataStream $frame): bool => $frame instanceof GdImage,
         )) > 0;
 
         if ($processed) {
