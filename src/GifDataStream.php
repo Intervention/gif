@@ -94,7 +94,8 @@ class GifDataStream extends AbstractEntity
     public function mainApplicationExtension(): ?NetscapeApplicationExtension
     {
         foreach ($this->frames as $frame) {
-            if ($extension = $frame->netscapeExtension()) {
+            $extension = $frame->netscapeExtension();
+            if ($extension !== null) {
                 return $extension;
             }
         }

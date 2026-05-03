@@ -232,7 +232,7 @@ class FrameBlock extends AbstractEntity
             fn(ApplicationExtension $extension): bool => $extension instanceof NetscapeApplicationExtension,
         );
 
-        return count($extensions) ? reset($extensions) : null;
+        return count($extensions) > 0 ? reset($extensions) : null;
     }
 
     /**
@@ -242,7 +242,8 @@ class FrameBlock extends AbstractEntity
     {
         $this->setImageDescriptor($tableBasedImage->imageDescriptor());
 
-        if ($colorTable = $tableBasedImage->colorTable()) {
+        $colorTable = $tableBasedImage->colorTable();
+        if ($colorTable !== null) {
             $this->setColorTable($colorTable);
         }
 

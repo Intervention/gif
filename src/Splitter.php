@@ -153,7 +153,8 @@ class Splitter implements IteratorAggregate
             }
 
             // check if working stream has global color table
-            if ($table = $this->gif->globalColorTable()) {
+            $table = $this->gif->globalColorTable();
+            if ($table !== null) {
                 $gif->setGlobalColorTable($table);
                 $gif->logicalScreenDescriptor()->setGlobalColorTableExistance(true);
 
@@ -233,7 +234,7 @@ class Splitter implements IteratorAggregate
                         throw new CoreException('Failed to create new image instance for animation frame #' . $key);
                     }
 
-                    if (imagecolortransparent($gdImage) != -1) {
+                    if (imagecolortransparent($gdImage) !== -1) {
                         $transparent = imagecolortransparent($gdImage);
                     } else {
                         $transparent = imagecolorallocatealpha($gdImage, 255, 0, 255, 127);
@@ -284,7 +285,7 @@ class Splitter implements IteratorAggregate
                     throw new CoreException('Failed to create new image instance for animation frame #' . $key);
                 }
 
-                if (imagecolortransparent($gdImage) != -1) {
+                if (imagecolortransparent($gdImage) !== -1) {
                     $transparent = imagecolortransparent($gdImage);
                 } else {
                     $transparent = imagecolorallocatealpha($gdImage, 255, 0, 255, 127);

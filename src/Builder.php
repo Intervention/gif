@@ -82,7 +82,7 @@ class Builder
         }
 
         // make sure a netscape extension is present to store the loop count
-        if (!$this->gif->firstFrame()?->netscapeExtension()) {
+        if ($this->gif->firstFrame()?->netscapeExtension() === null) {
             $this->gif->firstFrame()?->addApplicationExtension(
                 new NetscapeApplicationExtension()
             );
@@ -149,7 +149,7 @@ class Builder
 
         // set transparency index
         $control = $source->firstFrame()?->graphicControlExtension();
-        if ($control && $control->transparentColorExistance()) {
+        if ($control !== null && $control->transparentColorExistance()) {
             $extension->setTransparentColorExistance();
             $extension->setTransparentColorIndex(
                 $control->transparentColorIndex()
