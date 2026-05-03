@@ -13,7 +13,7 @@ class LogicalScreenDescriptorEncoder extends AbstractEncoder
      */
     public function __construct(LogicalScreenDescriptor $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

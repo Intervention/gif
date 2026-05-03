@@ -17,7 +17,7 @@ class ImageDataEncoder extends AbstractEncoder
      */
     public function __construct(ImageData $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

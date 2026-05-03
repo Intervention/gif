@@ -13,7 +13,7 @@ class GraphicControlExtensionEncoder extends AbstractEncoder
      */
     public function __construct(GraphicControlExtension $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

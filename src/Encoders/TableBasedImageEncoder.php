@@ -13,7 +13,7 @@ class TableBasedImageEncoder extends AbstractEncoder
      */
     public function __construct(TableBasedImage $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

@@ -13,7 +13,7 @@ class ColorEncoder extends AbstractEncoder
      */
     public function __construct(Color $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

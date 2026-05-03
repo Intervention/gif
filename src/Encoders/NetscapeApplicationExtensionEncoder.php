@@ -16,7 +16,7 @@ class NetscapeApplicationExtensionEncoder extends ApplicationExtensionEncoder
      */
     public function __construct(NetscapeApplicationExtension $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

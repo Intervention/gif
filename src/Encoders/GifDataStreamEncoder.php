@@ -16,7 +16,7 @@ class GifDataStreamEncoder extends AbstractEncoder
      */
     public function __construct(GifDataStream $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

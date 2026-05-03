@@ -13,7 +13,7 @@ class DataSubBlockEncoder extends AbstractEncoder
      */
     public function __construct(DataSubBlock $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

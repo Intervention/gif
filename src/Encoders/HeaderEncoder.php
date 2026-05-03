@@ -13,7 +13,7 @@ class HeaderEncoder extends AbstractEncoder
      */
     public function __construct(Header $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

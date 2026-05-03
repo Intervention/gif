@@ -15,7 +15,7 @@ class ColorTableEncoder extends AbstractEncoder
      */
     public function __construct(ColorTable $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

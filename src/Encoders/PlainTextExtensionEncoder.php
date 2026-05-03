@@ -13,7 +13,7 @@ class PlainTextExtensionEncoder extends AbstractEncoder
      */
     public function __construct(PlainTextExtension $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

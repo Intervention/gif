@@ -16,7 +16,7 @@ class FrameBlockEncoder extends AbstractEncoder
      */
     public function __construct(FrameBlock $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

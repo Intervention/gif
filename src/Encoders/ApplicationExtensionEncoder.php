@@ -15,7 +15,7 @@ class ApplicationExtensionEncoder extends AbstractEncoder
      */
     public function __construct(ApplicationExtension $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

@@ -13,7 +13,7 @@ class CommentExtensionEncoder extends AbstractEncoder
      */
     public function __construct(CommentExtension $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

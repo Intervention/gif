@@ -13,7 +13,7 @@ class ImageDescriptorEncoder extends AbstractEncoder
      */
     public function __construct(ImageDescriptor $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**

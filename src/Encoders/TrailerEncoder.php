@@ -13,7 +13,7 @@ class TrailerEncoder extends AbstractEncoder
      */
     public function __construct(Trailer $entity)
     {
-        $this->entity = $entity;
+        parent::__construct($entity);
     }
 
     /**
