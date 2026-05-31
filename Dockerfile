@@ -1,17 +1,12 @@
-FROM php:8.3-cli
+FROM php:8.3-cli-alpine
 
-RUN apt update \
-        && apt install -y \
-            libpng-dev \
-            git \
-            zip \
-        && pecl install xdebug \
-        && docker-php-ext-configure gd \
-        && docker-php-ext-enable \
-            xdebug \
-        && docker-php-ext-install \
-            gd \
-        && apt-get clean
+RUN apk add --no-cache \
+        libpng-dev \
+        git \
+        zip \
+    && docker-php-ext-configure gd \
+    && docker-php-ext-install \
+        gd
 
 # install composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
