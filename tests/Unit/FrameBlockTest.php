@@ -23,7 +23,7 @@ final class FrameBlockTest extends BaseTestCase
         $frame->setImageDescriptor(
             (new ImageDescriptor())
                 ->setSize(10, 10)
-                ->setPosition(10, 10)
+                ->setPosition(10, 10),
         );
         $frame->setImageData(
             (new ImageData())
@@ -31,7 +31,7 @@ final class FrameBlockTest extends BaseTestCase
                 ->addBlock(new DataSubBlock("\x20\x20\x8E\x64\x69\x9E\x51\xA0\x46\x67\xEB\xBE\x70\x2C\x97\xE9\x3A" .
                     "\xDF\x78\xAE\xDF\x4F\xD4\x40\x8F\x9B\x43\x15\x70\xF0\x7C\xC0\x9D\xB2\x15\x02"))
                 ->addBlock(new DataSubBlock("\x01\x01\x01\x01"))
-                ->addBlock(new DataSubBlock("\x01\x01\x01"))
+                ->addBlock(new DataSubBlock("\x01\x01\x01")),
         );
 
         $result = implode('', [

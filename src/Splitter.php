@@ -146,7 +146,7 @@ class Splitter implements IteratorAggregate
             try {
                 $gif = Builder::canvas(
                     $this->gif->logicalScreenDescriptor()->width(),
-                    $this->gif->logicalScreenDescriptor()->height()
+                    $this->gif->logicalScreenDescriptor()->height(),
                 )->gifDataStream();
             } catch (InvalidArgumentException $e) {
                 throw new SplitterException('Failed to create separate stream resource for each frame', previous: $e);
@@ -159,23 +159,23 @@ class Splitter implements IteratorAggregate
                 $gif->logicalScreenDescriptor()->setGlobalColorTableExistance(true);
 
                 $gif->logicalScreenDescriptor()->setGlobalColorTableSorted(
-                    $this->gif->logicalScreenDescriptor()->globalColorTableSorted()
+                    $this->gif->logicalScreenDescriptor()->globalColorTableSorted(),
                 );
 
                 $gif->logicalScreenDescriptor()->setGlobalColorTableSize(
-                    $this->gif->logicalScreenDescriptor()->globalColorTableSize()
+                    $this->gif->logicalScreenDescriptor()->globalColorTableSize(),
                 );
 
                 $gif->logicalScreenDescriptor()->setBackgroundColorIndex(
-                    $this->gif->logicalScreenDescriptor()->backgroundColorIndex()
+                    $this->gif->logicalScreenDescriptor()->backgroundColorIndex(),
                 );
 
                 $gif->logicalScreenDescriptor()->setPixelAspectRatio(
-                    $this->gif->logicalScreenDescriptor()->pixelAspectRatio()
+                    $this->gif->logicalScreenDescriptor()->pixelAspectRatio(),
                 );
 
                 $gif->logicalScreenDescriptor()->setBitsPerPixel(
-                    $this->gif->logicalScreenDescriptor()->bitsPerPixel()
+                    $this->gif->logicalScreenDescriptor()->bitsPerPixel(),
                 );
             }
 
@@ -260,7 +260,7 @@ class Splitter implements IteratorAggregate
                         0,
                         0,
                         $width,
-                        $height
+                        $height,
                     );
 
                     // insert gd image
@@ -272,7 +272,7 @@ class Splitter implements IteratorAggregate
                         0,
                         0,
                         $w,
-                        $h
+                        $h,
                     );
                 } else {
                     imagealphablending($gdImage, true);
@@ -309,7 +309,7 @@ class Splitter implements IteratorAggregate
                     0,
                     0,
                     $w,
-                    $h
+                    $h,
                 );
             }
 

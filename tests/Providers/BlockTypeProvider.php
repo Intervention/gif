@@ -50,7 +50,7 @@ class BlockTypeProvider
         int $sizeX = 10,
         int $sizeY = 10,
         int $posX = 0,
-        int $posY = 0
+        int $posY = 0,
     ): ImageDescriptor {
         $descriptor = new ImageDescriptor();
         $descriptor->setSize($sizeX, $sizeY);
@@ -61,7 +61,7 @@ class BlockTypeProvider
 
     public static function graphicControlExtension(
         int $delay = 120,
-        DisposalMethod $disposalMethod = DisposalMethod::PREVIOUS
+        DisposalMethod $disposalMethod = DisposalMethod::PREVIOUS,
     ): GraphicControlExtension {
         $extension = new GraphicControlExtension();
         $extension->setDelay($delay);
@@ -93,7 +93,7 @@ class BlockTypeProvider
 
     public static function logicalScreenDescriptor(
         int $width = 100,
-        int $height = 20
+        int $height = 20,
     ): LogicalScreenDescriptor {
         $descriptor = new LogicalScreenDescriptor();
         $descriptor->setSize($width, $height);
